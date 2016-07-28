@@ -1,0 +1,15 @@
+/web/bundles/
+/web/uploads/
+/app/bootstrap.php.cache
+/app/cache/*
+/app/logs/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+/app/phpunit.xml
+/build/
+/vendor/
+/composer.phar
+/nbproject/
+
+#configuration files
+#/app/config/parameters.yml
