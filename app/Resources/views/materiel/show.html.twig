@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Materiel</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ materiel.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ materiel.nom }}</td>
+            </tr>
+            <tr>
+                <th>Chassis</th>
+                <td>{{ materiel.chassis }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ materiel.prix }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ materiel.age }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ materiel.description }}</td>
+            </tr>
+            <tr>
+                <th>Datecreation</th>
+                <td>{% if materiel.datecreation %}{{ materiel.datecreation|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datemodification</th>
+                <td>{% if materiel.datemodification %}{{ materiel.datemodification|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Nbvues</th>
+                <td>{{ materiel.nbvues }}</td>
+            </tr>
+            <tr>
+                <th>Mainpath</th>
+                <td>{{ materiel.mainpath }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ materiel.statut }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('post_admin_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('post_admin_edit', { 'id': materiel.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

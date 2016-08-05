@@ -1,0 +1,3 @@
+nn_genie_user_homepage:
+    path:     /
+    defaults: { _controller: NNGenieUserBundle:Default:index }
