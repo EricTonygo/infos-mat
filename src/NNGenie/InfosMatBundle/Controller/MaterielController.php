@@ -2,35 +2,40 @@
 
 namespace NNGenie\InfosMatBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Request;
 use NNGenie\InfosMatBundle\Entity\Materiel;
 use NNGenie\InfosMatBundle\Form\MaterielType;
 
 /**
  * Materiel controller.
  *
- * @Route("/post_admin")
  */
 class MaterielController extends Controller
 {
     /**
-     * Lists all Materiel entities.
-     *
-     * @Route("/", name="post_admin_index")
-     * @Method("GET")
+     * @Route("/materiels")
+     * @Template()
+     * @param Request $request
      */
-    public function indexAction()
-    {
+    public function MaterielAction(Request $request) {
+        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        /*if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }*/
         $em = $this->getDoctrine()->getManager();
 
-        $materiels = $em->getRepository('NNGenieInfosMatBundle:Materiel')->findAll();
-
-        return $this->render('materiel/index.html.twig', array(
-            'materiels' => $materiels,
-        ));
+        $repositoryMateriel = $em->getRepository("NNGenieInfosMatBundle:Materiel");
+        $materiel = new Materiel();
+        $form = $this->createForm(new MaterielType(), $materiel);
+        $display_tab = 1;
+        //selectionne les seuls projets actif
+        $materiels = $repositoryMateriel->findBy(array("statut" => 1));
+        
+        return $this->render('NNGenieInfosMatBundle:Materiels:index.html.twig', array('materiels' => $materiels, 'form' => $form->createView(), "display_tab" => $display_tab));
     }
 
     /**

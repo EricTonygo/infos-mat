@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Image
  *
  * @ORM\Table(name="image")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Entity\Repository\ImageRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\ImageRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Image

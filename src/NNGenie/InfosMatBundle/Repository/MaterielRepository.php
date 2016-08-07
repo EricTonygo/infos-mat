@@ -45,7 +45,7 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
 
     public function saveMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel) {
         $em= $this->_em;
-        $materiel->setStatut(0);
+        $materiel->setStatut(1);
         $em->getConnection()->beginTransaction();
         try{
             $em->persist($materiel);

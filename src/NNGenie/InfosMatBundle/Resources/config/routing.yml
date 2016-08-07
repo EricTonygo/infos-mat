@@ -1,3 +1,15 @@
 nn_genie_infos_mat_homepage:
     path:     /
     defaults: { _controller: NNGenieInfosMatBundle:Default:index }
+
+nn_genie_infos_mat_accueil:
+    pattern: /accueil
+    defaults: { _controller: NNGenieInfosMatBundle:Default:accueil }
+    options:
+        expose: true
+
+nn_genie_infos_mat_materiels:
+    pattern: /materiels
+    defaults: { _controller: NNGenieInfosMatBundle:Materiel:materiels }
+    options:
+        expose: true

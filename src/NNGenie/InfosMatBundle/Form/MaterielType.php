@@ -23,7 +23,9 @@ class MaterielType extends AbstractType
             ->add('datecreation', 'datetime')
             ->add('datemodification', 'datetime')
             ->add('nbvues')
-            ->add('mainpath')
+			->add('mainpath',null,array(
+                'attr' => array('class'=>'inputfile')
+            ))
             ->add('statut')
             ->add('etat')
             ->add('fournisseur')

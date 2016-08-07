@@ -21,6 +21,7 @@
             </tr>
         </thead>
         <tbody>
+		{% if materiels %}
         {% for materiel in materiels %}
             <tr>
                 <td><a href="{{ path('post_admin_show', { 'id': materiel.id }) }}">{{ materiel.id }}</a></td>
@@ -46,6 +47,7 @@
                 </td>
             </tr>
         {% endfor %}
+		{% endif %}
         </tbody>
     </table>
 
