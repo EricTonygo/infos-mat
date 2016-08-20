@@ -15,9 +15,9 @@ class EtatType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('statut')
-            ->add('nbreetoile')
+            ->add('nom','text')
+            ->add('nbreetoile','integer')
+            ->add('Enregistrer','submit')
         ;
     }
     

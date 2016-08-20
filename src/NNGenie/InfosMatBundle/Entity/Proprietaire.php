@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Proprietaire
  *
  * @ORM\Table(name="proprietaire")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Entity\Repository\ProprietaireRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\ProprietaireRepository")
  */
 class Proprietaire
 {

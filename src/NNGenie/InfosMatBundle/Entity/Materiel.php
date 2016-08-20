@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Materiel
  *
  * @ORM\Table(name="materiel")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Entity\Repository\MaterielRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\MaterielRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Materiel

@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}NNGenieInfosMatBundle:Famille:index{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Famille:index page</h1>
+<ul>
+    {% for famille in familles %}
+     <li>
+         {{ famille.nom }}
+     </li>
+    {% else %}
+     <li>Pas (encore !) de famille</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

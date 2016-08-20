@@ -26,7 +26,7 @@ class FamilleRepository extends EntityRepository implements IFamilleRepository{
         try{
             $genres = $famille->getGenres();
             foreach ($genre as $genres) {
-                $repositoryGenre->deleteFamille($genre);
+                $repositoryGenre->deleteGenre($genre);
             }
             $em->persist($famille);
             $em->flush();
@@ -66,5 +66,13 @@ class FamilleRepository extends EntityRepository implements IFamilleRepository{
             throw $ex;
         }
     }
+    public function myFindAll() 
+    {
+        $qb = $this->createQueryBuilder('f');
+        $qb->where('f.statut = :statut')
+           ->setParameter('statut', 1);
+        return $qb->getQuery()->getResult();
+    }
+    
 
 }

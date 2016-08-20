@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Localisation
  *
  * @ORM\Table(name="localisation")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Entity\Repository\LocalisationRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\LocalisationRepository")
  */
 class Localisation
 {

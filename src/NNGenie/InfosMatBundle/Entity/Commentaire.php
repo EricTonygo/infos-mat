@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Commentaire
  *
  * @ORM\Table(name="commentaire")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Entity\Repository\CommentaireRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\CommentaireRepository")
  */
 class Commentaire
 {
@@ -156,7 +156,7 @@ class Commentaire
      * @param \NNGenie\InfosMatBundle\Entity\User $user
      * @return Commentaire
      */
-    public function setUser(\NNGenie\InfosMatBundle\Entity\User $user = null)
+    public function setUser(\NNGenie\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
 

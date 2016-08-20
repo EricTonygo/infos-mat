@@ -29,14 +29,14 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
             $commentaires = $materiel->getCommentaires();
             foreach ($aime as $aimes) {
                 $repositoryAime->deleteAime($aime);
-            }
+            }        } catch (Exception $ex) {
+
             foreach ($commentaire as $commentaires) {
                 $repositoryCommentaire->deleteCommentaire($commentaire);
             }
             $em->persist($materiel);
             $em->flush();
             $em->getConnection()->commit();
-        } catch (Exception $ex) {
             $em->getConnection()->rollback();
             $em->close();
             throw $ex;
@@ -45,7 +45,7 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
 
     public function saveMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel) {
         $em= $this->_em;
-        $materiel->setStatut(0);
+        $materiel->setStatut(1);
         $em->getConnection()->beginTransaction();
         try{
             $em->persist($materiel);

@@ -15,9 +15,9 @@ class ClassematerielType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('code')
-            ->add('statut')
+            ->add('nom','text')
+            ->add('code','text')
+            ->add('Enregistrer','submit')
         ;
     }
     

@@ -5,6 +5,7 @@ namespace NNGenie\InfosMatBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use NNGenie\InfosMatBundle\Repository\ClassematerielRepository;
 
 class FamilleType extends AbstractType
 {
@@ -15,10 +16,17 @@ class FamilleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('code')
-            ->add('statut')
-            ->add('classemateriel')
+            ->add('nom','text')
+            ->add('code','text')
+            ->add('classemateriel','entity',array(
+                'class'=>'NNGenieInfosMatBundle:Classemateriel',
+                'property'=>'nom',
+                'multiple'=>false,
+                'query_builder' => function(ClassematerielRepository $repo) {
+                                return $repo->getCMaterielQueryBuilder();
+                                }
+                ))
+            ->add('Enregistrer','submit')
         ;
     }
     
