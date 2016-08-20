@@ -26,7 +26,7 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                     <li>
-                        <a href="index.html"><i class="fa fa-home"></i> Acceuil </a>
+                        <a href="{{ path('nn_genie_infos_mat_accueil') }}"><i class="fa fa-home"></i> Acceuil </a>
                     </li>
                     <li><a><i class="fa fa-users"></i> Utilisateurs <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
@@ -41,10 +41,10 @@
                     <li><a><i class="fa fa-truck"></i> Matériels <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li>
-                                <a href="addmateriel.html"><i class="fa fa-plus-square"></i> Ajouter </a>
+                                <a href="{{ path('nn_genie_infos_mat_materiel_new') }}"><i class="fa fa-plus-square"></i> Ajouter </a>
                             </li>
                             <li>
-                                <a href="viewmateriel.html"><i class="fa fa-tasks"></i> Gérer </a>
+                                <a href="{{ path('nn_genie_infos_mat_materiels') }}"><i class="fa fa-tasks"></i> Gérer </a>
                             </li>
                         </ul>
                     </li>
@@ -61,10 +61,10 @@
                     <li><a><i class="fa fa-child"></i> Familles <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li>
-                                <a href="addfamille.html"><i class="fa fa-plus-square"></i> Ajouter </a>
+                                <a href="#"><i class="fa fa-plus-square"></i> Ajouter </a>
                             </li>
                             <li>
-                                <a href="viewfamille.html"><i class="fa fa-tasks"></i> Gérer </a>
+                                <a href="#"><i class="fa fa-tasks"></i> Gérer </a>
                             </li>
                         </ul>
                     </li>
@@ -81,20 +81,20 @@
                     <li><a><i class="fa fa-ticket"></i> Marques<span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li>
-                                <a href="addmarque.html"><i class="fa fa-plus-square"></i> Ajouter </a>
+                                <a href="{{ path('nn_genie_infos_mat_marque_new') }}"><i class="fa fa-plus-square"></i> Ajouter </a>
                             </li>
                             <li>
-                                <a href="viewmarque.html"><i class="fa fa-tasks"></i> Gérer </a>
+                                <a href="{{ path('nn_genie_infos_mat_marques') }}"><i class="fa fa-tasks"></i> Gérer </a>
                             </li>
                         </ul>
                     </li>
                     <li><a><i class="fa fa-sitemap"></i> Types <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li>
-                                <a href="addtype.html"><i class="fa fa-plus-square"></i> Ajouter </a>
+                                <a href="{{ path('nn_genie_infos_mat_type_new') }}"><i class="fa fa-plus-square"></i> Ajouter </a>
                             </li>
                             <li>
-                                <a href="viewtype.html"><i class="fa fa-tasks"></i> Gérer </a>
+                                <a href="{{ path('nn_genie_infos_mat_types') }}"><i class="fa fa-tasks"></i> Gérer </a>
                             </li>
                         </ul>
                     </li>

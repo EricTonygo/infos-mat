@@ -19,7 +19,7 @@ class TypeType extends AbstractType
             ->add('marque','entity', array(
                 'class' => 'NNGenieInfosMatBundle:Marque',
                 'property' => 'nom',
-                'empty_value' => "Choisissez la marque",
+                'empty_value' => "Selectionnez la marque",
             ))
         ;
     }

@@ -1,6 +1,6 @@
 {% extends 'NNGenieInfosMatBundle::layout.html.twig' %}
 
-{% block title %}GMTRAV - Fournisseurs{% endblock %}
+{% block title %}GMTRAV - Marques{% endblock %}
 
 {% block stylesheets %}
     {{parent()}}
@@ -17,7 +17,7 @@
             <div class="page-title">
               <div class="title_left">
                   <h3>
-                      MODIFICATION D'UN FOURNISSEUR
+                      MODIFICATION D'UNE MARQUE
                   </h3>
               </div>
 
@@ -28,45 +28,21 @@
 		<div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Informations sur le fournisseur</h2>
+                    <h2>Informations sur la marque</h2>
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
 
-                    <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_infos_mat_fournisseur_edit', {'id': idfournisseur}) }}">
+                    <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_infos_mat_marque_edit', {'id': idmarque}) }}">
                     
                     <div class="item form-group">
-                                    {{ form_label(form.nom, "Nom", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                                    {{ form_errors(form.nom) }}
+                        {{ form_label(form.nom, "Nom", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}<span class="required">*</span>
+                        {{ form_errors(form.nom) }}
 
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        {{ form_widget(form.nom, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
-                                    </div>
-                                </div>
-                                <div class="item form-group">
-                                    {{ form_label(form.adresse.tel, "Telephone", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                                    {{ form_errors(form.adresse.tel) }}
-
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        {{ form_widget(form.adresse.tel, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
-                                    </div>
-                                </div>
-								<div class="item form-group">
-                                    {{ form_label(form.adresse.ville, "Ville", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                                    {{ form_errors(form.adresse.ville) }}
-
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        {{ form_widget(form.adresse.ville, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
-                                    </div>
-                                </div>
-								<div class="item form-group">
-                                    {{ form_label(form.adresse.boitepostale, "Boite postale", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                                    {{ form_errors(form.adresse.boitepostale) }}
-
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        {{ form_widget(form.adresse.boitepostale, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
-                                    </div>
-                                </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                            {{ form_widget(form.nom, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                        </div>
+                    </div>
 					<div class="form-group">
 						
 						{{ form_rest(form)}}

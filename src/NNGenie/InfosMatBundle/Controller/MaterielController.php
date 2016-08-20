@@ -27,10 +27,10 @@ class MaterielController extends Controller {
     /**
      * @Route("/materiels")
      * @Template()
-     * @Method("GET, PUT")
+     * @Method({"GET"})
      * @param Request $request
      */
-    public function MaterielAction(Request $request) {
+    public function materielsAction(Request $request) {
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
         /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           return $this->redirect($this->generateUrl('fos_user_security_login'));

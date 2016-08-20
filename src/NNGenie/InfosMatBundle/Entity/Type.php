@@ -111,4 +111,27 @@ class Type
     {
         return $this->marque;
     }
+	
+	/**
+     * Set statut
+     *
+     * @param integer $statut
+     * @return Actualite
+     */
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return integer 
+     */
+    public function getStatut()
+    {
+        return $this->statut;
+    }
 }
