@@ -16,8 +16,7 @@ class FournisseurType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('statut')
-            ->add('adresse')
+            ->add('adresse', new AdresseType())
         ;
     }
     

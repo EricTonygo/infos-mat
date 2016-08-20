@@ -8,7 +8,6 @@ nn_genie_user:
 
 nn_genie_infos_mat:
     resource: "@NNGenieInfosMatBundle/Resources/config/routing.yml"
-    prefix:   /{_local}/infos-mat
 
 app:
     resource: "@AppBundle/Controller/"

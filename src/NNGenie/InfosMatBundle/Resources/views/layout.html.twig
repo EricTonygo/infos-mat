@@ -1,0 +1,32 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}GMTRAV{% endblock %}
+{# core CSS #}
+{% block stylesheets %}
+    {# Bootstrap #}
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+     {# Font Awesome #}
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+
+    {# Custom Theme Style #}
+    <link href="{{ asset('bundles/nngenieinfosmat/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/css/personal.css') }}" rel="stylesheet">
+{% endblock %}
+
+
+{% block content_body %}
+    <div class="container body">
+        <div class="main_container">
+            {% include('NNGenieInfosMatBundle::header.html.twig') %}
+
+            {% block content %}{% endblock %}
+
+            {% include('NNGenieInfosMatBundle::footer.html.twig') %}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/js/custom.js') }}"></script>
+{% endblock %}

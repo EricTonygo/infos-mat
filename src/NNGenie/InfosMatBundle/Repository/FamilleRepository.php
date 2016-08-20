@@ -26,7 +26,7 @@ class FamilleRepository extends EntityRepository implements IFamilleRepository{
         try{
             $genres = $famille->getGenres();
             foreach ($genre as $genres) {
-                $repositoryGenre->deleteFamille($genre);
+                $repositoryGenre->deleteGenre($genre);
             }
             $em->persist($famille);
             $em->flush();

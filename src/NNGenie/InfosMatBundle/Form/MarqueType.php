@@ -16,8 +16,7 @@ class MarqueType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('statut')
-            ->add('genres')
+            //->add('genres')
         ;
     }
     

@@ -16,8 +16,11 @@ class TypeType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('statut')
-            ->add('marque')
+            ->add('marque','entity', array(
+                'class' => 'NNGenieInfosMatBundle:Marque',
+                'property' => 'nom',
+                'empty_value' => "Choisissez la marque",
+            ))
         ;
     }
     

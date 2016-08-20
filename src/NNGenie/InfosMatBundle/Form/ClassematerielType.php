@@ -17,7 +17,6 @@ class ClassematerielType extends AbstractType
         $builder
             ->add('nom')
             ->add('code')
-            ->add('statut')
         ;
     }
     

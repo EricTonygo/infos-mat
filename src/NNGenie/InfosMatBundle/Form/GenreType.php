@@ -17,9 +17,12 @@ class GenreType extends AbstractType
         $builder
             ->add('nom')
             ->add('code')
-            ->add('statut')
-            ->add('famille')
-            ->add('marques')
+            ->add('famille','entity', array(
+                'class' => 'NNGenieInfosMatBundle:Famille',
+                'property' => 'nom',
+                'empty_value' => "Selectionner une famille"                
+            ))
+            //->add('marques')
         ;
     }
     

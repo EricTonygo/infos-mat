@@ -16,8 +16,11 @@ class ImageType extends AbstractType
     {
         $builder
             ->add('path')
-            ->add('statut')
-            ->add('materiel')
+            ->add('materiel','entity', array(
+                'class' => 'NNGenieInfosMatBundle:Materiel',
+                'property' => 'chassis',
+                'empty_value' => "Materiel",
+            ))
         ;
     }
     

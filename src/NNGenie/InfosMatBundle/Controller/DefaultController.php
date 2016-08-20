@@ -15,10 +15,11 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-		$repositoryMateriel = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Materiel");
-		$materiels = $repositoryMateriel->findBy(array("statut" => 1));
+		//$repositoryMateriel = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Materiel");
+		//$materiels = $repositoryMateriel->findBy(array("statut" => 1));
 		
-		return $this->render('NNGenieInfosMatBundle::index.html.twig', array("materiels"=> $materiels));
+		//return $this->render('NNGenieInfosMatBundle::index.html.twig', array("materiels"=> $materiels));
+		return $this->render('NNGenieInfosMatBundle:Administration:index.html.twig');
         
     }
 }

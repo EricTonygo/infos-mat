@@ -20,6 +20,7 @@ class ProprietaireRepository extends EntityRepository implements IProprietaireRe
     public function deleteProprietaire(\NNGenie\InfosMatBundle\Entity\Proprietaire $proprietaire) {
         $em= $this->_em;
         $proprietaire->setStatut(0);
+		$em->getConnection()->beginTransaction();
         try{
             $em->persist($proprietaire);
             $em->flush();
@@ -34,6 +35,7 @@ class ProprietaireRepository extends EntityRepository implements IProprietaireRe
     public function saveProprietaire(\NNGenie\InfosMatBundle\Entity\Proprietaire $proprietaire) {
         $em= $this->_em;
         $proprietaire->setStatut(1);
+		$em->getConnection()->beginTransaction();
         try{
             $em->persist($proprietaire);
             $em->flush();
@@ -47,6 +49,7 @@ class ProprietaireRepository extends EntityRepository implements IProprietaireRe
 
     public function updateProprietaire(\NNGenie\InfosMatBundle\Entity\Proprietaire $proprietaire) {
         $em= $this->_em;
+		$em->getConnection()->beginTransaction();
         try{
             $em->persist($proprietaire);
             $em->flush();

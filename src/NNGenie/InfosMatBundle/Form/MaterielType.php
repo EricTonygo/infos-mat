@@ -15,24 +15,42 @@ class MaterielType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
             ->add('chassis')
             ->add('prix')
             ->add('age')
             ->add('description')
-            ->add('datecreation', 'datetime')
-            ->add('datemodification', 'datetime')
-            ->add('nbvues')
-			->add('mainpath',null,array(
+            ->add('datecreation', 'date')
+            ->add('datemodification', 'date')
+            ->add('mainpath',null,array(
                 'attr' => array('class'=>'inputfile')
             ))
-            ->add('statut')
-            ->add('etat')
-            ->add('fournisseur')
-            ->add('genre')
-            ->add('localisation')
-            ->add('proprietaire')
-            ->add('type')
+            ->add('etat','entity', array(
+                'class' => 'NNGenieInfosMatBundle:Etat',
+                'property' => 'nom',
+                'empty_value' => "Etat du materiel",
+                
+            ))
+            ->add('fournisseur','entity', array(
+                'class' => 'NNGenieInfosMatBundle:Fournisseur',
+                'property' => 'nom',
+                'empty_value' => "Choisissez le fournisseur",
+            ))
+            ->add('genre','entity', array(
+                'class' => 'NNGenieInfosMatBundle:Genre',
+                'property' => 'nom',
+                'empty_value' => "Choisissez le genre",
+            ))
+            ->add('localisation',new LocalisationType())
+            ->add('proprietaire','entity', array(
+                'class' => 'NNGenieInfosMatBundle:Proprietaire',
+                'property' => 'nom',
+                'empty_value' => "Choisissez le proprietaire",
+            ))
+            ->add('type','entity', array(
+                'class' => 'NNGenieInfosMatBundle:Type',
+                'property' => 'nom',
+                'empty_value' => "Choisissez le type",
+            ))
         ;
     }
     

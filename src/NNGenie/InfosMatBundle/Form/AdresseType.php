@@ -18,8 +18,7 @@ class AdresseType extends AbstractType
             ->add('ville')
             ->add('tel')
             ->add('boitepostale')
-            ->add('pays')
-            ->add('statut')
+           // ->add('pays')
         ;
     }
     
