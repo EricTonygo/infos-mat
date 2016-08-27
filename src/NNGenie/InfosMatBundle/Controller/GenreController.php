@@ -53,7 +53,7 @@ class GenreController extends Controller{
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
                 $genreUnique = $repositoryGenre->findBy(array("nom" => $genre->getNom()));
-                if ($genreUnique != null) {
+                if ($genreUnique == null) {
                     try {
                         $repositoryGenre->saveGenre($genre);
                         $message = $this->get('translator')->trans('Genre.created_success', array(), "NNGenieInfosMatBundle");
