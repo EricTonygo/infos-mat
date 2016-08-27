@@ -20,10 +20,10 @@ class TypeController extends Controller{
     /**
      * @Route("/types")
      * @Template()
-     * @Method("GET, PUT")
+     * @Method({"GET"})
      * @param Request $request
      */
-    public function TypeAction(Request $request) {
+    public function typesAction(Request $request) {
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
         /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -43,9 +43,9 @@ class TypeController extends Controller{
     /**
      * Creates a new Type entity.
      *
-     * @Route("/add-type")
+     * @Route("/new-type")
      * @Template()
-     * @Method("POST")
+     * @Method({"POST", "GET"})
      * @param Request $request
      */
     public function newAction(Request $request) {
@@ -55,35 +55,27 @@ class TypeController extends Controller{
         $form->handleRequest($request);
         $repositoryType = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Type");
 
-        if ($request->isMethod("POST")) {
+        if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
                 $typeUnique = $repositoryType->findBy(array("nom" => $type->getNom()));
-                if ($typeUnique != null) {
+                if ($typeUnique == null) {
                     try {
                         $repositoryType->saveType($type);
                         $message = $this->get('translator')->trans('Type.created_success', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message', $message);
+                        $request->getSession()->getFlashBag()->add('message_success', $message);
                         return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Type.created_failure', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                        $types = array();
-                        $display_tab = 0;
-                        return $this->render('NNGenieInfosMatBundle:Types:materiels.html.twig', array('types' => $types, 'form' => $form->createView(), "display_tab" => $display_tab));
+                        return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
                     }
                 } else {
                     $message = $this->get('translator')->trans('Type.exist_already', array(), "NNGenieInfosMatBundle");
                     $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                    $types = array();
-                    $display_tab = 0;
-                    return $this->render('NNGenieInfosMatBundle:Types:materiels.html.twig', array('types' => $types, 'form' => $form->createView(), "display_tab" => $display_tab));
+                    return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
                 }
             }
-            $message = $this->get('translator')->trans('Type.created_failure', array(), "NNGenieInfosMatBundle");
-            $request->getSession()->getFlashBag()->add('message_faillure', $message);
-            $types = array();
-            $display_tab = 0;
-            return $this->render('NNGenieInfosMatBundle:Types:materiels.html.twig', array('types' => $types, 'form' => $form->createView(), "display_tab" => $display_tab));
+           return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
         }
@@ -93,7 +85,7 @@ class TypeController extends Controller{
      * Finds and displays a Type entity.
      *
      * @Route("/show-type/{id}", name="post_admin_show")
-     * @Method("GET")
+     * @Method({"POST", "GET"})
      */
     public function showAction(Type $type) {
         $deleteForm = $this->createDeleteForm($type);
@@ -107,9 +99,9 @@ class TypeController extends Controller{
     /**
      * Displays a form to edit an existing Type entity.
      *
-     * @Route("/update-type/{id}")
+     * @Route("/edit-type/{id}")
      * @Template()
-     * @Method("PUT")
+     * @Method({"POST", "GET"})
      * @param Request $request
      */
     public function editAction(Request $request, Type $type) {
@@ -118,7 +110,7 @@ class TypeController extends Controller{
         $editForm->handleRequest($request);
         $repositoryType = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Type");
 
-        if ($request->isMethod("PUT")) {
+        if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 try {
                     $repositoryType->updateType($type);
@@ -128,16 +120,10 @@ class TypeController extends Controller{
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Type.updated_failure', array(), "NNGenieInfosMatBundle");
                     $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                    $types = array();
-                    $display_tab = 0;
-                    return $this->render('NNGenieInfosMatBundle:Types:materiels.html.twig', array('types' => $types, 'form' => $editForm->createView(), "display_tab" => $display_tab));
+                    return $this->render('NNGenieInfosMatBundle:Types:form-update-type.html.twig', array('form' => $editForm->createView(), 'idtype' => $type->getId()));
                 }
             }
-            $message = $this->get('translator')->trans('Type.updated_failure', array(), "NNGenieInfosMatBundle");
-            $request->getSession()->getFlashBag()->add('message_faillure', $message);
-            $types = array();
-            $display_tab = 0;
-            return $this->render('NNGenieInfosMatBundle:Types:materiels.html.twig', array('types' => $types, 'form' => $editForm->createView(), "display_tab" => $display_tab));
+            return $this->render('NNGenieInfosMatBundle:Types:form-update-type.html.twig', array('form' => $editForm->createView(), 'idtype' => $type->getId()));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
         }
@@ -146,24 +132,23 @@ class TypeController extends Controller{
     /**
      * Deletes a Type entity.
      *
-     * @Route("/update-type/{id}")
+     * @Route("/delete-type/{id}")
      * @Template()
-     * @Method("DELETE")
+     * @Method({"GET"})
      */
     public function deleteAction(Type $type) {
         $request = $this->get("request");
-        $response = new JsonResponse();
         $repositoryType = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Type");
-        if ($request->isMethod('DELETE')) {
+        if ($request->isMethod("GET")) {
             try {
                 $repositoryType->deleteType($type);
                 $message = $message = $this->get('translator')->trans('Type.deleted_success', array(), "NNGenieInfosMatBundle");
-                $messages = array("letype" => "sucess", "message" => $message);
-                return $response->setData(array("data" => $messages));
+                $request->getSession()->getFlashBag()->add('message_success', $message);
+                return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
             } catch (Exception $ex) {
                 $message = $message = $this->get('translator')->trans('Type.deleted_failure', array(), "NNGenieInfosMatBundle");
-                $messages = array("letype" => "error", "message" => $message);
-                return $response->setData(array("data" => $messages));
+                $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
             }
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));

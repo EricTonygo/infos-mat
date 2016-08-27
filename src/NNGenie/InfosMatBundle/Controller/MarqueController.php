@@ -21,10 +21,10 @@ class MarqueController extends Controller{
     /**
      * @Route("/marques")
      * @Template()
-     * @Method("GET, PUT")
+     * @Method({"GET"})
      * @param Request $request
      */
-    public function MarqueAction(Request $request) {
+    public function marquesAction(Request $request) {
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
         /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           return $this->redirect($this->generateUrl('fos_user_security_login'));
@@ -44,9 +44,9 @@ class MarqueController extends Controller{
     /**
      * Creates a new Marque entity.
      *
-     * @Route("/add-marque")
+     * @Route("/new-marque")
      * @Template()
-     * @Method("POST")
+     * @Method({"POST", "GET"})
      * @param Request $request
      */
     public function newAction(Request $request) {
@@ -56,35 +56,27 @@ class MarqueController extends Controller{
         $form->handleRequest($request);
         $repositoryMarque = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Marque");
 
-        if ($request->isMethod("POST")) {
+        if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
                 $marqueUnique = $repositoryMarque->findBy(array("nom" => $marque->getNom()));
-                if ($marqueUnique != null) {
+                if ($marqueUnique == null) {
                     try {
                         $repositoryMarque->saveMarque($marque);
                         $message = $this->get('translator')->trans('Marque.created_success', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message', $message);
+                        $request->getSession()->getFlashBag()->add('message_success', $message);
                         return $this->redirect($this->generateUrl('nn_genie_infos_mat_marques'));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Marque.created_failure', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                        $marques = array();
-                        $display_tab = 0;
-                        return $this->render('NNGenieInfosMatBundle:Marques:materiels.html.twig', array('marques' => $marques, 'form' => $form->createView(), "display_tab" => $display_tab));
+                        return $this->render('NNGenieInfosMatBundle:Marques:form-add-marque.html.twig', array('form' => $form->createView()));
                     }
                 } else {
                     $message = $this->get('translator')->trans('Marque.exist_already', array(), "NNGenieInfosMatBundle");
                     $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                    $marques = array();
-                    $display_tab = 0;
-                    return $this->render('NNGenieInfosMatBundle:Marques:materiels.html.twig', array('marques' => $marques, 'form' => $form->createView(), "display_tab" => $display_tab));
+                    return $this->render('NNGenieInfosMatBundle:Marques:form-add-marque.html.twig', array('form' => $form->createView()));
                 }
             }
-            $message = $this->get('translator')->trans('Marque.created_failure', array(), "NNGenieInfosMatBundle");
-            $request->getSession()->getFlashBag()->add('message_faillure', $message);
-            $marques = array();
-            $display_tab = 0;
-            return $this->render('NNGenieInfosMatBundle:Marques:materiels.html.twig', array('marques' => $marques, 'form' => $form->createView(), "display_tab" => $display_tab));
+            return $this->render('NNGenieInfosMatBundle:Marques:form-add-marque.html.twig', array('form' => $form->createView()));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_marques'));
         }
@@ -108,9 +100,9 @@ class MarqueController extends Controller{
     /**
      * Displays a form to edit an existing Marque entity.
      *
-     * @Route("/update-marque/{id}")
+     * @Route("/edit-marque/{id}")
      * @Template()
-     * @Method("PUT")
+     * @Method({"POST","GET"})
      * @param Request $request
      */
     public function editAction(Request $request, Marque $marque) {
@@ -119,7 +111,7 @@ class MarqueController extends Controller{
         $editForm->handleRequest($request);
         $repositoryMarque = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Marque");
 
-        if ($request->isMethod("PUT")) {
+        if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 try {
                     $repositoryMarque->updateMarque($marque);
@@ -129,16 +121,10 @@ class MarqueController extends Controller{
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Marque.updated_failure', array(), "NNGenieInfosMatBundle");
                     $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                    $marques = array();
-                    $display_tab = 0;
-                    return $this->render('NNGenieInfosMatBundle:Marques:materiels.html.twig', array('marques' => $marques, 'form' => $editForm->createView(), "display_tab" => $display_tab));
+                    return $this->render('NNGenieInfosMatBundle:Marques:form-update-marque.html.twig', array('form' => $editForm->createView(), 'idmarque' => $marque->getId()));
                 }
             }
-            $message = $this->get('translator')->trans('Marque.updated_failure', array(), "NNGenieInfosMatBundle");
-            $request->getSession()->getFlashBag()->add('message_faillure', $message);
-            $marques = array();
-            $display_tab = 0;
-            return $this->render('NNGenieInfosMatBundle:Marques:materiels.html.twig', array('marques' => $marques, 'form' => $editForm->createView(), "display_tab" => $display_tab));
+            return $this->render('NNGenieInfosMatBundle:Marques:form-update-marque.html.twig', array('form' => $editForm->createView(), 'idmarque' => $marque->getId()));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_marques'));
         }
@@ -147,24 +133,23 @@ class MarqueController extends Controller{
     /**
      * Deletes a Marque entity.
      *
-     * @Route("/update-marque/{id}")
+     * @Route("/delete-marque/{id}")
      * @Template()
-     * @Method("DELETE")
+     * @Method({"GET"})
      */
     public function deleteAction(Marque $marque) {
         $request = $this->get("request");
-        $response = new JsonResponse();
         $repositoryMarque = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Marque");
-        if ($request->isMethod('DELETE')) {
+        if ($request->isMethod('GET')) {
             try {
                 $repositoryMarque->deleteMarque($marque);
                 $message = $message = $this->get('translator')->trans('Marque.deleted_success', array(), "NNGenieInfosMatBundle");
-                $messages = array("letype" => "sucess", "message" => $message);
-                return $response->setData(array("data" => $messages));
+                $request->getSession()->getFlashBag()->add('message_success', $message);
+                return $this->redirect($this->generateUrl('nn_genie_infos_mat_marques'));
             } catch (Exception $ex) {
                 $message = $message = $this->get('translator')->trans('Marque.deleted_failure', array(), "NNGenieInfosMatBundle");
-                $messages = array("letype" => "error", "message" => $message);
-                return $response->setData(array("data" => $messages));
+                $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_marques'));
             }
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_marques'));

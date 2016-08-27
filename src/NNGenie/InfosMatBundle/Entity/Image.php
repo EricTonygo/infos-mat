@@ -228,7 +228,7 @@ class Image
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Image
      */
     public function setStatut($statut)
     {

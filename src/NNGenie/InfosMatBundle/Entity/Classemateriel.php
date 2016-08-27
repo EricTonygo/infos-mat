@@ -116,7 +116,7 @@ class Classemateriel
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return \Classemateriel
      */
     public function setStatut($statut)
     {
@@ -139,7 +139,7 @@ class Classemateriel
      * Add famille
      *
      * @param \NNGenie\InfosMatBundle\Entity\Famille $famille 
-     * @return User
+     * @return \Classemateriel
      */
     public function addFamille(\NNGenie\InfosMatBundle\Entity\Famille $famille)
     {
@@ -161,7 +161,7 @@ class Classemateriel
      * Set familles
      *
      * @param \Doctrine\Common\Collections\Collection $familles
-     * @return \User
+     * @return \Classemateriel
      */
     public function setFamilles(\Doctrine\Common\Collections\Collection $familles = null)
     {
@@ -174,9 +174,11 @@ class Classemateriel
      * Remove famille
      *
      * @param \NNGenie\InfosMatBundle\Entity\Famille $famille
+	 * @return \Classemateriel
      */
     public function removeFamille(\NNGenie\InfosMatBundle\Entity\Famille $famille)
     {
         $this->familles->removeElement($famille);
+		return $this;
     }
 }

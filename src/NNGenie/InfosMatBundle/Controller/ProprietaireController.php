@@ -100,7 +100,7 @@ class ProprietaireController extends Controller{
     /**
      * Displays a form to edit an existing Proprietaire entity.
      *
-     * @Route("/update-proprietaire/{id}")
+     * @Route("/edit-proprietaire/{id}")
      * @Template()
      * @Method({"POST","GET"})
      * @param Request $request

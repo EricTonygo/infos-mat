@@ -170,7 +170,7 @@ class Adresse
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Adresse
      */
     public function setStatut($statut)
     {

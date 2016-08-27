@@ -111,7 +111,7 @@ class Localisation
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Localisation
      */
     public function setStatut($statut)
     {

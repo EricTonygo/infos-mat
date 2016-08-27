@@ -110,7 +110,7 @@ class Fournisseur
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Fournisseur
      */
     public function setStatut($statut)
     {

@@ -86,7 +86,7 @@ class Disponibilite
      * Add disponibilitemateriel
      *
      * @param \NNGenie\InfosMatBundle\Entity\Disponibilitemateriel $disponibilitemateriel 
-     * @return User
+     * @return Disponibilite
      */
     public function addDisponibilitemateriel(\NNGenie\InfosMatBundle\Entity\Disponibilitemateriel $disponibilitemateriel)
     {
@@ -108,7 +108,7 @@ class Disponibilite
      * Set disponibilitemateriels
      *
      * @param \Doctrine\Common\Collections\Collection $disponibilitemateriels
-     * @return \User
+     * @return \Disponibilite
      */
     public function setDisponibilitemateriels(\Doctrine\Common\Collections\Collection $disponibilitemateriels = null)
     {
@@ -121,17 +121,19 @@ class Disponibilite
      * Remove disponibilitemateriel
      *
      * @param \NNGenie\InfosMatBundle\Entity\Disponibilitemateriel $disponibilitemateriel
+	 * @return \Disponibilite
      */
     public function removeDisponibilitemateriel(\NNGenie\InfosMatBundle\Entity\Disponibilitemateriel $disponibilitemateriel)
     {
         $this->disponibilitemateriels->removeElement($disponibilitemateriel);
+		return $this;
     }
     
     /**
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Disponibilite
      */
     public function setStatut($statut)
     {
