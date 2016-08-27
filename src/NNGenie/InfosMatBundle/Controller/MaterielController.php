@@ -23,6 +23,41 @@ class MaterielController extends Controller {
     public function accueilAction() {
         return $this->render('NNGenieInfosMatBundle:Administration:index.html.twig');
     }
+    
+    /**
+     * @Route("/filtre-materiels")
+     * @Template()
+     * @Method({"GET"})
+     * @param Request $request
+     */
+    public function filtrematerielsAction(Request $request) {
+        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+          return $this->redirect($this->generateUrl('fos_user_security_login'));
+          } */
+        $idgrenres = $request->request->get("genres");
+        $idmarques = $request->request->get("marques");
+        $idtypes = $request->request->get("types");
+        $idlocalisations = $request->request->get("localisations");
+        $idproprietaires = $request->request->get("proprietaires");
+        $em = $this->getDoctrine()->getManager();
+
+        $repositoryMateriel = $em->getRepository("NNGenieInfosMatBundle:Materiel");
+        $repositoryGenre = $em->getRepository("NNGenieInfosMatBundle:Genre");
+        $repositoryMarque = $em->getRepository("NNGenieInfosMatBundle:Marque");
+        $repositoryType = $em->getRepository("NNGenieInfosMatBundle:Type");
+        $repositoryLocalisation = $em->getRepository("NNGenieInfosMatBundle:Localisation");
+        $repositoryProprietaire = $em->getRepository("NNGenieInfosMatBundle:Proprietaire");
+        //selectionne les seuls materiels actifs
+        $materiels = $repositoryMateriel->filtreMaterielBy($idgrenres);
+        $genres = $repositoryGenre->findBy(array("statut" => 1));
+        $marques = $repositoryMarque->findBy(array("statut" => 1));
+        $types = $repositoryType->findBy(array("statut" => 1));
+        $localisations = $repositoryLocalisation->findBy(array("statut" => 1));
+        $proprietaires = $repositoryProprietaire->findBy(array("statut" => 1));
+
+        return $this->render('NNGenieInfosMatBundle:Materiels:materiels.html.twig', array('materiels' => $materiels, 'genres' => $genres, 'marques' => $marques, 'types' => $types, 'localisations' => $localisations, 'proprietaires' => $proprietaires,));
+    }
 
     /**
      * @Route("/materiels")

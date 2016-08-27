@@ -111,7 +111,7 @@ class Materiel
     
     /**
      * @var \Proprietaire 
-     * @ORM\OneToOne(targetEntity="Proprietaire",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Proprietaire")
      * @ORM\JoinColumn(name="proprietaire", referencedColumnName="id")
      */
     private $proprietaire;

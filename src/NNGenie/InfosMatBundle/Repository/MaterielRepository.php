@@ -9,27 +9,30 @@
 namespace NNGenie\InfosMatBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+
 /**
  * Description of MaterielRepository
  *
  * @author TONYE
  */
-class MaterielRepository extends EntityRepository implements IMaterielRepository{
+class MaterielRepository extends EntityRepository implements IMaterielRepository {
+
     //put your code here
     public function deleteMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel) {
-        $em= $this->_em;
+        $em = $this->_em;
         $materiel->setStatut(0);
-        $aime= new \NNGenie\InfosMatBundle\Entity\Aime();
+        $aime = new \NNGenie\InfosMatBundle\Entity\Aime();
         $repositoryAime = $em->getRepository("NNGenieInfosMatBundle:Aime");
-        $commentaire= new \NNGenie\InfosMatBundle\Entity\Commentaire();
-        $repositoryCommentaire= $em->getRepository("NNGenieInfosMatBundle:Commentaire");
+        $commentaire = new \NNGenie\InfosMatBundle\Entity\Commentaire();
+        $repositoryCommentaire = $em->getRepository("NNGenieInfosMatBundle:Commentaire");
         $em->getConnection()->beginTransaction();
-        try{
+        try {
             $aimes = $materiel->getAimes();
             $commentaires = $materiel->getCommentaires();
             foreach ($aime as $aimes) {
                 $repositoryAime->deleteAime($aime);
-            }        } catch (Exception $ex) {
+            }
+        } catch (Exception $ex) {
 
             foreach ($commentaire as $commentaires) {
                 $repositoryCommentaire->deleteCommentaire($commentaire);
@@ -44,10 +47,10 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
     }
 
     public function saveMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel) {
-        $em= $this->_em;
+        $em = $this->_em;
         $materiel->setStatut(1);
         $em->getConnection()->beginTransaction();
-        try{
+        try {
             $em->persist($materiel);
             $em->flush();
             $em->getConnection()->commit();
@@ -59,9 +62,9 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
     }
 
     public function updateMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel) {
-        $em= $this->_em;
+        $em = $this->_em;
         $em->getConnection()->beginTransaction();
-        try{
+        try {
             $em->persist($materiel);
             $em->flush();
             $em->getConnection()->commit();
@@ -75,15 +78,43 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
     public function filtreMaterielBy($genres, $marques, $types, $proprietaires, $localisations) {
         $q = $this->createQueryBuilder('m');
         $q->where("true = true");
-        foreach ($genres as $idgenre) {
-            $q->andwhere("'m.genre.id = :"."id".$idgenre."'")
-              ->setParameter("id", $idgenre);
+        if ($genres) {
+            foreach ($genres as $idgenre) {
+                $query = "'m.genre.id = :" . "id" . $idgenre . "'";
+                $q->andwhere($query)
+                        ->setParameter("id" . $idgenre, $idgenre);
+            }
         }
-        foreach ($marques as $idmarque) {
-            $q->andwhere('m.type.marque.id = :id')
-              ->setParameter("id", $idgenre);
+        if ($marques) {
+            foreach ($marques as $idmarque) {
+                $query = "'m.marque.id = :" . "id" . $idmarque . "'";
+                $q->andwhere($query)
+                        ->setParameter("id" . $idmarque, $idmarque);
+            }
         }
-        return;
+        if ($types) {
+            foreach ($types as $idtype) {
+                $query = "'m.type.id = :" . "id" . $idtype . "'";
+                $q->andwhere($query)
+                        ->setParameter("id" . $idtype, $idtype);
+            }
+        }
+        if ($proprietaires) {
+            foreach ($proprietaires as $idproprietaire) {
+                $query = "'m.proprietaire.id = :" . "id" . $idproprietaire . "'";
+                $q->andwhere($query)
+                        ->setParameter("id" . $idproprietaire, $idproprietaire);
+            }
+        }
+        if ($localisations) {
+            foreach ($localisations as $idlocalisation) {
+                $query = "'m.localisation.id = :" . "id" . $idlocalisation . "'";
+                $q->andwhere($query)
+                        ->setParameter("id" . $idlocalisation, $idlocalisation);
+            }
+        }
+
+        return $q->getQuery()->getResult();
     }
 
 }
