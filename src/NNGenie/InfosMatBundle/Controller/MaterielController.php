@@ -27,7 +27,7 @@ class MaterielController extends Controller {
     /**
      * @Route("/filtre-materiels")
      * @Template()
-     * @Method({"GET"})
+     * @Method({"POST"})
      * @param Request $request
      */
     public function filtrematerielsAction(Request $request) {
@@ -49,7 +49,7 @@ class MaterielController extends Controller {
         $repositoryLocalisation = $em->getRepository("NNGenieInfosMatBundle:Localisation");
         $repositoryProprietaire = $em->getRepository("NNGenieInfosMatBundle:Proprietaire");
         //selectionne les seuls materiels actifs
-        $materiels = $repositoryMateriel->filtreMaterielBy($idgrenres);
+        $materiels = $repositoryMateriel->filtreMaterielBy($idgrenres, $idmarques, $idtypes, $idlocalisations, $idproprietaires);
         $genres = $repositoryGenre->findBy(array("statut" => 1));
         $marques = $repositoryMarque->findBy(array("statut" => 1));
         $types = $repositoryType->findBy(array("statut" => 1));

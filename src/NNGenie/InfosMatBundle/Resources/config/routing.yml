@@ -155,7 +155,13 @@ nn_genie_infos_mat_materiels:
     defaults: { _controller: NNGenieInfosMatBundle:Materiel:materiels }
     options:
         expose: true
-        
+
+nn_genie_infos_mat_materiel_filtre:
+    pattern: /filtre-materiels
+    defaults: { _controller: NNGenieInfosMatBundle:Materiel:filtremateriel }
+    options:
+        expose: true
+
 nn_genie_infos_mat_materiel_new:
     pattern: /new-materiel
     defaults: { _controller: NNGenieInfosMatBundle:Materiel:new }
