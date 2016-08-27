@@ -58,6 +58,14 @@ class DisponibiliteRepository extends EntityRepository implements IDisponibilite
             throw $ex;
         }
     }
+    
+    public function myFindAll() 
+    {
+        $qb = $this->createQueryBuilder('d');
+        $qb->where('d.statut = :statut')
+           ->setParameter('statut', 1);
+        return $qb->getQuery()->getResult();
+    }
 
 //put your code here
 }

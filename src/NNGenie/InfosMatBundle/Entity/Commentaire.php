@@ -156,7 +156,7 @@ class Commentaire
      * @param \NNGenie\InfosMatBundle\Entity\User $user
      * @return Commentaire
      */
-    public function setUser(\NNGenie\InfosMatBundle\Entity\User $user = null)
+    public function setUser(\NNGenie\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
 

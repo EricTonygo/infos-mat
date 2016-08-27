@@ -29,14 +29,14 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
             $commentaires = $materiel->getCommentaires();
             foreach ($aime as $aimes) {
                 $repositoryAime->deleteAime($aime);
-            }
+            }        } catch (Exception $ex) {
+
             foreach ($commentaire as $commentaires) {
                 $repositoryCommentaire->deleteCommentaire($commentaire);
             }
             $em->persist($materiel);
             $em->flush();
             $em->getConnection()->commit();
-        } catch (Exception $ex) {
             $em->getConnection()->rollback();
             $em->close();
             throw $ex;

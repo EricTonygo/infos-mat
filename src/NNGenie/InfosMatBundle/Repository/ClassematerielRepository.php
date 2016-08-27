@@ -67,4 +67,19 @@ class ClassematerielRepository extends EntityRepository implements IClassemateri
             throw $ex;
         }
     }
+    public function myFindAll() 
+    {
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.statut = :statut')
+           ->setParameter('statut', 1);
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function getCMaterielQueryBuilder() {
+         return $this
+          ->createQueryBuilder('c')
+          ->where('c.statut = :statut')
+          ->setParameter('statut', 1);
+
+    }
 }

@@ -1,5 +1,147 @@
 nn_genie_infos_mat_homepage:
     path:     /
+    defaults: { _controller: NNGenieInfosMatBundle:Default:index }
+
+nn_genie_infos_mat_commentaire_index:
+    path:     /commentaire/index/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Commentaire:index }
+    requirements:
+        id: \d+        
+
+nn_genie_infos_mat_commentaire_new:
+    path:     /commentaire/new/{materiel_id}/{user_id}
+    defaults: { _controller: NNGenieInfosMatBundle:Commentaire:new }
+
+nn_genie_infos_mat_commentaire_view:
+    path:     /commentaire/view/{materiel_id}/{user_id}
+    defaults: { _controller: NNGenieInfosMatBundle:Commentaire:view }
+
+nn_genie_infos_mat_commentaire_delete:
+    path:     /commentaire/delete/{commentaire_id}/{materiel_id}
+    defaults: { _controller: NNGenieInfosMatBundle:Commentaire:delete }
+    
+nn_genie_infos_mat_commentaire_edit:
+    path:     /commentaire/edit/{commentaire_id}/{materiel_id}
+    defaults: { _controller: NNGenieInfosMatBundle:Commentaire:edit }
+nn_genie_infos_mat_disponibilite_index:
+    path:     /disponibilite/index
+    defaults: { _controller: NNGenieInfosMatBundle:Disponibilite:index }
+
+nn_genie_infos_mat_disponibilite_new:
+    path:     /disponibilite/new
+    defaults: { _controller: NNGenieInfosMatBundle:Disponibilite:new }
+
+nn_genie_infos_mat_disponibilite_edit:
+    path:     /disponibilite/edit/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Disponibilite:edit }
+    requirements:
+        id: \d+
+nn_genie_infos_mat_disponibilite_delete:
+    path:     /disponibilite/delete/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Disponibilite:delete }
+
+nn_genie_infos_mat_disponibilite_view:
+    path:     /disponibilite/view/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Disponibilite:view }
+    requirements:
+        id: \d+
+nn_genie_infos_mat_disponibilitemateriel_index:
+    path:     /disponibilitemateriel/index
+    defaults: { _controller: NNGenieInfosMatBundle:Disponibilitemateriel:index }
+
+nn_genie_infos_mat_disponibilitemateriel_view:
+    path:     /disponibilitemateriel/view/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Disponibilitemateriel:view }
+
+nn_genie_infos_mat_disponibilitemateriel_new:
+    path:     /disponibilitemateriel/new/{materiel_id}/{disponibilite_id}
+    defaults: { _controller: NNGenieInfosMatBundle:Disponibilitemateriel:new }
+
+nn_genie_infos_mat_disponibilitemateriel_edit:
+    path:     /disponibilitemateriel/edit
+    defaults: { _controller: NNGenieInfosMatBundle:Disponibilitemateriel:edit }
+
+nn_genie_infos_mat_disponibilitemateriel_delete:
+    path:     /disponibilitemateriel/delete
+    defaults: { _controller: NNGenieInfosMatBundle:Disponibilitemateriel:delete }
+
+nn_genie_infos_mat_etat_index:
+    path:     /etat/index
+    defaults: { _controller: NNGenieInfosMatBundle:Etat:index }
+
+nn_genie_infos_mat_etat_view:
+    path:     /etat/view/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Etat:view }
+    requirements:
+        id: \d+
+nn_genie_infos_mat_etat_new:
+    path:     /etat/new
+    defaults: { _controller: NNGenieInfosMatBundle:Etat:new }
+
+nn_genie_infos_mat_etat_edit:
+    path:     /etat/edit/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Etat:edit }
+    requirements:
+        id: \d+
+        
+nn_genie_infos_mat_etat_delete:
+    path:     /etat/delete/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Etat:delete }
+    requirements:
+        id: \d+
+        
+nn_genie_infos_mat_famille_index:
+    path:     /famille/index
+    defaults: { _controller: NNGenieInfosMatBundle:Famille:index }
+
+nn_genie_infos_mat_famille_view:
+    path:     /famille/view/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Famille:view }
+    requirements:
+        id: \d+
+
+nn_genie_infos_mat_famille_new:
+    path:     /famille/new
+    defaults: { _controller: NNGenieInfosMatBundle:Famille:new }
+
+nn_genie_infos_mat_famille_edit:
+    path:     /famille/edit/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Famille:edit }
+    requirements:
+        id: \d+
+
+nn_genie_infos_mat_famille_delete:
+    path:     /famille/delete/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Famille:delete }
+    requirements:
+        id: \d+
+
+nn_genie_infos_mat_adresse_index:
+    path:     /adresse/index
+    defaults: { _controller: NNGenieInfosMatBundle:Adresse:index }
+
+nn_genie_infos_mat_adresse_view:
+    path:     /adresse/view/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Adresse:view }
+    requirements:
+        id: \d+
+
+nn_genie_infos_mat_adresse_new:
+    path:     /adresse/new
+    defaults: { _controller: NNGenieInfosMatBundle:Adresse:new }
+
+nn_genie_infos_mat_adresse_edit:
+    path:     /adresse/edit/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Adresse:edit }
+    requirements:
+        id: \d+
+
+nn_genie_infos_mat_adresse_delete:
+    path:     /adresse/delete/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Adresse:delete }
+    requirements:
+        id: \d+
+
     defaults: { _controller: NNGenieInfosMatBundle:Materiel:index }
 
 nn_genie_infos_mat_accueil:

@@ -59,5 +59,22 @@ class DisponibilitematerielRepository extends EntityRepository implements IDispo
             throw $ex;
         }
     }
+    
+    public function myFindAll() 
+    {
+        $qb = $this->createQueryBuilder('d');
+        $qb->where('d.statut = :statut')
+           ->setParameter('statut', 1);
+        return $qb->getQuery()->getResult();
+    }
+    
+    public function dispoMateriel(\NNGenie\InfosMatBundle\Entity\Disponibilite $disponibilite) {
+        $qb = $this->createQueryBuilder('d');
+        $qb->where('d.statut = :statut')
+           ->setParameter('statut', 1)
+           ->andWhere('d.disponibilite = :disponibilite')
+           ->setParameter('disponibilite', $disponibilite);
+        return $qb->getQuery()->getResult();
+    }
 
 }

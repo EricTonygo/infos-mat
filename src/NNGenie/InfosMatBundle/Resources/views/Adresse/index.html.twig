@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}NNGenieInfosMatBundle:Adresse:index{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Adresse:index page</h1>
+<ul>
+    {% for adresse in adresses %}
+     <li>
+         {{ adresse.ville }}
+     </li>
+    {% else %}
+     <li>Pas (encore !) d'adresses</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

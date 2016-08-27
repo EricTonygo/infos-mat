@@ -1,0 +1,17 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}NNGenieInfosMatBundle:Disponibilite:index{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Disponibilite:index page</h1>
+  <ul>
+    {% for disponibilite in disponibilites %}
+     <li>
+         {{ disponibilite.nom }}
+     </li>
+    {% else %}
+     <li>Pas (encore !) de disponibilites</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
