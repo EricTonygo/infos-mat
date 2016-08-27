@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Materiel list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Chassis</th>
+                <th>Prix</th>
+                <th>Age</th>
+                <th>Description</th>
+                <th>Datecreation</th>
+                <th>Datemodification</th>
+                <th>Nbvues</th>
+                <th>Mainpath</th>
+                <th>Statut</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+		{% if materiels %}
+        {% for materiel in materiels %}
+            <tr>
+                <td><a href="{{ path('post_admin_show', { 'id': materiel.id }) }}">{{ materiel.id }}</a></td>
+                <td>{{ materiel.nom }}</td>
+                <td>{{ materiel.chassis }}</td>
+                <td>{{ materiel.prix }}</td>
+                <td>{{ materiel.age }}</td>
+                <td>{{ materiel.description }}</td>
+                <td>{% if materiel.datecreation %}{{ materiel.datecreation|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if materiel.datemodification %}{{ materiel.datemodification|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ materiel.nbvues }}</td>
+                <td>{{ materiel.mainpath }}</td>
+                <td>{{ materiel.statut }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('post_admin_show', { 'id': materiel.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('post_admin_edit', { 'id': materiel.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+		{% endif %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('post_admin_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -31,7 +31,7 @@ class EtatController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->getRepository('NNGenieInfosMatBundle:Etat')->saveEtat($etat);
-            return $this->redirectToRoute('nn_genie_infos_mat_etat_view', array('id' => $etat->getId()));
+            return $this->redirectToRoute('nn_genie_infos_mat_etat_index');
         }
         return $this->render('NNGenieInfosMatBundle:etat:new.html.twig', array(
             'form' => $form->createView()
@@ -45,10 +45,10 @@ class EtatController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->getRepository('NNGenieInfosMatBundle:Etat')->updateEtat($etat);
-            return $this->redirectToRoute('nn_genie_infos_mat_etat_view', array('id' => $etat->getId()));
+            return $this->redirectToRoute('nn_genie_infos_mat_etat_index');
         }
         return $this->render('NNGenieInfosMatBundle:Etat:edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),'id'=>$etat->getId()
         ));
     }
 

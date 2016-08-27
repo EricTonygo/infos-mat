@@ -17,7 +17,6 @@ class EtatType extends AbstractType
         $builder
             ->add('nom','text')
             ->add('nbreetoile','integer')
-            ->add('Enregistrer','submit')
         ;
     }
     

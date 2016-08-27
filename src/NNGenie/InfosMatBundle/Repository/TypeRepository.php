@@ -19,6 +19,7 @@ class TypeRepository extends EntityRepository implements ITypeRepository{
     public function deleteType(\NNGenie\InfosMatBundle\Entity\Type $type) {
         $em= $this->_em;
         $type->setStatut(0);
+		$em->getConnection()->beginTransaction();
         try{
             $em->persist($type);
             $em->flush();
@@ -32,7 +33,8 @@ class TypeRepository extends EntityRepository implements ITypeRepository{
 
     public function saveType(\NNGenie\InfosMatBundle\Entity\Type $type) {
         $em= $this->_em;
-        $type->setStatut(0);
+        $type->setStatut(1);
+		$em->getConnection()->beginTransaction();
         try{
             $em->persist($type);
             $em->flush();
@@ -46,6 +48,7 @@ class TypeRepository extends EntityRepository implements ITypeRepository{
 
     public function updateType(\NNGenie\InfosMatBundle\Entity\Type $type) {
         $em= $this->_em;
+		$em->getConnection()->beginTransaction();
         try{
             $em->persist($type);
             $em->flush();

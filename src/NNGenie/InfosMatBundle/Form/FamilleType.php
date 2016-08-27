@@ -26,7 +26,6 @@ class FamilleType extends AbstractType
                                 return $repo->getCMaterielQueryBuilder();
                                 }
                 ))
-            ->add('Enregistrer','submit')
         ;
     }
     

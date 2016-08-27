@@ -3,64 +3,155 @@
 namespace NNGenie\InfosMatBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use NNGenie\InfosMatBundle\Entity\Classemateriel;
+use NNGenie\InfosMatBundle\Form\ClassematerielType;
 
-class ClassematerielController extends Controller
-{
+/**
+ * Classemateriel controller.
+ *
+ */
+class ClassematerielController extends Controller {
 
-    public function indexAction()
-    {
+    /**
+     * @Route("/classes-materiel")
+     * @Template()
+     */
+    public function classesmaterielAction() {
+        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+          return $this->redirect($this->generateUrl('fos_user_security_login'));
+          } */
         $em = $this->getDoctrine()->getManager();
-        $classemateriels = $em->getRepository('NNGenieInfosMatBundle:Classemateriel')->myFindAll();
-        return $this->render('NNGenieInfosMatBundle:Classemateriel:index.html.twig', array(
-            'classemateriels' => $classemateriels
-        ));
+
+        $repositoryClassemateriel = $em->getRepository("NNGenieInfosMatBundle:Classemateriel");
+        $classemateriel = new Classemateriel();
+        $form = $this->createForm(new ClassematerielType(), $classemateriel);
+        $display_tab = 1;
+        //selectionne les seuls classes materiel actifs
+        $classesmateriel = $repositoryClassemateriel->findBy(array("statut" => 1));
+
+        return $this->render('NNGenieInfosMatBundle:ClassesMateriel:classesmateriel.html.twig', array('classesmateriel' => $classesmateriel, 'form' => $form->createView(), "display_tab" => $display_tab));
     }
-    
-    public function newAction(Request $request)
-    {
-        $classemateriel = new \NNGenie\InfosMatBundle\Entity\Classemateriel();
-        $form = $this->createForm('NNGenie\InfosMatBundle\Form\ClassematerielType', $classemateriel);
+	
+	
+    /**
+     * Creates a new Classemateriel entity.
+     *
+     * @Route("/new-classe-materiel")
+     * @Template()
+     * @Method({"POST", "GET"})
+     * @param Request $request
+     */
+    public function newAction(Request $request) {
+        $classemateriel = new Classemateriel();
+        $classematerielUnique = new Classemateriel();
+        $form = $this->createForm(new ClassematerielType(), $classemateriel);
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->getRepository('NNGenieInfosMatBundle:Classemateriel')->saveClassemateriel($classemateriel);
-            return $this->redirectToRoute('nn_genie_infos_mat_classemateriel_view', array('id' => $classemateriel->getId()));
+        $repositoryClassemateriel = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Classemateriel");
+
+        if ($request->isMethod("POST") || $request->isMethod("GET")) {
+            if ($form->isSubmitted() && $form->isValid()) {
+                $classematerielUnique = $repositoryClassemateriel->findBy(array("nom" => $classemateriel->getNom()));
+                if ($classematerielUnique == null) {
+                    try {
+                        $repositoryClassemateriel->saveClassemateriel($classemateriel);
+                        $message = $this->get('translator')->trans('Classemateriel.created_success', array(), "NNGenieInfosMatBundle");
+                        $request->getSession()->getFlashBag()->add('message_success', $message);
+                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
+                    } catch (Exception $ex) {
+                        $message = $this->get('translator')->trans('Classemateriel.created_failure', array(), "NNGenieInfosMatBundle");
+                        $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                        return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-add-classemateriel.html.twig', array('form' => $form->createView()));
+                    }
+                } else {
+                    $message = $this->get('translator')->trans('Classemateriel.exist_already', array(), "NNGenieInfosMatBundle");
+                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-add-classemateriel.html.twig', array('form' => $form->createView()));
+                }
+            }
+            return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-add-classemateriel.html.twig', array('form' => $form->createView()));
+        } else {
+            return $this->redirect($this->generateUrl('nn_genie_infos_mat_classemateriels'));
         }
-        return $this->render('NNGenieInfosMatBundle:Classemateriel:new.html.twig', array(
-            'form' => $form->createView()
+    }
+
+    /**
+     * Finds and displays a Classemateriel entity.
+     *
+     * @Route("/show-classemateriel/{id}", name="post_admin_show")
+     * @Method({"GET"})
+     */
+    public function showAction(Classemateriel $classemateriel) {
+        $deleteForm = $this->createDeleteForm($classemateriel);
+
+        return $this->render('classemateriel/show.html.twig', array(
+                    'classemateriel' => $classemateriel,
+                    'delete_form' => $deleteForm->createView(),
         ));
     }
 
-    public function viewAction(\NNGenie\InfosMatBundle\Entity\Classemateriel $classemateriel)
-    {      
-        return $this->render('NNGenieInfosMatBundle:Classemateriel:view.html.twig', array(
-            'classemateriel' => $classemateriel
-        ));
-    }
+    /**
+     * Displays a form to edit an existing Classemateriel entity.
+     *
+     * @Route("/edit-classe-materiel/{id}")
+     * @Template()
+     * @Method({"POST", "GET"})
+     * @param Request $request
+     */
+    public function editAction(Request $request, Classemateriel $classemateriel) {
+        // $deleteForm = $this->createDeleteForm($classemateriel);
+        $editForm = $this->createForm(new ClassematerielType(), $classemateriel);
+        $editForm->handleRequest($request);
+        $repositoryClassemateriel = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Classemateriel");
 
-    public function editAction(Request $request, \NNGenie\InfosMatBundle\Entity\Classemateriel $classemateriel)
-    {
-        $form = $this->createForm('NNGenie\InfosMatBundle\Form\ClassematerielType', $classemateriel);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->getRepository('NNGenieInfosMatBundle:Classemateriel')->updateClassemateriel($classemateriel);
-            return $this->redirectToRoute('nn_genie_infos_mat_classemateriel_view', array('id' => $classemateriel->getId()));
+        if ($request->isMethod("POST") || $request->isMethod("GET")) {
+            if ($editForm->isSubmitted() && $editForm->isValid()) {
+                try {
+                    $repositoryClassemateriel->updateClassemateriel($classemateriel);
+                    $message = $this->get('translator')->trans('Classemateriel.updated_success', array(), "NNGenieInfosMatBundle");
+                    $request->getSession()->getFlashBag()->add('message_success', $message);
+                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
+                } catch (Exception $ex) {
+                    $message = $this->get('translator')->trans('Classemateriel.updated_failure', array(), "NNGenieInfosMatBundle");
+                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                     return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-update-classemateriel.html.twig', array('form' => $editForm->createView(), 'idclasse' => $classemateriel->getId()));
+                }
+            }
+            return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-update-classemateriel.html.twig', array('form' => $editForm->createView(), 'idclasse' => $classemateriel->getId()));
+        } else {
+            return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
         }
-
-        return $this->render('NNGenieInfosMatBundle:Classemateriel:edit.html.twig', array(
-            'form' => $form->createView()
-        ));
     }
 
-    public function deleteAction(\NNGenie\InfosMatBundle\Entity\Classemateriel $classemateriel)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $em->getRepository('NNGenieInfosMatBundle:Classemateriel')->deleteClassemateriel($classemateriel);
-            
-        return $this->redirectToRoute('nn_genie_infos_mat_classemateriel_index');
+    /**
+     * Deletes a Classemateriel entity.
+     *
+     * @Route("/delete-classemateriel/{id}")
+     * @Template()
+     * @Method({"GET"})
+     */
+    public function deleteAction(Classemateriel $classemateriel) {
+        $request = $this->get("request");
+        $repositoryClassemateriel = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Classemateriel");
+        if ($request->isMethod('GET')) {
+            try {
+                $repositoryClassemateriel->deleteClassemateriel($classemateriel);
+                $message = $this->get('translator')->trans('Classemateriel.deleted_success', array(), "NNGenieInfosMatBundle");
+				$request->getSession()->getFlashBag()->add('message_success', $message);
+				return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
+            } catch (Exception $ex) {
+                $message = $this->get('translator')->trans('Classemateriel.updated_failure', array(), "NNGenieInfosMatBundle");
+				$request->getSession()->getFlashBag()->add('message_faillure', $message);
+				return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
+            }
+        } else {
+            return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
+        }
     }
 
 }

@@ -31,7 +31,7 @@ class FamilleController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->getRepository('NNGenieInfosMatBundle:Famille')->saveFamille($famille);
-            return $this->redirectToRoute('nn_genie_infos_mat_famille_view', array('id' => $famille->getId()));
+            return $this->redirectToRoute('nn_genie_infos_mat_famille_index');
         }
         return $this->render('NNGenieInfosMatBundle:famille:new.html.twig', array(
             'form' => $form->createView()
@@ -46,11 +46,11 @@ class FamilleController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->getRepository('NNGenieInfosMatBundle:Famille')->updateFamille($famille);
-            return $this->redirectToRoute('nn_genie_infos_mat_famille_view', array('id' => $famille->getId()));
+            return $this->redirectToRoute('nn_genie_infos_mat_famille_index');
         }
 
         return $this->render('NNGenieInfosMatBundle:famille:edit.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),'id' => $famille->getId()
         ));
     }
 

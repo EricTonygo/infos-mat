@@ -1,0 +1,45 @@
+<?php
+
+namespace NNGenie\InfosMatBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Aime
+ *
+ * @ORM\Table(name="aime", indexes={@ORM\Index(name="fk_aime_materiel1_idx", columns={"materiel"}), @ORM\Index(name="fk_aime_user1_idx", columns={"user"})})
+ * @ORM\Entity
+ */
+class Aime
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \Materiel
+     *
+     * @ORM\ManyToOne(targetEntity="Materiel")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="materiel", referencedColumnName="id")
+     * })
+     */
+    private $materiel;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
+
+}
