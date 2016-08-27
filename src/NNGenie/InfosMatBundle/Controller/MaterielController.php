@@ -159,7 +159,6 @@ class MaterielController extends Controller {
                 $message = $message = $this->get('translator')->trans('Materiel.deleted_success', array(), "NNGenieInfosMatBundle");
                 $request->getSession()->getFlashBag()->add('message_success', $message);
                 return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
-                return $response->setData(array("data" => $messages));
             } catch (Exception $ex) {
                 $message = $message = $this->get('translator')->trans('Materiel.deleted_failure', array(), "NNGenieInfosMatBundle");
                 $request->getSession()->getFlashBag()->add('message_faillure', $message);
