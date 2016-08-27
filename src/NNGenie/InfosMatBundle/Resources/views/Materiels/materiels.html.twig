@@ -54,7 +54,7 @@
                                                     <div class="row1 scroll-pane">
                                                         {%if genres%}
                                                             {%for genre in genres%}
-                                                                <label class="checkbox"><input type="checkbox" name="genre"><i></i>genre.code</label>
+                                                                <label class="checkbox"><input type="checkbox" name="genre[]" value="{{genre.id}}"><i></i>{{genre.nom}}</label>
                                                             {%endfor%}
                                                         {%endif%}
                                                     </div>
@@ -64,7 +64,7 @@
                                                     <div class="row1 scroll-pane">
                                                         {%if marques%}
                                                             {%for marque in marques%}
-                                                                <label class="checkbox"><input type="checkbox" name="marque"><i></i>marque.code</label>
+                                                                <label class="checkbox"><input type="checkbox" name="marque[]" value="{{marque.id}}"><i></i>{{marque.nom}}</label>
                                                             {%endfor%}
                                                         {%endif%}
                                                     </div>
@@ -74,17 +74,7 @@
                                                     <div class="row1 scroll-pane">
                                                         {%if types%}
                                                             {%for type in types%}
-                                                                <label class="checkbox"><input type="checkbox" name="type"><i></i>type.code</label>
-                                                            {%endfor%}
-                                                        {%endif%}
-                                                    </div>
-                                                </section>
-                                                <section  class="sky-form col-md-3">
-                                                    <h4>N° Chassis</h4>
-                                                    <div class="row1 scroll-pane">
-                                                        {%if materiels%}
-                                                            {%for materiel in materiels%}
-                                                                <label class="checkbox"><input type="checkbox" name="chasis"><i></i>materiel.chasis</label>
+                                                                <label class="checkbox"><input type="checkbox" name="type[]" value="{{type.id}}"><i></i>{{type.nom}}</label>
                                                             {%endfor%}
                                                         {%endif%}
                                                     </div>
@@ -94,43 +84,18 @@
                                                     <div class="row1 scroll-pane">
                                                         {%if proprietaires%}
                                                             {%for proprietaire in proprietaires%}
-                                                                <label class="checkbox"><input type="checkbox" name="proprietaire"><i></i>proprietaire.nom</label>
+                                                                <label class="checkbox"><input type="checkbox" name="proprietaire[]" value="{{proprietaire.id}}"><i></i>{{proprietaire.nom}}</label>
                                                             {%endfor%}
                                                         {%endif%}
-                                                </section>
-                                                <section  class="sky-form col-md-3">
-                                                    <h4>Fournisseur</h4>
-                                                    <div class="row1 scroll-pane">
-                                                        {%if fournisseurs%}
-                                                            {%for fournisseur in fournisseurs%}
-                                                                <label class="checkbox"><input type="checkbox" name="fournisseur"><i></i>fournisseur.nom</label>
-                                                            {%endfor%}
-                                                        {%endif%}
-                                                    </div>
                                                 </section>
                                                 <section  class="sky-form col-md-3">
                                                     <h4>Localisation</h4>
                                                     <div class="row1 scroll-pane">
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Athletic Shoes (48)</label>
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Casual (45)</label>
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Casual (45)</label>
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Other (1)</label>
-                                                    </div>
-                                                </section>
-                                                <section  class="sky-form col-md-3">
-                                                    <h4>Prix</h4>
-                                                    <div class="row1 scroll-pane">
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Asics</label>
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch</label>
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch Kids</label>
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Capezio</label>
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Capezio Kids</label>
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Nike</label>
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Asics</label>
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch</label>
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch Kids</label>
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Capezio</label>
-                                                        <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Nike</label>
+                                                        {%if localisations%}
+                                                            {%for localisation in localisations%}
+                                                                <label class="checkbox"><input type="checkbox" name="genre[]" value="{{localisation.ville}}"><i></i>{{localisation.ville}}</label>
+                                                            {%endfor%}
+                                                        {%endif%}
                                                     </div>
                                                 </section>
                                             </div>

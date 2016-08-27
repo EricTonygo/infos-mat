@@ -19,4 +19,6 @@ interface IMaterielRepository {
     public function saveMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel);
 
     public function updateMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel);
+    
+    //public function filtreMaterielBy($genres, $marques, $types, $proprietaires, $localisations);
 }

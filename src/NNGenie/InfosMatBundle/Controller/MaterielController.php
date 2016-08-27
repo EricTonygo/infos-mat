@@ -38,13 +38,20 @@ class MaterielController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $repositoryMateriel = $em->getRepository("NNGenieInfosMatBundle:Materiel");
-        $materiel = new Materiel();
-        $form = $this->createForm(new MaterielType(), $materiel);
-        $display_tab = 1;
+        $repositoryGenre = $em->getRepository("NNGenieInfosMatBundle:Genre");
+        $repositoryMarque = $em->getRepository("NNGenieInfosMatBundle:Marque");
+        $repositoryType = $em->getRepository("NNGenieInfosMatBundle:Type");
+        $repositoryLocalisation = $em->getRepository("NNGenieInfosMatBundle:Localisation");
+        $repositoryProprietaire = $em->getRepository("NNGenieInfosMatBundle:Proprietaire");
         //selectionne les seuls materiels actifs
         $materiels = $repositoryMateriel->findBy(array("statut" => 1));
+        $genres = $repositoryGenre->findBy(array("statut" => 1));
+        $marques = $repositoryMarque->findBy(array("statut" => 1));
+        $types = $repositoryType->findBy(array("statut" => 1));
+        $localisations = $repositoryLocalisation->findBy(array("statut" => 1));
+        $proprietaires = $repositoryProprietaire->findBy(array("statut" => 1));
 
-        return $this->render('NNGenieInfosMatBundle:Materiels:materiels.html.twig', array('materiels' => $materiels, 'form' => $form->createView(), "display_tab" => $display_tab));
+        return $this->render('NNGenieInfosMatBundle:Materiels:materiels.html.twig', array('materiels' => $materiels, 'genres' => $genres, 'marques' => $marques, 'types' => $types, 'localisations' => $localisations, 'proprietaires' => $proprietaires,));
     }
 
     /**
