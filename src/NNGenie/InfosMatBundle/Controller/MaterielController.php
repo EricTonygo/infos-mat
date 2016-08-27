@@ -146,7 +146,7 @@ class MaterielController extends Controller {
     /**
      * Deletes a Materiel entity.
      *
-     * @Route("/update-materiel/{id}")
+     * @Route("/delete-materiel/{id}")
      * @Template()
      * @Method({"GET"})
      */
