@@ -134,10 +134,10 @@ class MaterielController extends Controller {
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Materiel.updated_failure', array(), "NNGenieInfosMatBundle");
                     $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                    return $this->render('NNGenieInfosMatBundle:Materiels:form-update-materiel.html.twig', array('form' => $editForm->createView(), 'idmarque' => $marque->getId()));
+                    return $this->render('NNGenieInfosMatBundle:Materiels:form-update-materiel.html.twig', array('form' => $editForm->createView(), 'idmateriel' => $materiel->getId()));
                 }
             }
-            return $this->render('NNGenieInfosMatBundle:Materiels:form-update-materiel.html.twig', array('form' => $editForm->createView(), 'idmarque' => $marque->getId()));
+            return $this->render('NNGenieInfosMatBundle:Materiels:form-update-materiel.html.twig', array('form' => $editForm->createView(), 'idmateriel' => $materiel->getId()));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
         }
