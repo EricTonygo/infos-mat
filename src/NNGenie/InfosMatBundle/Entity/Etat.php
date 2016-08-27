@@ -43,6 +43,11 @@ class Etat
     private $nbreetoile;
     
     /**
+    * @ORM\OneToMany(targetEntity="Materiel", mappedBy="etat", cascade={"remove", "persist"})
+    */
+    private $materiels;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -130,5 +135,52 @@ class Etat
     public function getNbreetoile()
     {
         return $this->nbreetoile;
+    }
+    
+    /**
+     * Add materiel
+     *
+     * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel 
+     * @return Etat
+     */
+    public function addMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel)
+    {
+        $this->materiels[] = $materiel;
+        return $this;
+    }
+    
+    /**
+     * Get materiels
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMateriels()
+    {
+        return $this->materiels;
+    }
+    
+    /**
+     * Set materiels
+     *
+     * @param \Doctrine\Common\Collections\Collection $materiels
+     * @return Etat
+     */
+    public function setMateriels(\Doctrine\Common\Collections\Collection $materiels = null)
+    {
+        $this->materiels = $materiels;
+
+        return $this;
+    }
+    
+    /**
+     * Remove materiel
+     *
+     * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel
+	 * @return Etat
+     */
+    public function removeMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel)
+    {
+        $this->materiels->removeElement($materiel);
+		return $this;
     }
 }

@@ -80,46 +80,60 @@ class Materiel
      */
     private $nbvues;
     
-
     /**
      * @var \Etat 
-     * @ORM\OneToOne(targetEntity="Etat")
-     * @ORM\JoinColumn(name="etat", referencedColumnName="id")
+     *
+     * @ORM\ManyToOne(targetEntity="Etat", inversedBy="materiels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="etat", referencedColumnName="id")
+     * })
      */
     private $etat;
 
     /**
      * @var \Fournisseur 
-     * @ORM\OneToOne(targetEntity="Fournisseur")
-     * @ORM\JoinColumn(name="fournisseur", referencedColumnName="id")
+     *
+     * @ORM\ManyToOne(targetEntity="Fournisseur", inversedBy="materiels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="fournisseur", referencedColumnName="id")
+     * })
      */
     private $fournisseur;
-   
+    
     /**
      * @var \Genre 
-     * @ORM\OneToOne(targetEntity="Genre")
-     * @ORM\JoinColumn(name="genre", referencedColumnName="id")
+     *
+     * @ORM\ManyToOne(targetEntity="Genre", inversedBy="materiels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="genre", referencedColumnName="id")
+     * })
      */
     private $genre;
     
-    /**
+     /**
      * @var \Localisation 
-     * @ORM\OneToOne(targetEntity="Localisation",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Localisation")
      * @ORM\JoinColumn(name="localisation", referencedColumnName="id")
      */
     private $localisation;
     
     /**
      * @var \Proprietaire 
-     * @ORM\OneToOne(targetEntity="Proprietaire")
-     * @ORM\JoinColumn(name="proprietaire", referencedColumnName="id")
+     *
+     * @ORM\ManyToOne(targetEntity="Proprietaire", inversedBy="materiels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="proprietaire", referencedColumnName="id")
+     * })
      */
     private $proprietaire;
 
     /**
      * @var \Type 
-     * @ORM\OneToOne(targetEntity="Type")
-     * @ORM\JoinColumn(name="type", referencedColumnName="id")
+     *
+     * @ORM\ManyToOne(targetEntity="Type", inversedBy="materiels")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="type", referencedColumnName="id")
+     * })
      */
     private $type;
     
