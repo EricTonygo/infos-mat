@@ -83,21 +83,21 @@ class Materiel
 
     /**
      * @var \Etat 
-     * @ORM\OneToOne(targetEntity="Etat",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Etat")
      * @ORM\JoinColumn(name="etat", referencedColumnName="id")
      */
     private $etat;
 
     /**
      * @var \Fournisseur 
-     * @ORM\OneToOne(targetEntity="Fournisseur",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Fournisseur")
      * @ORM\JoinColumn(name="fournisseur", referencedColumnName="id")
      */
     private $fournisseur;
    
     /**
      * @var \Genre 
-     * @ORM\OneToOne(targetEntity="Genre",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Genre")
      * @ORM\JoinColumn(name="genre", referencedColumnName="id")
      */
     private $genre;
@@ -118,7 +118,7 @@ class Materiel
 
     /**
      * @var \Type 
-     * @ORM\OneToOne(targetEntity="Type",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Type")
      * @ORM\JoinColumn(name="type", referencedColumnName="id")
      */
     private $type;
