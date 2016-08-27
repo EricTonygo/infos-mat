@@ -41,7 +41,7 @@ class Marque
      *   }
      * )
      */
-    private $genre;
+    private $genres;
 
     /**
      * Constructor

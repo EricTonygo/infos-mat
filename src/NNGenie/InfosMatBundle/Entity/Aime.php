@@ -116,7 +116,7 @@ class Aime
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Aime
      */
     public function setStatut($statut)
     {

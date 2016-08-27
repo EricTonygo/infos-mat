@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}NNGenieInfosMatBundle:Disponibilitemateriel:index{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Disponibilitemateriel:index page</h1>
+<ul>
+    {% for disponibilitemateriel in disponibilitemateriels %}
+     <li>
+         {{ disponibilitemateriel.disponibilite.nom }}{{' '}}{{ disponibilitemateriel.materiel.nom }}
+     </li>
+    {% else %}
+     <li>Pas (encore !) de classes materiel</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

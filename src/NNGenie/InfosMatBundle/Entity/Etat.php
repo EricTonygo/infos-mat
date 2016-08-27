@@ -90,7 +90,7 @@ class Etat
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Etat
      */
     public function setStatut($statut)
     {
@@ -113,7 +113,7 @@ class Etat
      * Set nbreetoile
      *
      * @param integer $nbreetoile
-     * @return Actualite
+     * @return Etat
      */
     public function setNbreetoile($nbreetoile)
     {

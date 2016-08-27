@@ -7,183 +7,146 @@
     <link href="{{ asset('bundles/nngenieinfosmat/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">		
-    
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/css/form.css')}}" rel="stylesheet">
+    <script type="text/javascript" src="{{ asset('bundles/nngenieinfosmat/js/jquery.jscrollpane.min.js') }}"></script>
+    <script type="text/javascript" id="sourcecode">
+        $(function ()
+        {
+            $('.scroll-pane').jScrollPane();
+        });
+    </script>
 {% endblock %}
 
 {% block content %}
     <div class="right_col" role="main">
 
-          <div class="">
+        <div class="">
             <div class="page-title">
-              <div class="title_left">
-                  <h3>
-                      LISTE DES MATERIELS
-                  </h3>
-              </div>
+                <div class="title_left">
+                    <h3>
+                        LISTE DES MATERIELS
+                    </h3>
+                </div>
 
             </div>
             <div class="clearfix"></div>
 
             <div class="row">
-			
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                        <h2>Informations sur les matériels <small>Gérer</small></h2>
-                        
-                        <a href="{{ path('nn_genie_infos_mat_materiel_new') }}" class="btn btn-info fright">Ajouter</a>
 
-                        <div role="presentation" class="dropdown" class="row">
-                        <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                            <span class="fright"><span>Est ce que?</span><i class="fa fa-plus-circle fa-2x marron"></i></span>
-                        </a>
-                        <div class="col-md-12 products-left action dropdown-menu animated fadeInDown pding-bot" role="menu">
-                            <div class="row">
-                                <form class="col-md-12">
-                                        <div class="rsidebar">
-                                            <section  class="sky-form col-md-3">
-                                                <h4>Genre</h4>
-                                                <div class="row1 scroll-pane">
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Athletic Shoes (48)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Casual (45)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Casual (45)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Other (1)</label>
-                                                 </div>
-                                            </section>
-                                            <section  class="sky-form col-md-3">
-                                                <h4>Marque</h4>
-                                                <div class="row1 scroll-pane">
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Asics</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch Kids</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Capezio</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Capezio Kids</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Nike</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Asics</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch Kids</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Capezio</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Nike</label>
-                                                </div>
-                                            </section>
-                                            <section  class="sky-form col-md-3">
-                                                <h4>Type</h4>
-                                                <div class="row1 scroll-pane">
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Under 1in(5)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>1in - 1 3/4 in(5)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>2in - 2 3/4 in(3)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox" ><i></i>3in - 3 3/4 in(2)</label>
-                                                </div>
-                                            </section>
-                                            <section  class="sky-form col-md-3">
-                                                <h4>N° Chassis</h4>
-                                                <div class="row1 scroll-pane">
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Asics</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch Kids</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Capezio</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Capezio Kids</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Nike</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Asics</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch Kids</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Capezio</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Nike</label>
-                                                </div>
-                                            </section>
-                                            <section  class="sky-form col-md-3">
-                                                <h4>Propriétaire</h4>
-                                                <div class="row1 scroll-pane">
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Under 1in(5)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>1in - 1 3/4 in(5)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>2in - 2 3/4 in(3)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox" ><i></i>3in - 3 3/4 in(2)</label>
-                                                </div>
-                                            </section>
-                                            <section  class="sky-form col-md-3">
-                                                <h4>Fournisseur</h4>
-                                                <div class="row1 scroll-pane">
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Athletic Shoes (48)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Casual (45)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Casual (45)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Other (1)</label>
-                                                </div>
-                                            </section>
-                                            <section  class="sky-form col-md-3">
-                                                <h4>Localisation</h4>
-                                                <div class="row1 scroll-pane">
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Athletic Shoes (48)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Casual (45)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Casual (45)</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Other (1)</label>
-                                                 </div>
-                                            </section>
-                                            <section  class="sky-form col-md-3">
-                                                <h4>Prix</h4>
-                                                <div class="row1 scroll-pane">
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Asics</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch Kids</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Capezio</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Capezio Kids</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Nike</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Asics</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Bloch Kids</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Capezio</label>
-                                                    <label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Nike</label>
-                                                </div>
-                                            </section>
-                                        </div>
-                                        <div class="occasion-cart">
-                                            <center>
-                                                <input value="Filtrer" type="submit" class="filtre">
-                                            </center>
-                                        </div>
-                                </form>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Informations sur les matÃ©riels <small>GÃ©rer</small></h2>
+
+                            <a href="{{ path('nn_genie_infos_mat_materiel_new') }}" class="btn btn-info fright">Ajouter</a>
+
+                            <div role="presentation" class="dropdown" class="row">
+                                <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                    <span class="fright"><span>Est ce que?</span><i class="fa fa-plus-circle fa-2x marron"></i></span>
+                                </a>
+                                <div class="col-md-12 products-left action dropdown-menu animated fadeInDown pding-bot" role="menu">
+                                    <div class="row">
+                                        <form class="col-md-12">
+                                            <div class="rsidebar">
+                                                <section  class="sky-form col-md-3">
+                                                    <h4>Genre</h4>
+                                                    <div class="row1 scroll-pane">
+                                                        {%if genres%}
+                                                            {%for genre in genres%}
+                                                                <label class="checkbox"><input type="checkbox" name="genre[]" value="{{genre.id}}"><i></i>{{genre.nom}}</label>
+                                                            {%endfor%}
+                                                        {%endif%}
+                                                    </div>
+                                                </section>
+                                                <section  class="sky-form col-md-3">
+                                                    <h4>Marque</h4>
+                                                    <div class="row1 scroll-pane">
+                                                        {%if marques%}
+                                                            {%for marque in marques%}
+                                                                <label class="checkbox"><input type="checkbox" name="marque[]" value="{{marque.id}}"><i></i>{{marque.nom}}</label>
+                                                            {%endfor%}
+                                                        {%endif%}
+                                                    </div>
+                                                </section>
+                                                <section  class="sky-form col-md-3">
+                                                    <h4>Type</h4>
+                                                    <div class="row1 scroll-pane">
+                                                        {%if types%}
+                                                            {%for type in types%}
+                                                                <label class="checkbox"><input type="checkbox" name="type[]" value="{{type.id}}"><i></i>{{type.nom}}</label>
+                                                            {%endfor%}
+                                                        {%endif%}
+                                                    </div>
+                                                </section>
+                                                <section  class="sky-form col-md-3">
+                                                    <h4>PropriÃ©taire</h4>
+                                                    <div class="row1 scroll-pane">
+                                                        {%if proprietaires%}
+                                                            {%for proprietaire in proprietaires%}
+                                                                <label class="checkbox"><input type="checkbox" name="proprietaire[]" value="{{proprietaire.id}}"><i></i>{{proprietaire.nom}}</label>
+                                                            {%endfor%}
+                                                        {%endif%}
+                                                </section>
+                                                <section  class="sky-form col-md-3">
+                                                    <h4>Localisation</h4>
+                                                    <div class="row1 scroll-pane">
+                                                        {%if localisations%}
+                                                            {%for localisation in localisations%}
+                                                                <label class="checkbox"><input type="checkbox" name="genre[]" value="{{localisation.ville}}"><i></i>{{localisation.ville}}</label>
+                                                            {%endfor%}
+                                                        {%endif%}
+                                                    </div>
+                                                </section>
+                                            </div>
+                                            <div class="occasion-cart">
+                                                <center>
+                                                    <input value="Filtrer" type="submit" class="filtre">
+                                                </center>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-			</div>
-                    </div>
-                        
-                        
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <p class="text-muted font-13 m-b-30">
-                      Il est possible d'exporter les données du tableau sous différents formats via les bouttons fournis ci-dessous
-                    </p>
-                    <table id="datatable-buttons" class="table table-striped table-bordered">
-                      <thead>
-                        <tr>
-                            <th colspan="3"><center>Désignation</center></th>
-                            <th colspan="2"><center>Références</center></th>
-                            <th colspan="4"><center>Informations diverses</center></th>
-                        </tr>
-                        <tr>
-                          <th>Genre</th>
-                          <th>Marque</th>
-                          <th>Type</th>
-                          <th>N° Chassis</th>
-                          <th>Propriétaire</th>
-                          <th>Prix</th>
-                          <th>Localisation</th>
-                          <th>Fournisseur</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
+
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <p class="text-muted font-13 m-b-30">
+                                Il est possible d'exporter les donnÃ©es du tableau sous diffÃ©rents formats via les bouttons fournis ci-dessous
+                            </p>
+                            <table id="datatable-buttons" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3"><center>DÃ©signation</center></th>
+                                <th colspan="2"><center>RÃ©fÃ©rences</center></th>
+                                <th colspan="4"><center>Informations diverses</center></th>
+                                </tr>
+                                <tr>
+                                    <th>Genre</th>
+                                    <th>Marque</th>
+                                    <th>Type</th>
+                                    <th>NÂ° Chassis</th>
+                                    <th>PropriÃ©taire</th>
+                                    <th>Prix</th>
+                                    <th>Localisation</th>
+                                    <th>Fournisseur</th>
+                                    <th>Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
                                     {%if materiels%}
                                         {%for materiel in materiels%}
                                             <tr>
                                                 <td>{{materiel.genre.nom}}</td>
-                                                <td>{{materiel.marque.nom}}</td>
-												<td>{{materiel.type.nom}}</td>
+                                                <td>{{materiel.type.marque.nom}}</td>
+                                                <td>{{materiel.type.nom}}</td>
                                                 <td>{{materiel.chassis}}</td>
-												<td>{{materiel.proprietaire.nom}}</td>
+                                                <td>{{materiel.proprietaire.nom}}</td>
                                                 <td>{{materiel.prix}}</td>
-												<td>{{materiel.localisation.ville}}</td>
-												<td>{{materiel.fournisseur.nom}}</td>
+                                                <td>{{materiel.localisation.ville}}</td>
+                                                <td>{{materiel.fournisseur.nom}}</td>
                                                 <td>
                                                     <div role="presentation" class="dropdown">
                                                         <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
@@ -211,66 +174,63 @@
 {% endblock %}
 {% block javascripts %}
     {{parent()}}
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/fastclick/lib/fastclick.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/nprogress/nprogress.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
-	<script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/jszip/dist/jszip.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
-	<script type="text/javascript" src="{{ asset('bundles/nngenieinfosmat/js/jquery.jscrollpane.min.js') }}"></script>
-    <script type="text/javascript" id="sourcecode">
+    <script type="text/javascript" src="{{ asset('bundles/nngenieinfosmat/js/jquery.jscrollpane.min.js') }}"></script>
+    <script>
         $(document).ready(function () {
-            $('#datatable-responsive').DataTable();
-			var handleDataTableButtons = function() {
-          if ($("#datatable-buttons").length) {
-            $("#datatable-buttons").DataTable({
-              dom: "Bfrtip",
-              buttons: [
-                {
-                  extend: "copy",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "csv",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "excel",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "pdfHtml5",
-                  className: "btn-sm"
-                },
-                {
-                  extend: "print",
-                  className: "btn-sm"
-                },
-              ],
-              responsive: true
-            });
-          }
-        };
+            var handleDataTableButtons = function () {
+                if ($("#datatable-buttons").length) {
+                    $("#datatable-buttons").DataTable({
+                        dom: "Bfrtip",
+                        buttons: [
+                            {
+                                extend: "copy",
+                                className: "btn-sm"
+                            },
+                            {
+                                extend: "csv",
+                                className: "btn-sm"
+                            },
+                            {
+                                extend: "excel",
+                                className: "btn-sm"
+                            },
+                            {
+                                extend: "pdfHtml5",
+                                className: "btn-sm"
+                            },
+                            {
+                                extend: "print",
+                                className: "btn-sm"
+                            },
+                        ],
+                        responsive: true
+                    });
+                }
+            };
 
-        TableManageButtons = function() {
-          "use strict";
-          return {
-            init: function() {
-              handleDataTableButtons();
-            }
-          };
-        }();
+            TableManageButtons = function () {
+                "use strict";
+                return {
+                    init: function () {
+                        handleDataTableButtons();
+                    }
+                };
+            }();
 
-        TableManageButtons.init();
+            TableManageButtons.init();
         });
-		$(function()
-            {
-                    $('.scroll-pane').jScrollPane();
-            });
     </script>
 {% endblock %}

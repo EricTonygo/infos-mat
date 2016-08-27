@@ -15,11 +15,8 @@ class CommentaireType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description')
-            ->add('datecommentaire', 'datetime')
-            ->add('statut')
-            ->add('materiel')
-            ->add('user')
+            ->add('description','textarea')
+            ->add('Enregistrer','submit')
         ;
     }
     

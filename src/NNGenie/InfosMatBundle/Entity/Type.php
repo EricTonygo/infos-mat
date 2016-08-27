@@ -116,7 +116,7 @@ class Type
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Type
      */
     public function setStatut($statut)
     {

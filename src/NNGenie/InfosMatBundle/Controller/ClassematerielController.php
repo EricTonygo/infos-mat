@@ -3,6 +3,7 @@
 namespace NNGenie\InfosMatBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -153,33 +154,4 @@ class ClassematerielController extends Controller {
         }
     }
 
-    /**
-     * Creates a form to delete a Classemateriel entity.
-     *
-     * @param Classemateriel $classemateriel The Classemateriel entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm(Classemateriel $classemateriel) {
-        return $this->createFormBuilder
-                        ->setAction($this->generateUrl('post_admin_delete', array('id' => $classemateriel->getId())))
-                        ->setMethod('DELETE')
-                        ->getForm()
-        ;
-    }
-    
-    /**
-     * Creates a form to add a Classemateriel entity.
-     *
-     * @param Classemateriel $classemateriel The Classemateriel entity
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createAddForm() {
-        return $this->createFormBuilder
-                        ->setAction($this->generateUrl('nn_genie_infos_mat_classemateriel_add'))
-                        ->setMethod('POST')
-                        ->getForm()
-        ;
-    }
 }

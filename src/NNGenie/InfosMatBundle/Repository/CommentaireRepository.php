@@ -58,6 +58,20 @@ class CommentaireRepository extends EntityRepository implements ICommentaireResp
             throw $ex;
         }
     }
+    public function FindAllCommentUserMateriel(\NNGenie\UserBundle\Entity\User $user=null,\NNGenie\InfosMatBundle\Entity\Materiel $materiel=null) {
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.statut = :statut')
+           ->setParameter('statut', 1);
+        if($user!=null) {
+            $qb->andWhere('c.user = :user')
+               ->setParameter('user', $user);
+        }
+        if($materiel!=null) {
+            $qb->andWhere('c.materiel = :materiel')
+               ->setParameter('materiel', $materiel);
+        }
+        return $qb->getQuery()->getResult();
+    }
 
 //put your code here
 }

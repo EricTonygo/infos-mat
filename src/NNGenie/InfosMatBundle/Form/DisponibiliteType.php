@@ -15,8 +15,8 @@ class DisponibiliteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom')
-            ->add('statut')
+            ->add('nom','text')
+            ->add('Enregistrer','submit')
         ;
     }
     
