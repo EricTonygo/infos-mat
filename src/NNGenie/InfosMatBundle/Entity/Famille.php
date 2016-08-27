@@ -149,7 +149,7 @@ class Famille
      * Add genre
      *
      * @param \NNGenie\InfosMatBundle\Entity\Genre $genre 
-     * @return User
+     * @return Famille
      */
     public function addGenre(\NNGenie\InfosMatBundle\Entity\Genre $genre)
     {
@@ -171,7 +171,7 @@ class Famille
      * Set genres
      *
      * @param \Doctrine\Common\Collections\Collection $genres
-     * @return \User
+     * @return \Famille
      */
     public function setGenres(\Doctrine\Common\Collections\Collection $genres = null)
     {
@@ -184,17 +184,19 @@ class Famille
      * Remove genre
      *
      * @param \NNGenie\InfosMatBundle\Entity\Genre $genre
+	 * @return Famille
      */
     public function removeGenre(\NNGenie\InfosMatBundle\Entity\Genre $genre)
     {
         $this->genres->removeElement($genre);
+		return $this;
     }
 
     /**
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Famille
      */
     public function setStatut($statut)
     {

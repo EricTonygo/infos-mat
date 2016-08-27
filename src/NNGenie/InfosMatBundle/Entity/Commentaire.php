@@ -177,7 +177,7 @@ class Commentaire
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Commentaire
      */
     public function setStatut($statut)
     {

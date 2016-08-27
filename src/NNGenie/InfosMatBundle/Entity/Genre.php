@@ -164,10 +164,12 @@ class Genre
      * Remove marque
      *
      * @param \NNGenie\InfosMatBundle\Entity\Marque $marque
+	 * @return Genre
      */
     public function removeMarque(\NNGenie\InfosMatBundle\Entity\Marque $marque)
     {
         $this->marques->removeElement($marque);
+		return $this;
     }
 
     /**
@@ -184,7 +186,7 @@ class Genre
      * Set 
      *
      * @param \Doctrine\Common\Collections\Collection $marques
-     * @return \User
+     * @return Genre
      */
     public function setMarques(\Doctrine\Common\Collections\Collection $marques = null)
     {
@@ -197,7 +199,7 @@ class Genre
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Genre
      */
     public function setStatut($statut)
     {

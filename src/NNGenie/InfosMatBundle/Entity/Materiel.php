@@ -506,7 +506,7 @@ class Materiel
      * Add aime
      *
      * @param \NNGenie\InfosMatBundle\Entity\Aime $aime 
-     * @return User
+     * @return Materiel
      */
     public function addAime(\NNGenie\InfosMatBundle\Entity\Aime $aime)
     {
@@ -528,7 +528,7 @@ class Materiel
      * Set aimes
      *
      * @param \Doctrine\Common\Collections\Collection $aimes
-     * @return \User
+     * @return Materiel
      */
     public function setAimes(\Doctrine\Common\Collections\Collection $aimes = null)
     {
@@ -541,17 +541,19 @@ class Materiel
      * Remove aime
      *
      * @param \NNGenie\InfosMatBundle\Entity\Aime $aime
+	 * @return Materiel
      */
     public function removeAime(\NNGenie\InfosMatBundle\Entity\Aime $aime)
     {
         $this->aimes->removeElement($aime);
+		return $this;
     }
     
     /**
      * Add commentaire
      *
      * @param \NNGenie\InfosMatBundle\Entity\Commentaire $commentaire 
-     * @return User
+     * @return Materiel
      */
     public function addCommentaire(\NNGenie\InfosMatBundle\Entity\Commentaire $commentaire)
     {
@@ -573,7 +575,7 @@ class Materiel
      * Set commentaires
      *
      * @param \Doctrine\Common\Collections\Collection $commentaires
-     * @return \User
+     * @return Materiel
      */
     public function setCommentaires(\Doctrine\Common\Collections\Collection $commentaires = null)
     {
@@ -586,17 +588,19 @@ class Materiel
      * Remove commentaire
      *
      * @param \NNGenie\InfosMatBundle\Entity\Commentaire $commentaire
+	 * @return Materiel
      */
     public function removeCommentaire(\NNGenie\InfosMatBundle\Entity\Commentaire $commentaire)
     {
         $this->commentaires->removeElement($commentaire);
+		return $this;
     }
     
     /**
      * Add image
      *
      * @param \NNGenie\InfosMatBundle\Entity\Image $image 
-     * @return User
+     * @return Materiel
      */
     public function addImage(\NNGenie\InfosMatBundle\Entity\Image $image)
     {
@@ -618,7 +622,7 @@ class Materiel
      * Set images
      *
      * @param \Doctrine\Common\Collections\Collection $images
-     * @return \User
+     * @return Materiel
      */
     public function setImages(\Doctrine\Common\Collections\Collection $images = null)
     {
@@ -631,10 +635,12 @@ class Materiel
      * Remove image
      *
      * @param \NNGenie\InfosMatBundle\Entity\Image $image
+	 * @return Materiel
      */
     public function removeImage(\NNGenie\InfosMatBundle\Entity\Image $image)
     {
         $this->images->removeElement($image);
+		return $this;
     }
     
     /**
@@ -747,7 +753,7 @@ class Materiel
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Materiel
      */
     public function setStatut($statut)
     {

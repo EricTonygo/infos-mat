@@ -136,7 +136,7 @@ class Marque
      * Set genres
      *
      * @param \Doctrine\Common\Collections\Collection $genres
-     * @return \User
+     * @return Marque
      */
     public function setGenres(\Doctrine\Common\Collections\Collection $genres = null)
     {
@@ -149,7 +149,7 @@ class Marque
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Marque
      */
     public function setStatut($statut)
     {
@@ -172,7 +172,7 @@ class Marque
      * Add type
      *
      * @param \NNGenie\InfosMatBundle\Entity\Type $type 
-     * @return User
+     * @return Marque
      */
     public function addType(\NNGenie\InfosMatBundle\Entity\Type $type)
     {
@@ -194,7 +194,7 @@ class Marque
      * Set types
      *
      * @param \Doctrine\Common\Collections\Collection $types
-     * @return \User
+     * @return Marque
      */
     public function setTypes(\Doctrine\Common\Collections\Collection $types = null)
     {
@@ -206,10 +206,12 @@ class Marque
     /**
      * Remove type
      *
-     * @param \NNGenie\InfosMatBundle\Entity\Type $type
+     * \NNGenie\InfosMatBundle\Entity\Type $type
+	 * @return Marque
      */
     public function removeType(\NNGenie\InfosMatBundle\Entity\Type $type)
     {
         $this->types->removeElement($type);
+		return $this;
     }
 }

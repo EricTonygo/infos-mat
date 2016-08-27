@@ -16,7 +16,7 @@ class LocalisationType extends AbstractType
     {
         $builder
             ->add('ville')
-            ->add('pays')
+            //->add('pays')
         ;
     }
     

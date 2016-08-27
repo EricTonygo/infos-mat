@@ -120,10 +120,10 @@ class TypeController extends Controller{
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Type.updated_failure', array(), "NNGenieInfosMatBundle");
                     $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                    return $this->render('NNGenieInfosMatBundle:Marques:form-update-marque.html.twig', array('form' => $editForm->createView(), 'idmarque' => $marque->getId()));
+                    return $this->render('NNGenieInfosMatBundle:Types:form-update-type.html.twig', array('form' => $editForm->createView(), 'idtype' => $type->getId()));
                 }
             }
-            return $this->render('NNGenieInfosMatBundle:Marques:form-update-marque.html.twig', array('form' => $editForm->createView(), 'idmarque' => $marque->getId()));
+            return $this->render('NNGenieInfosMatBundle:Types:form-update-type.html.twig', array('form' => $editForm->createView(), 'idtype' => $type->getId()));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
         }
@@ -138,7 +138,6 @@ class TypeController extends Controller{
      */
     public function deleteAction(Type $type) {
         $request = $this->get("request");
-        $response = new JsonResponse();
         $repositoryType = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Type");
         if ($request->isMethod("GET")) {
             try {

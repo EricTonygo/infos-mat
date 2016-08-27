@@ -183,7 +183,7 @@ class Disponibilitemateriel
      * Set statut
      *
      * @param integer $statut
-     * @return Actualite
+     * @return Disponibilitemateriel
      */
     public function setStatut($statut)
     {
