@@ -72,4 +72,10 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
         }
     }
 
+    public function filtreMaterielBy($genres, $marques, $types, $proprietaires, $localisations) {
+        $q = $this->createQueryBuilder('m')
+                
+        return;
+    }
+
 }

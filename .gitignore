@@ -3,7 +3,6 @@
 /app/bootstrap.php.cache
 /app/cache/*
 /app/logs/*
-/app/config/parameters.yml
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 /app/phpunit.xml
@@ -13,4 +12,4 @@
 /nbproject/
 /composer.lock
 #configuration files
-#/app/config/parameters.yml
+/app/config/parameters.yml
