@@ -47,7 +47,7 @@ class Disponibilitemateriel
 
     /**
      * @var \Materiel 
-     * @ORM\OneToOne(targetEntity="Materiel",cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Materiel")
      * @ORM\JoinColumn(name="materiel", referencedColumnName="id")
      */
     private $materiel;

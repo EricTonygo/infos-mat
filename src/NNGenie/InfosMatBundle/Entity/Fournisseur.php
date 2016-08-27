@@ -17,7 +17,7 @@ class Fournisseur
      *
      * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -41,6 +41,11 @@ class Fournisseur
      * @ORM\Column(name="statut", type="integer", nullable=true)
      */
     private $statut;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Materiel", mappedBy="fournisseur", cascade={"remove", "persist"})
+    */
+    private $materiels;
     
     /**
      * Constructor
@@ -127,5 +132,52 @@ class Fournisseur
     public function getStatut()
     {
         return $this->statut;
+    }
+    
+    /**
+     * Add materiel
+     *
+     * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel 
+     * @return Fournisseur
+     */
+    public function addMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel)
+    {
+        $this->materiels[] = $materiel;
+        return $this;
+    }
+    
+    /**
+     * Get materiels
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getMateriels()
+    {
+        return $this->materiels;
+    }
+    
+    /**
+     * Set materiels
+     *
+     * @param \Doctrine\Common\Collections\Collection $materiels
+     * @return Fournisseur
+     */
+    public function setMateriels(\Doctrine\Common\Collections\Collection $materiels = null)
+    {
+        $this->materiels = $materiels;
+
+        return $this;
+    }
+    
+    /**
+     * Remove materiel
+     *
+     * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel
+     * @return Fournisseur
+     */
+    public function removeMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel)
+    {
+        $this->materiels->removeElement($materiel);
+		return $this;
     }
 }
