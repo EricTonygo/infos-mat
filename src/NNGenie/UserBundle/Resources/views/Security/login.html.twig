@@ -1,0 +1,92 @@
+{# Page d'authentification  #}
+
+{% extends "::base.html.twig" %}
+
+{% block title %}Authentification{% endblock %}
+
+{% block stylesheets %} 
+    {{parent()}}
+    {# Fichiers css en plus #}
+    <link href="{{asset('css/icheck-blue.css')}}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block content %}
+ <body class="hold-transition login-page">
+    <div class="login-page">
+    <div class="login-box ">
+      <div class="login-box-body">
+        <p class="login-box-msg">Authentifiez-vous pour démarrer</p>
+        {% if error %}
+		{#<div>{{ error|trans({}, 'FOSUserBundle') }}</div>#}
+            <div class='center uppercase text-red'>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        {% block fos_user_content %}
+        
+        <form action="{{ path("fos_user_security_check") }}" method="post">
+           <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+          <div class="form-group has-feedback">
+            <input type="text" class="form-control" placeholder="Nom d'utilisateur" id="username" name="_username" value="{{ last_username }}" required="required"/>
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+          </div>
+          <div class="form-group has-feedback">
+            <input type="password" class="form-control" placeholder="Mot de passe" id="password" name="_password" required="required" />
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          </div>
+          <div class="row">
+            <div class="col-xs-8">    
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" id="remember_me" name="_remember_me" value="on">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                </label>
+              </div>                        
+            </div><!-- /.col -->
+            <div class="col-xs-4">
+              <button type="submit" class="btn btn-primary btn-block btn-flat" id="_submit">Connexion</button>
+            </div><!-- /.col -->
+          </div>
+        </form>
+        {% endblock fos_user_content %}
+        <a href="#">J'ai oublié mon mot de passe.</a><br>
+        <a href="#" class="text-center">Ajouter un utilisateur ?</a>
+
+      </div><!-- /.login-box-body -->
+    </div><!-- /.login-box -->
+
+  </div>
+</body>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/validator/validator.min.js') }}"></script>
+
+    <script>
+        // initialize the validator function
+        validator.message.date = 'not a real date';
+
+        // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+        $('form')
+                .on('blur', 'input[required], input.optional, select.required', validator.checkField)
+                .on('change', 'select.required', validator.checkField)
+                .on('keypress', 'input[required][pattern]', validator.keypress);
+
+        $('.multi.required').on('keyup blur', 'input', function () {
+            validator.checkField.apply($(this).siblings().last()[0]);
+        });
+
+        /*$('form').submit(function (e) {
+            e.preventDefault();
+            var submit = true;
+
+            // evaluate the form using generic validaing
+            if (!validator.checkAll($(this))) {
+                submit = false;
+            }
+
+            if (submit)
+                this.submit();
+
+            return false;
+        });*/
+    </script>
+{% endblock %}

@@ -79,41 +79,48 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
         $q = $this->createQueryBuilder('m');
         $q->where("true = true");
         if ($genres) {
+			$q->join("m.genre", "genre");
             foreach ($genres as $idgenre) {
-                $query = "'m.genre.id = :" . "id" . $idgenre . "'";
+                $query = 'genre.id = :id' . $idgenre;
                 $q->andwhere($query)
-                        ->setParameter("id" . $idgenre, $idgenre);
+					->setParameter("id" . $idgenre, $idgenre);
             }
         }
         if ($marques) {
+			$q->join("m.type", 't');
+			$q->join("t.marque", 'marque');
             foreach ($marques as $idmarque) {
-                $query = "'m.marque.id = :" . "id" . $idmarque . "'";
+                $query = 'marque.id = :id' . $idmarque;
                 $q->andwhere($query)
-                        ->setParameter("id" . $idmarque, $idmarque);
+					->setParameter("id" . $idmarque, $idmarque);
             }
         }
         if ($types) {
             foreach ($types as $idtype) {
-                $query = "'m.type.id = :" . "id" . $idtype . "'";
+				$q->join("m.type", 'type');
+                $query = 'type.id = :id' . $idtype;
                 $q->andwhere($query)
-                        ->setParameter("id" . $idtype, $idtype);
+                    ->setParameter("id" . $idtype, $idtype);
             }
         }
         if ($proprietaires) {
             foreach ($proprietaires as $idproprietaire) {
-                $query = "'m.proprietaire.id = :" . "id" . $idproprietaire . "'";
+				$q->join("m.proprietaire", 'proprietaire');
+                $query = 'proprietaire.id = :id' . $idproprietaire;
                 $q->andwhere($query)
                         ->setParameter("id" . $idproprietaire, $idproprietaire);
             }
         }
         if ($localisations) {
-            foreach ($localisations as $idlocalisation) {
-                $query = "'m.localisation.id = :" . "id" . $idlocalisation . "'";
+            $i = 0;
+            foreach ($localisations as $localisation) {
+				$q->join("m.localisation", 'localisation');
+                $query = 'localisation.ville = :ville' . $i;
                 $q->andwhere($query)
-                        ->setParameter("id" . $idlocalisation, $idlocalisation);
+                        ->setParameter("ville" . $i, $localisation);
+                $i++;
             }
         }
-
         return $q->getQuery()->getResult();
     }
 

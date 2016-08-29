@@ -21,8 +21,14 @@ class GenreRepository extends EntityRepository implements IGenreRepository{
     public function deleteGenre(\NNGenie\InfosMatBundle\Entity\Genre $genre) {
         $em= $this->_em;
         $genre->setStatut(0);
+		$materiel = new \NNGenie\InfosMatBundle\Entity\Materiel();
+        $repositoryMateriel = $em->getRepository("NNGenieInfosMatBundle:Materiel");
         $em->getConnection()->beginTransaction();
         try{
+			$materiels = $genre->getMateriels();
+            foreach ($materiel as $materiels) {
+                $repositoryMateriel->deleteMateriel($materiel);
+            }
             $em->persist($genre);
             $em->flush();
             $em->getConnection()->commit();

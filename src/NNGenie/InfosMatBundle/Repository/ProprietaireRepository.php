@@ -20,8 +20,14 @@ class ProprietaireRepository extends EntityRepository implements IProprietaireRe
     public function deleteProprietaire(\NNGenie\InfosMatBundle\Entity\Proprietaire $proprietaire) {
         $em= $this->_em;
         $proprietaire->setStatut(0);
+		$materiel = new \NNGenie\InfosMatBundle\Entity\Materiel();
+        $repositoryMateriel = $em->getRepository("NNGenieInfosMatBundle:Materiel");
 		$em->getConnection()->beginTransaction();
         try{
+			$materiels = $proprietaire->getMateriels();
+            foreach ($materiel as $materiels) {
+                $repositoryMateriel->deleteMateriel($materiel);
+            }
             $em->persist($proprietaire);
             $em->flush();
             $em->getConnection()->commit();

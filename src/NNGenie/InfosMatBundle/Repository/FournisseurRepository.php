@@ -21,8 +21,14 @@ class FournisseurRepository extends EntityRepository implements IFournisseurRepo
     public function deleteFournisseur(\NNGenie\InfosMatBundle\Entity\Fournisseur $fournisseur) {
         $em= $this->_em;
         $fournisseur->setStatut(0);
+		$materiel = new \NNGenie\InfosMatBundle\Entity\Materiel();
+        $repositoryMateriel = $em->getRepository("NNGenieInfosMatBundle:Materiel");
         $em->getConnection()->beginTransaction();
         try{
+			$materiels = $fournisseur->getMateriels();
+            foreach ($materiel as $materiels) {
+                $repositoryMateriel->deleteMateriel($materiel);
+            }
             $em->persist($fournisseur);
             $em->flush();
             $em->getConnection()->commit();

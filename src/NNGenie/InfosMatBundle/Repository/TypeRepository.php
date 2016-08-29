@@ -19,8 +19,14 @@ class TypeRepository extends EntityRepository implements ITypeRepository{
     public function deleteType(\NNGenie\InfosMatBundle\Entity\Type $type) {
         $em= $this->_em;
         $type->setStatut(0);
+		$materiel = new \NNGenie\InfosMatBundle\Entity\Materiel();
+        $repositoryMateriel = $em->getRepository("NNGenieInfosMatBundle:Materiel");
 		$em->getConnection()->beginTransaction();
         try{
+			$materiels = $type->getMateriels();
+            foreach ($materiel as $materiels) {
+                $repositoryMateriel->deleteMateriel($materiel);
+            }
             $em->persist($type);
             $em->flush();
             $em->getConnection()->commit();

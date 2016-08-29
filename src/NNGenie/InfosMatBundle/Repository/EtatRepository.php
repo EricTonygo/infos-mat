@@ -20,8 +20,14 @@ class EtatRepository extends EntityRepository implements IEtatRepository{
     public function deleteEtat(\NNGenie\InfosMatBundle\Entity\Etat $etat) {
         $em= $this->_em;
         $etat->setStatut(0);
+		$materiel = new \NNGenie\InfosMatBundle\Entity\Materiel();
+        $repositoryMateriel = $em->getRepository("NNGenieInfosMatBundle:Materiel");
         $em->getConnection()->beginTransaction();
         try{
+			$materiels = $etat->getMateriels();
+            foreach ($materiel as $materiels) {
+                $repositoryMateriel->deleteMateriel($materiel);
+            }
             $em->persist($etat);
             $em->flush();
             $em->getConnection()->commit();

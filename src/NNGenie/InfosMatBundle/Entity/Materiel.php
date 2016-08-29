@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * @ORM\Table(name="materiel")
  * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\MaterielRepository")
  * @ORM\HasLifecycleCallbacks
->>>>>>> refs/remotes/origin/develop
  */
 class Materiel
 {
@@ -104,11 +103,7 @@ class Materiel
     /**
      * @var \Genre
      *
-<<<<<<< HEAD
-     * @ORM\ManyToOne(targetEntity="Genre")
-=======
      * @ORM\ManyToOne(targetEntity="Genre", inversedBy="materiels")
->>>>>>> refs/remotes/origin/develop
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="genre", referencedColumnName="id")
      * })
