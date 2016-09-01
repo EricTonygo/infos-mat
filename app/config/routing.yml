@@ -9,8 +9,8 @@ nn_genie_user:
 nn_genie_infos_mat:
     resource: "@NNGenieInfosMatBundle/Resources/config/routing.yml"
 
-app:
-    resource: "@AppBundle/Controller/"
+nn_genie_infos_mat_user:
+    resource: "@NNGenieUserBundle/Controller/UserController.php"
     type:     annotation
 
 fos_user:

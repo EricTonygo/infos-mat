@@ -1,6 +1,6 @@
 <?php
 
-namespace UserBundle\Form;
+namespace NNGenie\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -40,7 +40,7 @@ class RegistrationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'UserBundle\Entity\Utilisateur'
+            'data_class' => 'NNGenie\UserBundle\Entity\User'
         ));
     }
     

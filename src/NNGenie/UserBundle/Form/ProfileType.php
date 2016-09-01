@@ -1,5 +1,5 @@
 <?php
-namespace UserBundle\Form;
+namespace NNGenie\UserBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,11 +26,6 @@ class ProfileType extends AbstractType{
     {
         $builder
             ->add('nom')
-            ->add('prenom')
-            ->add('fonction')
-            ->add('titre')
-            ->add('telephone')
-            ->add('personnelcle')
             ->add('roles', 'choice', array(
                        'label' => 'Privileges',
                        'multiple' => true,
@@ -54,7 +49,7 @@ class ProfileType extends AbstractType{
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'UserBundle\Entity\Utilisateur'
+            'data_class' => 'NNGenie\UserBundle\Entity\User'
         ));
     }
     
