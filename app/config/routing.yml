@@ -1,0 +1,17 @@
+nn_genie_infos_mat_materiel:
+    resource: "@NNGenieInfosMatBundle/Controller/MaterielController.php"
+    type:     annotation
+
+nn_genie_user:
+    resource: "@NNGenieUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+nn_genie_infos_mat:
+    resource: "@NNGenieInfosMatBundle/Resources/config/routing.yml"
+
+nn_genie_infos_mat_user:
+    resource: "@NNGenieUserBundle/Controller/UserController.php"
+    type:     annotation
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

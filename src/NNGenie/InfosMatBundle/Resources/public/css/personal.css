@@ -1,0 +1,99 @@
+#fos_user_registration_form_roles label{
+	margin-right: 35px;
+}
+.marron{
+    color: rgb(255, 189, 43);
+}
+.gri-clair{
+    color: #73879C;
+}
+.bakmarron:hover,a.btn:hover, .bckmarron{
+	color: white;
+	border-color:white;
+	background: rgb(255, 189, 43);
+}
+.logoindice {
+    display: block;
+    font-size: .2em;
+    line-height: 0;
+    text-transform: uppercase;
+    letter-spacing: 11px;
+    padding-left: .3em;
+}
+.logo-nav-left h2 {
+	font-size: 4em;
+	color:#222;
+	text-decoration:none;
+}
+div.nav_title center h2{
+    color: #EDEDED;
+}
+.nav li.current-page a{
+    background: #EDEDED;
+    color: #2A3F54 !important;
+}
+#sidebar-menu ul li a:hover{
+    /*color: rgb(255, 189, 43);*/
+    color: #2A3F54 !important;
+    background: rgb(255, 189, 43);
+}
+.logo-nav-left {
+	float: left;
+	text-align: left;
+}
+.action li a:hover{
+    background: #EDEDED
+}
+.action{
+    margin-left: -18px;
+    min-width: unset;
+    border-color: #2A3F54;
+    
+}
+#divide{
+    padding: 0% 22%;
+}
+#divgenre{
+    padding: 0% 15%;
+}
+.filtre {
+    font-size: 14px;
+    color: rgb(255, 189, 43);
+    margin: 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: .5em 1em;
+    border: 1px solid;
+    background: white;
+}
+.pding-bot{
+    padding-bottom: 20px;
+}
+.fright{
+    float: right !important;
+}
+span.fright span{
+    font-size: 20px;
+    font-weight: 400;
+}
+div.textsingle ul li{
+    display: inline-block;
+}
+.bootstrap-tab-text h5{
+    text-transform: uppercase;
+    font-size: 1.2em;
+    color: #212121;
+    margin: 2em 0;
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus{
+    color: rgb(255, 189, 43);
+    font-size: 1.2em;
+}
+.x_title a.btn-info{
+    margin-left: 10%;
+}
+.ariane h2{
+	text-transform: uppercase;
+	margin-top: 20px;
+	color: black;
+}

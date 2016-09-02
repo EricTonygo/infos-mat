@@ -1,0 +1,4 @@
+services:
+#    nn_genie_user.example:
+#        class: NNGenie\UserBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

@@ -1,0 +1,42 @@
+<?php
+
+namespace NNGenie\InfosMatBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Type
+ *
+ * @ORM\Table(name="type", indexes={@ORM\Index(name="fk_type_marque1_idx", columns={"marque"})})
+ * @ORM\Entity
+ */
+class Type
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     */
+    private $nom;
+
+    /**
+     * @var \Marque
+     *
+     * @ORM\ManyToOne(targetEntity="Marque")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="marque", referencedColumnName="id")
+     * })
+     */
+    private $marque;
+
+
+}

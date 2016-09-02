@@ -1,0 +1,15 @@
+{% extends "NNGenieInfosMatBundle::layout.html.twig" %}
+{% block title %}GMTRAV - Utilisateurs{% endblock %}
+{% block stylesheets %}
+    {{parent()}}
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/iCheck/icheck.min.js') }}"></script>
+{% endblock %}
+

@@ -1,0 +1,54 @@
+{# Page d'authentification  #}
+
+{% extends "NNGenieUserBundle::layout.html.twig" %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% block title %}Authentification{% endblock %}
+
+{% block stylesheets %} 
+    {{parent()}}
+{% endblock %}
+{% block content_body %}
+<body style="background:#F7F7F7;">
+    <div class="">
+        <div id="wrapper">
+            <div id="login" class="form">
+                <section class="login_content">
+				{% if error %}
+					<div class='center uppercase text-red'>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+				{% endif %}
+                    <form action="{{ path("fos_user_security_check") }}" method="post">
+                        <h1 class="marron">Authentification</h1>
+						<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                        <div>
+                            <input type="text" class="form-control" placeholder="Nom d'utilisateur"  id="username" name="_username" value="{{ last_username }}" required="required" />
+                        </div>
+                        <div>
+                            <input type="password" class="form-control" placeholder="Mot de passe" id="password" name="_password" required="required" />
+                        </div>
+						<div>
+							<input type="checkbox"  id="remember_me" name="_remember_me" value="on">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+						</div>
+                        <div>
+							<button type="submit" class="bakmarron btn btn-default submit" id="_submit">Connexion</button>
+                            <a class="reset_pass" href="#">Mot de passe oublié?</a>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="separator">
+                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-md-12 logo-nav-left">
+                                    <center><h2><span class="marron">N</span>N <span class="marron">G</span>enie <span class="logoindice">easy material</span></h2></center>
+                                </div>
+                                <div class="col-md-12">                    
+                                    {#<p>&copy 2016 NN Genie. All rights reserved Privacy and Terms | Design by MBAF-Don Franko</p>#}
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock %}

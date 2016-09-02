@@ -1,0 +1,59 @@
+<?php
+
+namespace NNGenie\InfosMatBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Disponibilitemateriel
+ *
+ * @ORM\Table(name="disponibilitemateriel", indexes={@ORM\Index(name="fk_disponibiliteMateriel_materiel1_idx", columns={"materiel"}), @ORM\Index(name="fk_disponibiliteMateriel_disponibilite1_idx", columns={"disponibilite"})})
+ * @ORM\Entity
+ */
+class Disponibilitemateriel
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateDebut", type="datetime", nullable=true)
+     */
+    private $datedebut;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateFin", type="datetime", nullable=true)
+     */
+    private $datefin;
+
+    /**
+     * @var \Disponibilite
+     *
+     * @ORM\ManyToOne(targetEntity="Disponibilite")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="disponibilite", referencedColumnName="id")
+     * })
+     */
+    private $disponibilite;
+
+    /**
+     * @var \Materiel
+     *
+     * @ORM\ManyToOne(targetEntity="Materiel")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="materiel", referencedColumnName="id")
+     * })
+     */
+    private $materiel;
+
+
+}
