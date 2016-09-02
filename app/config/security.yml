@@ -19,7 +19,7 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        
+
         login:
             pattern: ^/(login$|register|resetting)
             anonymous: true
