@@ -7,7 +7,6 @@
     <link href="{{ asset('bundles/nngenieinfosmat/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/nngenieinfosmat/css/form.css')}}" rel="stylesheet">
     <script type="text/javascript" src="{{ asset('bundles/nngenieinfosmat/js/jquery.jscrollpane.min.js') }}"></script>
     <script type="text/javascript" id="sourcecode">
@@ -37,8 +36,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Informations sur les matériels <small>Gérer</small></h2>
-
+                            <h2>Informations sur les matériels </h2>
                             <a href="{{ path('nn_genie_infos_mat_materiel_new') }}" class="btn btn-info fright">Ajouter</a>
 
                             <div role="presentation" class="dropdown" class="row">
@@ -49,7 +47,7 @@
                                     <div class="row">
                                         <form class="row" method="POST" action="{{ path('nn_genie_infos_mat_materiel_filtre') }}">
                                             <div class="rsidebar col-md-12">
-                                                <section  class="sky-form col-md-3">
+                                                <section  class="sky-form col-md-4">
                                                     <h4>Genre</h4>
                                                     <div class="row1 scroll-pane">
                                                         {%if genres%}
@@ -59,7 +57,7 @@
                                                         {%endif%}
                                                     </div>
                                                 </section>
-                                                <section  class="sky-form col-md-3">
+                                                <section  class="sky-form col-md-4">
                                                     <h4>Marque</h4>
                                                     <div class="row1 scroll-pane">
                                                         {%if marques%}
@@ -69,7 +67,7 @@
                                                         {%endif%}
                                                     </div>
                                                 </section>
-                                                <section  class="sky-form col-md-3">
+                                                <section  class="sky-form col-md-4">
                                                     <h4>Type</h4>
                                                     <div class="row1 scroll-pane">
                                                         {%if types %}
@@ -79,7 +77,7 @@
                                                         {%endif%}
                                                     </div>
                                                 </section>
-                                                <section  class="sky-form col-md-3">
+                                                <section  class="sky-form col-md-4">
                                                     <h4>Propriétaire</h4>
                                                     <div class="row1 scroll-pane">
                                                         {%if proprietaires%}
@@ -88,7 +86,7 @@
                                                             {%endfor%}
                                                         {%endif%}
                                                 </section>
-                                                <section  class="sky-form col-md-3">
+                                                <section  class="sky-form col-md-4">
                                                     <h4>Localisation</h4>
                                                     <div class="row1 scroll-pane">
                                                         {%if localisations%}
@@ -179,15 +177,13 @@
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/jszip/dist/jszip.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/nngenieinfosmat/js/jquery.jscrollpane.min.js') }}"></script>
     <script>
         $(document).ready(function () {
             var handleDataTableButtons = function () {

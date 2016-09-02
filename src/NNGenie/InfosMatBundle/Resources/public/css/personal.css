@@ -1,10 +1,14 @@
+#fos_user_registration_form_roles label{
+	margin-right: 35px;
+}
 .marron{
     color: rgb(255, 189, 43);
 }
 .gri-clair{
-    color: #BAB8B8;
+
+    color: #73879C;
 }
-.bakmarron:hover,a.btn:hover{
+.bakmarron:hover,a.btn:hover, .bckmarron{
 	color: white;
 	border-color:white;
 	background: rgb(255, 189, 43);
@@ -67,7 +71,7 @@ div.nav_title center h2{
     padding-bottom: 20px;
 }
 .fright{
-    float: right;
+    float: right !important;
 }
 span.fright span{
     font-size: 20px;
@@ -88,4 +92,9 @@ div.textsingle ul li{
 }
 .x_title a.btn-info{
     margin-left: 10%;
+}
+.ariane h2{
+	text-transform: uppercase;
+	margin-top: 20px;
+	color: black;
 }

@@ -4,29 +4,30 @@
             <center class="logo-nav-left"><h2><span class="marron">N</span>N <span class="marron">G</span>enie <span class="logoindice gri-clair">easy material</span></h2></center>
         </div>
 
-        <div class="clearfix"></div>
-
+        <div class="clearfix"></div>		
         <!-- menu profile quick info -->
         <div class="profile">
             <div class="profile_pic">
-                <img src="{{asset('uploads/profils/'~app.user.path)}}" alt="..." class="img-circle profile_img">
-            </div>
+                {%if app.user %}<img src="{{asset('uploads/profils/'~app.user.path)}}" alt="..." class="img-circle profile_img">{%endif %}
+            </div>		
             <div class="profile_info">
+				{%if app.user %}
                 <span>Bienvenu,</span>
                 <h2>{{app.user.username}}</h2>
+				{%endif %}
             </div>
+			
         </div>
         <!-- /menu profile quick info -->
-
         <br />
 
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-                <h3>General</h3>
+                {%if app.user %}<h3>ADMIN</h3>{%endif %}
                 <ul class="nav side-menu">
                     <li>
-                        <a href="{{ path('nn_genie_infos_mat_accueil') }}"><i class="fa fa-home"></i> Acceuil </a>
+                        <a href="{{ path('nn_genie_infos_mat_accueil') }}"><i class="fa fa-home"></i> Accueil </a>
                     </li>
                     <li><a><i class="fa fa-users"></i> Utilisateurs <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
@@ -61,7 +62,7 @@
                     <li><a><i class="fa fa-child"></i> Familles <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li>
-                                <a href="{{ path('nn_genie_infos_mat_famille_new') }}"></i> Ajouter </a>
+                                <a href="{{ path('nn_genie_infos_mat_famille_new') }}"><i class="fa fa-plus-square"></i> Ajouter </a>
                             </li>
                             <li>
                                 <a href="{{ path('nn_genie_infos_mat_famille_index') }}"><i class="fa fa-tasks"></i> Gérer </a>
@@ -118,7 +119,7 @@
                             </li>
                         </ul>
                     </li>
-                    <li><a><i class="fa fa-building"></i> Etats <span class="fa fa-chevron-down"></span></a>
+                    <li><a><i class="fa fa-adjust"></i> Etats <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li>
                                 <a href="{{ path('nn_genie_infos_mat_etat_new') }}"><i class="fa fa-plus-square"></i> Ajouter </a>
@@ -142,10 +143,10 @@
         <nav class="" role="navigation">
             <div class="nav toggle">
                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-            </div>
-
+            </div>	
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
+		{%if app.user %}
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                         <img src="{{asset('uploads/profils/'~app.user.path)}}" alt="">{{app.user.username}}
                         <span class=" fa fa-angle-down"></span>
@@ -159,8 +160,8 @@
                         <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out pull-right"></i> Se deconnecter</a>
                         </li>
                     </ul>
+		{% endif %}
                 </li>
-
                 {#<li role="presentation" class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-envelope-o"></i>

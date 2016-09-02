@@ -1,5 +1,5 @@
 .sky-form .checkbox input + i{
-	padding: 6px;
+	padding: 6.5px;
 }
 .row1{
 	outline:none;
@@ -50,7 +50,9 @@
 .sky-form .radio input,
 .sky-form .checkbox input {
 	position: absolute;
-	left: -9999px;
+	z-index: 99 !important;
+	margin-top: 7px !important;
+	margin-left: -25px !important;
 }
 .sky-form .radio i,
 .sky-form .checkbox i {

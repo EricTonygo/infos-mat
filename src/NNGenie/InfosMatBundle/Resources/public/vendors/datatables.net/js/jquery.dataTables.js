@@ -424,7 +424,7 @@
 		 * sZeroRecords - assuming that is given.
 		 */
 		if ( ! lang.sEmptyTable && zeroRecords &&
-			defaults.sEmptyTable === "No data available in table" )
+			defaults.sEmptyTable === "Aucun élément dans la base de données" )
 		{
 			_fnMap( lang, lang, 'sZeroRecords', 'sEmptyTable' );
 		}
@@ -11339,7 +11339,11 @@
 			 * parameter - if it is not given, the value of `zeroRecords` will be used
 			 * instead (either the default or given value).
 			 *  @type string
+<<<<<<< HEAD
 			 *  @default No data available in table
+=======
+			 *  @default Aucun élément dans la base de données
+>>>>>>> master
 			 *
 			 *  @dtopt Language
 			 *  @name DataTable.defaults.language.emptyTable
@@ -11353,9 +11357,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sEmptyTable": "No data available in table",
-	
-	
+			"sEmptyTable": "Aucun élément dans la base de données",
 			/**
 			 * This string gives information to the end user about the information
 			 * that is current on display on the page. The following tokens can be

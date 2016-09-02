@@ -8,7 +8,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
+<<<<<<< HEAD
     
+=======
+>>>>>>> master
     public function indexBadAction(Request $request)
     {
         // replace this example code with whatever you need
