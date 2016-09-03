@@ -54,7 +54,7 @@ class ImageController extends Controller{
                         $repositoryImage->saveImage($image);
                         $message = $this->get('translator')->trans('Image.created_success', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_success', $message);
-                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_detail', array("id"=>$materiel->getId())));
+                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array("id"=>$materiel->getId())));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Image.created_failure', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_faillure', $message);
@@ -63,7 +63,7 @@ class ImageController extends Controller{
             }
             return $this->render('NNGenieInfosMatBundle:Images:form-add-image.html.twig', array('form' => $form->createView(), 'materiel' => $materiel));
         } else {
-            return $this->redirect($this->generateUrl('nn_genie_infos_mat_detail', array("id"=>$materiel->getId())));
+            return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array("id"=>$materiel->getId())));
         }
     }
 

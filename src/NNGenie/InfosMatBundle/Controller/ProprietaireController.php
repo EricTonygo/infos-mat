@@ -58,13 +58,15 @@ class ProprietaireController extends Controller{
 
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $proprietaireUnique = $repositoryProprietaire->findBy(array("nom" => $proprietaire->getNom()));
+                $proprietaireUnique = $repositoryProprietaire->findBy(array("nom" => $proprietaire->getNom(),"statut" => 1));
                 if ($proprietaireUnique == null) {
                     try {
                         $repositoryProprietaire->saveProprietaire($proprietaire);
                         $message = $this->get('translator')->trans('Proprietaire.created_success', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_success', $message);
-                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_proprietaires'));
+                        $proprietaire = new Proprietaire();
+						$form = $this->createForm(new ProprietaireType(), $proprietaire);
+						return $this->render('NNGenieInfosMatBundle:Proprietaires:form-add-proprietaire.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Proprietaire.created_failure', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_faillure', $message);

@@ -25,17 +25,29 @@ class FamilleController extends Controller
 
     public function newAction(Request $request)
     {
-       $famille = new \NNGenie\InfosMatBundle\Entity\Famille();
+		$famille = new \NNGenie\InfosMatBundle\Entity\Famille();
+		$familleUnique = new \NNGenie\InfosMatBundle\Entity\Etat();
         $form = $this->createForm('NNGenie\InfosMatBundle\Form\FamilleType', $famille);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->getRepository('NNGenieInfosMatBundle:Famille')->saveFamille($famille);
-            return $this->redirectToRoute('nn_genie_infos_mat_famille_index');
+			$familleUnique = $em->getRepository('NNGenieInfosMatBundle:Famille')->findBy(array("nom" => $famille->getNom(), "statut" => 1));
+			if($familleUnique == null){
+				$em->getRepository('NNGenieInfosMatBundle:Famille')->saveFamille($famille);
+				$famille = new \NNGenie\InfosMatBundle\Entity\Etat();
+				$form = $this->createForm('NNGenie\InfosMatBundle\Form\FamilleType', $famille);
+				return $this->render('NNGenieInfosMatBundle:famille:new.html.twig', array(
+					'form' => $form->createView()
+				));
+			}else{
+				return $this->render('NNGenieInfosMatBundle:famille:new.html.twig', array(
+					'form' => $form->createView()
+				));
+			}
         }
-        return $this->render('NNGenieInfosMatBundle:famille:new.html.twig', array(
-            'form' => $form->createView()
-        ));
+		return $this->render('NNGenieInfosMatBundle:famille:new.html.twig', array(
+			'form' => $form->createView()
+		));
     }
 
     public function editAction(Request $request, \NNGenie\InfosMatBundle\Entity\Famille $famille)

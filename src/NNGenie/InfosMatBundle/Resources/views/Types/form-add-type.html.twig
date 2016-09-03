@@ -4,11 +4,6 @@
 
 {% block stylesheets %}
     {{parent()}}
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">		
-
 {% endblock %}
 
 {% block content %}
@@ -33,7 +28,18 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-
+							{% if app.session.flashbag.get('message_add_type_success') %}										
+                                    <div id="message_type">
+                                        <div id="myAlert" class="alert alert-success">
+                                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                            {% for flash_message in app.session.flashbag.get('message_add_type_success') %}
+												{%if loop.last%}
+                                                {{ flash_message }}
+												{%endif%}
+                                            {% endfor %}
+                                        </div>
+                                    </div> 
+                            {% endif %}
                             <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_infos_mat_type_new') }}">
 
                                 <div class="item form-group">
@@ -55,12 +61,14 @@
                                  <div class="form-group">
                                     {{ form_rest(form)}}
                                 </div>
-                                {% if app.session.flashbag.get('message_failure') %}										
-                                    <div id="message_projet">
+                                {% if app.session.flashbag.get('message_add_type_faillure') %}										
+                                    <div id="message_type_faillure">
                                         <div id="myAlert" class="alert alert-danger">
                                             <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                            {% for flash_message in app.session.flashbag.get('message_failure') %}
+                                            {% for flash_message in app.session.flashbag.get('message_add_type_faillure') %}
+												{% if loop.last %}
                                                 {{ flash_message }}
+												{%endif%}
                                             {% endfor %}
                                         </div>
                                     </div> 

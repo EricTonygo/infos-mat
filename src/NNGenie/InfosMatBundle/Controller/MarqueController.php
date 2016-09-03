@@ -58,13 +58,15 @@ class MarqueController extends Controller{
 
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $marqueUnique = $repositoryMarque->findBy(array("nom" => $marque->getNom()));
+                $marqueUnique = $repositoryMarque->findBy(array("nom" => $marque->getNom(),"statut" => 1));
                 if ($marqueUnique == null) {
                     try {
                         $repositoryMarque->saveMarque($marque);
                         $message = $this->get('translator')->trans('Marque.created_success', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_success', $message);
-                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_marques'));
+						$marque = new Marque();
+						$form = $this->createForm(new MarqueType(), $marque);
+                        return $this->render('NNGenieInfosMatBundle:Marques:form-add-marque.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Marque.created_failure', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_faillure', $message);

@@ -64,6 +64,18 @@
                                         </div>
                                         <div class="col-md-7 single-right-left simpleCart_shelfItem">
                                             {#<h3 class="col-lg-12">NOM DU MATERIEL</h3>#}
+											<div class="col-lg-12 textsingle">
+                                                <h5>
+                                                    <span class="titresingle">Classe : </span>
+                                                    <span class="m-size">{{materiel.genre.famille.classemateriel.nom}}</span>
+                                                </h5>
+                                            </div>
+                                            <div class="col-lg-12 textsingle">
+                                                <h5>
+                                                    <span class="titresingle">Marque : </span>
+                                                    <span class="m-size">{{materiel.genre.famille.nom}}</span>
+                                                </h5>
+                                            </div>
                                             <div class="col-lg-12 textsingle">
                                                 <h5>
                                                     <span class="titresingle">Genre : </span>
@@ -100,16 +112,10 @@
                                                     <span class="m-size">{{materiel.localisation.ville}}</span>
                                                 </h5>
                                             </div>
-                                            <div class="col-lg-12 textsingle">
-                                                <h5>
-                                                    <span class="titresingle">Fournisseur : </span>
-                                                    <span class="m-size">{{materiel.fournisseur.nom}}</span>
-                                                </h5>
-                                            </div>
 
                                             <div class="col-lg-12 textsingle">
                                                 <ul>
-													{%  set itrbad = 5 - materiel.etat.nbreetoile %}
+													{% set itrbad = 5 - materiel.etat.nbreetoile %}
 													{% for i in 1..materiel.etat.nbreetoile %}
 														<li class="marron"><i class="fa fa-star fa-2x"></i></li>
 													{%endfor%}

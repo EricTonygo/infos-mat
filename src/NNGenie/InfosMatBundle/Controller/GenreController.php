@@ -52,13 +52,15 @@ class GenreController extends Controller{
 
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $genreUnique = $repositoryGenre->findBy(array("nom" => $genre->getNom()));
+                $genreUnique = $repositoryGenre->findBy(array("nom" => $genre->getNom(),"statut" => 1));
                 if ($genreUnique == null) {
                     try {
                         $repositoryGenre->saveGenre($genre);
                         $message = $this->get('translator')->trans('Genre.created_success', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_success', $message);
-                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_genres'));
+                        $genre = new Genre();
+						$form = $this->createForm(new GenreType(), $genre);
+						return $this->render('NNGenieInfosMatBundle:Genres:form-add-genre.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Genre.created_failure', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_faillure', $message);

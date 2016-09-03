@@ -54,25 +54,27 @@ class TypeController extends Controller{
         $form = $this->createForm(new TypeType(), $type);
         $form->handleRequest($request);
         $repositoryType = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Type");
-
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $typeUnique = $repositoryType->findBy(array("nom" => $type->getNom()));
+                $typeUnique = $repositoryType->findBy(array("nom" => $type->getNom(), "statut" => 1));
                 if ($typeUnique == null) {
                     try {
                         $repositoryType->saveType($type);
                         $message = $this->get('translator')->trans('Type.created_success', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message_success', $message);
-                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
+                        $request->getSession()->getFlashBag()->add('message_add_type_success', $message);
+						$type = new Type();
+						$form = $this->createForm(new TypeType(), $type);
+                        return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Type.created_failure', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                        $request->getSession()->getFlashBag()->add('message_add_type_faillure', $message);
                         return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
                     }
                 } else {
-                    $message = $this->get('translator')->trans('Type.exist_already', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                    return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
+					
+						$message = $this->get('translator')->trans('Type.exist_already', array(), "NNGenieInfosMatBundle");
+						$request->getSession()->getFlashBag()->add('message_faillure', $message);
+						return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
                 }
             }
            return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
@@ -115,11 +117,11 @@ class TypeController extends Controller{
                 try {
                     $repositoryType->updateType($type);
                     $message = $this->get('translator')->trans('Type.updated_success', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_success', $message);
+                    $request->getSession()->getFlashBag()->add('message_edit_type_success', $message);
                     return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Type.updated_failure', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    $request->getSession()->getFlashBag()->add('message_edit_type_faillure', $message);
                     return $this->render('NNGenieInfosMatBundle:Types:form-update-type.html.twig', array('form' => $editForm->createView(), 'idtype' => $type->getId()));
                 }
             }
@@ -143,11 +145,11 @@ class TypeController extends Controller{
             try {
                 $repositoryType->deleteType($type);
                 $message = $message = $this->get('translator')->trans('Type.deleted_success', array(), "NNGenieInfosMatBundle");
-                $request->getSession()->getFlashBag()->add('message_success', $message);
+                $request->getSession()->getFlashBag()->add('message_delete_type_success', $message);
                 return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
             } catch (Exception $ex) {
                 $message = $message = $this->get('translator')->trans('Type.deleted_failure', array(), "NNGenieInfosMatBundle");
-                $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                $request->getSession()->getFlashBag()->add('message_delete_type_faillure', $message);
                 return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
             }
         } else {

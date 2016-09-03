@@ -56,13 +56,15 @@ class ClassematerielController extends Controller {
 
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $classematerielUnique = $repositoryClassemateriel->findBy(array("nom" => $classemateriel->getNom()));
+                $classematerielUnique = $repositoryClassemateriel->findBy(array("nom" => $classemateriel->getNom(), "statut" => 1));
                 if ($classematerielUnique == null) {
                     try {
                         $repositoryClassemateriel->saveClassemateriel($classemateriel);
                         $message = $this->get('translator')->trans('Classemateriel.created_success', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_success', $message);
-                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
+                        $classemateriel = new Classemateriel();
+						$form = $this->createForm(new ClassematerielType(), $classemateriel);
+						return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-add-classemateriel.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Classemateriel.created_failure', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_faillure', $message);

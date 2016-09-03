@@ -1,0 +1,21 @@
+Materiel:
+    access_denied: Vous n'avez des droits requis pour effectuer cette action.
+    exist_already: Un materiel avec ce numero de chassis existe déjà.
+    created_success: Materiel créé avec success.
+    created_failure: Echec de la création du materiel.
+    updated_success: Materiel mis à jour avec success.
+    updated_failure: Echec de la mise à jour du materiel.
+    updated_id_incorrect: Identifiant incorrect.
+    deleted_success: Materiel supprimé avec succès.
+    deleted_failure: Echec de la suppression du materiel.
+
+Type:
+    access_denied: Vous n'avez des droits requis pour effectuer cette action.
+    exist_already: Un type avec ce nom existe déjà.
+    created_success: Type créé avec success.
+    created_failure: Echec de la création du type.
+    updated_success: Type mis à jour avec success.
+    updated_failure: Echec de la mise à jour du type.
+    updated_id_incorrect: Identifiant incorrect.
+    deleted_success: Type supprimé avec succès.
+    deleted_failure: Echec de la suppression du type.

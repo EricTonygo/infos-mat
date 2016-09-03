@@ -26,12 +26,24 @@ class EtatController extends Controller
     public function newAction(Request $request)
     {
         $etat = new \NNGenie\InfosMatBundle\Entity\Etat();
+		$etatUnique = new \NNGenie\InfosMatBundle\Entity\Etat();
         $form = $this->createForm('NNGenie\InfosMatBundle\Form\EtatType', $etat);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->getRepository('NNGenieInfosMatBundle:Etat')->saveEtat($etat);
-            return $this->redirectToRoute('nn_genie_infos_mat_etat_index');
+			$etatUnique = $em->getRepository('NNGenieInfosMatBundle:Etat')->findBy(array("nom" => $etat->getNom(), "statut" => 1));
+			if($etatUnique == null){
+				$em->getRepository('NNGenieInfosMatBundle:Etat')->saveEtat($etat);
+				$etat = new \NNGenie\InfosMatBundle\Entity\Etat();
+				$form = $this->createForm('NNGenie\InfosMatBundle\Form\EtatType', $etat);
+				return $this->render('NNGenieInfosMatBundle:etat:new.html.twig', array(
+					'form' => $form->createView()
+				));
+			}else{
+				return $this->render('NNGenieInfosMatBundle:etat:new.html.twig', array(
+					'form' => $form->createView()
+				));
+			}
         }
         return $this->render('NNGenieInfosMatBundle:etat:new.html.twig', array(
             'form' => $form->createView()

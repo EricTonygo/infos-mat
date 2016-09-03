@@ -53,13 +53,15 @@ class FournisseurController extends Controller{
 
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $fournisseurUnique = $repositoryFournisseur->findBy(array("nom" => $fournisseur->getNom()));
+                $fournisseurUnique = $repositoryFournisseur->findBy(array("nom" => $fournisseur->getNom(), "statut" => 1));
                 if ($fournisseurUnique == null) {
                     try {
                         $repositoryFournisseur->saveFournisseur($fournisseur);
                         $message = $this->get('translator')->trans('Fournisseur.created_success', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_success', $message);
-                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_fournisseurs'));
+                        $fournisseur = new Fournisseur();
+						$form = $this->createForm(new FournisseurType(), $fournisseur);
+						return $this->render('NNGenieInfosMatBundle:Fournisseurs:form-add-fournisseur.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Fournisseur.created_failure', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_faillure', $message);

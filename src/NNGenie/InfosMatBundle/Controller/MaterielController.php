@@ -146,13 +146,15 @@ class MaterielController extends Controller {
 
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $materielUnique = $repositoryMateriel->findBy(array("chassis" => $materiel->getChassis()));
+                $materielUnique = $repositoryMateriel->findBy(array("chassis" => $materiel->getChassis(),"statut" => 1));
                 if ($materielUnique == null) {
                     try {
                         $repositoryMateriel->saveMateriel($materiel);
                         $message = $this->get('translator')->trans('Materiel.created_success', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message', $message);
-                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
+                        $materiel = new Materiel();
+						$form = $this->createForm(new MaterielType(), $materiel);
+						return $this->render('NNGenieInfosMatBundle:Materiels:form-add-materiel.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Materiel.created_failure', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_faillure', $message);
