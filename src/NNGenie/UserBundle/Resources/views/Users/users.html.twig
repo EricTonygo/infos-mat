@@ -58,21 +58,21 @@
                                     {%if users%}
                                         {%for user in users%}
                                             <tr>
-                                                <td><img width="25px" height="25px" src="{{asset('uploads/profils/'~user.path)}}" alt="{{user.username}}" /></td>
+                                                <td>{%if user.path %}<img width="25px" height="25px" src="{{asset('uploads/profils/'~user.path)}}" alt="{{user.username}}" /> {%else%}<img src="{{asset('uploads/profils/'~app.user.path)}}" alt="..." class="img-circle profile_img">{%endif%}</td>
                                                 <td>{{user.nom}}</td>
                                                 <td>{{user.email}}</td>
                                                 <td>{{user.username}}</td>
-												<td>{% for r in user.roles %}
-													{{r ~' '}}
-													{%else%}
-													 -
-													 {%endfor%}
-												</td>
-												<td>
-												{%if user.enabled%}Activé{%else%}Desactivé{%endif%}
-												</td>
-												{% if is_granted('ROLE_ADMIN') %}
-												<td>
+                                                <td>{% for r in user.roles %}
+                                                        {{r ~' '}}
+                                                        {%else%}
+                                                         -
+                                                         {%endfor%}
+                                                </td>
+                                                <td>
+                                                {%if user.enabled%}Activé{%else%}Desactivé{%endif%}
+                                                </td>
+                                                {% if is_granted('ROLE_ADMIN') %}
+						<td>
                                                     <div role="presentation" class="dropdown">
                                                         <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                                             <center><span class="caret"></span></center>
@@ -85,7 +85,7 @@
                                                         </ul>
                                                     </div>
                                                 </td>
-												{% endif %}
+						{% endif %}
                                             </tr>
                                         {%endfor%} 
                                     {%endif%} 
