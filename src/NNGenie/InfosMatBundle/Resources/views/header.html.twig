@@ -8,15 +8,21 @@
         <!-- menu profile quick info -->
         <div class="profile">
             <div class="profile_pic">
-                {%if app.user %} {%if app.user.path %}<img src="{{asset('uploads/profils/'~app.user.path)}}" alt="..." class="img-circle profile_img">{%endif %}{%endif %}
+                {%if app.user %} 
+                    {%if app.user.path %}
+                        <img src="{{asset('uploads/profils/'~app.user.path)}}" alt="..." class="img-circle profile_img">
+                    {%else %}
+                        <img src="{{asset('bundles/nngenieinfosmat/images/user.png')}}" alt="..." class="img-circle profile_img">
+                    {%endif %}
+                {%endif %}
             </div>		
             <div class="profile_info">
-				{%if app.user %}
-                <span>Bienvenu,</span>
-                <h2>{{app.user.username}}</h2>
-				{%endif %}
+                {%if app.user %}
+                    <span>Bienvenu,</span>
+                    <h2>{{app.user.username}}</h2>
+                {%endif %}
             </div>
-			
+
         </div>
         <!-- /menu profile quick info -->
         <br />
@@ -25,14 +31,12 @@
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
                 {%if app.user %}
-					{%if app.user.path %}
-						{% if is_granted('ROLE_ADMIN') %}
-						<h3>ADMIN</h3>
-						{% elseif  is_granted('ROLE_USER') %}
-							<h3>USER</h3>
-						{%endif %}
-					{%endif %}
-				{%endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <h3>ADMIN</h3>
+                    {% elseif  is_granted('ROLE_USER') %}
+                        <h3>USER</h3>
+                    {%endif %}
+                {%endif %}
                 <ul class="nav side-menu">
                     <li>
                         <a href="{{ path('nn_genie_infos_mat_accueil') }}"><i class="fa fa-home"></i> Accueil </a>
@@ -154,21 +158,25 @@
             </div>	
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
-		{%if app.user %}
-                    <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="{{asset('uploads/profils/'~app.user.path)}}" alt="">{{app.user.username}}
-                        <span class=" fa fa-angle-down"></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-usermenu pull-right">
-                        <li><a href="javascript:;">Profile</a>
-                        </li>
-                        <li>
-                            <a href="javascript:;">Aide</a>
-                        </li>
-                        <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out pull-right"></i> Se deconnecter</a>
-                        </li>
-                    </ul>
-		{% endif %}
+                    {%if app.user %}
+                        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            {%if app.user.path %}
+                        <img src="{{asset('uploads/profils/'~app.user.path)}}" >
+                    {%else %}
+                        <img src="{{asset('bundles/nngenieinfosmat/images/user.png')}}">
+                    {%endif %}{{app.user.username}}
+                            <span class=" fa fa-angle-down"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-usermenu pull-right">
+                            <li><a href="javascript:;">Profile</a>
+                            </li>
+                            <li>
+                                <a href="javascript:;">Aide</a>
+                            </li>
+                            <li><a href="{{ path('fos_user_security_logout') }}"><i class="fa fa-sign-out pull-right"></i> Se deconnecter</a>
+                            </li>
+                        </ul>
+                    {% endif %}
                 </li>
                 {#<li role="presentation" class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
