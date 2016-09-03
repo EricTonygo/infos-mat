@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
 use NNGenie\InfosMatBundle\Entity\Materiel;
 use NNGenie\InfosMatBundle\Form\MaterielType;
+use NNGenie\InfosMatBundle\Form\MaterielMainImageType;
 
 /**
  * Materiel controller.
@@ -62,7 +63,7 @@ class MaterielController extends Controller {
     /**
      * @Route("/filtre-materiels")
      * @Template()
-     * @Method({"POST"})
+     * @Method({"POST","GET"})
      * @param Request $request
      */
     public function filtrematerielsAction(Request $request) {
@@ -70,6 +71,7 @@ class MaterielController extends Controller {
         /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           return $this->redirect($this->generateUrl('fos_user_security_login'));
           } */
+        if ($request->isMethod("POST")) {
         $idgrenres = $request->request->get("genres");
         $idmarques = $request->request->get("marques");
         $idtypes = $request->request->get("types");
@@ -92,6 +94,9 @@ class MaterielController extends Controller {
         $proprietaires = $repositoryProprietaire->findBy(array("statut" => 1));
 
         return $this->render('NNGenieInfosMatBundle:Materiels:materiels.html.twig', array('materiels' => $materiels, 'genres' => $genres, 'marques' => $marques, 'types' => $types, 'localisations' => $localisations, 'proprietaires' => $proprietaires,));
+        }else{
+            return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
+        }
     }
 
     /**
@@ -197,6 +202,7 @@ class MaterielController extends Controller {
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 try {
+					$materiel->setDatemodification(new \Datetime());
                     $repositoryMateriel->updateMateriel($materiel);
                     $message = $this->get('translator')->trans('Materiel.updated_success', array(), "NNGenieInfosMatBundle");
                     $request->getSession()->getFlashBag()->add('message_success', $message);
@@ -204,12 +210,46 @@ class MaterielController extends Controller {
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Materiel.updated_failure', array(), "NNGenieInfosMatBundle");
                     $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                    return $this->render('NNGenieInfosMatBundle:Materiels:form-update-materiel.html.twig', array('form' => $editForm->createView(), 'idmateriel' => $materiel->getId()));
+                    return $this->render('NNGenieInfosMatBundle:Materiels:form-update-materiel.html.twig', array('form' => $editForm->createView(), 'materiel' => $materiel));
                 }
             }
-            return $this->render('NNGenieInfosMatBundle:Materiels:form-update-materiel.html.twig', array('form' => $editForm->createView(), 'idmateriel' => $materiel->getId()));
+            return $this->render('NNGenieInfosMatBundle:Materiels:form-update-materiel.html.twig', array('form' => $editForm->createView(), 'materiel' => $materiel));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
+        }
+    }
+	
+	/**
+     * Displays a form to edit an existing Materiel entity.
+     *
+     * @Route("/edit-main-image/{id}")
+     * @Template()
+     * @Method({"POST", "GET"})
+     * @param Request $request
+     */
+    public function editMainImageAction(Request $request, Materiel $materiel) {
+        // $deleteForm = $this->createDeleteForm($materiel);
+        $editForm = $this->createForm(new MaterielMainImageType(), $materiel);
+        $editForm->handleRequest($request);
+        $repositoryMateriel = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Materiel");
+
+        if ($request->isMethod("POST") || $request->isMethod("GET")) {
+            if ($editForm->isSubmitted() && $editForm->isValid()) {
+                try {
+					$materiel->setDatemodification(new \Datetime());
+                    $repositoryMateriel->updateMateriel($materiel);
+                    $message = $this->get('translator')->trans('Materiel.updated_success', array(), "NNGenieInfosMatBundle");
+                    $request->getSession()->getFlashBag()->add('message_success', $message);
+                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $materiel->getId())));
+                } catch (Exception $ex) {
+                    $message = $this->get('translator')->trans('Materiel.updated_failure', array(), "NNGenieInfosMatBundle");
+                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    return $this->render('NNGenieInfosMatBundle:Materiels:form-update-main-image-materiel.html.twig', array('form' => $editForm->createView(), 'materiel' => $materiel));
+                }
+            }
+            return $this->render('NNGenieInfosMatBundle:Materiels:form-update-main-image-materiel.html.twig', array('form' => $editForm->createView(), 'materiel' => $materiel));
+        } else {
+            return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $materiel->getId())));
         }
     }
 
@@ -234,6 +274,25 @@ class MaterielController extends Controller {
                 $request->getSession()->getFlashBag()->add('message_faillure', $message);
                 return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
             }
+        } else {
+            return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
+        }
+    }
+	
+	/**
+     * Deletes a Materiel entity.
+     *
+     * @Route("/detail-materiel/{id}")
+     * @Template()
+     * @Method({"GET"})
+     */
+    public function detailAction(Materiel $materiel) {
+        $request = $this->get("request");
+		$em = $this->getDoctrine()->getManager();
+        $repositoryImage = $em->getRepository("NNGenieInfosMatBundle:Image");
+        if ($request->isMethod('GET')) {
+			$images = $repositoryImage->findBy(array('materiel' => $materiel, 'statut' => 1));
+            return $this->render('NNGenieInfosMatBundle:Materiels:details-materiel.html.twig', array('materiel' => $materiel, 'images' => $images));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
         }

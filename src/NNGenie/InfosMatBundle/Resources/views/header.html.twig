@@ -24,7 +24,13 @@
         <!-- sidebar menu -->
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
-                {%if app.user %}<h3>ADMIN</h3>{%endif %}
+                {%if app.user %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <h3>ADMIN</h3>
+                    {% elseif  is_granted('ROLE_USER') %}
+                        <h3>USER</h3>
+                    {%endif %}
+                {%endif %}
                 <ul class="nav side-menu">
                     <li>
                         <a href="{{ path('nn_genie_infos_mat_accueil') }}"><i class="fa fa-home"></i> Accueil </a>

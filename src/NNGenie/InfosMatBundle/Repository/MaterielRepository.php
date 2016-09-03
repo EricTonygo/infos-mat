@@ -25,18 +25,23 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
         $repositoryAime = $em->getRepository("NNGenieInfosMatBundle:Aime");
         $commentaire = new \NNGenie\InfosMatBundle\Entity\Commentaire();
         $repositoryCommentaire = $em->getRepository("NNGenieInfosMatBundle:Commentaire");
+		$image = new \NNGenie\InfosMatBundle\Entity\Image();
+        $repositoryImage = $em->getRepository("NNGenieInfosMatBundle:Image");
         $em->getConnection()->beginTransaction();
         try {
             $aimes = $materiel->getAimes();
             $commentaires = $materiel->getCommentaires();
+			$images = $materiel->getImages();
             foreach ($aime as $aimes) {
                 $repositoryAime->deleteAime($aime);
             }
-        } catch (Exception $ex) {
-
-            foreach ($commentaire as $commentaires) {
+			foreach ($commentaire as $commentaires) {
                 $repositoryCommentaire->deleteCommentaire($commentaire);
             }
+			foreach ($image as $images) {
+                $repositoryImage->deleteImage($image);
+            }
+        } catch (Exception $ex) {
             $em->persist($materiel);
             $em->flush();
             $em->getConnection()->commit();

@@ -180,6 +180,18 @@ nn_genie_infos_mat_materiel_delete:
     options:
         expose: true
 
+nn_genie_infos_mat_materiel_detail:
+    pattern: /detail-materiel/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Materiel:detail }
+    options:
+        expose: true
+
+nn_genie_infos_mat_materiel_edit_main_image:
+    pattern: /edit-main-image/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Materiel:editMainImage }
+    options:
+        expose: true
+
 nn_genie_infos_mat_types:
     pattern: /types
     defaults: { _controller: NNGenieInfosMatBundle:Type:types }
@@ -323,5 +335,29 @@ nn_genie_infos_mat_fournisseur_edit:
 nn_genie_infos_mat_fournisseur_delete:
     pattern: /delete-fournisseur/{id}
     defaults: { _controller: NNGenieInfosMatBundle:Fournisseur:delete }
+    options:
+        expose: true
+
+nn_genie_infos_mat_images:
+    pattern: /images/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Image:images }
+    options:
+        expose: true
+
+nn_genie_infos_mat_image_new:
+    pattern: /new-image/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Image:new }
+    options:
+        expose: true
+        
+nn_genie_infos_mat_image_edit:
+    pattern: /edit-image/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Image:edit }
+    options:
+        expose: true
+        
+nn_genie_infos_mat_image_delete:
+    pattern: /delete-image/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Image:delete }
     options:
         expose: true

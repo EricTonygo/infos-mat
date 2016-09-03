@@ -235,7 +235,7 @@ class User extends BaseUser
     }
 
     protected function getUploadRootDir() {
-        return __DIR__ . '/../../../web/uploads/profils';
+        return __DIR__ . '/../../../../web/uploads/profils';
     }
 
     /**

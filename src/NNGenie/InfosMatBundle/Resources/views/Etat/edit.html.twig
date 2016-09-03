@@ -4,11 +4,6 @@
 
 {% block stylesheets %}
     {{parent()}}
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">		
-    
 {% endblock %}
 
 {% block content %}
@@ -40,7 +35,7 @@
                         {{ form_errors(form.nom) }}
 
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                            {{ form_widget(form.nom, {'attr': {'class': 'form-control col-md-7 col-xs-12','data-validate-length-range':"3", 'required':'required'}}) }}
+                            {{ form_widget(form.nom, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
                         </div>
                     </div>
                     <div class="item form-group">
@@ -48,7 +43,7 @@
                         {{ form_errors(form.nbreetoile) }}
 
                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                            {{ form_widget(form.nbreetoile, {'attr': {'class': 'form-control col-md-7 col-xs-12','data-validate-length-range':"3", 'required':'required'}}) }}
+                            {{ form_widget(form.nbreetoile, {'attr': {'class': 'form-control col-md-7 col-xs-12','min':"0", 'max':"5", 'required':'required'}}) }}
                         </div>
                     </div>
                     <div class="form-group">

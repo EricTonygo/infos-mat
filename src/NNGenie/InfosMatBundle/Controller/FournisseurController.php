@@ -100,8 +100,9 @@ class FournisseurController extends Controller{
      * @Method({"POST","GET"})
      * @param Request $request
      */
-    public function editAction(Request $request, Fournisseur $fournisseur) {
+    public function editAction(Fournisseur $fournisseur) {
         // $deleteForm = $this->createDeleteForm($fournisseur);
+		$request = $this->get("request");
         $editForm = $this->createForm(new FournisseurType(), $fournisseur);
         $editForm->handleRequest($request);
         $repositoryFournisseur = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Fournisseur");

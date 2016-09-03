@@ -4,11 +4,6 @@
 
 {% block stylesheets %}
     {{parent()}}
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">		
-
 {% endblock %}
 
 {% block content %}
@@ -18,7 +13,7 @@
             <div class="page-title">
                 <div class="title_left">
                     <h3>
-                        MODIFICATION D'UN MATERIELS
+                        MODIFICATION D'UN MATERIEL
                     </h3>
                 </div>
 
@@ -34,7 +29,7 @@
                         </div>
                         <div class="x_content">
 
-                            <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_infos_mat_materiel_edit', {'id': idmateriel}) }}" {{ form_enctype(form) }}>
+                            <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_infos_mat_materiel_edit', {'id': materiel.id}) }}" {{ form_enctype(form) }}>
 
                                 <div class="item form-group">
                                     {{ form_label(form.genre, "Genre", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}

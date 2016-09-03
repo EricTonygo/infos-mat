@@ -705,7 +705,7 @@ class Materiel
     }
 
     protected function getUploadRootDir() {
-        return __DIR__ . '/../../../web/uploads/mainMateriels';
+        return __DIR__ . '/../../../../web/uploads/Materiels';
     }
 
     /**

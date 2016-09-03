@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ImageType extends AbstractType
+class MaterielMainImageType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -27,7 +27,7 @@ class ImageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NNGenie\InfosMatBundle\Entity\Image'
+            'data_class' => 'NNGenie\InfosMatBundle\Entity\Materiel'
         ));
     }
 }

@@ -166,7 +166,7 @@ class Image
     }
 
     protected function getUploadRootDir() {
-        return __DIR__ . '/../../../web/uploads/materiels';
+        return __DIR__ . '/../../../../web/uploads/ImagesMateriels';
     }
 
     /**
