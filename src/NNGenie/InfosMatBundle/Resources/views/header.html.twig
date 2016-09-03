@@ -8,7 +8,7 @@
         <!-- menu profile quick info -->
         <div class="profile">
             <div class="profile_pic">
-                {%if app.user %}<img src="{{asset('uploads/profils/'~app.user.path)}}" alt="..." class="img-circle profile_img">{%endif %}
+                {%if app.user %} {%if app.user.path %}<img src="{{asset('uploads/profils/'~app.user.path)}}" alt="..." class="img-circle profile_img">{%endif %}{%endif %}
             </div>		
             <div class="profile_info">
 				{%if app.user %}
@@ -25,12 +25,14 @@
         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
             <div class="menu_section">
                 {%if app.user %}
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <h3>ADMIN</h3>
-                    {% elseif  is_granted('ROLE_USER') %}
-                        <h3>USER</h3>
-                    {%endif %}
-                {%endif %}
+					{%if app.user.path %}
+						{% if is_granted('ROLE_ADMIN') %}
+						<h3>ADMIN</h3>
+						{% elseif  is_granted('ROLE_USER') %}
+							<h3>USER</h3>
+						{%endif %}
+					{%endif %}
+				{%endif %}
                 <ul class="nav side-menu">
                     <li>
                         <a href="{{ path('nn_genie_infos_mat_accueil') }}"><i class="fa fa-home"></i> Accueil </a>
