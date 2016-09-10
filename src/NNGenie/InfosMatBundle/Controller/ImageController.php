@@ -11,9 +11,8 @@ use NNGenie\InfosMatBundle\Entity\Image;
 use NNGenie\InfosMatBundle\Entity\Materiel;
 use NNGenie\InfosMatBundle\Form\ImageType;
 
+class ImageController extends Controller {
 
-class ImageController extends Controller{
-    
     /**
      * @Route("/images/{id}")
      * @Template()
@@ -42,28 +41,28 @@ class ImageController extends Controller{
      */
     public function newAction(Materiel $materiel) {
         $image = new Image();
-		$request = $this->get("request");
+        $request = $this->get("request");
         $form = $this->createForm(new ImageType(), $image);
         $form->handleRequest($request);
         $repositoryImage = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Image");
 
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                    try {
-						$image->setMateriel($materiel);
-                        $repositoryImage->saveImage($image);
-                        $message = $this->get('translator')->trans('Image.created_success', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message_success', $message);
-                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array("id"=>$materiel->getId())));
-                    } catch (Exception $ex) {
-                        $message = $this->get('translator')->trans('Image.created_failure', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                        return $this->render('NNGenieInfosMatBundle:Images:form-add-image.html.twig', array('form' => $form->createView()));
-                    }
+                try {
+                    $image->setMateriel($materiel);
+                    $repositoryImage->saveImage($image);
+                    $message = $this->get('translator')->trans('Image.created_success', array(), "NNGenieInfosMatBundle");
+                    $request->getSession()->getFlashBag()->add('message_success', $message);
+                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array("id" => $materiel->getId())));
+                } catch (Exception $ex) {
+                    $message = $this->get('translator')->trans('Image.created_failure', array(), "NNGenieInfosMatBundle");
+                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    return $this->render('NNGenieInfosMatBundle:Images:form-add-image.html.twig', array('form' => $form->createView()));
+                }
             }
             return $this->render('NNGenieInfosMatBundle:Images:form-add-image.html.twig', array('form' => $form->createView(), 'materiel' => $materiel));
         } else {
-            return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array("id"=>$materiel->getId())));
+            return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array("id" => $materiel->getId())));
         }
     }
 
@@ -91,7 +90,7 @@ class ImageController extends Controller{
      */
     public function editAction(Image $image) {
         // $deleteForm = $this->createDeleteForm($image);
-		$request = $this->get("request");
+        $request = $this->get("request");
         $editForm = $this->createForm(new ImageType(), $image);
         $editForm->handleRequest($request);
         $repositoryImage = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Image");
@@ -106,13 +105,13 @@ class ImageController extends Controller{
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Image.updated_failure', array(), "NNGenieInfosMatBundle");
                     $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                     return $this->render('NNGenieInfosMatBundle:Images:form-update-image.html.twig', array('form' => $editForm->createView(), 'image' => $image));
+                    return $this->render('NNGenieInfosMatBundle:Images:form-update-image.html.twig', array('form' => $editForm->createView(), 'image' => $image));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Images:form-update-image.html.twig', array('form' => $editForm->createView(), 'image' => $image));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
-		}
+        }
     }
 
     /**
@@ -130,11 +129,11 @@ class ImageController extends Controller{
                 $repositoryImage->deleteImage($image);
                 $message = $message = $this->get('translator')->trans('Image.deleted_success', array(), "NNGenieInfosMatBundle");
                 $request->getSession()->getFlashBag()->add('message_success', $message);
-				return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
+                return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
             } catch (Exception $ex) {
                 $message = $message = $this->get('translator')->trans('Image.deleted_failure', array(), "NNGenieInfosMatBundle");
                 $request->getSession()->getFlashBag()->add('message_faillure', $message);
-				return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
+                return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
             }
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
@@ -155,7 +154,7 @@ class ImageController extends Controller{
                         ->getForm()
         ;
     }
-    
+
     /**
      * Creates a form to add a Image entity.
      *
@@ -170,4 +169,5 @@ class ImageController extends Controller{
                         ->getForm()
         ;
     }
+
 }

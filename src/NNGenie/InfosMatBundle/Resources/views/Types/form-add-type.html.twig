@@ -28,17 +28,17 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-							{% if app.session.flashbag.get('message_add_type_success') %}										
-                                    <div id="message_type">
-                                        <div id="myAlert" class="alert alert-success">
-                                            <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                            {% for flash_message in app.session.flashbag.get('message_add_type_success') %}
-												{%if loop.last%}
+                            {% if app.session.flashbag.get('message_add_type_success') %}										
+                                <div id="message_type">
+                                    <div id="myAlert" class="alert alert-success">
+                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                        {% for flash_message in app.session.flashbag.get('message_add_type_success') %}
+                                            {%if loop.last%}
                                                 {{ flash_message }}
-												{%endif%}
-                                            {% endfor %}
-                                        </div>
-                                    </div> 
+                                            {%endif%}
+                                        {% endfor %}
+                                    </div>
+                                </div> 
                             {% endif %}
                             <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_infos_mat_type_new') }}">
 
@@ -50,15 +50,15 @@
                                         {{ form_widget(form.nom, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
                                     </div>
                                 </div>
-								<div class="item form-group">
+                                <div class="item form-group">
                                     {{ form_label(form.marque, "Marque", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                                     {{ form_errors(form.marque) }}
 
                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        {{ form_widget(form.marque, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                        {{ form_widget(form.marque, {'attr': {'class': 'form-control col-md-7 col-xs-12 select2_single', 'required':'required'}}) }}
                                     </div>
                                 </div>
-                                 <div class="form-group">
+                                <div class="form-group">
                                     {{ form_rest(form)}}
                                 </div>
                                 {% if app.session.flashbag.get('message_add_type_faillure') %}										
@@ -66,9 +66,9 @@
                                         <div id="myAlert" class="alert alert-danger">
                                             <a href="#" class="close" data-dismiss="alert">&times;</a>
                                             {% for flash_message in app.session.flashbag.get('message_add_type_faillure') %}
-												{% if loop.last %}
-                                                {{ flash_message }}
-												{%endif%}
+                                                {% if loop.last %}
+                                                    {{ flash_message }}
+                                                {%endif%}
                                             {% endfor %}
                                         </div>
                                     </div> 
@@ -102,23 +102,29 @@
                 .on('change', 'select.required', validator.checkField)
                 .on('keypress', 'input[required][pattern]', validator.keypress);
 
-        $('.multi.required').on('keyup blur', 'input', function () {
+        $('.multi.required').on('keyup blur', 'input', function() {
             validator.checkField.apply($(this).siblings().last()[0]);
         });
 
-        /*$('form').submit(function (e) {
-            e.preventDefault();
-            var submit = true;
-
-            // evaluate the form using generic validaing
-            if (!validator.checkAll($(this))) {
-                submit = false;
-            }
-
-            if (submit)
-                this.submit();
-
-            return false;
-        });*/
+        $('form').submit(function (e) {
+         e.preventDefault();
+         var submit = true;
+         
+         // evaluate the form using generic validaing
+         if (!validator.checkAll($(this))) {
+         submit = false;
+         }
+         
+         if (submit)
+         this.submit();
+         
+         return false;
+         });
+         $(document).ready(function() {
+            $("#type_marque").select2({
+                placeholder: "Sélectionner la marque correspondante",
+                allowClear: true
+            });
+        });
     </script>
 {% endblock %}

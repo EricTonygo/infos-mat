@@ -67,5 +67,13 @@ class FournisseurRepository extends EntityRepository implements IFournisseurRepo
             throw $ex;
         }
     }
+    
+    public function getFournisseurQueryBuilder() {
+         return $this
+          ->createQueryBuilder('f')
+          ->where('f.statut = :statut')
+          ->setParameter('statut', 1);
+
+    }
 
 }

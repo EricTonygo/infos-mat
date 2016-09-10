@@ -74,5 +74,11 @@ class FamilleRepository extends EntityRepository implements IFamilleRepository{
         return $qb->getQuery()->getResult();
     }
     
+    public function getFamilleQueryBuilder() {
+         return $this
+          ->createQueryBuilder('f')
+          ->where('f.statut = :statut')
+          ->setParameter('statut', 1);
 
+    }
 }

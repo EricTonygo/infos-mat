@@ -4,10 +4,6 @@
 
 {% block stylesheets %}
     {{parent()}}
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">		
     
 {% endblock %}
 
@@ -97,7 +93,7 @@
         validator.checkField.apply($(this).siblings().last()[0]);
       });
 
-     /* $('form').submit(function(e) {
+     $('form').submit(function(e) {
         e.preventDefault();
         var submit = true;
 
@@ -110,6 +106,12 @@
           this.submit();
 
         return false;
-      });*/
+      });
+      $(document).ready(function() {
+            $("#genre_famille").select2({
+                placeholder: "Sélectionner la famille correspondante",
+                allowClear: true
+            });
+        });
     </script>
 {% endblock %}
