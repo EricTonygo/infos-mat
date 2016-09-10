@@ -66,5 +66,13 @@ class MarqueRepository extends EntityRepository implements IMarqueRepository{
             throw $ex;
         }
     }
+    
+    public function getMarqueQueryBuilder() {
+         return $this
+          ->createQueryBuilder('m')
+          ->where('m.statut = :statut')
+          ->setParameter('statut', 1);
+
+    }
 
 }

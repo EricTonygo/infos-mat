@@ -75,4 +75,11 @@ class EtatRepository extends EntityRepository implements IEtatRepository{
         return $qb->getQuery()->getResult();
     }
 
+    public function getEtatQueryBuilder() {
+         return $this
+          ->createQueryBuilder('e')
+          ->where('e.statut = :statut')
+          ->setParameter('statut', 1);
+
+    }
 }

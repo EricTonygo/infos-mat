@@ -36,11 +36,11 @@
                                     {{ form_errors(form.genre) }}
 
                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        {{ form_widget(form.genre, {'attr': {'class': 'form-control col-md-7 col-xs-12 select2_single', 'placeholder':'Selectionner le genre', 'required':'required'}}) }}
+                                        {{ form_widget(form.genre, {'attr': {'class': 'form-control col-md-7 col-xs-12 select2_single', 'required':'required'}}) }}
                                     </div>
                                 </div>
-                                
-								<div class="item form-group">
+
+                                <div class="item form-group">
                                     {{ form_label(form.type, "Type", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                                     {{ form_errors(form.type) }}
 
@@ -48,7 +48,7 @@
                                         {{ form_widget(form.type, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
                                     </div>
                                 </div>
-								<div class="item form-group">
+                                <div class="item form-group">
                                     {{ form_label(form.chassis, "N° Chassis", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                                     {{ form_errors(form.chassis) }}
 
@@ -56,8 +56,8 @@
                                         {{ form_widget(form.chassis, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
                                     </div>
                                 </div>
-								
-								<div class="item form-group">
+
+                                <div class="item form-group">
                                     {{ form_label(form.proprietaire, "Proprietaire", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                                     {{ form_errors(form.proprietaire) }}
 
@@ -65,8 +65,8 @@
                                         {{ form_widget(form.proprietaire, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
                                     </div>
                                 </div>
-								
-								<div class="item form-group">
+
+                                <div class="item form-group">
                                     {{ form_label(form.fournisseur, "Fournisseur", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                                     {{ form_errors(form.fournisseur) }}
 
@@ -74,8 +74,8 @@
                                         {{ form_widget(form.fournisseur, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
                                     </div>
                                 </div>
-								
-								<div class="item form-group">
+
+                                <div class="item form-group">
                                     {{ form_label(form.prix, "Prix", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                                     {{ form_errors(form.prix) }}
 
@@ -83,7 +83,7 @@
                                         {{ form_widget(form.prix, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
                                     </div>
                                 </div>
-								<div class="item form-group">
+                                <div class="item form-group">
                                     {{ form_label(form.age, "Age", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                                     {{ form_errors(form.age) }}
 
@@ -91,7 +91,7 @@
                                         {{ form_widget(form.age, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
                                     </div>
                                 </div>
-								<div class="item form-group">
+                                <div class="item form-group">
                                     {{ form_label(form.etat, "Etat", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                                     {{ form_errors(form.etat) }}
 
@@ -99,7 +99,7 @@
                                         {{ form_widget(form.etat, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
                                     </div>
                                 </div>
-								<div class="item form-group">
+                                <div class="item form-group">
                                     {{ form_label(form.localisation.ville, "Localisation", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                                     {{ form_errors(form.localisation.ville) }}
 
@@ -107,7 +107,7 @@
                                         {{ form_widget(form.localisation.ville, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
                                     </div>
                                 </div>
-								<div class="item form-group">
+                                <div class="item form-group">
                                     {{ form_label(form.file, "Inserez une image", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                                     {{ form_errors(form.file, { 'attr' : {'class' : 'inputfile' }}) }}
 
@@ -115,8 +115,8 @@
                                         {{ form_widget(form.file) }}
                                     </div>
                                 </div>
-								
-								<div class="item form-group">
+
+                                <div class="item form-group">
                                     {{ form_label(form.description, "Description", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
                                     {{ form_errors(form.description) }}
 
@@ -124,7 +124,7 @@
                                         {{ form_widget(form.description, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
                                     </div>
                                 </div>
-                                 <div class="form-group">
+                                <div class="form-group">
                                     {{ form_rest(form)}}
                                 </div>
                                 {% if app.session.flashbag.get('message_failure') %}										
@@ -166,11 +166,11 @@
                 .on('change', 'select.required', validator.checkField)
                 .on('keypress', 'input[required][pattern]', validator.keypress);
 
-        $('.multi.required').on('keyup blur', 'input', function () {
+        $('.multi.required').on('keyup blur', 'input', function() {
             validator.checkField.apply($(this).siblings().last()[0]);
         });
 
-        /*$('form').submit(function (e) {
+        $('form').submit(function(e) {
             e.preventDefault();
             var submit = true;
 
@@ -183,6 +183,36 @@
                 this.submit();
 
             return false;
-        });*/
+        });
+        $(document).ready(function() {
+            $("#materiel_genre").select2({
+                placeholder: "Sélectionner le genre correspondant",
+                allowClear: true
+            });
+        });
+        $(document).ready(function() {
+            $("#materiel_type").select2({
+                placeholder: "Sélectionner le type correspondant",
+                allowClear: true
+            });
+        });
+        $(document).ready(function() {
+            $("#materiel_proprietaire").select2({
+                placeholder: "Sélectionner le propriétaire correspondant",
+                allowClear: true
+            });
+        });
+        $(document).ready(function() {
+            $("#materiel_etat").select2({
+                placeholder: "Sélectionner l'etat correspondant",
+                allowClear: true
+            });
+        });
+        $(document).ready(function() {
+            $("#materiel_fournisseur").select2({
+                placeholder: "Sélectionner le fournisseur correspondant",
+                allowClear: true
+            });
+        });
     </script>
 {% endblock %}

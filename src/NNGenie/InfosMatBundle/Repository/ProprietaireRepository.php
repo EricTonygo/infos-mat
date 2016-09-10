@@ -66,5 +66,13 @@ class ProprietaireRepository extends EntityRepository implements IProprietaireRe
             throw $ex;
         }
     }
+    
+    public function getProprietaireQueryBuilder() {
+         return $this
+          ->createQueryBuilder('p')
+          ->where('p.statut = :statut')
+          ->setParameter('statut', 1);
+
+    }
 
 }

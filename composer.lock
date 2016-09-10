@@ -1157,17 +1157,17 @@
         },
         {
             "name": "ras/flash-alert-bundle",
-            "version": "dev-master",
+            "version": "2.1.1",
             "target-dir": "Ras/Bundle/FlashAlertBundle/",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rasanga/FlashAlertBundle.git",
-                "reference": "9643d9d56d2b12f49a4164ca910e32ae5c6f8c47"
+                "reference": "7a374da80ec9509ae36d3177904efa62619ff5db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rasanga/FlashAlertBundle/zipball/9643d9d56d2b12f49a4164ca910e32ae5c6f8c47",
-                "reference": "9643d9d56d2b12f49a4164ca910e32ae5c6f8c47",
+                "url": "https://api.github.com/repos/rasanga/FlashAlertBundle/zipball/7a374da80ec9509ae36d3177904efa62619ff5db",
+                "reference": "7a374da80ec9509ae36d3177904efa62619ff5db",
                 "shasum": ""
             },
             "require": {
@@ -1202,7 +1202,7 @@
                 "notification",
                 "symfony"
             ],
-            "time": "2016-01-03 21:36:47"
+            "time": "2016-01-03 21:38:53"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2392,8 +2392,7 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "friendsofsymfony/user-bundle": 20,
-        "ras/flash-alert-bundle": 20
+        "friendsofsymfony/user-bundle": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

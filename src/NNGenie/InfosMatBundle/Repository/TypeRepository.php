@@ -65,5 +65,13 @@ class TypeRepository extends EntityRepository implements ITypeRepository{
             throw $ex;
         }
     }
+    
+    public function getTypeQueryBuilder() {
+         return $this
+          ->createQueryBuilder('t')
+          ->where('t.statut = :statut')
+          ->setParameter('statut', 1);
+
+    }
 
 }

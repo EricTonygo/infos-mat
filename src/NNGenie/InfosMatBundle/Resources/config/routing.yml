@@ -361,3 +361,10 @@ nn_genie_infos_mat_image_delete:
     defaults: { _controller: NNGenieInfosMatBundle:Image:delete }
     options:
         expose: true
+
+nn_genie_infos_mat_types_genre:
+    pattern: /get-types-of-genre/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Materiel:getTypesOfGenre }
+    options:
+        expose: true
+

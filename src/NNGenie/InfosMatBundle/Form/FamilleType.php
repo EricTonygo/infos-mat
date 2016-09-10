@@ -21,6 +21,7 @@ class FamilleType extends AbstractType
             ->add('classemateriel','entity',array(
                 'class'=>'NNGenieInfosMatBundle:Classemateriel',
                 'property'=>'nom',
+                'empty_value' => "",
                 'multiple'=>false,
                 'query_builder' => function(ClassematerielRepository $repo) {
                                 return $repo->getCMaterielQueryBuilder();

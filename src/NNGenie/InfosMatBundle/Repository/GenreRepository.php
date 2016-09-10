@@ -67,5 +67,13 @@ class GenreRepository extends EntityRepository implements IGenreRepository{
             throw $ex;
         }
     }
+    
+    public function getGenreQueryBuilder() {
+         return $this
+          ->createQueryBuilder('g')
+          ->where('g.statut = :statut')
+          ->setParameter('statut', 1);
+
+    }
 
 }

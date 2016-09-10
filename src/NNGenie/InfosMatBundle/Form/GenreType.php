@@ -5,6 +5,7 @@ namespace NNGenie\InfosMatBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use NNGenie\InfosMatBundle\Repository\FamilleRepository;
 
 class GenreType extends AbstractType
 {
@@ -20,7 +21,11 @@ class GenreType extends AbstractType
             ->add('famille','entity', array(
                 'class' => 'NNGenieInfosMatBundle:Famille',
                 'property' => 'nom',
-                'empty_value' => "Selectionner une famille"                
+                'empty_value' => "",
+                'multiple'=>false,
+                'query_builder' => function(FamilleRepository $repo) {
+                    return $repo->getFamilleQueryBuilder();
+                }
             ))
             //->add('marques')
         ;

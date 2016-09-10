@@ -3,7 +3,6 @@
 namespace NNGenie\InfosMatBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -37,8 +36,7 @@ class ClassematerielController extends Controller {
 
         return $this->render('NNGenieInfosMatBundle:ClassesMateriel:classesmateriel.html.twig', array('classesmateriel' => $classesmateriel, 'form' => $form->createView(), "display_tab" => $display_tab));
     }
-	
-	
+
     /**
      * Creates a new Classemateriel entity.
      *
@@ -63,8 +61,8 @@ class ClassematerielController extends Controller {
                         $message = $this->get('translator')->trans('Classemateriel.created_success', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_success', $message);
                         $classemateriel = new Classemateriel();
-						$form = $this->createForm(new ClassematerielType(), $classemateriel);
-						return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-add-classemateriel.html.twig', array('form' => $form->createView()));
+                        $form = $this->createForm(new ClassematerielType(), $classemateriel);
+                        return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-add-classemateriel.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Classemateriel.created_failure', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->add('message_faillure', $message);
@@ -121,7 +119,7 @@ class ClassematerielController extends Controller {
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Classemateriel.updated_failure', array(), "NNGenieInfosMatBundle");
                     $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                     return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-update-classemateriel.html.twig', array('form' => $editForm->createView(), 'idclasse' => $classemateriel->getId()));
+                    return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-update-classemateriel.html.twig', array('form' => $editForm->createView(), 'idclasse' => $classemateriel->getId()));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-update-classemateriel.html.twig', array('form' => $editForm->createView(), 'idclasse' => $classemateriel->getId()));
@@ -144,12 +142,12 @@ class ClassematerielController extends Controller {
             try {
                 $repositoryClassemateriel->deleteClassemateriel($classemateriel);
                 $message = $this->get('translator')->trans('Classemateriel.deleted_success', array(), "NNGenieInfosMatBundle");
-				$request->getSession()->getFlashBag()->add('message_success', $message);
-				return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
+                $request->getSession()->getFlashBag()->add('message_success', $message);
+                return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
             } catch (Exception $ex) {
                 $message = $this->get('translator')->trans('Classemateriel.updated_failure', array(), "NNGenieInfosMatBundle");
-				$request->getSession()->getFlashBag()->add('message_faillure', $message);
-				return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
+                $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
             }
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
