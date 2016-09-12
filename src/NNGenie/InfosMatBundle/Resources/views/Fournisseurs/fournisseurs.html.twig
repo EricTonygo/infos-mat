@@ -53,8 +53,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {%if fournisseurs%}
-                                        {%for fournisseur in fournisseurs%}
+                                    {% if fournisseurs%}
+                                        {% for fournisseur in fournisseurs%}
                                             <tr>
                                                 <td>{{fournisseur.nom}}</td>
                                                 <td>{{fournisseur.adresse.tel}}</td>
@@ -74,8 +74,8 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        {%endfor%} 
-                                    {%endif%} 
+                                        {% endfor %} 
+                                    {% endif %} 
                                 </tbody>
                             </table>
                         </div>

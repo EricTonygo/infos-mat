@@ -25,20 +25,20 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
         $repositoryAime = $em->getRepository("NNGenieInfosMatBundle:Aime");
         $commentaire = new \NNGenie\InfosMatBundle\Entity\Commentaire();
         $repositoryCommentaire = $em->getRepository("NNGenieInfosMatBundle:Commentaire");
-		$image = new \NNGenie\InfosMatBundle\Entity\Image();
+        $image = new \NNGenie\InfosMatBundle\Entity\Image();
         $repositoryImage = $em->getRepository("NNGenieInfosMatBundle:Image");
         $em->getConnection()->beginTransaction();
         try {
             $aimes = $materiel->getAimes();
             $commentaires = $materiel->getCommentaires();
-			$images = $materiel->getImages();
+            $images = $materiel->getImages();
             foreach ($aime as $aimes) {
                 $repositoryAime->deleteAime($aime);
             }
-			foreach ($commentaire as $commentaires) {
+            foreach ($commentaire as $commentaires) {
                 $repositoryCommentaire->deleteCommentaire($commentaire);
             }
-			foreach ($image as $images) {
+            foreach ($image as $images) {
                 $repositoryImage->deleteImage($image);
             }
         } catch (Exception $ex) {
@@ -80,50 +80,58 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
         }
     }
 
-    public function filtreMaterielBy($genres, $marques, $types, $proprietaires, $localisations) {
+    public function filtreMaterielBy($genres, $marques, $types, $proprietaires, $localisations, $etats = null) {
         $q = $this->createQueryBuilder('m');
-        $q->where("true = true");
-        if ($genres) {
-			$q->join("m.genre", "genre");
+        $q->where("m.statut = 1");
+        if ($genres && !empty($genres)) {
+            $q->join("m.genre", "genre");
             foreach ($genres as $idgenre) {
                 $query = 'genre.id = :id' . $idgenre;
                 $q->andwhere($query)
-					->setParameter("id" . $idgenre, $idgenre);
+                        ->setParameter("id" . $idgenre, $idgenre);
             }
         }
-        if ($marques) {
-			$q->join("m.type", 't');
-			$q->join("t.marque", 'marque');
+        if ($marques && !empty($marques)) {
+            $q->join("m.type", 't');
+            $q->join("t.marque", 'marque');
             foreach ($marques as $idmarque) {
                 $query = 'marque.id = :id' . $idmarque;
                 $q->andwhere($query)
-					->setParameter("id" . $idmarque, $idmarque);
+                        ->setParameter("id" . $idmarque, $idmarque);
             }
         }
-        if ($types) {
+        if ($types && !empty($types)) {
             foreach ($types as $idtype) {
-				$q->join("m.type", 'type');
+                $q->join("m.type", 'type');
                 $query = 'type.id = :id' . $idtype;
                 $q->andwhere($query)
-                    ->setParameter("id" . $idtype, $idtype);
+                        ->setParameter("id" . $idtype, $idtype);
             }
         }
-        if ($proprietaires) {
+        if ($proprietaires && !empty($proprietaires)) {
             foreach ($proprietaires as $idproprietaire) {
-				$q->join("m.proprietaire", 'proprietaire');
+                $q->join("m.proprietaire", 'proprietaire');
                 $query = 'proprietaire.id = :id' . $idproprietaire;
                 $q->andwhere($query)
                         ->setParameter("id" . $idproprietaire, $idproprietaire);
             }
         }
-        if ($localisations) {
+        if ($localisations && !empty($localisations)) {
             $i = 0;
             foreach ($localisations as $localisation) {
-				$q->join("m.localisation", 'localisation');
+                $q->join("m.localisation", 'localisation');
                 $query = 'localisation.ville = :ville' . $i;
                 $q->andwhere($query)
                         ->setParameter("ville" . $i, $localisation);
                 $i++;
+            }
+        }
+        if ($etats && !empty($etats)) {
+            foreach ($etats as $idetat) {
+                $q->join("m.etat", 'etat');
+                $query = 'etat.id = :id' . $idetat;
+                $q->andwhere($query)
+                        ->setParameter("id" . $idetat, $idetat);
             }
         }
         return $q->getQuery()->getResult();

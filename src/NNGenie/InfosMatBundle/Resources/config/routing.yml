@@ -2,6 +2,15 @@ nn_genie_infos_mat_homepage:
     path:     /
     defaults: { _controller: NNGenieInfosMatBundle:Default:index }
 
+nn_genie_infos_mat_view_materiel_user:
+    path:     /view-materiels
+    defaults: { _controller: NNGenieInfosMatBundle:Default:viewmateriels }
+
+nn_genie_infos_mat_ask_infos_user:
+    path:     /ask-informations
+    defaults: { _controller: NNGenieInfosMatBundle:Default:askinformations }
+
+
 nn_genie_infos_mat_commentaire_index:
     path:     /commentaire/index/{id}
     defaults: { _controller: NNGenieInfosMatBundle:Commentaire:index }
@@ -145,8 +154,8 @@ nn_genie_infos_mat_adresse_delete:
     defaults: { _controller: NNGenieInfosMatBundle:Materiel:index }
 
 nn_genie_infos_mat_accueil:
-    pattern: /accueil
-    defaults: { _controller: NNGenieInfosMatBundle:Materiel:accueil }
+    pattern: /accueil-admin
+    defaults: { _controller: NNGenieInfosMatBundle:Materiel:accueiladmin }
     options:
         expose: true
 
@@ -161,6 +170,13 @@ nn_genie_infos_mat_materiel_filtre:
     defaults: { _controller: NNGenieInfosMatBundle:Materiel:filtremateriel }
     options:
         expose: true
+
+nn_genie_infos_mat_materiel_results_search:
+    pattern: /resutls-search-materiels
+    defaults: { _controller: NNGenieInfosMatBundle:Default:getresultssearch }
+    options:
+        expose: true
+
 
 nn_genie_infos_mat_materiel_new:
     pattern: /new-materiel

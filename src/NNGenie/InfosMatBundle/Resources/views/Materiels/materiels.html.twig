@@ -50,50 +50,50 @@
                                                 <section  class="sky-form col-md-4">
                                                     <h4>Genre</h4>
                                                     <div class="row1 scroll-pane">
-                                                        {%if genres%}
-                                                            {%for genre in genres%}
+                                                        {% if genres %}
+                                                            {% for genre in genres%}
                                                                 <label class="checkbox"><input type="checkbox" name="genres[]" value="{{genre.id}}"><i></i>{{genre.nom}}</label>
-                                                            {%endfor%}
-                                                        {%endif%}
+                                                            {% endfor %}
+                                                        {% endif %}
                                                     </div>
                                                 </section>
                                                 <section  class="sky-form col-md-4">
                                                     <h4>Marque</h4>
                                                     <div class="row1 scroll-pane">
-                                                        {%if marques%}
-                                                            {%for marque in marques%}
+                                                        {% if marques %}
+                                                            {% for marque in marques%}
                                                                 <label class="checkbox"><input type="checkbox" name="marques[]" value="{{marque.id}}"><i></i>{{marque.nom}}</label>
-                                                            {%endfor%}
-                                                        {%endif%}
+                                                            {% endfor %}
+                                                        {% endif %}
                                                     </div>
                                                 </section>
                                                 <section  class="sky-form col-md-4">
                                                     <h4>Type</h4>
                                                     <div class="row1 scroll-pane">
-                                                        {%if types %}
-                                                            {%for type in types%}
+                                                        {% if types %}
+                                                            {% for type in types %}
                                                                 <label class="checkbox"><input type="checkbox" name="types[]" value="{{type.id}}"><i></i>{{type.nom}}</label>
-                                                            {%endfor%}
-                                                        {%endif%}
+                                                            {% endfor %}
+                                                        {% endif %}
                                                     </div>
                                                 </section>
                                                 <section  class="sky-form col-md-4">
                                                     <h4>Propriétaire</h4>
                                                     <div class="row1 scroll-pane">
-                                                        {%if proprietaires%}
-                                                            {%for proprietaire in proprietaires%}
+                                                        {% if proprietaires %}
+                                                            {% for proprietaire in proprietaires %}
                                                                 <label class="checkbox"><input type="checkbox" name="proprietaires[]" value="{{proprietaire.id}}"><i></i>{{proprietaire.nom}}</label>
-                                                            {%endfor%}
-                                                        {%endif%}
+                                                            {% endfor %}
+                                                        {% endif %}
                                                 </section>
                                                 <section  class="sky-form col-md-4">
                                                     <h4>Localisation</h4>
                                                     <div class="row1 scroll-pane">
-                                                        {%if localisations%}
-                                                            {%for localisation in localisations%}
+                                                        {% if localisations %}
+                                                            {% for localisation in localisations %}
                                                                 <label class="checkbox"><input type="checkbox" name="localisations[]" value="{{localisation.ville}}"><i></i>{{localisation.ville}}</label>
-                                                            {%endfor%}
-                                                        {%endif%}
+                                                            {% endfor %}
+                                                        {% endif %}
                                                     </div>
                                                 </section>
                                             </div>
@@ -134,8 +134,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    {%if materiels%}
-                                        {%for materiel in materiels%}
+                                    {% if materiels %}
+                                        {% for materiel in materiels %}
                                             <tr>
                                                 <td>{{materiel.genre.nom}}</td>
                                                 <td>{{materiel.type.marque.nom}}</td>
@@ -161,8 +161,8 @@
                                                     </div>
                                                 </td>
                                             </tr>
-                                        {%endfor%} 
-                                    {%endif%} 
+                                        {% endfor %} 
+                                    {% endif %} 
                                 </tbody>
                             </table>
                         </div>

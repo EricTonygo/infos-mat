@@ -1,0 +1,63 @@
+{% extends 'NNGenieInfosMatBundle:FrontEnd:layout.html.twig' %}
+
+{% block title %}{{parent()}} - Materiels{% endblock %}
+
+{% block content %}
+    <!-- page content -->
+    <div class="" role="main">
+        <div class="breadcrumbs">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li><a href="{{path('nn_genie_infos_mat_homepage')}}" class="marron"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Acceuil</a></li>
+                    <li class="active">Matériels</li>
+                </ol>
+            </div>
+        </div>
+        <div class="blokchoice">
+            <div class="row top_tiles">
+                <div class="animated flipInY col-md-offset-2 col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <a href="{{path('nn_genie_infos_mat_view_materiel_user')}}">
+                        <div class="tile-stats">
+                            <div class="icon fachoice"><i class="fa fa-navicon marron"></i>
+                            </div>
+                            <div class="count">Classification</div>
+
+                            <h3>Données liées au matériel</h3>
+                            {#<p>Lorem ipsum psdea itgum rixt.</p>#}
+                        </div>
+                    </a>
+                </div>
+                <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                    <a href="viewmateriel.html">
+                        <div class="tile-stats">
+                            <div class="icon fachoice"><i class="fa fa-info marron"></i>
+                            </div>
+                            <div class="count">Situation générale</div>
+
+                            <h3>Données sur les matériels</h3>
+                            {#<p>Lorem ipsum psdea itgum rixt.</p>#}
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="row top_tiles matos">
+                <div class="animated flipInY col-md-offset-3 col-lg-5 col-md-6 col-sm-6 col-xs-12">
+                    <a class="addmodul" href="{{path('nn_genie_infos_mat_ask_infos_user')}}">
+                        <div class="tile-stats">
+                            <div class="icon fachoice"><i class="fa fa-search marron"></i>
+                            </div>
+                            <div class="count">Demande d'information</div>
+
+                            <h3>Recherches & Informations</h3>
+                            {#<p>Lorem ipsum psdea itgum rixt.</p>#}
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /page content -->
+<!-- /page content -->
+
+{% endblock %}
