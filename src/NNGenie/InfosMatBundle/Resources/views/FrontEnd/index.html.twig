@@ -1,0 +1,71 @@
+{% extends 'NNGenieInfosMatBundle:FrontEnd:layout.html.twig' %}
+
+{% block title %}{{parent()}} - Accueil{% endblock %}
+
+{% block content %}
+    <!-- page content -->
+    <div class="" role="main">
+    <div class="breadcrumbs">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="{{path('nn_genie_infos_mat_homepage')}}" class="marron"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Acceuil</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="">
+        <div class="row top_tiles">
+            <div class="animated flipInY col-md-offset-3 col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                <img src="{{asset('bundles/nngenieinfosmat/images/cat.jpg')}}" alt="">
+            </div>
+            <div class="animated flipInY col-md-offset-2 col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                <img src="{{asset('bundles/nngenieinfosmat/images/case.png')}}" alt="">
+            </div>
+        </div>
+        <div class="row top_tiles">
+            <div class="animated col-md-offset-1 flipInY col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                <img src="{{asset('bundles/nngenieinfosmat/images/aisle.jpg')}}" alt="">
+            </div>
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="{{path('nn_genie_infos_mat_view_materiel_user')}}">
+                    <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-truck marron"></i>
+                        </div>
+                        <div class="count">Matériels</div>
+
+                        <h3>{{nombreMateriels}}</h3>
+                        {#<p>Lorem ipsum psdea itgum rixt.</p>#}
+                    </div>
+                </a>
+            </div>
+            <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="#">
+                    <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-users marron"></i>
+                        </div>
+                        <div class="count">Travaux</div>
+
+                        <h3>00</h3>
+                        {#<p>Lorem ipsum psdea itgum rixt.</p>#}
+                    </div>
+                </a>
+            </div>
+            <div class="animated matos flipInY col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                <img src="{{asset('bundles/nngenieinfosmat/images/tiangong.jpg')}}" alt="">
+            </div>
+        </div>
+
+        <div class="row top_tiles">
+            <div class="animated flipInY col-md-offset-3 col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                <img src="{{asset('bundles/nngenieinfosmat/images/komatsu.jpg')}}" alt="">
+            </div>
+            <div class="animated flipInY col-md-offset-2 col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                <img src="{{asset('bundles/nngenieinfosmat/images/bomag.png')}}" alt="">
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- /page content -->
+
+{% endblock %}

@@ -9,22 +9,24 @@
 namespace NNGenie\InfosMatBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+
 /**
  * Description of ProprietaireRepository
  *
  * @author TONYE
  */
-class ProprietaireRepository extends EntityRepository implements IProprietaireRepository{
+class ProprietaireRepository extends EntityRepository implements IProprietaireRepository {
+
     //put your code here
-    
+
     public function deleteProprietaire(\NNGenie\InfosMatBundle\Entity\Proprietaire $proprietaire) {
-        $em= $this->_em;
+        $em = $this->_em;
         $proprietaire->setStatut(0);
-		$materiel = new \NNGenie\InfosMatBundle\Entity\Materiel();
+        $materiel = new \NNGenie\InfosMatBundle\Entity\Materiel();
         $repositoryMateriel = $em->getRepository("NNGenieInfosMatBundle:Materiel");
-		$em->getConnection()->beginTransaction();
-        try{
-			$materiels = $proprietaire->getMateriels();
+        $em->getConnection()->beginTransaction();
+        try {
+            $materiels = $proprietaire->getMateriels();
             foreach ($materiel as $materiels) {
                 $repositoryMateriel->deleteMateriel($materiel);
             }
@@ -39,10 +41,10 @@ class ProprietaireRepository extends EntityRepository implements IProprietaireRe
     }
 
     public function saveProprietaire(\NNGenie\InfosMatBundle\Entity\Proprietaire $proprietaire) {
-        $em= $this->_em;
+        $em = $this->_em;
         $proprietaire->setStatut(1);
-		$em->getConnection()->beginTransaction();
-        try{
+        $em->getConnection()->beginTransaction();
+        try {
             $em->persist($proprietaire);
             $em->flush();
             $em->getConnection()->commit();
@@ -54,9 +56,9 @@ class ProprietaireRepository extends EntityRepository implements IProprietaireRe
     }
 
     public function updateProprietaire(\NNGenie\InfosMatBundle\Entity\Proprietaire $proprietaire) {
-        $em= $this->_em;
-		$em->getConnection()->beginTransaction();
-        try{
+        $em = $this->_em;
+        $em->getConnection()->beginTransaction();
+        try {
             $em->persist($proprietaire);
             $em->flush();
             $em->getConnection()->commit();
@@ -66,13 +68,12 @@ class ProprietaireRepository extends EntityRepository implements IProprietaireRe
             throw $ex;
         }
     }
-    
-    public function getProprietaireQueryBuilder() {
-         return $this
-          ->createQueryBuilder('p')
-          ->where('p.statut = :statut')
-          ->setParameter('statut', 1);
 
+    public function getProprietaireQueryBuilder() {
+        return $this
+                        ->createQueryBuilder('p')
+                        ->where('p.statut = :statut')
+                        ->setParameter('statut', 1);
     }
 
 }

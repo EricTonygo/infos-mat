@@ -20,32 +20,11 @@ use Symfony\Component\HttpFoundation\JsonResponse;
  *
  */
 class MaterielController extends Controller {
-
     /**
-     * @Route("/", name="homepage")
-     */
-    public function indexAction() {
-        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirect($this->generateUrl('fos_user_security_login'));
-        }
-        $repositoryMateriel = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Materiel");
-        $userManager = $this->container->get('fos_user.user_manager');
-        $repositoryFournisseur = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Fournisseur");
-        $repositoryProprietaire = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Proprietaire");
-        $materiels = $repositoryMateriel->findBy(array("statut" => 1));
-        $users = $userManager->findUsers();
-        $fournisseurs = $repositoryFournisseur->findBy(array("statut" => 1));
-        $proprietaires = $repositoryProprietaire->findBy(array("statut" => 1));
-
-        //return $this->render('NNGenieInfosMatBundle::index.html.twig', array("materiels"=> $materiels));
-        return $this->render('NNGenieInfosMatBundle:Administration:index.html.twig', array('nombreUsers' => count($users), 'nombreMateriels' => count($materiels), 'nombreFounisseurs' => count($fournisseurs), 'nombreProprietaires' => count($proprietaires)));
-    }
-
-    /**
-     * @Route("/accueil")
+     * @Route("/accueil-admin")
      * @Template()
      */
-    public function accueilAction() {
+    public function accueiladminAction() {
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
@@ -70,9 +49,9 @@ class MaterielController extends Controller {
      */
     public function filtrematerielsAction(Request $request) {
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
-        /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           return $this->redirect($this->generateUrl('fos_user_security_login'));
-          } */
+          } 
         if ($request->isMethod("POST")) {
             $idgrenres = $request->request->get("genres");
             $idmarques = $request->request->get("marques");
@@ -109,9 +88,9 @@ class MaterielController extends Controller {
      */
     public function materielsAction(Request $request) {
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
-        /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           return $this->redirect($this->generateUrl('fos_user_security_login'));
-          } */
+          } 
         $em = $this->getDoctrine()->getManager();
 
         $repositoryMateriel = $em->getRepository("NNGenieInfosMatBundle:Materiel");
@@ -120,7 +99,7 @@ class MaterielController extends Controller {
         $repositoryType = $em->getRepository("NNGenieInfosMatBundle:Type");
         $repositoryLocalisation = $em->getRepository("NNGenieInfosMatBundle:Localisation");
         $repositoryProprietaire = $em->getRepository("NNGenieInfosMatBundle:Proprietaire");
-        //selectionne les seuls materiels actifs
+        
         $materiels = $repositoryMateriel->findBy(array("statut" => 1));
         $genres = $repositoryGenre->findBy(array("statut" => 1));
         $marques = $repositoryMarque->findBy(array("statut" => 1));
@@ -128,7 +107,7 @@ class MaterielController extends Controller {
         $localisations = $repositoryLocalisation->findBy(array("statut" => 1));
         $proprietaires = $repositoryProprietaire->findBy(array("statut" => 1));
 
-        return $this->render('NNGenieInfosMatBundle:Materiels:materiels.html.twig', array('materiels' => $materiels, 'genres' => $genres, 'marques' => $marques, 'types' => $types, 'localisations' => $localisations, 'proprietaires' => $proprietaires,));
+        return $this->render('NNGenieInfosMatBundle:Materiels:materiels.html.twig', array('materiels' => $materiels, 'genres' => $genres, 'marques' => $marques, 'types' => $types, 'localisations' => $localisations, 'proprietaires' => $proprietaires));
     }
 
     /**
