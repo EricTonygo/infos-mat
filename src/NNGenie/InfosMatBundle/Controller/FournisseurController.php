@@ -36,6 +36,29 @@ class FournisseurController extends Controller {
     }
 
     /**
+     * @Route("/fournisseurs")
+     * @Template()
+     * @Method({"GET"})
+     * @param Request $request
+     */
+    public function fournisseursuserAction() {
+        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+          return $this->redirect($this->generateUrl('fos_user_security_login'));
+          } */
+        $em = $this->getDoctrine()->getManager();
+
+        $repositoryFournisseur = $em->getRepository("NNGenieInfosMatBundle:Fournisseur");
+        $fournisseur = new Fournisseur();
+        $form = $this->createForm(new FournisseurType(), $fournisseur);
+        $display_tab = 1;
+        //selectionne les seuls fournisseurs actifs
+        $fournisseurs = $repositoryFournisseur->findBy(array("statut" => 1));
+
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:fournisseurs.html.twig', array('fournisseurs' => $fournisseurs, 'form' => $form->createView(), "display_tab" => $display_tab));
+    }
+
+    /**
      * Creates a new Fournisseur entity.
      *
      * @Route("/new-fournisseur")

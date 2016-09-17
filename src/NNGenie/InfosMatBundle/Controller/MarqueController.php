@@ -38,6 +38,29 @@ class MarqueController extends Controller {
 
         return $this->render('NNGenieInfosMatBundle:Marques:marques.html.twig', array('marques' => $marques, 'form' => $form->createView(), "display_tab" => $display_tab));
     }
+    
+    /**
+     * @Route("/marquesuser")
+     * @Template()
+     * @Method({"GET"})
+     * @param Request $request
+     */
+    public function marquesuserAction(Request $request) {
+        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+          return $this->redirect($this->generateUrl('fos_user_security_login'));
+          } */
+        $em = $this->getDoctrine()->getManager();
+
+        $repositoryMarque = $em->getRepository("NNGenieInfosMatBundle:Marque");
+        $marque = new Marque();
+        $form = $this->createForm(new MarqueType(), $marque);
+        $display_tab = 1;
+        //selectionne les seuls marques actifs
+        $marques = $repositoryMarque->findBy(array("statut" => 1));
+
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:marques.html.twig', array('marques' => $marques, 'form' => $form->createView(), "display_tab" => $display_tab));
+    }
 
     /**
      * Creates a new Marque entity.

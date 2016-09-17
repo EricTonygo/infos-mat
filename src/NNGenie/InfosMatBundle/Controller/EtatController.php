@@ -14,6 +14,14 @@ class EtatController extends Controller {
                     'etats' => $etats
         ));
     }
+    public function indexuserAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $etats = $em->getRepository('NNGenieInfosMatBundle:Etat')->myFindAll();
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:etat.html.twig', array(
+            'etats'=>$etats
+        ));
+    }
 
     public function viewAction(\NNGenie\InfosMatBundle\Entity\Etat $etat) {
         return $this->render('NNGenieInfosMatBundle:Etat:view.html.twig', array(

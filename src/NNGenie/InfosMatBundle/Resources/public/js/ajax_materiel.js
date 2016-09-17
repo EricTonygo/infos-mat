@@ -26,4 +26,3 @@ $('#materiel_genre').change(function (){
         });
     }
 });
-

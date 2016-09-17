@@ -7,17 +7,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-			{# Bootstrap #}
-			<link href="{{ asset('bundles/nngenieinfosmat/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-			 {# Font Awesome #}
-			<link href="{{ asset('bundles/nngenieinfosmat/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+            {# Bootstrap #}
+                <link href="{{ asset('bundles/nngenieinfosmat/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+             {# Font Awesome #}
+                <link href="{{ asset('bundles/nngenieinfosmat/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
 
-			{# Custom Theme Style #}
-			<link href="{{ asset('bundles/nngenieinfosmat/css/custom.css') }}" rel="stylesheet">
-			<link href="{{ asset('bundles/nngenieinfosmat/css/personal.css') }}" rel="stylesheet">
-		{% endblock %}
+            {# Custom Theme Style #}
+                <link href="{{ asset('bundles/nngenieinfosmat/css/custom.css') }}" rel="stylesheet">
+                <link href="{{ asset('bundles/nngenieinfosmat/css/personal.css') }}" rel="stylesheet">
+            {# PNotify #}
+                <link href="{{ asset('bundles/nngenieinfosmat/vendors/pnotify/dist/pnotify.css') }}" rel="stylesheet">
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     {% block content_body %}{% endblock %}
-    {% block javascripts %}{% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('bundles/nngenieinfosmat/vendors/jquery/dist/jquery.min.js') }}"></script>
+        {# PNotify #}
+            <script src="{{ asset('bundles/nngenieinfosmat/vendors/pnotify/dist/pnotify.js') }}"></script>
+    {% endblock %}
 </html>

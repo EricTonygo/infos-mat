@@ -1,3 +1,7 @@
+nn_genie_infos_mat_view_utilisateur_user:
+    path:     /utilisateur
+    defaults: { _controller: NNGenieUserBundle:User:getAllUsersuser }
+
 nn_genie_infos_mat_homepage:
     path:     /
     defaults: { _controller: NNGenieInfosMatBundle:Default:index }
@@ -6,10 +10,13 @@ nn_genie_infos_mat_view_materiel_user:
     path:     /view-materiels
     defaults: { _controller: NNGenieInfosMatBundle:Default:viewmateriels }
 
+nn_genie_infos_mat_view_materiel_classification_user:
+    path:     /view-materiels/classification
+    defaults: { _controller: NNGenieInfosMatBundle:Default:classification }
+
 nn_genie_infos_mat_ask_infos_user:
     path:     /ask-informations
     defaults: { _controller: NNGenieInfosMatBundle:Default:askinformations }
-
 
 nn_genie_infos_mat_commentaire_index:
     path:     /commentaire/index/{id}
@@ -78,6 +85,10 @@ nn_genie_infos_mat_etat_index:
     path:     /etat/index
     defaults: { _controller: NNGenieInfosMatBundle:Etat:index }
 
+nn_genie_infos_mat_etat_indexuser:
+    path:     /etat
+    defaults: { _controller: NNGenieInfosMatBundle:Etat:indexuser }
+
 nn_genie_infos_mat_etat_view:
     path:     /etat/view/{id}
     defaults: { _controller: NNGenieInfosMatBundle:Etat:view }
@@ -102,6 +113,10 @@ nn_genie_infos_mat_etat_delete:
 nn_genie_infos_mat_famille_index:
     path:     /famille/index
     defaults: { _controller: NNGenieInfosMatBundle:Famille:index }
+
+nn_genie_infos_mat_famille_indexuser:
+    path:     /famille
+    defaults: { _controller: NNGenieInfosMatBundle:Famille:indexuser }
 
 nn_genie_infos_mat_famille_view:
     path:     /famille/view/{id}
@@ -165,6 +180,12 @@ nn_genie_infos_mat_materiels:
     options:
         expose: true
 
+nn_genie_infos_mat_materiels_user:
+    pattern: /materiel
+    defaults: { _controller: NNGenieInfosMatBundle:Materiel:materielsuser }
+    options:
+        expose: true
+
 nn_genie_infos_mat_materiel_filtre:
     pattern: /filtre-materiels
     defaults: { _controller: NNGenieInfosMatBundle:Materiel:filtremateriel }
@@ -202,6 +223,12 @@ nn_genie_infos_mat_materiel_detail:
     options:
         expose: true
 
+nn_genie_infos_mat_materiel_detail_user:
+    pattern: /vue-materiel/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Materiel:detailuser }
+    options:
+        expose: true
+
 nn_genie_infos_mat_materiel_edit_main_image:
     pattern: /edit-main-image/{id}
     defaults: { _controller: NNGenieInfosMatBundle:Materiel:editMainImage }
@@ -211,6 +238,12 @@ nn_genie_infos_mat_materiel_edit_main_image:
 nn_genie_infos_mat_types:
     pattern: /types
     defaults: { _controller: NNGenieInfosMatBundle:Type:types }
+    options:
+        expose: true
+
+nn_genie_infos_mat_typesuser:
+    pattern: /type
+    defaults: { _controller: NNGenieInfosMatBundle:Type:typesuser }
     options:
         expose: true
         
@@ -239,6 +272,12 @@ nn_genie_infos_mat_classesmateriel:
     options:
         expose: true
 
+nn_genie_infos_mat_classesmaterieluser:
+    pattern: /classes-materiels
+    defaults: { _controller: NNGenieInfosMatBundle:Classemateriel:classesmaterieluser }
+    options:
+        expose: true
+
 nn_genie_infos_mat_classemateriel_new:
     pattern: /new-classe-materiel
     defaults: { _controller: NNGenieInfosMatBundle:Classemateriel:new }
@@ -261,6 +300,12 @@ nn_genie_infos_mat_classemateriel_delete:
 nn_genie_infos_mat_genres:
     pattern: /genres
     defaults: { _controller: NNGenieInfosMatBundle:Genre:genres }
+    options:
+        expose: true
+
+nn_genie_infos_mat_genresuser:
+    pattern: /genre
+    defaults: { _controller: NNGenieInfosMatBundle:Genre:genresuser }
     options:
         expose: true
 
@@ -288,6 +333,12 @@ nn_genie_infos_mat_proprietaires:
     options:
         expose: true
 
+nn_genie_infos_mat_proprietairesuser:
+    pattern: /proprietaire
+    defaults: { _controller: NNGenieInfosMatBundle:Proprietaire:proprietairesuser }
+    options:
+        expose: true
+
 nn_genie_infos_mat_proprietaire_new:
     pattern: /new-proprietaire
     defaults: { _controller: NNGenieInfosMatBundle:Proprietaire:new }
@@ -312,6 +363,12 @@ nn_genie_infos_mat_marques:
     options:
         expose: true
 
+nn_genie_infos_mat_marquesuser:
+    pattern: /marque
+    defaults: { _controller: NNGenieInfosMatBundle:Marque:marquesuser }
+    options:
+        expose: true
+
 nn_genie_infos_mat_marque_new:
     pattern: /new-marque
     defaults: { _controller: NNGenieInfosMatBundle:Marque:new }
@@ -333,6 +390,12 @@ nn_genie_infos_mat_marque_delete:
 nn_genie_infos_mat_fournisseurs:
     pattern: /fournisseurs
     defaults: { _controller: NNGenieInfosMatBundle:Fournisseur:fournisseurs }
+    options:
+        expose: true
+
+nn_genie_infos_mat_fournisseursuser:
+    pattern: /fournisseur
+    defaults: { _controller: NNGenieInfosMatBundle:Fournisseur:fournisseursuser }
     options:
         expose: true
 

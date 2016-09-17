@@ -14,6 +14,14 @@ class FamilleController extends Controller {
                     'familles' => $familles
         ));
     }
+    public function indexuserAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $familles = $em->getRepository('NNGenieInfosMatBundle:Famille')->myFindAll();
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:famille.html.twig', array(
+            'familles' => $familles
+        ));
+    }
 
     public function viewAction(\NNGenie\InfosMatBundle\Entity\Famille $famille) {
         return $this->render('NNGenieInfosMatBundle:Famille:view.html.twig', array(
