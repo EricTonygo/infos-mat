@@ -36,6 +36,29 @@ class GenreController extends Controller{
     }
 
     /**
+     * @Route("/genresuser")
+     * @Template()
+     * @Method({"GET"})
+     * @param Request $request
+     */
+    public function genresuserAction() {
+        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+          return $this->redirect($this->generateUrl('fos_user_security_login'));
+          } */
+        $em = $this->getDoctrine()->getManager();
+
+        $repositoryGenre = $em->getRepository("NNGenieInfosMatBundle:Genre");
+        $genre = new Genre();
+        $form = $this->createForm(new GenreType(), $genre);
+        $display_tab = 1;
+        //selectionne les seuls genres actifs
+        $genres = $repositoryGenre->findBy(array("statut" => 1));
+
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:genres.html.twig', array('genres' => $genres, 'form' => $form->createView(), "display_tab" => $display_tab));
+    }
+    
+    /**
      * Creates a new Genre entity.
      *
      * @Route("/new-genre")

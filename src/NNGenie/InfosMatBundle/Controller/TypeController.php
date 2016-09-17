@@ -41,6 +41,29 @@ class TypeController extends Controller{
     }
 
     /**
+     * @Route("/typesuser")
+     * @Template()
+     * @Method({"GET"})
+     * @param Request $request
+     */
+    public function typesuserAction(Request $request) {
+        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+          return $this->redirect($this->generateUrl('fos_user_security_login'));
+          } */
+        $em = $this->getDoctrine()->getManager();
+
+        $repositoryType = $em->getRepository("NNGenieInfosMatBundle:Type");
+        $type = new Type();
+        $form = $this->createForm(new TypeType(), $type);
+        $display_tab = 1;
+        //selectionne les seuls types actifs
+        $types = $repositoryType->findBy(array("statut" => 1));
+
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:types.html.twig', array('types' => $types, 'form' => $form->createView(), "display_tab" => $display_tab));
+    }
+    
+    /**
      * Creates a new Type entity.
      *
      * @Route("/new-type")

@@ -1,6 +1,6 @@
 {% extends 'NNGenieInfosMatBundle:FrontEnd:layout.html.twig' %}
 
-{% block title %}{{parent()}} - Materiels{% endblock %}
+{% block title %}{{parent()}} - VueMateriels{% endblock %}
 
 {% block content %}
     <!-- page content -->
@@ -9,14 +9,15 @@
             <div class="container">
                 <ol class="breadcrumb">
                     <li><a href="{{path('nn_genie_infos_mat_homepage')}}" class="marron"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Acceuil</a></li>
-                    <li class="active">Matériels</li>
+                    <li>Matériels</li>
+                    
                 </ol>
             </div>
         </div>
         <div class="blokchoice">
             <div class="row top_tiles">
                 <div class="animated flipInY col-md-offset-2 col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <a href="{{path('nn_genie_infos_mat_view_materiel_user')}}">
+                    <a href="{{path('nn_genie_infos_mat_view_materiel_classification_user')}}">
                         <div class="tile-stats">
                             <div class="icon fachoice"><i class="fa fa-navicon marron"></i>
                             </div>
@@ -28,7 +29,7 @@
                     </a>
                 </div>
                 <div class="animated flipInY col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                    <a href="viewmateriel.html">
+                    <a href="{{path('nn_genie_infos_mat_materiels_user')}}">
                         <div class="tile-stats">
                             <div class="icon fachoice"><i class="fa fa-info marron"></i>
                             </div>

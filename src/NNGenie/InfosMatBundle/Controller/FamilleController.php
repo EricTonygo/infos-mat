@@ -15,6 +15,14 @@ class FamilleController extends Controller
             'familles' => $familles
         ));
     }
+    public function indexuserAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $familles = $em->getRepository('NNGenieInfosMatBundle:Famille')->myFindAll();
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:famille.html.twig', array(
+            'familles' => $familles
+        ));
+    }
 
     public function viewAction(\NNGenie\InfosMatBundle\Entity\Famille $famille)
     {
@@ -34,7 +42,7 @@ class FamilleController extends Controller
 			$familleUnique = $em->getRepository('NNGenieInfosMatBundle:Famille')->findBy(array("nom" => $famille->getNom(), "statut" => 1));
 			if($familleUnique == null){
 				$em->getRepository('NNGenieInfosMatBundle:Famille')->saveFamille($famille);
-				$famille = new \NNGenie\InfosMatBundle\Entity\Etat();
+				$famille = new \NNGenie\InfosMatBundle\Entity\Famille();
 				$form = $this->createForm('NNGenie\InfosMatBundle\Form\FamilleType', $famille);
 				return $this->render('NNGenieInfosMatBundle:famille:new.html.twig', array(
 					'form' => $form->createView()

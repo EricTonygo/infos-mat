@@ -1,13 +1,19 @@
-{% extends 'NNGenieInfosMatBundle::layout.html.twig' %}
+{% extends 'NNGenieInfosMatBundle:FrontEnd:layout.html.twig' %}
 
-{% block title %}GMTRAV - Utilisateurs{% endblock %}
+{% block title %}{{parent()}} - Utilisateurs{% endblock %}
 
 {% block stylesheets %}
     {{parent()}}
     <link href="{{ asset('bundles/nngenieinfosmat/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">		
+    <style>
+        #datatable-responsive_wrapper div.row .col-sm-6 + .col-sm-6{
+            margin-left: -14%;
+        }
+    </style>
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/nngenieinfosmat/css/form.css')}}" rel="stylesheet">
     <script type="text/javascript" src="{{ asset('bundles/nngenieinfosmat/js/jquery.jscrollpane.min.js') }}"></script>
     <script type="text/javascript" id="sourcecode">
@@ -19,9 +25,18 @@
 {% endblock %}
 
 {% block content %}
-    <div class="right_col" role="main">
+    <!-- page content -->
+        <div class="right_col" role="main">
 
-        <div class="">
+        <div class="breadcrumbs">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li><a href="{{path('nn_genie_infos_mat_homepage')}}" class="marron"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Acceuil</a></li>
+                    <li class="active">Utilisateur</li>
+                </ol>
+            </div>
+        </div>
+          <div class="">
             <div class="page-title">
                 <div class="title_left">
                     <h3>
@@ -38,7 +53,6 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2>Informations sur les utilisateurs </h2>
-                            {% if is_granted('ROLE_ADMIN') %}<a href="{{path("fos_user_registration_register")}}" class="btn btn-info fright">Ajouter</a>{% endif %}
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -96,25 +110,34 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
+    <!-- /page content -->
+<!-- /page content -->
+
 {% endblock %}
 {% block javascripts %}
     {{parent()}}
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#datatable-responsive').DataTable();
+        });
+    </script>
+    
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/fastclick/lib/fastclick.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/nprogress/nprogress.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/jszip/dist/jszip.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
     <script src="{{ asset('bundles/nngenieinfosmat/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/nngenieinfosmat/js/jquery.jscrollpane.min.js') }}"></script>
-    {#<script>
+    <script>
         $(document).ready(function () {
             var handleDataTableButtons = function () {
                 if ($("#datatable-buttons").length) {
@@ -157,11 +180,6 @@
             }();
 
             TableManageButtons.init();
-        });
-    </script>#}
-	<script>
-        $(document).ready(function () {
-            $('#datatable-responsive').DataTable();
         });
     </script>
 {% endblock %}

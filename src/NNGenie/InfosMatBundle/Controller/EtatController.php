@@ -15,6 +15,14 @@ class EtatController extends Controller
             'etats'=>$etats
         ));
     }
+    public function indexuserAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $etats = $em->getRepository('NNGenieInfosMatBundle:Etat')->myFindAll();
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:etat.html.twig', array(
+            'etats'=>$etats
+        ));
+    }
 
     public function viewAction(\NNGenie\InfosMatBundle\Entity\Etat $etat)
     {
@@ -37,11 +45,13 @@ class EtatController extends Controller
 				$etat = new \NNGenie\InfosMatBundle\Entity\Etat();
 				$form = $this->createForm('NNGenie\InfosMatBundle\Form\EtatType', $etat);
 				return $this->render('NNGenieInfosMatBundle:etat:new.html.twig', array(
-					'form' => $form->createView()
+					'form' => $form->createView(),
+                                        'succes' => 'Etat crée avec succès'
 				));
 			}else{
 				return $this->render('NNGenieInfosMatBundle:etat:new.html.twig', array(
-					'form' => $form->createView()
+					'form' => $form->createView(),
+                                        'erreur' => 'Etat déjà existant'
 				));
 			}
         }

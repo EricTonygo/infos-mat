@@ -13,9 +13,14 @@
         <div id="wrapper">
             <div id="login" class="form">
                 <section class="login_content">
-				{% if error %}
-					<div class='center uppercase text-red'>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-				{% endif %}
+                        {% if error %}
+                            <button id="erreur" class="btn btn-default hidden source" onclick="new PNotify({
+                                title: 'Erreur',
+                                text: '{{ error.messageKey|trans(error.messageData, 'security') }}',
+                                type: 'error',
+                                styling: 'bootstrap3'
+                            });">Error</button>
+                        {% endif %}
                     <form action="{{ path("fos_user_security_check") }}" method="post">
                         <h1 class="marron">Authentification</h1>
 						<input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
@@ -51,4 +56,10 @@
         </div>
     </div>
 </body>
+{% endblock %}
+{% block javascripts %} 
+    {{parent()}}
+    <script>
+        $('#erreur').trigger('click');    
+    </script>
 {% endblock %}

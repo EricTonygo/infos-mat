@@ -10,15 +10,15 @@
             <div class="scroll-view col-md-6 mymenu">
                 <nav class="navbar">
                     <ul class="nav navbar-nav">
-                        <li> <a href="{{path('nn_genie_infos_mat_homepage')}}" style="color: rgb(255, 189, 43) !important;">Accueil</a> </li>
+                        <li> <a href="{{path('nn_genie_infos_mat_homepage')}}">Accueil</a> </li>
                         <li class="dropdown"><a data-toggle="dropdown" href="#">Matériels<b class="caret"></b></a>
                             <ul class="dropdown-menu">
-                                <li><a href="classification.html">Classification</a></li>
-                                <li><a href="viewmateriel.html">Situation générale</a></li>
-                                <li><a href="recherche.html">Demande d'inofrmation</a></li>
+                                <li><a href="{{path('nn_genie_infos_mat_view_materiel_classification_user')}}">Classification</a></li>
+                                <li><a href="{{path('nn_genie_infos_mat_materiels_user')}}">Situation générale</a></li>
+                                <li><a href="{{path('nn_genie_infos_mat_ask_infos_user')}}">Demande d'information</a></li>
                             </ul>
                         </li>
-                        <li> <a href="viewuser.html">Travaux</a> </li>
+                        <li> <a href="{{path('nn_genie_infos_mat_view_utilisateur_user')}}">Utilisateurs</a> </li>
                     </ul>
                 </nav>
             </div>

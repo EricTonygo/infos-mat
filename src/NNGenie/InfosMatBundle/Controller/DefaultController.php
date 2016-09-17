@@ -22,7 +22,7 @@ class DefaultController extends Controller {
         $userManager = $this->container->get('fos_user.user_manager');
         $materiels = $repositoryMateriel->findBy(array("statut" => 1));
         $users = $userManager->findUsers();
-        return $this->render('NNGenieInfosMatBundle:FrontEnd:index.html.twig', array('nombreUsers' => count($users), 'nombreMateriels' => count($materiels)));
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:index.html.twig', array('nombreUtilisateurs' => count($users), 'nombreMateriels' => count($materiels)));
     }
     
     
@@ -34,11 +34,36 @@ class DefaultController extends Controller {
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
-        $repositoryMateriel = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Materiel");
-        $userManager = $this->container->get('fos_user.user_manager');
-        $materiels = $repositoryMateriel->findBy(array("statut" => 1));
-        $users = $userManager->findUsers();
-        return $this->render('NNGenieInfosMatBundle:FrontEnd:view.materiels.accueil.html.twig', array('nombreUsers' => count($users), 'nombreMateriels' => count($materiels)));
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:view.materiels.accueil.html.twig');
+    }
+    
+    /**
+     * @Route("/view-materiels")
+     * @Template()
+     */
+    public function classificationAction() {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
+        
+        $repository = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Classemateriel");
+        $classe = $repository->findBy(array("statut" => 1));
+        $repository = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Famille");
+        $famille = $repository->findBy(array("statut" => 1));
+        $repository = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Genre");
+        $genre = $repository->findBy(array("statut" => 1));
+        $repository = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Marque");
+        $marque = $repository->findBy(array("statut" => 1));
+        $repository = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Type");
+        $type = $repository->findBy(array("statut" => 1));
+        $repository = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Proprietaire");
+        $proprietaire = $repository->findBy(array("statut" => 1));
+        $repository = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Fournisseur");
+        $fournisseur = $repository->findBy(array("statut" => 1));
+        $repository = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Etat");
+        $etat = $repository->findBy(array("statut" => 1));
+        
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:view.materiels.classification.html.twig', array('nbreclasse' => count($classe), 'nbrefamille' => count($famille), 'nbregenre' => count($genre), 'nbremarque' => count($marque), 'nbretype' => count($type), 'nbreproprietaire' => count($proprietaire), 'nbrefournisseur' => count($fournisseur), 'nbreetat' => count($etat)));
     }
     
     /**

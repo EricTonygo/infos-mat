@@ -40,6 +40,29 @@ class ProprietaireController extends Controller{
 
         return $this->render('NNGenieInfosMatBundle:Proprietaires:proprietaires.html.twig', array('proprietaires' => $proprietaires, 'form' => $form->createView(), "display_tab" => $display_tab));
     }
+    
+    /**
+     * @Route("/proprietairesuser")
+     * @Template()
+     * @Method({"GET"})
+     * @param Request $request
+     */
+    public function proprietairesuserAction() {
+        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+          return $this->redirect($this->generateUrl('fos_user_security_login'));
+          } */
+        $em = $this->getDoctrine()->getManager();
+
+        $repositoryProprietaire = $em->getRepository("NNGenieInfosMatBundle:Proprietaire");
+        $proprietaire = new Proprietaire();
+        $form = $this->createForm(new ProprietaireType(), $proprietaire);
+        $display_tab = 1;
+        //selectionne les seuls proprietaires actifs
+        $proprietaires = $repositoryProprietaire->findBy(array("statut" => 1));
+
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:proprietaires.html.twig', array('proprietaires' => $proprietaires, 'form' => $form->createView(), "display_tab" => $display_tab));
+    }
 
     /**
      * Creates a new Proprietaire entity.

@@ -109,6 +109,36 @@ class MaterielController extends Controller {
 
         return $this->render('NNGenieInfosMatBundle:Materiels:materiels.html.twig', array('materiels' => $materiels, 'genres' => $genres, 'marques' => $marques, 'types' => $types, 'localisations' => $localisations, 'proprietaires' => $proprietaires));
     }
+    
+    /**
+     * @Route("/materiel")
+     * @Template()
+     * @Method({"GET"})
+     * @param Request $request
+     */
+    public function materielsuserAction(Request $request) {
+        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+          return $this->redirect($this->generateUrl('fos_user_security_login'));
+          } 
+        $em = $this->getDoctrine()->getManager();
+
+        $repositoryMateriel = $em->getRepository("NNGenieInfosMatBundle:Materiel");
+        $repositoryGenre = $em->getRepository("NNGenieInfosMatBundle:Genre");
+        $repositoryMarque = $em->getRepository("NNGenieInfosMatBundle:Marque");
+        $repositoryType = $em->getRepository("NNGenieInfosMatBundle:Type");
+        $repositoryLocalisation = $em->getRepository("NNGenieInfosMatBundle:Localisation");
+        $repositoryProprietaire = $em->getRepository("NNGenieInfosMatBundle:Proprietaire");
+        
+        $materiels = $repositoryMateriel->findBy(array("statut" => 1));
+        $genres = $repositoryGenre->findBy(array("statut" => 1));
+        $marques = $repositoryMarque->findBy(array("statut" => 1));
+        $types = $repositoryType->findBy(array("statut" => 1));
+        $localisations = $repositoryLocalisation->findBy(array("statut" => 1));
+        $proprietaires = $repositoryProprietaire->findBy(array("statut" => 1));
+
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:materiels.html.twig', array('materiels' => $materiels, 'genres' => $genres, 'marques' => $marques, 'types' => $types, 'localisations' => $localisations, 'proprietaires' => $proprietaires));
+    }
 
     /**
      * Creates a new Materiel entity.
@@ -311,6 +341,25 @@ class MaterielController extends Controller {
             return $this->render('NNGenieInfosMatBundle:Materiels:details-materiel.html.twig', array('materiel' => $materiel, 'images' => $images));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
+        }
+    }
+    
+    /**
+     * Deletes a Materiel entity.
+     *
+     * @Route("/vue-materiel/{id}")
+     * @Template()
+     * @Method({"GET"})
+     */
+    public function detailuserAction(Materiel $materiel) {
+        $request = $this->get("request");
+        $em = $this->getDoctrine()->getManager();
+        $repositoryImage = $em->getRepository("NNGenieInfosMatBundle:Image");
+        if ($request->isMethod('GET')) {
+            $images = $repositoryImage->findBy(array('materiel' => $materiel, 'statut' => 1));
+            return $this->render('NNGenieInfosMatBundle:FrontEnd:details-materiel.html.twig', array('materiel' => $materiel, 'images' => $images));
+        } else {
+            return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels_user'));
         }
     }
 
