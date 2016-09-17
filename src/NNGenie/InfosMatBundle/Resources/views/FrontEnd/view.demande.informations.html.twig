@@ -218,7 +218,6 @@
                                     <th>Prix</th>
                                     <th>Localisation</th>
                                     <th>Fournisseur</th>
-                                    <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -233,21 +232,6 @@
                                                 <td>{{materiel.prix}}</td>
                                                 <td>{{materiel.localisation.ville}}</td>
                                                 <td>{{materiel.fournisseur.nom}}</td>
-                                                <td>
-                                                    <div role="presentation" class="dropdown">
-                                                        <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                                                            <center><span class="caret"></span></center>
-                                                        </a>
-                                                        <ul class="action dropdown-menu animated fadeInDown" role="menu">
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_infos_mat_materiel_edit',{'id' : materiel.id}) }}"><i class="fa fa-edit"></i>  Modifier</a>
-                                                            </li>
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_infos_mat_materiel_delete',{'id' : materiel.id}) }}"><i class="fa fa-trash"></i>  Supprimer</a>
-                                                            </li>
-															<li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_infos_mat_materiel_detail',{'id' : materiel.id}) }}"><i class="fa fa-eye"></i>  Voir</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </td>
                                             </tr>
                                         {% endfor %} 
                                     {% endif %} 

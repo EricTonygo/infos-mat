@@ -28,7 +28,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-
+                            {{ render_flash_alerts() }}
                             <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_infos_mat_materiel_new') }}" {{ form_enctype(form) }} novalidate>
 
                                 <div class="item form-group">
@@ -80,7 +80,7 @@
                                     {{ form_errors(form.prix) }}
 
                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        {{ form_widget(form.prix, {'attr': {'class': 'form-control col-md-7 col-xs-12'}}) }}
+                                        {{ form_widget(form.prix, {'attr': {'class': 'form-control  col-md-7 col-xs-12'}}) }}
                                     </div>
                                 </div>
                                 <div class="item form-group">
@@ -127,16 +127,6 @@
                                 <div class="form-group">
                                     {{ form_rest(form)}}
                                 </div>
-                                {% if app.session.flashbag.get('message_failure') %}										
-                                    <div id="message_projet">
-                                        <div id="myAlert" class="alert alert-danger">
-                                            <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                            {% for flash_message in app.session.flashbag.get('message_failure') %}
-                                                {{ flash_message }}
-                                            {% endfor %}
-                                        </div>
-                                    </div> 
-                                {% endif %}
                                 <div class="ln_solid"></div>
                                 <div class="form-group">
                                     <div class="col-md-6 col-md-offset-3">
@@ -173,7 +163,6 @@
         $('form').submit(function(e) {
             e.preventDefault();
             var submit = true;
-            alert("here");
             // evaluate the form using generic validaing
             if (!validator.checkAll($(this))) {
                 submit = false;
@@ -184,6 +173,11 @@
 
             return false;
         });
+        
+        setTimeout(function(){
+            $("ras-flash-alerts").alert("close");
+            $("ras-flash-alerts").hide();
+        }, 4000);
 
         $(document).ready(function() {
             $("#materiel_genre").select2({

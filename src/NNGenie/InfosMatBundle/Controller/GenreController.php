@@ -10,8 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use NNGenie\InfosMatBundle\Entity\Genre;
 use NNGenie\InfosMatBundle\Form\GenreType;
 
-class GenreController extends Controller{
-    
+class GenreController extends Controller {
+
     /**
      * @Route("/genres")
      * @Template()
@@ -52,23 +52,23 @@ class GenreController extends Controller{
 
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $genreUnique = $repositoryGenre->findBy(array("nom" => $genre->getNom(),"statut" => 1));
+                $genreUnique = $repositoryGenre->findBy(array("nom" => $genre->getNom(), "statut" => 1));
                 if ($genreUnique == null) {
                     try {
                         $repositoryGenre->saveGenre($genre);
                         $message = $this->get('translator')->trans('Genre.created_success', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message_success', $message);
+                        $request->getSession()->getFlashBag()->addSuccess('message_success', $message);
                         $genre = new Genre();
-						$form = $this->createForm(new GenreType(), $genre);
-						return $this->render('NNGenieInfosMatBundle:Genres:form-add-genre.html.twig', array('form' => $form->createView()));
+                        $form = $this->createForm(new GenreType(), $genre);
+                        return $this->render('NNGenieInfosMatBundle:Genres:form-add-genre.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Genre.created_failure', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
                         return $this->render('NNGenieInfosMatBundle:Genres:form-add-genre.html.twig', array('form' => $form->createView()));
                     }
                 } else {
                     $message = $this->get('translator')->trans('Genre.exist_already', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    $request->getSession()->getFlashBag()->addError('message_faillure', $message);
                     return $this->render('NNGenieInfosMatBundle:Genres:form-add-genre.html.twig', array('form' => $form->createView()));
                 }
             }
@@ -112,11 +112,11 @@ class GenreController extends Controller{
                 try {
                     $repositoryGenre->updateGenre($genre);
                     $message = $this->get('translator')->trans('Genre.updated_success', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_success', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                     return $this->redirect($this->generateUrl('nn_genie_infos_mat_genres'));
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Genre.updated_failure', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
                     return $this->render('NNGenieInfosMatBundle:Genres:form-update-genre.html.twig', array('form' => $editForm->createView(), 'idgenre' => $genre->getId()));
                 }
             }
@@ -140,11 +140,11 @@ class GenreController extends Controller{
             try {
                 $repositoryGenre->deleteGenre($genre);
                 $message = $message = $this->get('translator')->trans('Genre.deleted_success', array(), "NNGenieInfosMatBundle");
-                $request->getSession()->getFlashBag()->add('message_success', $message);
-                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_genres'));
+                $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                return $this->redirect($this->generateUrl('nn_genie_infos_mat_genres'));
             } catch (Exception $ex) {
                 $message = $message = $this->get('translator')->trans('Genre.deleted_failure', array(), "NNGenieInfosMatBundle");
-                $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                $this->get('ras_flash_alert.alert_reporter')->addError($message);
                 return $this->redirect($this->generateUrl('nn_genie_infos_mat_genres'));
             }
         } else {
@@ -166,7 +166,7 @@ class GenreController extends Controller{
                         ->getForm()
         ;
     }
-    
+
     /**
      * Creates a form to add a Genre entity.
      *
@@ -181,4 +181,5 @@ class GenreController extends Controller{
                         ->getForm()
         ;
     }
+
 }

@@ -32,7 +32,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-
+                             {{ render_flash_alerts() }}
                             <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_infos_mat_image_edit',{'id': image.id}) }}" {{ form_enctype(form) }}>
                                 <div class="item form-group">
                                     {{ form_label(form.file, "Inserez une image", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
