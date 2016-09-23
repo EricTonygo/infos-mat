@@ -1,3 +1,9 @@
+.right_col{
+	padding: 25px !important;
+}
+.right_col .row{
+	padding: 0px 25px !important;
+}
 .nav-sm .container.body .col-md-3.left_col {
   width: 70px;
   padding: 0;

@@ -46,6 +46,25 @@ class UserController extends Controller {
         }
         return $this->render("NNGenieUserBundle:Users:users.html.twig", array('users' => $users));
     }
+    
+    /**
+     * @Route("/utilisateurs", name="gestion_projet_users_all")
+     * @Method({"GET"})
+     */
+    public function getAllUsersuserAction() {
+		if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
+
+        $userManager = $this->container->get('fos_user.user_manager');
+
+        try {
+            $users = $userManager->findUsers();
+        } catch (Exception $exc) {
+            echo $exc->getTraceAsString();
+        }
+        return $this->render("NNGenieInfosMatBundle:FrontEnd:users.html.twig", array('users' => $users));
+    }
 
     /**
 	 * @Security("has_role('ROLE_SUPER_ADMIN')")

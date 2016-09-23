@@ -1,251 +1,231 @@
-{% extends 'NNGenieInfosMatBundle:FrontEnd:layout.html.twig' %}
+{% extends 'NNGenieInfosMatBundle:FrontEnd:layoutone.html.twig' %}
 
-{% block title %}{{parent()}} - Demande d'informations{% endblock %}
-
+{% block title %}{{parent()}} - Informations{% endblock %}
 {% block stylesheets %}
     {{parent()}}
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bundles/nngenieinfosmat/css/form.css')}}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/select2/dist/css/select2.min.css') }}" rel="stylesheet">
 {% endblock %}
+    {% block content %}
+	<div class="" role="main">
 
-{% block content %}
-    <!-- page content -->
-    <div class="right_col" role="main">
-        <div class="breadcrumbs row">
-            <div class="container">
-                <ol class="breadcrumb">
-                    <li><a href="{{path('nn_genie_infos_mat_homepage')}}" class="marron"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Acceuil</a></li>
-                    <li><a href="{{path('nn_genie_infos_mat_view_materiel_user')}}" class="marron" >Matériel</a></li>
-                    <li class="active">Demande d'informations</li>
-                </ol>
-            </div>
-        </div>
-        <div class="">
-            <div class="page-title">
-                <div class="title_left">
-                    <h3>
-                        RECHERCHE
-                    </h3>
+            <div class="breadcrumbs row">
+                <div class="container">
+                    <ol class="breadcrumb"><li><a href="{{path('nn_genie_infos_mat_homepage')}}" class="marron"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Acceuil</a></li>
+                        <li><a href="{{path('nn_genie_infos_mat_homepage')}}" >Matériels</a></li>
+                        <li class="active">Demande d'informations</li>
+                    </ol>
                 </div>
             </div>
-            <div class="clearfix"></div>
-            <div class="row">
-                <div class="thecontent col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>Renseigner les paramêtres de la recherche <small>Sélection</small></h2>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <div class="row">         
-                                <form id="form_search_infos" method="POST" action="{{ path('nn_genie_infos_mat_materiel_results_search') }}">
-                                    <div class="col-md-3">
-                                        <div class="item form-group row">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Genre </label>
-                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                                <div class="form-group row">
-                                                    <select id="genre" name="genres[]" class="select2_single form-control" tabindex="-1" >
-                                                        <option></option>
-                                                        {% if genres %}
-                                                            {% for genre in genres %}
-                                                                <option value="{{genre.id}}">{{genre.nom}}</option>
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                    </select>
-                                                </div>		
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>
+                            RECHERCHE
+                        </h3>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="thecontent col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Renseigner les paramêtres de la recherche <small>Sélection</small></h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="row">         
+                                    <form id="form_search_infos" method="POST" action="{{ path('nn_genie_infos_mat_materiel_results_search') }}">
+                                        <div class="col-md-4">
+                                            <div class="item form-group row">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Genre </label>
+                                                <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
+                                                    <div class="form-group row">
+                                                        <select id="genre" name="genres[]" class="select2_single form-control" tabindex="-1" >
+                                                            <option></option>
+                                                            {% if genres %}
+                                                                {% for genre in genres %}
+                                                                    <option value="{{genre.id}}">{{genre.nom}}</option>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </select>
+                                                    </div>		
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="item form-group row">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Propriétaire </label>
-                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                                <div class="form-group row">
-                                                    <select id="propriétaire" name="proprietaires[]"class="select2_single form-control" tabindex="-1">
-                                                        <option></option>
-                                                        {% if proprietaires %}
-                                                            {% for proprietaire in proprietaires %}
-                                                                <option value="{{proprietaire.id}}">{{proprietaire.nom}}</option>
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                    </select>
-                                                </div>		
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-offset-1 col-md-3">  
-                                        <div class="item form-group row">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Marque </label>
-                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                                <div class="form-group row">
-                                                    <select id="marque" name="marques[]" class="select2_single form-control" tabindex="-1" >
-                                                        <option></option>
-                                                        {% if marques %}
-                                                            {% for marque in marques%}
-                                                                <option value="{{marque.id}}">{{marque.nom}}</option>
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                    </select>
-                                                </div>		
-                                            </div>
-                                        </div>
-                                        <div class="item form-group row">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Localisation </label>
-                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                                <div class="form-group row">
-                                                    <select id="local" name="localisations[]" class="select2_single form-control" tabindex="-1" >
-                                                        <option></option>
-                                                        {% if localisations %}
-                                                            {% for localisation in localisations %}
-                                                                <option value="{{localisation.ville}}">{{localisation.ville}}</option>
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                    </select>
-                                                </div>		
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-md-offset-1 col-md-3">
-                                        <div class="item form-group row">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Type </label>
-                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                                <div class="form-group row">
-                                                    <select id="type" name="types[]" class="select2_single form-control" tabindex="-1" >
-                                                        <option></option>
-                                                        {% if types %}
-                                                            {% for type in types %}
-                                                                <option value="{{type.id}}">{{type.nom}}</option>
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                    </select>
-                                                </div>		
-                                            </div>
-                                        </div>
-                                        <div class="item form-group row">
-                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Etat </label>
-                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
-                                                <div class="form-group row">
-                                                    <select id="etat" name="etats[]" class="select2_single form-control" tabindex="-1">
-                                                        <option></option>
-                                                        {% if etats %}
-                                                            {% for etat in etats %}
-                                                                <option value="{{etat.id}}">{{etat.nom}}</option>
-                                                            {% endfor %}
-                                                        {% endif %}
-                                                    </select>
-                                                </div>		
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="occasion-cart col-md-12">
-                                        <center>
-                                            <input value="Filtrer" type="submit" class="filtre btn btn-warning" >
-                                        </center>
-                                        <!-- Small modal -->
-                                        <div id="modal_result" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
-                                            <div class="modal-dialog modal-sm">
-                                                <div class="modal-content">
-
-                                                    <div class="modal-header">
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
-                                                        </button>
-                                                        <h4 class="modal-title" id="myModalLabel2">Resultat de la recherche</h4>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <h1 class="headmodal">
-                                                            <span id="response_text" class="fleft">{{response_text}}</span>
-                                                            <span id="response_number" class="fright">{{response_number}}</span>
-                                                        </h1>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <center>
-                                                            <a id="getinformations" class="btn btn-default">Informations</a>
-                                                        </center>
-                                                    </div>
-
+                                            <div class="item form-group row">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Propriétaire </label>
+                                                <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
+                                                    <div class="form-group row">
+                                                        <select id="propriétaire" name="proprietaires[]"class="select2_single form-control" tabindex="-1">
+                                                            <option></option>
+                                                            {% if proprietaires %}
+                                                                {% for proprietaire in proprietaires %}
+                                                                    <option value="{{proprietaire.id}}">{{proprietaire.nom}}</option>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </select>
+                                                    </div>		
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </form>  
+
+                                        <div class="col-md-4">  
+                                            <div class="item form-group row">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Marque </label>
+                                                <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
+                                                    <div class="form-group row">
+                                                        <select id="marque" name="marques[]" class="select2_single form-control" tabindex="-1" >
+                                                            <option></option>
+                                                            {% if marques %}
+                                                                {% for marque in marques%}
+                                                                    <option value="{{marque.id}}">{{marque.nom}}</option>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </select>
+                                                    </div>		
+                                                </div>
+                                            </div>
+                                            <div class="item form-group row">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Localisation </label>
+                                                <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
+                                                    <div class="form-group row">
+                                                        <select id="local" name="localisations[]" class="select2_single form-control" tabindex="-1" >
+                                                            <option></option>
+                                                            {% if localisations %}
+                                                                {% for localisation in localisations %}
+                                                                    <option value="{{localisation.ville}}">{{localisation.ville}}</option>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </select>
+                                                    </div>		
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="item form-group row">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Type </label>
+                                                <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
+                                                    <div class="form-group row">
+                                                        <select id="type" name="types[]" class="select2_single form-control" tabindex="-1" >
+                                                            <option></option>
+                                                            {% if types %}
+                                                                {% for type in types %}
+                                                                    <option value="{{type.id}}">{{type.nom}}</option>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </select>
+                                                    </div>		
+                                                </div>
+                                            </div>
+                                            <div class="item form-group row">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Etat </label>
+                                                <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
+                                                    <div class="form-group row">
+                                                        <select id="etat" name="etats[]" class="select2_single form-control" tabindex="-1">
+                                                            <option></option>
+                                                            {% if etats %}
+                                                                {% for etat in etats %}
+                                                                    <option value="{{etat.id}}">{{etat.nom}}</option>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </select>
+                                                    </div>		
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="occasion-cart col-md-12">
+                                            <center>
+                                                <input value="Filtrer" type="submit" class="filtre btn btn-warning" >
+                                            </center>
+                                            <!-- Small modal -->
+                                            <div id="modal_result" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog modal-sm">
+                                                    <div class="modal-content">
+
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                                            </button>
+                                                            <h4 class="modal-title" id="myModalLabel2">Resultat de la recherche</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <h1 class="headmodal">
+                                                                <span id="response_text" class="fleft">{{response_text}}</span>
+                                                                <span id="response_number" class="fright">{{response_number}}</span>
+                                                            </h1>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <center>
+                                                                <a id="getinformations" class="btn btn-default">Informations</a>
+                                                            </center>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>  
+                                </div>
+
+                                <div class="clearfix"></div>
                             </div>
-                            
-                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="table_materiels" style="display: none">
-            <div class="page-title">
-                <div class="title_left">
-                    <h3>
-                        LISTE DES MATERIELS
-                    </h3>
-                </div>
-
-            </div>
-            <div class="clearfix"></div>
-
-            <div class="row">
-
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="x_panel">
-                        <div class="x_title">
-                            <h2>Informations sur les matériels </h2>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="x_content">
-                            <p class="text-muted font-13 m-b-30">
-                                Il est possible d'exporter les données du tableau sous différents formats via les bouttons fournis ci-dessous
-                            </p>
-                            <table id="datatable-buttons" class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th colspan="3"><center>Désignation</center></th>
-                                <th colspan="2"><center>Références</center></th>
-                                <th colspan="4"><center>Informations diverses</center></th>
-                                </tr>
-                                <tr>
-                                    <th>Genre</th>
-                                    <th>Marque</th>
-                                    <th>Type</th>
-                                    <th>N° Chassis</th>
-                                    <th>Propriétaire</th>
-                                    <th>Prix</th>
-                                    <th>Localisation</th>
-                                    <th>Fournisseur</th>
-                                    <th>Action</th>
-                                </tr>
+            <div id="table_materiels" style="display: none">
+                <div class="products">
+                    <div class="container">
+                        <div class="col-md-12 products-right">
+                            <table id="datatable" class="table table-striped table-bordered row">
+                                <thead style="display: none;">
+                                        <tr>
+                                                <th>Name</th>
+                                        </tr>
                                 </thead>
-                                <tbody>
+
+                                <tbody class="products-right-grids-bottom row">
                                     {% if materiels %}
                                         {% for materiel in materiels %}
                                             <tr>
-                                                <td>{{materiel.genre.nom}}</td>
-                                                <td>{{materiel.type.marque.nom}}</td>
-                                                <td>{{materiel.type.nom}}</td>
-                                                <td>{{materiel.chassis}}</td>
-                                                <td>{{materiel.proprietaire.nom}}</td>
-                                                <td>{{materiel.prix}}</td>
-                                                <td>{{materiel.localisation.ville}}</td>
-                                                <td>{{materiel.fournisseur.nom}}</td>
-                                                <td>
-                                                    <div role="presentation" class="dropdown">
-                                                        <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
-                                                            <center><span class="caret"></span></center>
-                                                        </a>
-                                                        <ul class="action dropdown-menu animated fadeInDown" role="menu">
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_infos_mat_materiel_edit',{'id' : materiel.id}) }}"><i class="fa fa-edit"></i>  Modifier</a>
-                                                            </li>
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_infos_mat_materiel_delete',{'id' : materiel.id}) }}"><i class="fa fa-trash"></i>  Supprimer</a>
-                                                            </li>
-															<li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_infos_mat_materiel_detail',{'id' : materiel.id}) }}"><i class="fa fa-eye"></i>  Voir</a>
-                                                            </li>
-                                                        </ul>
+                                                <td class="new-collections-grid col-md-35">
+                                                    <div class="new-collections-grid1">
+                                                        <div class="new-collections-grid1-image">
+                                                                        <a href="{{ path('nn_genie_infos_mat_materiel_detail_user',{'id' : materiel.id}) }}" class="product-image"><img src="{{asset('uploads/Materiels/'~materiel.mainpath)}}" alt=" " class="img-responsive" /></a>
+                                                                        <div class="timer-grid-right-pos">
+                                                                            <h4>Nouveau</h4>
+                                                                        </div>
+                                                                        <div class="new-collections-grid1-image-pos">
+                                                                            <a href="{{ path('nn_genie_infos_mat_materiel_detail_user',{'id' : materiel.id}) }}">Consulter</a>
+                                                                        </div>
+                                                        </div>
+                                                        <h4><a href="{{ path('nn_genie_infos_mat_materiel_detail_user',{'id' : materiel.id}) }}">{{materiel.genre.nom}}</a></h4>
+                                                        <p>{{materiel.type.nom}}</p>
+                                                        <div class="new-collections-grid1-left simpleCart_shelfItem">
+                                                            <ul class="list-inline item_price interet">
+                                                                <li>
+                                                                    {{materiel.proprietaire.nom}}
+                                                                </li>
+                                                                <li>
+                                                                    |
+                                                                </li>
+                                                                <li>
+                                                                    {{materiel.localisation.ville}}
+                                                                </li>
+                                                            </ul>
+                                                            <div class="rating fright">
+                                                                <ul>
+                                                                    {% set itrbad = 5 - materiel.etat.nbreetoile %}
+                                                                    {% for i in 1..materiel.etat.nbreetoile %}
+                                                                            <li class="marron"><i class="fa fa-star fa-2x"></i></li>
+                                                                    {% endfor %}
+                                                                    {% for i in 1..itrbad if itrbad > 0 %}
+                                                                        <li><i class="fa fa-star fa-2x"></i></li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                                <div class="clearfix"> </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -253,114 +233,26 @@
                                     {% endif %} 
                                 </tbody>
                             </table>
-                        </div>
+			</div>
+                        <div class="clearfix"> </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- /page content -->
-{% endblock %}
+    {% endblock %}
 {% block javascripts %}
     {{parent()}}
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/fastclick/lib/fastclick.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/nprogress/nprogress.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/validator/validator.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/buttons.flash.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/jszip/dist/jszip.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/pdfmake/build/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('bundles/nngenieinfosmat/vendors/pdfmake/build/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/select2/dist/js/select2.full.min.js') }}" ></script>
     <script>
         $(document).ready(function() {
-            var handleDataTableButtons = function() {
-                $("body").addClass("nav-md");
-                if ($("#response_number").html() !== "" && $("#response_text").html() !== ""){
-                    $('#modal_result').modal("show");
-                }
-                $('#getinformations').click(function(){
-                    $('#modal_result').modal("hide");
-                    $('#table_materiels').show();
-                });
-                if ($("#datatable-buttons").length) {
-                    $("#datatable-buttons").DataTable({
-                        dom: "Bfrtip",
-                        buttons: [
-                            {
-                                extend: "copy",
-                                className: "btn-sm"
-                            },
-                            {
-                                extend: "csv",
-                                className: "btn-sm"
-                            },
-                            {
-                                extend: "excel",
-                                className: "btn-sm"
-                            },
-                            {
-                                extend: "pdfHtml5",
-                                className: "btn-sm"
-                            },
-                            {
-                                extend: "print",
-                                className: "btn-sm"
-                            },
-                        ],
-                        responsive: true
-                    });
-                }
-            };
-
-            TableManageButtons = function() {
-                "use strict";
-                return {
-                    init: function() {
-                        handleDataTableButtons();
-                    }
-                };
-            }();
-
-            TableManageButtons.init();
-        });
-        // initialize the validator function
-        validator.message.date = 'not a real date';
-
-        // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
-        $('form')
-                .on('blur', 'input[required], input.optional, select.required', validator.checkField)
-                .on('change', 'select.required', validator.checkField)
-                .on('keypress', 'input[required][pattern]', validator.keypress);
-
-        $('.multi.required').on('keyup blur', 'input', function() {
-            validator.checkField.apply($(this).siblings().last()[0]);
-        });
-
-        $('form').submit(function(e) {
-            e.preventDefault();
-            var submit = true;
-
-            // evaluate the form using generic validaing
-            if (!validator.checkAll($(this))) {
-                submit = false;
+            $("body").addClass("nav-md");
+            if ($("#response_number").html() !== "" && $("#response_text").html() !== ""){
+                $('#modal_result').modal("show");
             }
-
-            if (submit)
-                var genre = $('#genre option:selected').val();
-            var marque = $('#marque option:selected').val();
-            var type = $('#type option:selected').val();
-            var proprietaire = $('#proprietaire option:selected').val();
-            var localisation = $('#localisation option:selected').val();
-            var etat = $('#etat option:selected').val();
-            if (genre !== "" || marque !== "" || type !== "" || proprietaire !== "" || localisation !== "" || etat !== "") {
-                this.submit();
-            }
-            return false;
+            $('#getinformations').click(function(){
+                $('#modal_result').modal("hide");
+                $('#table_materiels').css({'display': 'block'});
+            });
         });
 
         $(document).ready(function() {
@@ -402,3 +294,4 @@
 
     </script>
 {% endblock %}
+

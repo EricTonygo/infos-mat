@@ -1,0 +1,53 @@
+{% extends "NNGenieInfosMatBundle:FrontEnd:base.html.twig" %}
+
+{% block title %}GMAT{% endblock %}
+{# core CSS #}
+{% block stylesheets %}
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/css_one/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/css_one/jquery-ui.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/css_one/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/css_one/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/css_one/form.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    
+    <link href="{{ asset('bundles/nngenieinfosmat/css_one/custom_one.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/css_user/personal.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content_body %}
+    <div class="container body">
+        <div class="main_container">
+            {% include('NNGenieInfosMatBundle:FrontEnd:header.html.twig') %}
+
+            {% block content %}{% endblock %}
+
+            {% include('NNGenieInfosMatBundle:FrontEnd:footer.html.twig') %}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/nngenieinfosmat/js_one/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/js_one/simpleCart.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/js_one/wow.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/js_one/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/js_one/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/js_one/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+      $(document).ready(function() {
+
+        $('#datatable').dataTable();
+      });
+    </script>
+    
+    <script>
+     new WOW().init();
+    </script>
+    <script src="{{ asset('bundles/nngenieinfosmat/js_one/jquery.jscrollpane.min.js') }}"></script>
+    <script type="text/javascript" id="sourcecode">
+            $(function()
+            {
+                    $('.scroll-pane').jScrollPane();
+            });
+    </script>
+{% endblock %}

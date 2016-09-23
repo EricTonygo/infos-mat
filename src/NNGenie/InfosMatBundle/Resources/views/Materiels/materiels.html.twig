@@ -9,12 +9,7 @@
     <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('bundles/nngenieinfosmat/css/form.css')}}" rel="stylesheet">
     <script type="text/javascript" src="{{ asset('bundles/nngenieinfosmat/js/jquery.jscrollpane.min.js') }}"></script>
-    <script type="text/javascript" id="sourcecode">
-        $(function ()
-        {
-            $('.scroll-pane').jScrollPane();
-        });
-    </script>
+    
 {% endblock %}
 
 {% block content %}
@@ -111,6 +106,7 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
+                            {{ render_flash_alerts() }}
                             <p class="text-muted font-13 m-b-30">
                                 Il est possible d'exporter les données du tableau sous différents formats via les bouttons fournis ci-dessous
                             </p>
@@ -219,6 +215,10 @@
                 }
             };
 
+            setTimeout(function(){
+                $("ras-flash-alerts").alert("close");
+                $("ras-flash-alerts").hide();
+            }, 4000);
             TableManageButtons = function () {
                 "use strict";
                 return {

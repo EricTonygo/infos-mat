@@ -1,6 +1,5 @@
 <?php
 
-
 namespace NNGenie\InfosMatBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -15,8 +14,8 @@ use NNGenie\InfosMatBundle\Form\TypeType;
  * Type controller.
  *
  */
-class TypeController extends Controller{
-    
+class TypeController extends Controller {
+
     /**
      * @Route("/types")
      * @Template()
@@ -41,6 +40,29 @@ class TypeController extends Controller{
     }
 
     /**
+     * @Route("/typesuser")
+     * @Template()
+     * @Method({"GET"})
+     * @param Request $request
+     */
+    public function typesuserAction(Request $request) {
+        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+          return $this->redirect($this->generateUrl('fos_user_security_login'));
+          } */
+        $em = $this->getDoctrine()->getManager();
+
+        $repositoryType = $em->getRepository("NNGenieInfosMatBundle:Type");
+        $type = new Type();
+        $form = $this->createForm(new TypeType(), $type);
+        $display_tab = 1;
+        //selectionne les seuls types actifs
+        $types = $repositoryType->findBy(array("statut" => 1));
+
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:types.html.twig', array('types' => $types, 'form' => $form->createView(), "display_tab" => $display_tab));
+    }
+    
+    /**
      * Creates a new Type entity.
      *
      * @Route("/new-type")
@@ -61,23 +83,23 @@ class TypeController extends Controller{
                     try {
                         $repositoryType->saveType($type);
                         $message = $this->get('translator')->trans('Type.created_success', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message_add_type_success', $message);
-						$type = new Type();
-						$form = $this->createForm(new TypeType(), $type);
+                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                        $type = new Type();
+                        $form = $this->createForm(new TypeType(), $type);
                         return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Type.created_failure', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message_add_type_faillure', $message);
+                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
                         return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
                     }
                 } else {
-					
-						$message = $this->get('translator')->trans('Type.exist_already', array(), "NNGenieInfosMatBundle");
-						$request->getSession()->getFlashBag()->add('message_faillure', $message);
-						return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
+
+                    $message = $this->get('translator')->trans('Type.exist_already', array(), "NNGenieInfosMatBundle");
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
+                    return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
                 }
             }
-           return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
+            return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
         }
@@ -117,11 +139,11 @@ class TypeController extends Controller{
                 try {
                     $repositoryType->updateType($type);
                     $message = $this->get('translator')->trans('Type.updated_success', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_edit_type_success', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                     return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Type.updated_failure', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_edit_type_faillure', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
                     return $this->render('NNGenieInfosMatBundle:Types:form-update-type.html.twig', array('form' => $editForm->createView(), 'idtype' => $type->getId()));
                 }
             }
@@ -145,11 +167,11 @@ class TypeController extends Controller{
             try {
                 $repositoryType->deleteType($type);
                 $message = $message = $this->get('translator')->trans('Type.deleted_success', array(), "NNGenieInfosMatBundle");
-                $request->getSession()->getFlashBag()->add('message_delete_type_success', $message);
+                $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                 return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
             } catch (Exception $ex) {
                 $message = $message = $this->get('translator')->trans('Type.deleted_failure', array(), "NNGenieInfosMatBundle");
-                $request->getSession()->getFlashBag()->add('message_delete_type_faillure', $message);
+                $this->get('ras_flash_alert.alert_reporter')->addError($message);
                 return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
             }
         } else {
@@ -171,7 +193,7 @@ class TypeController extends Controller{
                         ->getForm()
         ;
     }
-    
+
     /**
      * Creates a form to add a Type entity.
      *
@@ -186,5 +208,5 @@ class TypeController extends Controller{
                         ->getForm()
         ;
     }
-    
+
 }

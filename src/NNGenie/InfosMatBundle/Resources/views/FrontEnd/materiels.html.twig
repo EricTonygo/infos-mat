@@ -1,0 +1,84 @@
+{% extends 'NNGenieInfosMatBundle:FrontEnd:layoutone.html.twig' %}
+
+{% block title %}{{parent()}} - Materiels{% endblock %}
+    
+    {% block content %}
+	<div class="" role="main">
+
+            <div class="breadcrumbs row">
+                <div class="container">
+                        <ol class="breadcrumb">
+                                <li><a href="{{path('nn_genie_infos_mat_homepage')}}" class="marron"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Acceuil</a></li>
+                                <li><a href="{{path('nn_genie_infos_mat_homepage')}}" >Matériels</a></li>
+                                <li class="active">Situation générale</li>
+                        </ol>
+                </div>
+            </div>
+            <div class="">
+                <div class="products">
+                    <div class="container">
+                        <div class="col-md-12 products-right">
+                            <table id="datatable" class="table table-striped table-bordered row">
+                                <thead style="display: none;">
+                                        <tr>
+                                                <th>Name</th>
+                                        </tr>
+                                </thead>
+
+                                <tbody class="products-right-grids-bottom row">
+                                    {% if materiels %}
+                                        {% for materiel in materiels %}
+                                            <tr>
+                                                <td class="new-collections-grid col-md-35">
+                                                    <div class="new-collections-grid1">
+                                                        <div class="new-collections-grid1-image">
+                                                                        <a href="{{ path('nn_genie_infos_mat_materiel_detail_user',{'id' : materiel.id}) }}" class="product-image"><img src="{{asset('uploads/Materiels/'~materiel.mainpath)}}" alt=" " class="img-responsive" /></a>
+                                                                        <div class="timer-grid-right-pos">
+                                                                            <h4>Nouveau</h4>
+                                                                        </div>
+                                                                        <div class="new-collections-grid1-image-pos">
+                                                                            <a href="{{ path('nn_genie_infos_mat_materiel_detail_user',{'id' : materiel.id}) }}">Consulter</a>
+                                                                        </div>
+                                                        </div>
+                                                        <h4><a href="{{ path('nn_genie_infos_mat_materiel_detail_user',{'id' : materiel.id}) }}">{{materiel.genre.nom}}</a></h4>
+                                                        <p>{{materiel.type.nom}}</p>
+                                                        <div class="new-collections-grid1-left simpleCart_shelfItem">
+                                                            <ul class="list-inline item_price interet">
+                                                                <li>
+                                                                    {{materiel.proprietaire.nom}}
+                                                                </li>
+                                                                <li>
+                                                                    |
+                                                                </li>
+                                                                <li>
+                                                                    {{materiel.localisation.ville}}
+                                                                </li>
+                                                            </ul>
+                                                            <div class="rating fright">
+                                                                <ul>
+                                                                    {% set itrbad = 5 - materiel.etat.nbreetoile %}
+                                                                    {% for i in 1..materiel.etat.nbreetoile %}
+                                                                            <li class="marron"><i class="fa fa-star fa-2x"></i></li>
+                                                                    {%endfor%}
+                                                                    {% for i in 1..itrbad if itrbad > 0 %}
+                                                                        <li><i class="fa fa-star fa-2x"></i></li>
+                                                                    {%endfor%}
+                                                                </ul>
+                                                                <div class="clearfix"> </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %} 
+                                    {% endif %} 
+                                </tbody>
+                            </table>
+			</div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+

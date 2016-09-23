@@ -41,9 +41,9 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
             foreach ($image as $images) {
                 $repositoryImage->deleteImage($image);
             }
-			$em->persist($materiel);
+            $em->persist($materiel);
             $em->flush();
-			$em->getConnection()->commit();
+            $em->getConnection()->commit();
         } catch (Exception $ex) {
             $em->getConnection()->rollback();
             $em->close();
@@ -83,7 +83,8 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
     public function filtreMaterielBy($genres, $marques, $types, $proprietaires, $localisations, $etats = null) {
         $q = $this->createQueryBuilder('m');
         $q->where("m.statut = 1");
-        if ($genres && !empty($genres) && array_values($genres)[0]!="") {
+
+        if ($genres && !empty($genres) && array_values($genres)[0]!='') {
             $q->join("m.genre", "genre");
             foreach ($genres as $idgenre) {
 					$query = 'genre.id = :id' . $idgenre;
@@ -91,7 +92,7 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
 							->setParameter("id" . $idgenre, $idgenre);
             }
         }
-        if ($marques && !empty($marques)&& array_values($marques)[0]!="") {
+        if ($marques && !empty($marques) && array_values($marques)[0]!='') {
             $q->join("m.type", 't');
             $q->join("t.marque", 'marque');
             foreach ($marques as $idmarque) {
@@ -100,7 +101,7 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
 							->setParameter("id" . $idmarque, $idmarque); 
             }
         }
-        if ($types && !empty($types) && array_values($types)[0]!="") {
+        if ($types && !empty($types) && array_values($types)[0]!='') {
 			$q->join("m.type", 'type');
             foreach ($types as $idtype) {
 					$query = 'type.id = :id' . $idtype;
@@ -108,7 +109,7 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
 							->setParameter("id" . $idtype, $idtype);
             }
         }
-        if ($proprietaires && !empty($proprietaires) && array_values($proprietaires)[0]!="") {
+        if ($proprietaires && !empty($proprietaires) && array_values($proprietaires)[0]!='') {
 			$q->join("m.proprietaire", 'proprietaire');
             foreach ($proprietaires as $idproprietaire) {
 					$query = 'proprietaire.id = :id' . $idproprietaire;
@@ -116,7 +117,7 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
 							->setParameter("id" . $idproprietaire, $idproprietaire);
             }
         }
-        if ($localisations && !empty($localisations) && array_values($localisations)[0]!="") {
+        if ($localisations && !empty($localisations) && array_values($localisations)[0]!='') {
             $i = 0;
 			$q->join("m.localisation", 'localisation');
             foreach ($localisations as $localisation) {
@@ -126,7 +127,7 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
 					$i++;
             }
         }
-        if ($etats && !empty($etats) && array_values($etats)[0]!="") {
+        if ($etats && !empty($etats) && array_values($etats)[0]!='') {
 			$q->join("m.etat", 'etat');
             foreach ($etats as $idetat) {
 					$query = 'etat.id = :id' . $idetat;
@@ -136,5 +137,4 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
         }
         return $q->getQuery()->getResult();
     }
-
 }

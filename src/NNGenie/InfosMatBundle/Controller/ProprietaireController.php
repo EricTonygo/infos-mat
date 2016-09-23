@@ -40,6 +40,29 @@ class ProprietaireController extends Controller{
 
         return $this->render('NNGenieInfosMatBundle:Proprietaires:proprietaires.html.twig', array('proprietaires' => $proprietaires, 'form' => $form->createView(), "display_tab" => $display_tab));
     }
+    
+    /**
+     * @Route("/proprietairesuser")
+     * @Template()
+     * @Method({"GET"})
+     * @param Request $request
+     */
+    public function proprietairesuserAction() {
+        // Si le visiteur est déjà identifié, on le redirige vers l'accueil
+        /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+          return $this->redirect($this->generateUrl('fos_user_security_login'));
+          } */
+        $em = $this->getDoctrine()->getManager();
+
+        $repositoryProprietaire = $em->getRepository("NNGenieInfosMatBundle:Proprietaire");
+        $proprietaire = new Proprietaire();
+        $form = $this->createForm(new ProprietaireType(), $proprietaire);
+        $display_tab = 1;
+        //selectionne les seuls proprietaires actifs
+        $proprietaires = $repositoryProprietaire->findBy(array("statut" => 1));
+
+        return $this->render('NNGenieInfosMatBundle:FrontEnd:proprietaires.html.twig', array('proprietaires' => $proprietaires, 'form' => $form->createView(), "display_tab" => $display_tab));
+    }
 
     /**
      * Creates a new Proprietaire entity.
@@ -63,18 +86,18 @@ class ProprietaireController extends Controller{
                     try {
                         $repositoryProprietaire->saveProprietaire($proprietaire);
                         $message = $this->get('translator')->trans('Proprietaire.created_success', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message_success', $message);
+                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                         $proprietaire = new Proprietaire();
-						$form = $this->createForm(new ProprietaireType(), $proprietaire);
-						return $this->render('NNGenieInfosMatBundle:Proprietaires:form-add-proprietaire.html.twig', array('form' => $form->createView()));
+                        $form = $this->createForm(new ProprietaireType(), $proprietaire);
+                        return $this->render('NNGenieInfosMatBundle:Proprietaires:form-add-proprietaire.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Proprietaire.created_failure', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
                         return $this->render('NNGenieInfosMatBundle:Proprietaires:form-add-proprietaire.html.twig', array('form' => $form->createView()));
                     }
                 } else {
                     $message = $this->get('translator')->trans('Proprietaire.exist_already', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
                     return $this->render('NNGenieInfosMatBundle:Proprietaires:form-add-proprietaire.html.twig', array('form' => $form->createView()));
                 }
             }
@@ -118,11 +141,11 @@ class ProprietaireController extends Controller{
                 try {
                     $repositoryProprietaire->updateProprietaire($proprietaire);
                     $message = $this->get('translator')->trans('Proprietaire.updated_success', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_success', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                     return $this->redirect($this->generateUrl('nn_genie_infos_mat_proprietaires'));
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Proprietaire.updated_failure', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
                     return $this->render('NNGenieInfosMatBundle:Proprietaires:form-update-proprietaire.html.twig', array('form' => $editForm->createView(), 'idproprietaire' => $proprietaire->getId()));
                 }
             }
@@ -146,11 +169,11 @@ class ProprietaireController extends Controller{
             try {
                 $repositoryProprietaire->deleteProprietaire($proprietaire);
                 $message = $message = $this->get('translator')->trans('Proprietaire.deleted_success', array(), "NNGenieInfosMatBundle");
-                $request->getSession()->getFlashBag()->add('message_success', $message);
+                $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
 				return $this->redirect($this->generateUrl('nn_genie_infos_mat_proprietaires'));
             } catch (Exception $ex) {
                 $message = $message = $this->get('translator')->trans('Proprietaire.deleted_failure', array(), "NNGenieInfosMatBundle");
-                $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                $$this->get('ras_flash_alert.alert_reporter')->addError($message);
 				return $this->redirect($this->generateUrl('nn_genie_infos_mat_proprietaires'));
             }
         } else {

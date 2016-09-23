@@ -1,0 +1,122 @@
+{% extends 'NNGenieInfosMatBundle:FrontEnd:layout.html.twig' %}
+
+{% block title %}{{parent()}} - Classifications{% endblock %}
+
+{% block content %}
+    <!-- page content -->
+    <div class="" role="main">
+        <div class="breadcrumbs">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li><a href="{{path('nn_genie_infos_mat_homepage')}}" class="marron"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Acceuil</a></li>
+                    <li><a href="{{path('nn_genie_infos_mat_homepage')}}" >Matériels</a></li>
+                    <li>Classification</li>
+                </ol>
+            </div>
+        </div>
+          <div class="blokchoice">
+            <div class="row top_tiles">
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="{{path('nn_genie_infos_mat_classesmaterieluser')}}">
+                    <div class="tile-stats">
+                        <div class="icon fachoice"><i class="fa fa-cubes marron"></i>
+                        </div>
+                        <div class="count">Classe</div>
+
+                        <h3>{{nbreclasse}}</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                    </div>
+                </a>
+              </div>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="{{path('nn_genie_infos_mat_famille_indexuser')}}">
+                    <div class="tile-stats">
+                        <div class="icon fachoice"><i class="fa fa-child marron"></i>
+                        </div>
+                        <div class="count">Famille</div>
+
+                        <h3>{{nbrefamille}}</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                    </div>
+                </a>
+              </div>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="{{path('nn_genie_infos_mat_genresuser')}}">
+                    <div class="tile-stats">
+                        <div class="icon fachoice"><i class="fa fa-sliders marron"></i>
+                        </div>
+                        <div class="count">Genre</div>
+
+                        <h3>{{nbregenre}}</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                    </div>
+                </a>
+              </div>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="{{path('nn_genie_infos_mat_marquesuser')}}">
+                    <div class="tile-stats">
+                        <div class="icon fachoice"><i class="fa fa-ticket marron"></i>
+                        </div>
+                        <div class="count">Marque</div>
+
+                        <h3>{{nbremarque}}</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                    </div>
+                </a>
+              </div>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="{{path('nn_genie_infos_mat_typesuser')}}">
+                    <div class="tile-stats">
+                        <div class="icon fachoice"><i class="fa fa-sitemap marron"></i>
+                        </div>
+                        <div class="count">Type</div>
+
+                        <h3>{{nbretype}}</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                    </div>
+                </a>
+              </div>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="{{path('nn_genie_infos_mat_proprietairesuser')}}">
+                    <div class="tile-stats">
+                        <div class="icon fachoice"><i class="fa fa-institution marron"></i>
+                        </div>
+                        <div class="count">Propriétaire</div>
+
+                        <h3>{{nbreproprietaire}}</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                    </div>
+                </a>
+              </div>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="{{path('nn_genie_infos_mat_fournisseursuser')}}">
+                    <div class="tile-stats">
+                        <div class="icon fachoice"><i class="fa fa-building marron"></i>
+                        </div>
+                        <div class="count">Fournisseur</div>
+
+                        <h3>{{nbrefournisseur}}</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                    </div>
+                </a>
+              </div>
+              <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="{{path('nn_genie_infos_mat_etat_indexuser')}}">
+                    <div class="tile-stats">
+                        <div class="icon fachoice"><i class="fa fa-adjust marron"></i>
+                        </div>
+                        <div class="count">Etats</div>
+
+                        <h3>{{nbreetat}}</h3>
+                        <p>Lorem ipsum psdea itgum rixt.</p>
+                    </div>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+    <!-- /page content -->
+<!-- /page content -->
+
+{% endblock %}
