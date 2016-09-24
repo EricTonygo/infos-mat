@@ -265,6 +265,30 @@ nn_genie_infos_mat_type_delete:
     options:
         expose: true
 
+nn_genie_infos_mat_donneetechniques:
+    pattern: /donneetechniques
+    defaults: { _controller: NNGenieInfosMatBundle:Donneetechnique:donneetechniques }
+    options:
+        expose: true
+        
+nn_genie_infos_mat_donneetechnique_new:
+    pattern: /new-donneetechnique
+    defaults: { _controller: NNGenieInfosMatBundle:Donneetechnique:new }
+    options:
+        expose: true
+        
+nn_genie_infos_mat_donneetechnique_edit:
+    pattern: /edit-donneetechnique/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Donneetechnique:edit }
+    options:
+        expose: true
+        
+nn_genie_infos_mat_donneetechnique_delete:
+    pattern: /delete-donneetechnique/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Donneetechnique:delete }
+    options:
+        expose: true
+
 
 nn_genie_infos_mat_classesmateriel:
     pattern: /classes-materiel

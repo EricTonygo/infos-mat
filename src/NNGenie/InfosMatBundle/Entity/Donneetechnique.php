@@ -5,12 +5,12 @@ namespace NNGenie\InfosMatBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Type
+ * Donneetechnique
  *
- * @ORM\Table(name="type")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\TypeRepository")
+ * @ORM\Table(name="donneetechnique")
+ * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\DonneetechniqueRepository")
  */
-class Type
+class Donneetechnique
 {
     /**
      * @var integer
@@ -27,17 +27,6 @@ class Type
      * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      */
     private $nom;
-
-    /**
-     * @var \Marque
-     *
-     * @ORM\ManyToOne(targetEntity="Marque", inversedBy="types")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="marque", referencedColumnName="id")
-     * })
-     */
-    private $marque;
-
     
     /**
      * @var integer
@@ -47,15 +36,17 @@ class Type
     private $statut;
     
     /**
-    * @ORM\OneToMany(targetEntity="Materiel", mappedBy="type", cascade={"remove", "persist"})
-    */
-    private $materiels;
-	
-	/**
-    * @ORM\OneToMany(targetEntity="Donneetechniquetype", mappedBy="type", cascade={"remove", "persist"})
+     * @var string
+     *
+     * @ORM\Column(name="unite", type="string", length=255, nullable=true)
+     */
+    private $unite;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Donneetechniquetype", mappedBy="donneetechnique", cascade={"remove", "persist"})
     */
     private $donneetechniquetypes;
-
+	
     /**
      * Constructor
      */
@@ -63,8 +54,8 @@ class Type
     {
         $this->statut = 1;
     }
-    
-    
+
+
 
     /**
      * Get id
@@ -80,7 +71,7 @@ class Type
      * Set nom
      *
      * @param string $nom
-     * @return Type
+     * @return Donneetechnique
      */
     public function setNom($nom)
     {
@@ -98,35 +89,12 @@ class Type
     {
         return $this->nom;
     }
-
+    
     /**
-     * Set marque
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Marque $marque
-     * @return Type
-     */
-    public function setMarque(\NNGenie\InfosMatBundle\Entity\Marque $marque = null)
-    {
-        $this->marque = $marque;
-
-        return $this;
-    }
-
-    /**
-     * Get marque
-     *
-     * @return \NNGenie\InfosMatBundle\Entity\Marque 
-     */
-    public function getMarque()
-    {
-        return $this->marque;
-    }
-	
-	/**
      * Set statut
      *
      * @param integer $statut
-     * @return Type
+     * @return Donneetechnique
      */
     public function setStatut($statut)
     {
@@ -136,67 +104,43 @@ class Type
     }
 
     /**
-     * Get statut
+     * Get unite
      *
      * @return integer 
      */
     public function getStatut()
     {
-        return $this->statut;
+        return $this->unite;
     }
     
     /**
-     * Add materiel
+     * Set unite
      *
-     * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel 
-     * @return \Type
+     * @param string $unite
+     * @return Donneetechnique
      */
-    public function addMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel)
+    public function setUnite($unite)
     {
-        $this->materiels[] = $materiel;
-        return $this;
-    }
-    
-    /**
-     * Get materiels
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getMateriels()
-    {
-        return $this->materiels;
-    }
-    
-    /**
-     * Set materiels
-     *
-     * @param \Doctrine\Common\Collections\Collection $materiels
-     * @return Type
-     */
-    public function setMateriels(\Doctrine\Common\Collections\Collection $materiels = null)
-    {
-        $this->materiels = $materiels;
+        $this->unite = $unite;
 
         return $this;
     }
-    
+
     /**
-     * Remove materiel
+     * Get unite
      *
-     * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel
-     * @return Type
+     * @return string 
      */
-    public function removeMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel)
+    public function getUnite()
     {
-        $this->materiels->removeElement($materiel);
-		return $this;
+        return $this->unite;
     }
 	
 	/**
      * Add donneetechniquetype
      *
      * @param \NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype 
-     * @return Type
+     * @return Donneetechnique
      */
     public function addDonneetechniquetype(\NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype)
     {
@@ -218,7 +162,7 @@ class Type
      * Set donneetechniquetypes
      *
      * @param \Doctrine\Common\Collections\Collection $donneetechniquetypes
-     * @return \Type
+     * @return \Donneetechnique
      */
     public function setDonneetechniquetypes(\Doctrine\Common\Collections\Collection $donneetechniquetypes = null)
     {
@@ -231,7 +175,7 @@ class Type
      * Remove donneetechniquetype
      *
      * @param \NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype
-	 * @return \Type
+	 * @return \Donneetechnique
      */
     public function removeDonneetechniquetype(\NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype)
     {
