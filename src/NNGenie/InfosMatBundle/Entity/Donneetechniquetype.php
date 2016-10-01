@@ -148,7 +148,7 @@ class Donneetechniquetype
      * @param float $valeur
      * @return Materiel
      */
-    public function setPrix($valeur)
+    public function setValeur($valeur)
     {
         $this->valeur = $valeur;
 
@@ -160,7 +160,7 @@ class Donneetechniquetype
      *
      * @return float 
      */
-    public function getPrix()
+    public function getValeur()
     {
         return $this->valeur;
     }

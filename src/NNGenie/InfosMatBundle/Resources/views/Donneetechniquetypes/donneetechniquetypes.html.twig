@@ -22,7 +22,7 @@
             <div class="page-title">
                 <div class="title_left">
                     <h3>
-                        LISTE DES TYPES
+                        LISTE DES DONNEES TECHNIQUES de {{type.nom | upper}}
                     </h3>
                 </div>
 
@@ -34,8 +34,8 @@
                 <div class="col-md-12 col-sm-6 col-xs-6">
                     <div class="x_panel row">
                         <div class="x_title">
-                            <h2>Informations sur les types</h2>
-                            <a href="{{ path('nn_genie_infos_mat_type_new') }}" class="btn btn-info fright">Ajouter</a>
+                            <h2>Informations sur les donnees techniques de {{type.nom}}</h2>
+                            <a href="{{ path('nn_genie_infos_mat_donneetechniquetype_new', {'id': type.id}) }}" class="btn btn-info fright">Ajouter</a>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content" id="divide">
@@ -44,28 +44,27 @@
                                 <thead>
                                     <tr>
                                         <th>Nom</th>
-                                        <th>Marque</th>
+                                        <th>Valeur</th>
+                                        <th>Unité</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% if types %}
-                                        {% for type in types %}
+                                    {% if donneetechniquetypes %}
+                                        {% for donneetechniquetype in donneetechniquetypes %}
                                             <tr>
-                                                <td>{{type.nom}}</td>
-                                                <td>{{type.marque.nom}}</td>
+                                                <td>{{donneetechniquetype.donneetechnique.nom}}</td>
+                                                <td>{{donneetechniquetype.valeur}}</td>
+                                                <td>{{donneetechniquetype.donneetechnique.unite}}</td>
                                                 <td>
                                                     <div role="presentation" class="dropdown">
                                                         <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                                             <center><span class="caret"></span></center>
                                                         </a>
                                                         <ul class="action dropdown-menu animated fadeInDown" role="menu">
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_infos_mat_type_edit',{'id' : type.id}) }}"><i class="fa fa-edit"></i>  Modifier</a>
+                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_infos_mat_donneetechniquetype_edit',{'id' : donneetechniquetype.id}) }}"><i class="fa fa-edit"></i>  Modifier</a>
                                                             </li>
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_infos_mat_type_delete',{'id' : type.id}) }}"><i class="fa fa-close"></i>  Supprimer</a>
-                                                            </li>
-                                                        
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_infos_mat_donneetechniquetypes',{'id': type.id}) }}"><i class="fa fa-close"></i>  Données technique</a>
+                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_infos_mat_donneetechniquetype_delete',{'id' : donneetechniquetype.id}) }}"><i class="fa fa-close"></i>  Supprimer</a>
                                                             </li>
                                                         </ul>
                                                     </div>

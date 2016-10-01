@@ -341,9 +341,11 @@ class MaterielController extends Controller {
         $request = $this->get("request");
         $em = $this->getDoctrine()->getManager();
         $repositoryImage = $em->getRepository("NNGenieInfosMatBundle:Image");
+        $repositoryDonneetechniquetype = $em->getRepository("NNGenieInfosMatBundle:Donneetechniquetype");
         if ($request->isMethod('GET')) {
             $images = $repositoryImage->findBy(array('materiel' => $materiel, 'statut' => 1));
-            return $this->render('NNGenieInfosMatBundle:Materiels:details-materiel.html.twig', array('materiel' => $materiel, 'images' => $images));
+            $donneetechniques = $repositoryDonneetechniquetype->findBy(array('type' => $materiel->getType(), 'statut' => 1));
+            return $this->render('NNGenieInfosMatBundle:Materiels:details-materiel.html.twig', array('materiel' => $materiel, 'images' => $images, 'donneetechniquetypes' => $donneetechniques));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
         }
