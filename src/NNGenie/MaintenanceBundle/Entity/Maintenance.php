@@ -3,6 +3,7 @@
 namespace NNGenie\InfosMatBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use NNGenie\InfosMatBundle\Entity\Type;
 
 /**
  *@MappedSuperclass
@@ -57,6 +58,7 @@ class Maintenance
     public function __construct()
     {
         $this->statut = 1;
+        $this->operations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

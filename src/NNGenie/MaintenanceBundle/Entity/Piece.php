@@ -3,6 +3,7 @@
 namespace NNGenie\InfosMatBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use NNGenie\InfosMatBundle\Entity\Type;
 
 /**
  * Piece
@@ -34,6 +35,16 @@ class Piece
      * @ORM\ManyToMany(targetEntity="Maintenancecorrective", mappedBy="pieces")
      */
     private $maintenancecorrectives;
+    
+    /**
+     * @var Type
+     *
+     * @ORM\ManyToOne(targetEntity="Type")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="type", referencedColumnName="id")
+     * })
+     */
+    private $type;
 
     /**
      * Constructor
@@ -77,4 +88,24 @@ class Piece
     {
         return $this->statut;
     }
+    
+    public function getMaintenancecorrectives() {
+        return $this->maintenancecorrectives;
+    }
+
+    public function getType() {
+        return $this->type;
+    }
+
+    public function setMaintenancecorrectives(\Doctrine\Common\Collections\Collection $maintenancecorrectives) {
+        $this->maintenancecorrectives = $maintenancecorrectives;
+        return $this;
+    }
+
+    public function setType(Type $type) {
+        $this->type = $type;
+        return $this;
+    }
+
+
 }

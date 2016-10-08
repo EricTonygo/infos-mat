@@ -35,6 +35,16 @@ class Operation
      * @ORM\Column(name="statut", type="integer", nullable=true)
      */
     private $statut;
+    
+    /**
+     * @var \Procede
+     *
+     * @ORM\ManyToOne(targetEntity="Procede")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="procede", referencedColumnName="id")
+     * })
+     */
+    private $procede;
 
     /**
      * Constructor
@@ -99,4 +109,15 @@ class Operation
     {
         return $this->statut;
     }
+    
+    public function getProcede() {
+        return $this->procede;
+    }
+
+    public function setProcede(\Procede $procede) {
+        $this->procede = $procede;
+        return $this;
+    }
+
+
 }
