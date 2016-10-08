@@ -1,0 +1,3 @@
+nn_genie_maintenance_homepage:
+    path:     /
+    defaults: { _controller: NNGenieMaintenanceBundle:Default:index }
