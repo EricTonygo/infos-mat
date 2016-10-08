@@ -5,13 +5,13 @@ namespace NNGenie\InfosMatBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Typereglage
+ * Produit
  *
- * @ORM\Table(name="typereglage")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\TypereglageRepository")
+ * @ORM\Table(name="produit")
+ * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\ProduitRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Typereglage
+class Produit
 {
     /**
      * @var integer

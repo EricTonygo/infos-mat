@@ -5,12 +5,12 @@ namespace NNGenie\InfosMatBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Disponibilite
+ * Proprete
  *
- * @ORM\Table(name="disponibilite")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\DisponibiliteRepository")
+ * @ORM\Table(name="proprete")
+ * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\PropreteRepository")
  */
-class Disponibilite
+class Proprete
 {
     /**
      * @var integer
@@ -22,31 +22,11 @@ class Disponibilite
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
-     */
-    private $nom;
-
-    /**
-    * @ORM\OneToMany(targetEntity="Disponibilitemateriel", mappedBy="diponibilite", cascade={"remove", "persist"})
-    */
-    private $disponibilitemateriels;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="statut", type="integer", nullable=true)
-     */
-    private $statut;
-
-    /**
      * Constructor
      */
     public function __construct()
     {
-        $this->statut = 1;
-        $this->disponibilitemateriels = new \Doctrine\Common\Collections\ArrayCollection();
+
     }
     
     /**
@@ -58,82 +38,12 @@ class Disponibilite
     {
         return $this->id;
     }
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Disponibilite
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string 
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-    
-    /**
-     * Add disponibilitemateriel
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Disponibilitemateriel $disponibilitemateriel 
-     * @return Disponibilite
-     */
-    public function addDisponibilitemateriel(\NNGenie\InfosMatBundle\Entity\Disponibilitemateriel $disponibilitemateriel)
-    {
-        $this->disponibilitemateriels[] = $disponibilitemateriel;
-        return $this;
-    }
-    
-    /**
-     * Get disponibilitemateriels
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDisponibilitemateriels()
-    {
-        return $this->disponibilitemateriels;
-    }
-    
-    /**
-     * Set disponibilitemateriels
-     *
-     * @param \Doctrine\Common\Collections\Collection $disponibilitemateriels
-     * @return \Disponibilite
-     */
-    public function setDisponibilitemateriels(\Doctrine\Common\Collections\Collection $disponibilitemateriels = null)
-    {
-        $this->disponibilitemateriels = $disponibilitemateriels;
-
-        return $this;
-    }
-    
-    /**
-     * Remove disponibilitemateriel
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Disponibilitemateriel $disponibilitemateriel
-	 * @return \Disponibilite
-     */
-    public function removeDisponibilitemateriel(\NNGenie\InfosMatBundle\Entity\Disponibilitemateriel $disponibilitemateriel)
-    {
-        $this->disponibilitemateriels->removeElement($disponibilitemateriel);
-		return $this;
-    }
     
     /**
      * Set statut
      *
      * @param integer $statut
-     * @return Disponibilite
+     * @return Proprete
      */
     public function setStatut($statut)
     {

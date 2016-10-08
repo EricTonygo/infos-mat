@@ -24,9 +24,9 @@ class Anomalie
 	/**
      * @var string
      *
-     * @ORM\Column(name="disfonConstates", type="text", nullable=true)
+     * @ORM\Column(name="disfonconstates", type="text", nullable=true)
      */
-    private $disfonConstates;
+    private $disfonconstates;
 	
 	/**
      * @var string
@@ -53,26 +53,26 @@ class Anomalie
     }
 	
 	/**
-     * Set disfonConstates
+     * Set disfonconstates
      *
-     * @param string $disfonConstates
+     * @param string $disfonconstates
      * @return Anomalie
      */
-    public function setDisfonConstates($disfonConstates)
+    public function setDisfonconstates($disfonconstates)
     {
-        $this->disfonConstates = $disfonConstates;
+        $this->disfonconstates = $disfonconstates;
 
         return $this;
     }
 
     /**
-     * Get disfonConstates
+     * Get disfonconstates
      *
      * @return string 
      */
-    public function getDisfonConstates()
+    public function getDisfonconstates()
     {
-        return $this->disfonConstates;
+        return $this->disfonconstates;
     }
 	
 	/**

@@ -5,12 +5,12 @@ namespace NNGenie\InfosMatBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Fournisseur
+ * Reglage
  *
  * @ORM\Table(name="fournisseur")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\FournisseurRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\ReglageRepository")
  */
-class Fournisseur
+class Reglage
 {
     /**
      * @var integer
@@ -21,31 +21,6 @@ class Fournisseur
      */
     private $id;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
-     */
-    private $nom;
-
-    /**
-     * @var \Adresse 
-     * @ORM\OneToOne(targetEntity="Adresse",cascade={"persist"})
-     * @ORM\JoinColumn(name="adresse", referencedColumnName="id")
-     */
-    private $adresse;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="statut", type="integer", nullable=true)
-     */
-    private $statut;
-    
-    /**
-    * @ORM\OneToMany(targetEntity="Materiel", mappedBy="fournisseur", cascade={"remove", "persist"})
-    */
-    private $materiels;
     
     /**
      * Constructor
@@ -69,7 +44,7 @@ class Fournisseur
      * Set nom
      *
      * @param string $nom
-     * @return Fournisseur
+     * @return Reglage
      */
     public function setNom($nom)
     {
@@ -92,7 +67,7 @@ class Fournisseur
      * Set adresse
      *
      * @param \NNGenie\InfosMatBundle\Entity\Adresse $adresse
-     * @return Fournisseur
+     * @return Reglage
      */
     public function setAdresse(\NNGenie\InfosMatBundle\Entity\Adresse $adresse = null)
     {
@@ -115,7 +90,7 @@ class Fournisseur
      * Set statut
      *
      * @param integer $statut
-     * @return Fournisseur
+     * @return Reglage
      */
     public function setStatut($statut)
     {
@@ -138,7 +113,7 @@ class Fournisseur
      * Add materiel
      *
      * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel 
-     * @return Fournisseur
+     * @return Reglage
      */
     public function addMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel)
     {
@@ -160,7 +135,7 @@ class Fournisseur
      * Set materiels
      *
      * @param \Doctrine\Common\Collections\Collection $materiels
-     * @return Fournisseur
+     * @return Reglage
      */
     public function setMateriels(\Doctrine\Common\Collections\Collection $materiels = null)
     {
@@ -173,7 +148,7 @@ class Fournisseur
      * Remove materiel
      *
      * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel
-     * @return Fournisseur
+     * @return Reglage
      */
     public function removeMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel)
     {

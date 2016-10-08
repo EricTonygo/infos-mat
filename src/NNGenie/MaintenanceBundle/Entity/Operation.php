@@ -5,13 +5,12 @@ namespace NNGenie\InfosMatBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Typereglage
+ * Operation
  *
- * @ORM\Table(name="typereglage")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\TypereglageRepository")
- * @ORM\HasLifecycleCallbacks
+ * @ORM\Table(name="operation")
+ * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\OperationRepository")
  */
-class Typereglage
+class Operation
 {
     /**
      * @var integer
@@ -21,21 +20,22 @@ class Typereglage
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      */
     private $nom;
-
+    
+    
     /**
      * @var integer
      *
      * @ORM\Column(name="statut", type="integer", nullable=true)
      */
     private $statut;
-    
+
     /**
      * Constructor
      */
@@ -43,7 +43,7 @@ class Typereglage
     {
         $this->statut = 1;
     }
-
+    
     /**
      * Get id
      *
@@ -53,24 +53,50 @@ class Typereglage
     {
         return $this->id;
     }
-    
-    public function getNom() {
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return Operation
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
         return $this->nom;
     }
+    
+    /**
+     * Set statut
+     *
+     * @param integer $statut
+     * @return Actualite
+     */
+    public function setStatut($statut)
+    {
+        $this->statut = $statut;
 
-    public function getStatut() {
+        return $this;
+    }
+
+    /**
+     * Get statut
+     *
+     * @return integer 
+     */
+    public function getStatut()
+    {
         return $this->statut;
     }
-
-    public function setNom($nom) {
-        $this->nom = $nom;
-        return $this;
-    }
-
-    public function setStatut($statut) {
-        $this->statut = $statut;
-        return $this;
-    }
-
-
 }

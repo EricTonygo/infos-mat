@@ -5,12 +5,12 @@ namespace NNGenie\InfosMatBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Localisation
+ * Typeproprete
  *
- * @ORM\Table(name="localisation")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\LocalisationRepository")
+ * @ORM\Table(name="typeproprete")
+ * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\TypepropreteRepository")
  */
-class Localisation
+class Typeproprete
 {
     /**
      * @var integer
@@ -20,21 +20,13 @@ class Localisation
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    
     /**
      * @var string
      *
-     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      */
-    private $ville;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pays", type="string", length=255, nullable=true)
-     */
-    private $pays;
-
+    private $nom;
     
     /**
      * @var integer
@@ -60,58 +52,12 @@ class Localisation
     {
         return $this->id;
     }
-
-    /**
-     * Set ville
-     *
-     * @param string $ville
-     * @return Localisation
-     */
-    public function setVille($ville)
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    /**
-     * Get ville
-     *
-     * @return string 
-     */
-    public function getVille()
-    {
-        return $this->ville;
-    }
-
-    /**
-     * Set pays
-     *
-     * @param string $pays
-     * @return Localisation
-     */
-    public function setPays($pays)
-    {
-        $this->pays = $pays;
-
-        return $this;
-    }
-
-    /**
-     * Get pays
-     *
-     * @return string 
-     */
-    public function getPays()
-    {
-        return $this->pays;
-    }
     
     /**
      * Set statut
      *
      * @param integer $statut
-     * @return Localisation
+     * @return Typeproprete
      */
     public function setStatut($statut)
     {
@@ -128,5 +74,14 @@ class Localisation
     public function getStatut()
     {
         return $this->statut;
+    }
+    
+    public function getNom() {
+        return $this->nom;
+    }
+
+    public function setNom($nom) {
+        $this->nom = $nom;
+        return $this;
     }
 }

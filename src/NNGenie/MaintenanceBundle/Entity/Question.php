@@ -21,7 +21,7 @@ class Question
      */
     private $id;
 	
-	/**
+    /**
      * @var string
      *
      * @ORM\Column(name="intitule", type="text", nullable=true)
@@ -34,6 +34,13 @@ class Question
      * @ORM\Column(name="statut", type="integer", nullable=true)
      */
     private $statut;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Maintenancecorrective", mappedBy="questions")
+     */
+    private $maintenancecorrectives;
 
     /**
      * Constructor
@@ -54,4 +61,24 @@ class Question
         return $this->id;
     }
 
+    public function getIntitule() {
+        return $this->intitule;
+    }
+
+    public function getStatut() {
+        return $this->statut;
+    }
+
+    public function setIntitule($intitule) {
+        $this->intitule = $intitule;
+        return $this;
+    }
+
+    public function setStatut($statut) {
+        $this->statut = $statut;
+        return $this;
+    }
+
+
+    
 }

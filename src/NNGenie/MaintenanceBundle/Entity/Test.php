@@ -5,12 +5,12 @@ namespace NNGenie\InfosMatBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Donneetechnique
+ * Test
  *
- * @ORM\Table(name="donneetechnique")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\DonneetechniqueRepository")
+ * @ORM\Table(name="test")
+ * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\TestRepository")
  */
-class Donneetechnique
+class Test
 {
     /**
      * @var integer
@@ -20,7 +20,7 @@ class Donneetechnique
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
+    
     /**
      * @var string
      *
@@ -36,17 +36,12 @@ class Donneetechnique
     private $statut;
     
     /**
-     * @var string
+     * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\Column(name="unite", type="string", length=255, nullable=true)
+     * @ORM\ManyToMany(targetEntity="Maintenancecorrective", mappedBy="tests")
      */
-    private $unite;
+    private $maintenancecorrectives;
     
-    /**
-    * @ORM\OneToMany(targetEntity="Donneetechniquetype", mappedBy="donneetechnique", cascade={"remove", "persist"})
-    */
-    private $donneetechniquetypes;
-	
     /**
      * Constructor
      */
@@ -66,35 +61,12 @@ class Donneetechnique
     {
         return $this->id;
     }
-
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Donneetechnique
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string 
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
     
     /**
      * Set statut
      *
      * @param integer $statut
-     * @return Donneetechnique
+     * @return Test
      */
     public function setStatut($statut)
     {
@@ -113,73 +85,12 @@ class Donneetechnique
         return $this->unite;
     }
     
-    /**
-     * Set unite
-     *
-     * @param string $unite
-     * @return Donneetechnique
-     */
-    public function setUnite($unite)
-    {
-        $this->unite = $unite;
-
-        return $this;
+    public function getNom() {
+        return $this->nom;
     }
 
-    /**
-     * Get unite
-     *
-     * @return string 
-     */
-    public function getUnite()
-    {
-        return $this->unite;
-    }
-	
-	/**
-     * Add donneetechniquetype
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype 
-     * @return Donneetechnique
-     */
-    public function addDonneetechniquetype(\NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype)
-    {
-        $this->donneetechniquetypes[] = $donneetechniquetype;
+    public function setNom($nom) {
+        $this->nom = $nom;
         return $this;
-    }
-    
-    /**
-     * Get donneetechniquetypes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDonneetechniquetypes()
-    {
-        return $this->donneetechniquetypes;
-    }
-    
-    /**
-     * Set donneetechniquetypes
-     *
-     * @param \Doctrine\Common\Collections\Collection $donneetechniquetypes
-     * @return \Donneetechnique
-     */
-    public function setDonneetechniquetypes(\Doctrine\Common\Collections\Collection $donneetechniquetypes = null)
-    {
-        $this->donneetechniquetypes = $donneetechniquetypes;
-
-        return $this;
-    }
-    
-    /**
-     * Remove donneetechniquetype
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype
-	 * @return \Donneetechnique
-     */
-    public function removeDonneetechniquetype(\NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype)
-    {
-        $this->donneetechniquetypes->removeElement($donneetechniquetype);
-		return $this;
     }
 }

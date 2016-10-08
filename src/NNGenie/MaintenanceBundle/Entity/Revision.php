@@ -5,12 +5,12 @@ namespace NNGenie\InfosMatBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Commentaire
+ * Revision
  *
- * @ORM\Table(name="commentaire")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\CommentaireRepository")
+ * @ORM\Table(name="revision")
+ * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\RevisionRepository")
  */
-class Commentaire
+class Revision
 {
     /**
      * @var integer
@@ -22,45 +22,13 @@ class Commentaire
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateCommentaire", type="datetime", nullable=true)
-     */
-    private $datecommentaire;
-
-    /**
-     * @var \Materiel
-     *
-     * @ORM\ManyToOne(targetEntity="Materiel", inversedBy="commentaires")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="materiel", referencedColumnName="id")
-     * })
-     */
-    private $materiel;
-
-    /**
-     * @var \NNGenie\UserBundle\Entity\User
-     *
-     * @ORM\ManyToOne(targetEntity="\NNGenie\UserBundle\Entity\User", inversedBy="commentaires")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user", referencedColumnName="id")
-     * })
-     */
-    private $user;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="statut", type="integer", nullable=true)
      */
     private $statut;
+    
+    
 
     /**
      * Constructor
@@ -68,7 +36,6 @@ class Commentaire
     public function __construct()
     {
         $this->statut = 1;
-        $this->datecommentaire = new \Datetime();
     }
 
     /**
@@ -85,7 +52,7 @@ class Commentaire
      * Set description
      *
      * @param string $description
-     * @return Commentaire
+     * @return Revision
      */
     public function setDescription($description)
     {
@@ -105,33 +72,33 @@ class Commentaire
     }
 
     /**
-     * Set datecommentaire
+     * Set daterevision
      *
-     * @param \DateTime $datecommentaire
-     * @return Commentaire
+     * @param \DateTime $daterevision
+     * @return Revision
      */
-    public function setDatecommentaire($datecommentaire)
+    public function setDaterevision($daterevision)
     {
-        $this->datecommentaire = $datecommentaire;
+        $this->daterevision = $daterevision;
 
         return $this;
     }
 
     /**
-     * Get datecommentaire
+     * Get daterevision
      *
      * @return \DateTime 
      */
-    public function getDatecommentaire()
+    public function getDaterevision()
     {
-        return $this->datecommentaire;
+        return $this->daterevision;
     }
 
     /**
      * Set materiel
      *
      * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel
-     * @return Commentaire
+     * @return Revision
      */
     public function setMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel = null)
     {
@@ -154,7 +121,7 @@ class Commentaire
      * Set user
      *
      * @param \NNGenie\InfosMatBundle\Entity\User $user
-     * @return Commentaire
+     * @return Revision
      */
     public function setUser(\NNGenie\UserBundle\Entity\User $user = null)
     {
@@ -177,7 +144,7 @@ class Commentaire
      * Set statut
      *
      * @param integer $statut
-     * @return Commentaire
+     * @return Revision
      */
     public function setStatut($statut)
     {
