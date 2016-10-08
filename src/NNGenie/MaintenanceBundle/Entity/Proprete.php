@@ -1,6 +1,6 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Proprete
  *
  * @ORM\Table(name="proprete")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\PropreteRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\PropreteRepository")
  */
 class Proprete
 {

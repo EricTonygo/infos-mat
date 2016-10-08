@@ -1,6 +1,6 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Typereglage
  *
  * @ORM\Table(name="typereglage")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\TypereglageRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\TypereglageRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Typereglage

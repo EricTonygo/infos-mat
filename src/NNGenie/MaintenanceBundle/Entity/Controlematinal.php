@@ -1,6 +1,6 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,34 +8,32 @@ use Doctrine\ORM\Mapping as ORM;
  * Controlematinal
  *
  * @ORM\Table(name="controlematinal")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\ControlematinalRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\ControlematinalRepository")
  */
-class Controlematinal
+class Controlematinal extends Maintenancepreventive
 {
-    /**
-     * @var integer
+    
+     /**
+     * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\ManyToMany(targetEntity="Produit", inversedBy="controlematinaux")
+     * @ORM\JoinTable(name="controlematinalproduit",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="controlematinal", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="produit", referencedColumnName="id")
+     *   }
+     * )
      */
-    private $id;
+    private $produits;
     
     /**
      * Constructor
      */
     public function __construct()
     {
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+        parent::__construct();
     }
 
 }

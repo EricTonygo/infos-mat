@@ -1,6 +1,6 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Revision
  *
  * @ORM\Table(name="revision")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\RevisionRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\RevisionRepository")
  */
 class Revision
 {

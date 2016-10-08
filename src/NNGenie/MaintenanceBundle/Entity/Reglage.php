@@ -1,6 +1,6 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Reglage
  *
  * @ORM\Table(name="fournisseur")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\ReglageRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\ReglageRepository")
  */
 class Reglage
 {

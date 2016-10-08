@@ -1,6 +1,6 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * Organe
  *
  * @ORM\Table(name="materiel")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\OrganeRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\OrganeRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Organe

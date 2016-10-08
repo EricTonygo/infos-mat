@@ -1,6 +1,6 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Procede
  *
  * @ORM\Table(name="procede")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\ProcedeRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\ProcedeRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Procede

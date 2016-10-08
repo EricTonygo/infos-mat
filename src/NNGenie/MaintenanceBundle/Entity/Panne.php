@@ -1,24 +1,16 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Panne
  *
  * @ORM\Table(name="panne")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\PanneRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\PanneRepository")
  */
-class Panne
+class Panne extends \NNGenie\MaintenanceBundle\Entity\Maintenancecorrective
 {
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
     
     /**
      * @var string
@@ -39,17 +31,7 @@ class Panne
      */
     public function __construct()
     {
-        
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+        parent::__construct();
     }
    
     

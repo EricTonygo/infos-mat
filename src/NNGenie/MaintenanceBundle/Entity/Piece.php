@@ -1,6 +1,6 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use NNGenie\InfosMatBundle\Entity\Type;
@@ -9,7 +9,7 @@ use NNGenie\InfosMatBundle\Entity\Type;
  * Piece
  *
  * @ORM\Table(name="piece")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\PieceRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\PieceRepository")
  */
 class Piece
 {

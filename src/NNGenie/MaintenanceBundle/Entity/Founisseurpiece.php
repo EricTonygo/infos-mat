@@ -1,6 +1,6 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Fournisseurpiece
  *
  * @ORM\Table(name="fournisseurpiece")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\FournisseurpieceRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\FournisseurpieceRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Fournisseurpiece

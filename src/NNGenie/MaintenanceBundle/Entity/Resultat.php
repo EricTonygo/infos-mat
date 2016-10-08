@@ -1,14 +1,14 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Resultat
  *
- * @ORM\Table(name="genre")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\ResultatRepository")
+ * @ORM\Table(name="resultat")
+ * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\ResultatRepository")
  */
 class Resultat
 {

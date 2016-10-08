@@ -1,6 +1,6 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Produit
  *
  * @ORM\Table(name="produit")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\ProduitRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\ProduitRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class Produit
@@ -35,6 +35,13 @@ class Produit
      * @ORM\Column(name="statut", type="integer", nullable=true)
      */
     private $statut;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Controlematinal", mappedBy="produits")
+     */
+    private $controlematinaux;
     
     /**
      * Constructor

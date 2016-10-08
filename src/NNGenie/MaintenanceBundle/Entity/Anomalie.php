@@ -1,6 +1,6 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Anomalie
  *
  * @ORM\Table(name="anomalie")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\AnomalieRepository")
+ * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\AnomalieRepository")
  */
-class Anomalie
+class Anomalie extends Maintenancecorrective
 {
     /**
      * @var integer
@@ -40,6 +40,7 @@ class Anomalie
      */
     public function __construct()
     {
+        
     }
 
     /**
