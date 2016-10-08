@@ -11,5 +11,5 @@
 /composer.phar
 /nbproject/
 /composer.lock
-#configuration files
 /app/config/parameters.yml
+#configuration files

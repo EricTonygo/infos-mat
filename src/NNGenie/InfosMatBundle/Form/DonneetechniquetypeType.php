@@ -5,11 +5,7 @@ namespace NNGenie\InfosMatBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use NNGenie\InfosMatBundle\Repository\GenreRepository;
-use NNGenie\InfosMatBundle\Repository\EtatRepository;
-use NNGenie\InfosMatBundle\Repository\TypeRepository;
-use NNGenie\InfosMatBundle\Repository\ProprietaireRepository;
-use NNGenie\InfosMatBundle\Repository\FournisseurRepository;
+use NNGenie\InfosMatBundle\Repository\DonneetechniqueRepository;
 
 class DonneetechniquetypeType extends AbstractType
 {

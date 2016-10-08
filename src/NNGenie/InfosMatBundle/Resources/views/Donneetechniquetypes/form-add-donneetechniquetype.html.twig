@@ -1,9 +1,10 @@
 {% extends 'NNGenieInfosMatBundle::layout.html.twig' %}
 
-{% block title %}GMTRAV - Images{% endblock %}
+{% block title %}GMTRAV - Image{% endblock %}
 
 {% block stylesheets %}
-    {{parent()}}
+    {{parent()}}		
+
 {% endblock %}
 
 {% block content %}
@@ -13,7 +14,7 @@
             <div class="page-title">
                 <div class="title_left">
                     <h3>
-                        MODIFICATION D'UNE IMAGE
+                        AJOUT D'UNE DONNEE TECHNIQUE D'UN TYPE
                     </h3>
                 </div>
 
@@ -24,18 +25,27 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Informations sur l'image</h2>
+                            <h2>Informations sur l'donneetechniquetype</h2>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                             {#{ render_flash_alerts() }#}
-                            <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_infos_mat_image_edit',{'id': image.id}) }}" {{ form_enctype(form) }}>
-                                <div class="item form-group">
-                                    {{ form_label(form.file, "Inserez une image", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
-                                    {{ form_errors(form.file, { 'attr' : {'class' : 'inputfile' }}) }}
+                             {{ render_flash_alerts() }}
+                            <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_infos_mat_donneetechniquetype_new',{'id': type.id}) }}" {{ form_enctype(form) }}>
 
-                                    <div class="col-md-6 col-sm-6 col-xs-12">
-                                        {{ form_widget(form.file) }}
+                                 <div class="item form-group">
+                                    {{ form_label(form.donneetechnique, "Donnee technique", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.donneetechnique) }}
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.donneetechnique, {'attr': {'class': 'form-control col-md-7 col-xs-12  select2_single', 'required':'required'}}) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    {{ form_label(form.valeur, "Valeur", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.valeur) }}
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.valeur, {'attr': {'class': 'form-control  col-md-7 col-xs-12'}}) }}
                                     </div>
                                 </div>
                                  <div class="form-group">
@@ -90,5 +100,11 @@
 
             return false;
         });*/
+        $(document).ready(function() {
+            $("#donneetechniquetype_donneetechnique").select2({
+                placeholder: "Sélectionner la donnée technique",
+                allowClear: true
+            });
+        });
     </script>
 {% endblock %}

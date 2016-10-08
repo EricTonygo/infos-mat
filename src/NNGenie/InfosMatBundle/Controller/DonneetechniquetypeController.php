@@ -7,162 +7,169 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
-use NNGenie\InfosMatBundle\Entity\Image;
-use NNGenie\InfosMatBundle\Entity\Materiel;
-use NNGenie\InfosMatBundle\Form\ImageType;
+use NNGenie\InfosMatBundle\Entity\Donneetechniquetype;
+use NNGenie\InfosMatBundle\Entity\Type;
+use NNGenie\InfosMatBundle\Form\DonneetechniquetypeType;
 
-class ImageController extends Controller {
+class DonneetechniquetypeController extends Controller {
 
     /**
-     * @Route("/images/{id}")
+     * @Route("/donnee-technique-types/{id}")
      * @Template()
      * @Method({"GET"})
      */
-    public function imagesAction(Materiel $materiel) {
+    public function donneetechniquetypesAction(Type $type) {
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
         /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           return $this->redirect($this->generateUrl('fos_user_security_login'));
           } */
-		$repositoryImage = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Image");
-        //selectionne les seuls images actifs
-        $images = $repositoryImage->findBy(array("materiel" => $materiel, "statut" => 1));
+        $repositoryDonneetechniquetype = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Donneetechniquetype");
+        //selectionne les seuls donneetechniquetypes actifs
+        $donneetechniquetypes = $repositoryDonneetechniquetype->findBy(array("type" => $type, "statut" => 1));
 
-        return $this->render('NNGenieInfosMatBundle:Images:images.html.twig', array('images' => $images, 'form' => $form->createView(), 'materiel' => $materiel));
+        return $this->render('NNGenieInfosMatBundle:Donneetechniquetypes:donneetechniquetypes.html.twig', array('donneetechniquetypes' => $donneetechniquetypes, 'type' => $type));
     }
 
     /**
-     * Creates a new Image entity.
+     * Creates a new Donneetechniquetype entity.
      *
-     * @Route("/new-image/{id}")
+     * @Route("/new-donnee-technique-type/{id}")
      * @Template()
      * @Method({"POST","GET"})
      */
-    public function newAction(Materiel $materiel) {
-        $image = new Image();
+    public function newAction(Type $type) {
+        $donneetechniquetype = new Donneetechniquetype();
         $request = $this->get("request");
-        $form = $this->createForm(new ImageType(), $image);
+        $form = $this->createForm(new DonneetechniquetypeType(), $donneetechniquetype);
         $form->handleRequest($request);
-        $repositoryImage = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Image");
+        $repositoryDonneetechniquetype = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Donneetechniquetype");
 
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                try {
-                    $image->setMateriel($materiel);
-                    $repositoryImage->saveImage($image);
-                    $message = $this->get('translator')->trans('Image.created_success', array(), "NNGenieInfosMatBundle");
-                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array("id" => $materiel->getId())));
-                } catch (Exception $ex) {
-                    $message = $this->get('translator')->trans('Image.created_failure', array(), "NNGenieInfosMatBundle");
+                $donneetechniquetypeUnique = $repositoryDonneetechniquetype->findBy(array("donneetechnique" => $donneetechniquetype->getDonneetechnique(), "type" => $type, "statut" => 1));
+                if ($donneetechniquetypeUnique == null) {                
+                    try {
+                        $donneetechniquetype->setType($type);
+                        $repositoryDonneetechniquetype->saveDonneetechniquetype($donneetechniquetype);
+                        $message = $this->get('translator')->trans('Donneetechniquetype.created_success', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                        return $this->render('NNGenieInfosMatBundle:Donneetechniquetypes:form-add-donneetechniquetype.html.twig', array('form' => $form->createView(), 'type' => $type));
+                    } catch (Exception $ex) {
+                        $message = $this->get('translator')->trans('Donneetechniquetype.created_failure', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
+                        return $this->render('NNGenieInfosMatBundle:Donneetechniquetypes:form-add-donneetechniquetype.html.twig', array('form' => $form->createView(), 'type' => $type));
+                    }
+                } else {
+                    $message = $this->get('translator')->trans('Donneetechniquetype.exist_already', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Images:form-add-image.html.twig', array('form' => $form->createView()));
+                    return $this->render('NNGenieInfosMatBundle:Donneetechniquetypes:form-add-donneetechniquetype.html.twig', array('form' => $form->createView(), 'type' => $type));
                 }
             }
-            return $this->render('NNGenieInfosMatBundle:Images:form-add-image.html.twig', array('form' => $form->createView(), 'materiel' => $materiel));
+            return $this->render('NNGenieInfosMatBundle:Donneetechniquetypes:form-add-donneetechniquetype.html.twig', array('form' => $form->createView(), 'type' => $type));
         } else {
-            return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array("id" => $materiel->getId())));
+            return $this->redirect($this->generateUrl('nn_genie_infos_mat_donneetechniquetypes', array("id" => $type->getId())));
         }
     }
 
     /**
-     * Finds and displays a Image entity.
+     * Finds and displays a Donneetechniquetype entity.
      *
-     * @Route("/show-image/{id}", name="post_admin_show")
+     * @Route("/show-donneetechniquetype/{id}", name="post_admin_show")
      * @Method("GET")
      */
-    public function showAction(Image $image) {
-        $deleteForm = $this->createDeleteForm($image);
+    public function showAction(Donneetechniquetype $donneetechniquetype) {
+        $deleteForm = $this->createDeleteForm($donneetechniquetype);
 
-        return $this->render('image/show.html.twig', array(
-                    'image' => $image,
+        return $this->render('donneetechniquetype/show.html.twig', array(
+                    'donneetechniquetype' => $donneetechniquetype,
                     'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing Image entity.
+     * Displays a form to edit an existing Donneetechniquetype entity.
      *
-     * @Route("/edit-image/{id}")
+     * @Route("/edit-donnee-technique-type/{id}")
      * @Template()
      * @Method({"POST","GET"})
      */
-    public function editAction(Image $image) {
-        // $deleteForm = $this->createDeleteForm($image);
+    public function editAction(Donneetechniquetype $donneetechniquetype) {
+        // $deleteForm = $this->createDeleteForm($donneetechniquetype);
         $request = $this->get("request");
-        $editForm = $this->createForm(new ImageType(), $image);
+        $editForm = $this->createForm(new DonneetechniquetypeType(), $donneetechniquetype);
         $editForm->handleRequest($request);
-        $repositoryImage = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Image");
+        $repositoryDonneetechniquetype = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Donneetechniquetype");
 
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 try {
-                    $repositoryImage->updateImage($image);
-                    $message = $this->get('translator')->trans('Image.updated_success', array(), "NNGenieInfosMatBundle");
+                    $repositoryDonneetechniquetype->updateDonneetechniquetype($donneetechniquetype);
+                    $message = $this->get('translator')->trans('Donneetechniquetype.updated_success', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
+                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_donneetechniquetypes', array('id' => $donneetechniquetype->getType()->getId())));
                 } catch (Exception $ex) {
-                    $message = $this->get('translator')->trans('Image.updated_failure', array(), "NNGenieInfosMatBundle");
+                    $message = $this->get('translator')->trans('Donneetechniquetype.updated_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Images:form-update-image.html.twig', array('form' => $editForm->createView(), 'image' => $image));
+                    return $this->render('NNGenieInfosMatBundle:Donneetechniquetypes:form-update-donneetechniquetype.html.twig', array('form' => $editForm->createView(), 'donneetechniquetype' => $donneetechniquetype));
                 }
             }
-            return $this->render('NNGenieInfosMatBundle:Images:form-update-image.html.twig', array('form' => $editForm->createView(), 'image' => $image));
+            return $this->render('NNGenieInfosMatBundle:Donneetechniquetypes:form-update-donneetechniquetype.html.twig', array('form' => $editForm->createView(), 'donneetechniquetype' => $donneetechniquetype));
         } else {
-            return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
+            return $this->redirect($this->generateUrl('nn_genie_infos_mat_donneetechniquetypes', array("id" => $donneetechniquetype->getType()->getId())));
         }
     }
 
     /**
-     * Deletes a Image entity.
+     * Deletes a Donneetechniquetype entity.
      *
-     * @Route("/delete-image/{id}")
+     * @Route("/delete-donnee-technique-type/{id}")
      * @Template()
      * @Method("GET")
      */
-    public function deleteAction(Image $image) {
+    public function deleteAction(Donneetechniquetype $donneetechniquetype) {
         $request = $this->get("request");
-        $repositoryImage = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Image");
+        $repositoryDonneetechniquetype = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Donneetechniquetype");
         if ($request->isMethod('GET')) {
             try {
-                $repositoryImage->deleteImage($image);
-                $message = $message = $this->get('translator')->trans('Image.deleted_success', array(), "NNGenieInfosMatBundle");
+                $repositoryDonneetechniquetype->deleteDonneetechniquetype($donneetechniquetype);
+                $message = $message = $this->get('translator')->trans('Donneetechniquetype.deleted_success', array(), "NNGenieInfosMatBundle");
                 $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
+                return $this->redirect($this->generateUrl('nn_genie_infos_mat_donneetechniquetypes', array('id' => $donneetechniquetype->getType()->getId())));
             } catch (Exception $ex) {
-                $message = $message = $this->get('translator')->trans('Image.deleted_failure', array(), "NNGenieInfosMatBundle");
+                $message = $message = $this->get('translator')->trans('Donneetechniquetype.deleted_failure', array(), "NNGenieInfosMatBundle");
                 $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
+                return $this->redirect($this->generateUrl('nn_genie_infos_mat_donneetechniquetypes', array('id' => $donneetechniquetype->getType()->getId())));
             }
         } else {
-            return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
+            return $this->redirect($this->generateUrl('nn_genie_infos_mat_donneetechniquetypes', array("id" => $donneetechniquetype->getType()->getId())));
         }
     }
 
     /**
-     * Creates a form to delete a Image entity.
+     * Creates a form to delete a Donneetechniquetype entity.
      *
-     * @param Image $image The Image entity
+     * @param Donneetechniquetype $donneetechniquetype The Donneetechniquetype entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Image $image) {
+    private function createDeleteForm(Donneetechniquetype $donneetechniquetype) {
         return $this->createFormBuilder
-                        ->setAction($this->generateUrl('post_admin_delete', array('id' => $image->getId())))
+                        ->setAction($this->generateUrl('post_admin_delete', array('id' => $donneetechniquetype->getId())))
                         ->setMethod('DELETE')
                         ->getForm()
         ;
     }
 
     /**
-     * Creates a form to add a Image entity.
+     * Creates a form to add a Donneetechniquetype entity.
      *
-     * @param Image $image The Image entity
+     * @param Donneetechniquetype $donneetechniquetype The Donneetechniquetype entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
     private function createAddForm() {
         return $this->createFormBuilder
-                        ->setAction($this->generateUrl('nn_genie_infos_mat_image_add'))
+                        ->setAction($this->generateUrl('nn_genie_infos_mat_donneetechniquetype_add'))
                         ->setMethod('POST')
                         ->getForm()
         ;
