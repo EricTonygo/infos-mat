@@ -28,12 +28,14 @@ class Controlematinal extends Maintenancepreventive
      */
     private $produits;
     
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        parent::__construct();
+    function getProduits() {
+        return $this->produits;
     }
+
+    function setProduits(\Doctrine\Common\Collections\Collection $produits) {
+        $this->produits = $produits;
+    }
+
+
 
 }

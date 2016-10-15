@@ -1,191 +1,73 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Repository;
 
-use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\EntityRepository;
 /**
- * Adresse
+ * Description of MaintenanceRepository
  *
- * @ORM\Table(name="adresse")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\AdresseRepository")
+ * @author TONYE
  */
-class Adresse
-{
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
-     */
-    private $ville;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="tel", type="string", length=255, nullable=true)
-     */
-    private $tel;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="boitePostale", type="string", length=255, nullable=true)
-     */
-    private $boitepostale;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pays", type="string", length=255, nullable=true)
-     */
-    private $pays;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="statut", type="integer", nullable=true)
-     */
-    private $statut;
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->statut = 1;
+class MaintenanceRepository extends EntityRepository{
+    //put your code here
+    public function deleteMaintenance(\NNGenie\MaintenanceBundle\Entity\Maintenance $maintenance) {
+        $em= $this->_em;
+        $maintenance->setStatut(0);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($maintenance);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+
+    public function saveMaintenance(\NNGenie\MaintenanceBundle\Entity\Maintenance $maintenance) {
+        $em= $this->_em;
+        $maintenance->setStatut(1);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($maintenance);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
-    /**
-     * Set ville
-     *
-     * @param string $ville
-     * @return Adresse
-     */
-    public function setVille($ville)
-    {
-        $this->ville = $ville;
-
-        return $this;
+    public function updateMaintenance(\NNGenie\MaintenanceBundle\Entity\Maintenance $maintenance) {
+        $em= $this->_em;
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($maintenance);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
-
-    /**
-     * Get ville
-     *
-     * @return string 
-     */
-    public function getVille()
+    public function myFindAll() 
     {
-        return $this->ville;
-    }
-
-    /**
-     * Set tel
-     *
-     * @param string $tel
-     * @return Adresse
-     */
-    public function setTel($tel)
-    {
-        $this->tel = $tel;
-
-        return $this;
-    }
-
-    /**
-     * Get tel
-     *
-     * @return string 
-     */
-    public function getTel()
-    {
-        return $this->tel;
-    }
-
-    /**
-     * Set boitepostale
-     *
-     * @param string $boitepostale
-     * @return Adresse
-     */
-    public function setBoitepostale($boitepostale)
-    {
-        $this->boitepostale = $boitepostale;
-
-        return $this;
-    }
-
-    /**
-     * Get boitepostale
-     *
-     * @return string 
-     */
-    public function getBoitepostale()
-    {
-        return $this->boitepostale;
-    }
-
-    /**
-     * Set pays
-     *
-     * @param string $pays
-     * @return Adresse
-     */
-    public function setPays($pays)
-    {
-        $this->pays = $pays;
-
-        return $this;
-    }
-
-    /**
-     * Get pays
-     *
-     * @return string 
-     */
-    public function getPays()
-    {
-        return $this->pays;
+        $qb = $this->createQueryBuilder('m');
+        $qb->where('m.statut = :statut')
+           ->setParameter('statut', 1);
+        return $qb->getQuery()->getResult();
     }
     
-    /**
-     * Set statut
-     *
-     * @param integer $statut
-     * @return Adresse
-     */
-    public function setStatut($statut)
-    {
-        $this->statut = $statut;
+    public function getMaintenanceQueryBuilder() {
+         return $this
+          ->createQueryBuilder('m')
+          ->where('m.statut = :statut')
+          ->setParameter('statut', 1);
 
-        return $this;
-    }
-
-    /**
-     * Get statut
-     *
-     * @return integer 
-     */
-    public function getStatut()
-    {
-        return $this->statut;
     }
 }

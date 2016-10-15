@@ -10,55 +10,26 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="proprete")
  * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\PropreteRepository")
  */
-class Proprete
+class Proprete extends Maintenance
+
 {
     /**
-     * @var integer
+     * @var \Typereglage
      *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\ManyToOne(targetEntity="Typereglage")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="typereglage", referencedColumnName="id")
+     * })
      */
-    private $id;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-
-    }
+    private $typereglage;
     
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-    
-    /**
-     * Set statut
-     *
-     * @param integer $statut
-     * @return Proprete
-     */
-    public function setStatut($statut)
-    {
-        $this->statut = $statut;
-
-        return $this;
+    function getTypereglage() {
+        return $this->typereglage;
     }
 
-    /**
-     * Get statut
-     *
-     * @return integer 
-     */
-    public function getStatut()
-    {
-        return $this->statut;
+    function setTypereglage(\Typereglage $typereglage) {
+        $this->typereglage = $typereglage;
     }
+
+
 }

@@ -1,167 +1,73 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Repository;
 
-use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\EntityRepository;
 /**
- * Donneetechniquetype
+ * Description of AnomalieRepository
  *
- * @ORM\Table(name="donneetechniquetype")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\DonneetechniquetypeRepository")
+ * @author TONYE
  */
-class Donneetechniquetype
-{
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var \Donneetechnique
-     *
-     * @ORM\ManyToOne(targetEntity="Donneetechnique", inversedBy="donneetechniquetypes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="donneetechnique", referencedColumnName="id")
-     * })
-     */
-    private $donneetechnique;
-
-    /**
-     * @var \Type
-     *
-     * @ORM\ManyToOne(targetEntity="Type", inversedBy="donneetechniquetypes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="type", referencedColumnName="id")
-     * })
-     */
-    private $type;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="statut", type="integer", nullable=true)
-     */
-    private $statut;
-    
-	/**
-     * @var float
-     *
-     * @ORM\Column(name="valeur", type="float", precision=10, scale=0, nullable=true)
-     */
-    private $valeur;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->statut = 1;
+class AnomalieRepository extends EntityRepository{
+    //put your code here
+    public function deleteAnomalie(\NNGenie\MaintenanceBundle\Entity\Anomalie $anomalie) {
+        $em= $this->_em;
+        $anomalie->setStatut(0);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($anomalie);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+
+    public function saveAnomalie(\NNGenie\MaintenanceBundle\Entity\Anomalie $anomalie) {
+        $em= $this->_em;
+        $anomalie->setStatut(1);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($anomalie);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
-    /**
-     * Set donneetechnique
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Donneetechnique $donneetechnique
-     * @return Donneetechniquetype
-     */
-    public function setDonneetechnique(\NNGenie\InfosMatBundle\Entity\Donneetechnique $donneetechnique = null)
-    {
-        $this->donneetechnique = $donneetechnique;
-
-        return $this;
+    public function updateAnomalie(\NNGenie\MaintenanceBundle\Entity\Anomalie $anomalie) {
+        $em= $this->_em;
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($anomalie);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
-
-    /**
-     * Get donneetechnique
-     *
-     * @return \NNGenie\InfosMatBundle\Entity\Donneetechnique 
-     */
-    public function getDonneetechnique()
+    public function myFindAll() 
     {
-        return $this->donneetechnique;
-    }
-
-    /**
-     * Set type
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Type $type
-     * @return Donneetechniquetype
-     */
-    public function setType(\NNGenie\InfosMatBundle\Entity\Type $type = null)
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return \NNGenie\InfosMatBundle\Entity\Type 
-     */
-    public function getType()
-    {
-        return $this->type;
+        $qb = $this->createQueryBuilder('a');
+        $qb->where('c.statut = :statut')
+           ->setParameter('statut', 1);
+        return $qb->getQuery()->getResult();
     }
     
-    /**
-     * Set statut
-     *
-     * @param integer $statut
-     * @return Donneetechniquetype
-     */
-    public function setStatut($statut)
-    {
-        $this->statut = $statut;
+    public function getAnomalieQueryBuilder() {
+         return $this
+          ->createQueryBuilder('a')
+          ->where('c.statut = :statut')
+          ->setParameter('statut', 1);
 
-        return $this;
-    }
-
-    /**
-     * Get statut
-     *
-     * @return integer 
-     */
-    public function getStatut()
-    {
-        return $this->statut;
-    }
-	
-	/**
-     * Set valeur
-     *
-     * @param float $valeur
-     * @return Materiel
-     */
-    public function setPrix($valeur)
-    {
-        $this->valeur = $valeur;
-
-        return $this;
-    }
-
-    /**
-     * Get valeur
-     *
-     * @return float 
-     */
-    public function getPrix()
-    {
-        return $this->valeur;
     }
 }

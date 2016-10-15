@@ -11,16 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\AnomalieRepository")
  */
 class Anomalie extends Maintenancecorrective
-{
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-	
+{	
 	/**
      * @var string
      *
@@ -34,24 +25,6 @@ class Anomalie extends Maintenancecorrective
      * @ORM\Column(name="causeseventuelles", type="text", nullable=true)
      */
     private $causeseventuelles;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 	
 	/**
      * Set disfonconstates

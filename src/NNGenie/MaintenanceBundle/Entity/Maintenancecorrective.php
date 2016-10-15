@@ -4,7 +4,7 @@ namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 /**
- *@MappedSuperclass
+ *@ORM\MappedSuperclass()
  */
 class Maintenancecorrective extends Maintenance
 {    
@@ -22,14 +22,7 @@ class Maintenancecorrective extends Maintenance
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Piece", inversedBy="maintenancecorrectives")
-     * @ORM\JoinTable(name="maintenancepiece",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="maintenancecorrective", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="piece", referencedColumnName="id")
-     *   }
-     * )
+     * 
      */
     private $pieces;
     
@@ -38,14 +31,7 @@ class Maintenancecorrective extends Maintenance
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Question", inversedBy="maintenancecorrectives")
-     * @ORM\JoinTable(name="questionmaintenance",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="maintenancecorrective", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="question", referencedColumnName="id")
-     *   }
-     * )
+     * 
      */
     private $questions;
     
@@ -53,14 +39,7 @@ class Maintenancecorrective extends Maintenance
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Test", inversedBy="maintenancecorrectives")
-     * @ORM\JoinTable(name="testmaintenance",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="maintenancecorrective", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="test", referencedColumnName="id")
-     *   }
-     * )
+     * 
      */
     private $tests;
     

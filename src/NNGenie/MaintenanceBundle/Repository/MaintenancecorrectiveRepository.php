@@ -1,137 +1,73 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Repository;
 
-use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\EntityRepository;
 /**
- * Aime
+ * Description of MaintenancecorrectiveRepository
  *
- * @ORM\Table(name="aime")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\AimeRepository")
+ * @author TONYE
  */
-class Aime
-{
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var \Materiel
-     *
-     * @ORM\ManyToOne(targetEntity="Materiel", inversedBy="aimes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="materiel", referencedColumnName="id")
-     * })
-     */
-    private $materiel;
-
-    /**
-     * @var \NNGenie\UserBundle\Entity\User
-     *
-     * @ORM\ManyToOne(targetEntity="\NNGenie\UserBundle\Entity\User", inversedBy="aimes")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user", referencedColumnName="id")
-     * })
-     */
-    private $user;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="statut", type="integer", nullable=true)
-     */
-    private $statut;
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->statut = 1;
+class MaintenancecorrectiveRepository extends EntityRepository{
+    //put your code here
+    public function deleteMaintenancecorrective(\NNGenie\MaintenanceBundle\Entity\Maintenancecorrective $maintenancecorrective) {
+        $em= $this->_em;
+        $maintenancecorrective->setStatut(0);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($maintenancecorrective);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+
+    public function saveMaintenancecorrective(\NNGenie\MaintenanceBundle\Entity\Maintenancecorrective $maintenancecorrective) {
+        $em= $this->_em;
+        $maintenancecorrective->setStatut(1);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($maintenancecorrective);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
-    /**
-     * Set materiel
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel
-     * @return Aime
-     */
-    public function setMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel = null)
-    {
-        $this->materiel = $materiel;
-
-        return $this;
+    public function updateMaintenancecorrective(\NNGenie\MaintenanceBundle\Entity\Maintenancecorrective $maintenancecorrective) {
+        $em= $this->_em;
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($maintenancecorrective);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
-
-    /**
-     * Get materiel
-     *
-     * @return NNGenie\InfosMatBundle\Entity\Materiel 
-     */
-    public function getMateriel()
+    public function myFindAll() 
     {
-        return $this->materiel;
-    }
-
-    /**
-     * Set user
-     *
-     * @param NNGenie\UserBundle\Entity\User $user
-     * @return Aime
-     */
-    public function setUser(\NNGenie\UserBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return NNGenie\UserBundle\Entity\User 
-     */
-    public function getUser()
-    {
-        return $this->user;
+        $qb = $this->createQueryBuilder('m');
+        $qb->where('m.statut = :statut')
+           ->setParameter('statut', 1);
+        return $qb->getQuery()->getResult();
     }
     
-    /**
-     * Set statut
-     *
-     * @param integer $statut
-     * @return Aime
-     */
-    public function setStatut($statut)
-    {
-        $this->statut = $statut;
+    public function getMaintenancecorrectiveQueryBuilder() {
+         return $this
+          ->createQueryBuilder('m')
+          ->where('m.statut = :statut')
+          ->setParameter('statut', 1);
 
-        return $this;
-    }
-
-    /**
-     * Get statut
-     *
-     * @return integer 
-     */
-    public function getStatut()
-    {
-        return $this->statut;
     }
 }

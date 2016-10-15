@@ -45,6 +45,13 @@ class Operation
      * })
      */
     private $procede;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Maintenance", mappedBy="operations")
+     */
+    private $maintenances;
 
     /**
      * Constructor

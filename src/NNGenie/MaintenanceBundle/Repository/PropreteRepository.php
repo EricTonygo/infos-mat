@@ -1,154 +1,73 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Repository;
 
-use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\EntityRepository;
 /**
- * Disponibilite
+ * Description of PropreteRepository
  *
- * @ORM\Table(name="disponibilite")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\DisponibiliteRepository")
+ * @author TONYE
  */
-class Disponibilite
-{
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
+class PropreteRepository extends EntityRepository{
+    //put your code here
+    public function deleteProprete(\NNGenie\MaintenanceBundle\Entity\Proprete $proprete) {
+        $em= $this->_em;
+        $proprete->setStatut(0);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($proprete);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
+    }
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
-     */
-    private $nom;
 
-    /**
-    * @ORM\OneToMany(targetEntity="Disponibilitemateriel", mappedBy="diponibilite", cascade={"remove", "persist"})
-    */
-    private $disponibilitemateriels;
+    public function saveProprete(\NNGenie\MaintenanceBundle\Entity\Proprete $proprete) {
+        $em= $this->_em;
+        $proprete->setStatut(1);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($proprete);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
+    }
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="statut", type="integer", nullable=true)
-     */
-    private $statut;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
+    public function updateProprete(\NNGenie\MaintenanceBundle\Entity\Proprete $proprete) {
+        $em= $this->_em;
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($proprete);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
+    }
+    public function myFindAll() 
     {
-        $this->statut = 1;
-        $this->disponibilitemateriels = new \Doctrine\Common\Collections\ArrayCollection();
+        $qb = $this->createQueryBuilder('p');
+        $qb->where('c.statut = :statut')
+           ->setParameter('statut', 1);
+        return $qb->getQuery()->getResult();
     }
     
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+    public function getPropreteQueryBuilder() {
+         return $this
+          ->createQueryBuilder('p')
+          ->where('p.statut = :statut')
+          ->setParameter('statut', 1);
 
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Disponibilite
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    /**
-     * Get nom
-     *
-     * @return string 
-     */
-    public function getNom()
-    {
-        return $this->nom;
-    }
-    
-    /**
-     * Add disponibilitemateriel
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Disponibilitemateriel $disponibilitemateriel 
-     * @return Disponibilite
-     */
-    public function addDisponibilitemateriel(\NNGenie\InfosMatBundle\Entity\Disponibilitemateriel $disponibilitemateriel)
-    {
-        $this->disponibilitemateriels[] = $disponibilitemateriel;
-        return $this;
-    }
-    
-    /**
-     * Get disponibilitemateriels
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDisponibilitemateriels()
-    {
-        return $this->disponibilitemateriels;
-    }
-    
-    /**
-     * Set disponibilitemateriels
-     *
-     * @param \Doctrine\Common\Collections\Collection $disponibilitemateriels
-     * @return \Disponibilite
-     */
-    public function setDisponibilitemateriels(\Doctrine\Common\Collections\Collection $disponibilitemateriels = null)
-    {
-        $this->disponibilitemateriels = $disponibilitemateriels;
-
-        return $this;
-    }
-    
-    /**
-     * Remove disponibilitemateriel
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Disponibilitemateriel $disponibilitemateriel
-	 * @return \Disponibilite
-     */
-    public function removeDisponibilitemateriel(\NNGenie\InfosMatBundle\Entity\Disponibilitemateriel $disponibilitemateriel)
-    {
-        $this->disponibilitemateriels->removeElement($disponibilitemateriel);
-		return $this;
-    }
-    
-    /**
-     * Set statut
-     *
-     * @param integer $statut
-     * @return Disponibilite
-     */
-    public function setStatut($statut)
-    {
-        $this->statut = $statut;
-
-        return $this;
-    }
-
-    /**
-     * Get statut
-     *
-     * @return integer 
-     */
-    public function getStatut()
-    {
-        return $this->statut;
     }
 }

@@ -3,7 +3,6 @@
 namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use NNGenie\InfosMatBundle\Entity\Type;
 
 /**
  * Piece
@@ -16,7 +15,7 @@ class Piece
     /**
      * @var integer
      *
-     * @ORM\Column(name="id", piece="bigint", nullable=false)
+     * @ORM\Column(name="id", type="bigint", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -25,7 +24,7 @@ class Piece
     /**
      * @var integer
      *
-     * @ORM\Column(name="statut", piece="integer", nullable=true)
+     * @ORM\Column(name="statut", type="integer", nullable=true)
      */
     private $statut;
     
@@ -37,9 +36,9 @@ class Piece
     private $maintenancecorrectives;
     
     /**
-     * @var Type
+     * @var NNGenie\InfosMatBundle\Entity\Type
      *
-     * @ORM\ManyToOne(targetEntity="Type")
+     * @ORM\ManyToOne(targetEntity="NNGenie\InfosMatBundle\Entity\Type")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="type", referencedColumnName="id")
      * })
@@ -102,7 +101,7 @@ class Piece
         return $this;
     }
 
-    public function setType(Type $type) {
+    public function setType(NNGenie\InfosMatBundle\Entity\Type $type) {
         $this->type = $type;
         return $this;
     }

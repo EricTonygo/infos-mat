@@ -1,198 +1,73 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Repository;
 
-use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\EntityRepository;
 /**
- * Commentaire
+ * Description of ResultatRepository
  *
- * @ORM\Table(name="commentaire")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\CommentaireRepository")
+ * @author TONYE
  */
-class Commentaire
-{
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="dateCommentaire", type="datetime", nullable=true)
-     */
-    private $datecommentaire;
-
-    /**
-     * @var \Materiel
-     *
-     * @ORM\ManyToOne(targetEntity="Materiel", inversedBy="commentaires")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="materiel", referencedColumnName="id")
-     * })
-     */
-    private $materiel;
-
-    /**
-     * @var \NNGenie\UserBundle\Entity\User
-     *
-     * @ORM\ManyToOne(targetEntity="\NNGenie\UserBundle\Entity\User", inversedBy="commentaires")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="user", referencedColumnName="id")
-     * })
-     */
-    private $user;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="statut", type="integer", nullable=true)
-     */
-    private $statut;
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->statut = 1;
-        $this->datecommentaire = new \Datetime();
+class ResultatRepository extends EntityRepository{
+    //put your code here
+    public function deleteResultat(\NNGenie\MaintenanceBundle\Entity\Resultat $anomalie) {
+        $em= $this->_em;
+        $anomalie->setStatut(0);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($anomalie);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+
+    public function saveResultat(\NNGenie\MaintenanceBundle\Entity\Resultat $anomalie) {
+        $em= $this->_em;
+        $anomalie->setStatut(1);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($anomalie);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     * @return Commentaire
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
+    public function updateResultat(\NNGenie\MaintenanceBundle\Entity\Resultat $anomalie) {
+        $em= $this->_em;
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($anomalie);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
-
-    /**
-     * Get description
-     *
-     * @return string 
-     */
-    public function getDescription()
+    public function myFindAll() 
     {
-        return $this->description;
-    }
-
-    /**
-     * Set datecommentaire
-     *
-     * @param \DateTime $datecommentaire
-     * @return Commentaire
-     */
-    public function setDatecommentaire($datecommentaire)
-    {
-        $this->datecommentaire = $datecommentaire;
-
-        return $this;
-    }
-
-    /**
-     * Get datecommentaire
-     *
-     * @return \DateTime 
-     */
-    public function getDatecommentaire()
-    {
-        return $this->datecommentaire;
-    }
-
-    /**
-     * Set materiel
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel
-     * @return Commentaire
-     */
-    public function setMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel = null)
-    {
-        $this->materiel = $materiel;
-
-        return $this;
-    }
-
-    /**
-     * Get materiel
-     *
-     * @return \NNGenie\InfosMatBundle\Entity\Materiel 
-     */
-    public function getMateriel()
-    {
-        return $this->materiel;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\User $user
-     * @return Commentaire
-     */
-    public function setUser(\NNGenie\UserBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \NNGenie\InfosMatBundle\Entity\User 
-     */
-    public function getUser()
-    {
-        return $this->user;
+        $qb = $this->createQueryBuilder('r');
+        $qb->where('r.statut = :statut')
+           ->setParameter('statut', 1);
+        return $qb->getQuery()->getResult();
     }
     
-    /**
-     * Set statut
-     *
-     * @param integer $statut
-     * @return Commentaire
-     */
-    public function setStatut($statut)
-    {
-        $this->statut = $statut;
+    public function getResultatQueryBuilder() {
+         return $this
+          ->createQueryBuilder('r')
+          ->where('r.statut = :statut')
+          ->setParameter('statut', 1);
 
-        return $this;
-    }
-
-    /**
-     * Get statut
-     *
-     * @return integer 
-     */
-    public function getStatut()
-    {
-        return $this->statut;
     }
 }

@@ -79,6 +79,14 @@ class Question
         return $this;
     }
 
+    function getMaintenancecorrectives() {
+        return $this->maintenancecorrectives;
+    }
+
+    function setMaintenancecorrectives(\Doctrine\Common\Collections\Collection $maintenancecorrectives) {
+        $this->maintenancecorrectives = $maintenancecorrectives;
+    }
+
 
     
 }

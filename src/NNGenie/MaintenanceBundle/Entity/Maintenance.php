@@ -3,10 +3,10 @@
 namespace NNGenie\MaintenanceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use NNGenie\InfosMatBundle\Entity\Type;
 
 /**
- *@MappedSuperclass
+ * 
+ *@ORM\MappedSuperclass()
  */
 class Maintenance
 {
@@ -27,9 +27,9 @@ class Maintenance
     private $statut;
     
     /**
-     * @var Type
+     * @var NNGenie\InfosMatBundle\Entity\Type
      *
-     * @ORM\ManyToOne(targetEntity="Type")
+     * @ORM\ManyToOne(targetEntity="NNGenie\InfosMatBundle\Entity\Type")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="type", referencedColumnName="id")
      * })
@@ -40,14 +40,7 @@ class Maintenance
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Operation", inversedBy="maintenances")
-     * @ORM\JoinTable(name="operationmaintenance",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="maintenance", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="operation", referencedColumnName="id")
-     *   }
-     * )
+     * 
      */
     private $operations;
     

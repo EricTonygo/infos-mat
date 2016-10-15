@@ -1,186 +1,73 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Repository;
 
-use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\EntityRepository;
 /**
- * Etat
+ * Description of ControlematinalRepository
  *
- * @ORM\Table(name="etat")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\EtatRepository")
+ * @author TONYE
  */
-class Etat
-{
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
-     */
-    private $nom;
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="statut", type="integer", nullable=true)
-     */
-    private $statut;
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="nbreetoile", type="integer", nullable=true)
-     */
-    private $nbreetoile;
-    
-    /**
-    * @ORM\OneToMany(targetEntity="Materiel", mappedBy="etat", cascade={"remove", "persist"})
-    */
-    private $materiels;
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->statut = 1;
-        $this->nbreetoile=0;
+class ControlematinalRepository extends EntityRepository{
+    //put your code here
+    public function deleteControlematinal(\NNGenie\MaintenanceBundle\Entity\Controlematinal $controlematinal) {
+        $em= $this->_em;
+        $controlematinal->setStatut(0);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($controlematinal);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+    public function saveControlematinal(\NNGenie\MaintenanceBundle\Entity\Controlematinal $controlematinal) {
+        $em= $this->_em;
+        $controlematinal->setStatut(1);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($controlematinal);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Etat
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
+    public function updateControlematinal(\NNGenie\MaintenanceBundle\Entity\Controlematinal $controlematinal) {
+        $em= $this->_em;
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($controlematinal);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
-
-    /**
-     * Get nom
-     *
-     * @return string 
-     */
-    public function getNom()
+    public function myFindAll() 
     {
-        return $this->nom;
+        $qb = $this->createQueryBuilder('c');
+        $qb->where('c.statut = :statut')
+           ->setParameter('statut', 1);
+        return $qb->getQuery()->getResult();
     }
     
-    /**
-     * Set statut
-     *
-     * @param integer $statut
-     * @return Etat
-     */
-    public function setStatut($statut)
-    {
-        $this->statut = $statut;
+    public function getControlematinalQueryBuilder() {
+         return $this
+          ->createQueryBuilder('c')
+          ->where('c.statut = :statut')
+          ->setParameter('statut', 1);
 
-        return $this;
-    }
-
-    /**
-     * Get nbreetoile
-     *
-     * @return integer 
-     */
-    public function getStatut()
-    {
-        return $this->nbreetoile;
-    }
-    
-    /**
-     * Set nbreetoile
-     *
-     * @param integer $nbreetoile
-     * @return Etat
-     */
-    public function setNbreetoile($nbreetoile)
-    {
-        $this->nbreetoile = $nbreetoile;
-
-        return $this;
-    }
-
-    /**
-     * Get nbreetoile
-     *
-     * @return integer 
-     */
-    public function getNbreetoile()
-    {
-        return $this->nbreetoile;
-    }
-    
-    /**
-     * Add materiel
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel 
-     * @return Etat
-     */
-    public function addMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel)
-    {
-        $this->materiels[] = $materiel;
-        return $this;
-    }
-    
-    /**
-     * Get materiels
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getMateriels()
-    {
-        return $this->materiels;
-    }
-    
-    /**
-     * Set materiels
-     *
-     * @param \Doctrine\Common\Collections\Collection $materiels
-     * @return Etat
-     */
-    public function setMateriels(\Doctrine\Common\Collections\Collection $materiels = null)
-    {
-        $this->materiels = $materiels;
-
-        return $this;
-    }
-    
-    /**
-     * Remove materiel
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel
-	 * @return Etat
-     */
-    public function removeMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel)
-    {
-        $this->materiels->removeElement($materiel);
-		return $this;
     }
 }

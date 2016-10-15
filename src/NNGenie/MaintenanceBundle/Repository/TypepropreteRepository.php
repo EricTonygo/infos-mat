@@ -1,132 +1,73 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Repository;
 
-use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\EntityRepository;
 /**
- * Localisation
+ * Description of TypepropreteRepository
  *
- * @ORM\Table(name="localisation")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\LocalisationRepository")
+ * @author TONYE
  */
-class Localisation
-{
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="ville", type="string", length=255, nullable=true)
-     */
-    private $ville;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="pays", type="string", length=255, nullable=true)
-     */
-    private $pays;
-
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="statut", type="integer", nullable=true)
-     */
-    private $statut;
-    
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->statut = 1;
+class TypepropreteRepository extends EntityRepository{
+    //put your code here
+    public function deleteTypeproprete(\NNGenie\MaintenanceBundle\Entity\Typeproprete $anomalie) {
+        $em= $this->_em;
+        $anomalie->setStatut(0);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($anomalie);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+
+    public function saveTypeproprete(\NNGenie\MaintenanceBundle\Entity\Typeproprete $anomalie) {
+        $em= $this->_em;
+        $anomalie->setStatut(1);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($anomalie);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
-    /**
-     * Set ville
-     *
-     * @param string $ville
-     * @return Localisation
-     */
-    public function setVille($ville)
-    {
-        $this->ville = $ville;
-
-        return $this;
+    public function updateTypeproprete(\NNGenie\MaintenanceBundle\Entity\Typeproprete $anomalie) {
+        $em= $this->_em;
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($anomalie);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
-
-    /**
-     * Get ville
-     *
-     * @return string 
-     */
-    public function getVille()
+    public function myFindAll() 
     {
-        return $this->ville;
-    }
-
-    /**
-     * Set pays
-     *
-     * @param string $pays
-     * @return Localisation
-     */
-    public function setPays($pays)
-    {
-        $this->pays = $pays;
-
-        return $this;
-    }
-
-    /**
-     * Get pays
-     *
-     * @return string 
-     */
-    public function getPays()
-    {
-        return $this->pays;
+        $qb = $this->createQueryBuilder('a');
+        $qb->where('c.statut = :statut')
+           ->setParameter('statut', 1);
+        return $qb->getQuery()->getResult();
     }
     
-    /**
-     * Set statut
-     *
-     * @param integer $statut
-     * @return Localisation
-     */
-    public function setStatut($statut)
-    {
-        $this->statut = $statut;
+    public function getTypepropreteQueryBuilder() {
+         return $this
+          ->createQueryBuilder('a')
+          ->where('c.statut = :statut')
+          ->setParameter('statut', 1);
 
-        return $this;
-    }
-
-    /**
-     * Get statut
-     *
-     * @return integer 
-     */
-    public function getStatut()
-    {
-        return $this->statut;
     }
 }

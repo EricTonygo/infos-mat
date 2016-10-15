@@ -1,185 +1,73 @@
 <?php
 
-namespace NNGenie\InfosMatBundle\Entity;
+namespace NNGenie\MaintenanceBundle\Repository;
 
-use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\EntityRepository;
 /**
- * Donneetechnique
+ * Description of TestRepository
  *
- * @ORM\Table(name="donneetechnique")
- * @ORM\Entity(repositoryClass="NNGenie\InfosMatBundle\Repository\DonneetechniqueRepository")
+ * @author TONYE
  */
-class Donneetechnique
-{
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="bigint", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    private $id;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
-     */
-    private $nom;
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="statut", type="integer", nullable=true)
-     */
-    private $statut;
-    
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="unite", type="string", length=255, nullable=true)
-     */
-    private $unite;
-    
-    /**
-    * @ORM\OneToMany(targetEntity="Donneetechniquetype", mappedBy="donneetechnique", cascade={"remove", "persist"})
-    */
-    private $donneetechniquetypes;
-	
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->statut = 1;
+class TestRepository extends EntityRepository{
+    //put your code here
+    public function deleteTest(\NNGenie\MaintenanceBundle\Entity\Test $test) {
+        $em= $this->_em;
+        $test->setStatut(0);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($test);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
 
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
+    public function saveTest(\NNGenie\MaintenanceBundle\Entity\Test $test) {
+        $em= $this->_em;
+        $test->setStatut(1);
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($test);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
 
-    /**
-     * Set nom
-     *
-     * @param string $nom
-     * @return Donneetechnique
-     */
-    public function setNom($nom)
-    {
-        $this->nom = $nom;
-
-        return $this;
+    public function updateTest(\NNGenie\MaintenanceBundle\Entity\Test $test) {
+        $em= $this->_em;
+        $em->getConnection()->beginTransaction();
+        try{
+            $em->persist($test);
+            $em->flush();
+            $em->getConnection()->commit();
+        } catch (Exception $ex) {
+            $em->getConnection()->rollback();
+            $em->close();
+            throw $ex;
+        }
     }
-
-    /**
-     * Get nom
-     *
-     * @return string 
-     */
-    public function getNom()
+    public function myFindAll() 
     {
-        return $this->nom;
+        $qb = $this->createQueryBuilder('a');
+        $qb->where('c.statut = :statut')
+           ->setParameter('statut', 1);
+        return $qb->getQuery()->getResult();
     }
     
-    /**
-     * Set statut
-     *
-     * @param integer $statut
-     * @return Donneetechnique
-     */
-    public function setStatut($statut)
-    {
-        $this->statut = $statut;
+    public function getTestQueryBuilder() {
+         return $this
+          ->createQueryBuilder('a')
+          ->where('c.statut = :statut')
+          ->setParameter('statut', 1);
 
-        return $this;
-    }
-
-    /**
-     * Get unite
-     *
-     * @return integer 
-     */
-    public function getStatut()
-    {
-        return $this->unite;
-    }
-    
-    /**
-     * Set unite
-     *
-     * @param string $unite
-     * @return Donneetechnique
-     */
-    public function setUnite($unite)
-    {
-        $this->unite = $unite;
-
-        return $this;
-    }
-
-    /**
-     * Get unite
-     *
-     * @return string 
-     */
-    public function getUnite()
-    {
-        return $this->unite;
-    }
-	
-	/**
-     * Add donneetechniquetype
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype 
-     * @return Donneetechnique
-     */
-    public function addDonneetechniquetype(\NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype)
-    {
-        $this->donneetechniquetypes[] = $donneetechniquetype;
-        return $this;
-    }
-    
-    /**
-     * Get donneetechniquetypes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getDonneetechniquetypes()
-    {
-        return $this->donneetechniquetypes;
-    }
-    
-    /**
-     * Set donneetechniquetypes
-     *
-     * @param \Doctrine\Common\Collections\Collection $donneetechniquetypes
-     * @return \Donneetechnique
-     */
-    public function setDonneetechniquetypes(\Doctrine\Common\Collections\Collection $donneetechniquetypes = null)
-    {
-        $this->donneetechniquetypes = $donneetechniquetypes;
-
-        return $this;
-    }
-    
-    /**
-     * Remove donneetechniquetype
-     *
-     * @param \NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype
-	 * @return \Donneetechnique
-     */
-    public function removeDonneetechniquetype(\NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype)
-    {
-        $this->donneetechniquetypes->removeElement($donneetechniquetype);
-		return $this;
     }
 }
