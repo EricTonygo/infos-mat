@@ -1,3 +1,7 @@
+nn_genie_exploitation:
+    resource: "@NNGenieExploitationBundle/Resources/config/routing.yml"
+    prefix:   /Exploitation
+
 nn_genie_infos_mat_materiel:
     resource: "@NNGenieInfosMatBundle/Controller/MaterielController.php"
     type:     annotation
