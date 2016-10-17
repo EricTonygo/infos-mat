@@ -50,6 +50,11 @@ class Type
     * @ORM\OneToMany(targetEntity="Materiel", mappedBy="type", cascade={"remove", "persist"})
     */
     private $materiels;
+	
+	/**
+    * @ORM\OneToMany(targetEntity="Donneetechniquetype", mappedBy="type", cascade={"remove", "persist"})
+    */
+    private $donneetechniquetypes;
 
     /**
      * Constructor
@@ -144,7 +149,7 @@ class Type
      * Add materiel
      *
      * @param \NNGenie\InfosMatBundle\Entity\Materiel $materiel 
-     * @return Type
+     * @return \Type
      */
     public function addMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel)
     {
@@ -184,6 +189,53 @@ class Type
     public function removeMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel)
     {
         $this->materiels->removeElement($materiel);
-	return $this;
+		return $this;
+    }
+	
+	/**
+     * Add donneetechniquetype
+     *
+     * @param \NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype 
+     * @return Type
+     */
+    public function addDonneetechniquetype(\NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype)
+    {
+        $this->donneetechniquetypes[] = $donneetechniquetype;
+        return $this;
+    }
+    
+    /**
+     * Get donneetechniquetypes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getDonneetechniquetypes()
+    {
+        return $this->donneetechniquetypes;
+    }
+    
+    /**
+     * Set donneetechniquetypes
+     *
+     * @param \Doctrine\Common\Collections\Collection $donneetechniquetypes
+     * @return \Type
+     */
+    public function setDonneetechniquetypes(\Doctrine\Common\Collections\Collection $donneetechniquetypes = null)
+    {
+        $this->donneetechniquetypes = $donneetechniquetypes;
+
+        return $this;
+    }
+    
+    /**
+     * Remove donneetechniquetype
+     *
+     * @param \NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype
+	 * @return \Type
+     */
+    public function removeDonneetechniquetype(\NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype)
+    {
+        $this->donneetechniquetypes->removeElement($donneetechniquetype);
+		return $this;
     }
 }

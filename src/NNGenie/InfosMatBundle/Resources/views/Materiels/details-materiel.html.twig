@@ -9,19 +9,19 @@
 {% block content %}
     <div class="right_col" role="main">
 
-          <div class="">
+        <div class="">
             <div class="page-title">
-              <div class="title_left">
-                  <h3>
-                      DETAIL DU MATERIEL
-                  </h3>
-              </div>
+                <div class="title_left">
+                    <h3>
+                        DETAIL DU MATERIEL
+                    </h3>
+                </div>
 
             </div>
             <div class="clearfix"></div>
 
             <div class="row">
-			
+
                 <div class="col-md-12 col-sm-6 col-xs-6">
                     <div class="x_panel row">
                         <div class="x_title">
@@ -35,36 +35,36 @@
                                     <div class="row single-right">
                                         <div class="col-md-5 single-right-left">
                                             <div class="flexslider">
-                                                    <ul class="slides">
-                                                            <li data-thumb="{{asset('uploads/Materiels/'~materiel.mainpath)}}">
-                                                                    <div class="thumb-image"> 
-																		<center><div class="image-caption">
-																			<a href="{{ path('nn_genie_infos_mat_materiel_edit_main_image',{'id': materiel.id})}}" class="label magnefig label-info icon" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></a>
-																			{#<a href="{{ path('nn_genie_infos_mat_materiel_edit',{'id': materiel.id})}}" class="label label-info icon" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="fa fa-trash"></i></a>#}
-																		</div></center>
-																		<img src="{{asset('uploads/Materiels/'~materiel.mainpath)}}" data-imagezoom="true" class="img-responsive"> 
-																	</div>
+                                                <ul class="slides">
+                                                    <li data-thumb="{{asset('uploads/Materiels/'~materiel.mainpath)}}">
+                                                        <div class="thumb-image"> 
+                                                            <center><div class="image-caption">
+                                                                    <a href="{{ path('nn_genie_infos_mat_materiel_edit_main_image',{'id': materiel.id})}}" class="label magnefig label-info icon" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                        {#<a href="{{ path('nn_genie_infos_mat_materiel_edit',{'id': materiel.id})}}" class="label label-info icon" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="fa fa-trash"></i></a>#}
+                                                                </div></center>
+                                                            <img src="{{asset('uploads/Materiels/'~materiel.mainpath)}}" data-imagezoom="true" class="img-responsive"> 
+                                                        </div>
+                                                    </li>
+                                                    {%if images %}
+                                                        {%for image in images%}
+                                                            <li data-thumb="{{asset('uploads/ImagesMateriels/'~image.path)}}">
+                                                                <div class="thumb-image">
+                                                                    <center><div class="image-caption">
+                                                                            <a href="{{ path('nn_genie_infos_mat_image_edit',{'id': image.id}) }}" class="label magnefig label-info icon" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></a>
+                                                                            <a href="{{ path('nn_genie_infos_mat_image_delete',{'id': image.id}) }}" class="label label-info icon" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="fa fa-trash"></i></a>
+                                                                        </div></center>
+                                                                    <img src="{{asset('uploads/ImagesMateriels/'~image.path)}}" data-imagezoom="true" class="img-responsive">
+                                                                </div>
                                                             </li>
-															{%if images %}
-																{%for image in images%}
-																	<li data-thumb="{{asset('uploads/ImagesMateriels/'~image.path)}}">
-																			<div class="thumb-image">
-																				<center><div class="image-caption">
-																					<a href="{{ path('nn_genie_infos_mat_image_edit',{'id': image.id}) }}" class="label magnefig label-info icon" data-toggle="tooltip" data-placement="top" title="Modifier"><i class="fa fa-edit"></i></a>
-																					<a href="{{ path('nn_genie_infos_mat_image_delete',{'id': image.id}) }}" class="label label-info icon" data-toggle="tooltip" data-placement="top" title="Supprimer"><i class="fa fa-trash"></i></a>
-																				</div></center>
-																			 <img src="{{asset('uploads/ImagesMateriels/'~image.path)}}" data-imagezoom="true" class="img-responsive">
-																			 </div>
-																	</li>
-																{%endfor%} 
-															{%endif%} 
-                                                    </ul>
+                                                        {%endfor%} 
+                                                    {%endif%} 
+                                                </ul>
                                             </div>
-                                                    
+
                                         </div>
                                         <div class="col-md-7 single-right-left simpleCart_shelfItem">
                                             {#<h3 class="col-lg-12">NOM DU MATERIEL</h3>#}
-											<div class="col-lg-12 textsingle">
+                                            <div class="col-lg-12 textsingle">
                                                 <h5>
                                                     <span class="titresingle">Classe : </span>
                                                     <span class="m-size">{{materiel.genre.famille.classemateriel.nom}}</span>
@@ -115,129 +115,142 @@
 
                                             <div class="col-lg-12 textsingle">
                                                 <ul>
-													{% set itrbad = 5 - materiel.etat.nbreetoile %}
-													{% for i in 1..materiel.etat.nbreetoile %}
-														<li class="marron"><i class="fa fa-star fa-2x"></i></li>
-													{%endfor%}
-													{% for i in 1..itrbad if itrbad > 0 %}
-                                                    <li><i class="fa fa-star fa-2x"></i></li>
-													{%endfor%}
-                                                </ul>
+                                                    {% set itrbad = 5 - materiel.etat.nbreetoile %}
+                                                        {% for i in 1..materiel.etat.nbreetoile %}
+                                                            <li class="marron"><i class="fa fa-star fa-2x"></i></li>
+                                                            {%endfor%}
+                                                            {% for i in 1..itrbad if itrbad > 0 %}
+                                                            <li><i class="fa fa-star fa-2x"></i></li>
+                                                            {%endfor%}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"> </div>
+                                            <div class="col-md-10 bootstrap-tab">
+                                                <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                                                    <ul id="myTab" class="nav nav-tabs" role="tablist">
+                                                        <li role="presentation" class="active"><a href="#proprietaire" id="home-tab" role="tab" data-toggle="tab" aria-controls="proprietaire" aria-expanded="true">Propriétaire</a></li>
+                                                        <li role="presentation"><a href="#fournisseur" id="fournisseur-tab" role="tab" data-toggle="tab" aria-controls="fournisseur" aria-expanded="true">Fournisseur</a></li>
+                                                        <li role="presentation"><a href="#description" role="tab" id="profile-tab" data-toggle="tab" aria-controls="description">Description</a></li>
+                                                         <li role="presentation"><a href="#donneetechnique" id="donneetechique-tab" role="tab" data-toggle="tab" aria-controls="donneetechnique" aria-expanded="true">Donnees techniques</a></li>
+                                                    </ul>
+                                                    <div id="myTabContent" class="tab-content">
+                                                        <div role="tabpanel" class="tab-pane fade in active bootstrap-tab-text" id="proprietaire" aria-labelledby="home-tab">
+                                                            {#<h5>Propriétaire</h5>#}
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                <div class="x_content row">
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-institution"></i></div>
+                                                                            <div class="col-md-10 col-sm-10 col-xs-10">Nom, <span class="proprio">{{materiel.proprietaire.nom}}</span></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-globe"></i></div>
+                                                                            <div class="col-md-10 col-sm-10 col-xs-10">Pays, <span class="proprio">Cameroun</span></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-map-marker"></i></div>
+                                                                            <div class="col-md-10 col-sm-10 col-xs-10">Ville, <span class="proprio">{{materiel.proprietaire.adresse.ville}}</span></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-building"></i></div>
+                                                                            <div class="col-md-10 col-sm-10 col-xs-10">Boite postale, <span class="proprio">{{materiel.proprietaire.adresse.boitepostale}}</span></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-phone"></i></div>
+                                                                            <div class="col-md-10 col-sm-10 col-xs-10">Téléphone, <span class="proprio">{{materiel.proprietaire.adresse.tel}}</span></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="fournisseur" aria-labelledby="fournisseur-tab">
+                                                            {#<h5>Propriétaire</h5>#}
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                <div class="x_content row">
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-institution"></i></div>
+                                                                            <div class="col-md-10 col-sm-10 col-xs-10">Nom, <span class="proprio">{{materiel.fournisseur.nom}}</span></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-globe"></i></div>
+                                                                            <div class="col-md-10 col-sm-10 col-xs-10">Pays, <span class="proprio">Cameroun</span></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-map-marker"></i></div>
+                                                                            <div class="col-md-10 col-sm-10 col-xs-10">Ville, <span class="proprio">{{materiel.fournisseur.adresse.ville}}</span></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-building"></i></div>
+                                                                            <div class="col-md-10 col-sm-10 col-xs-10">Boite postale, <span class="proprio">{{materiel.fournisseur.adresse.boitepostale}}</span></div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                        <div class="row">
+                                                                            <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-phone"></i></div>
+                                                                            <div class="col-md-10 col-sm-10 col-xs-10">Téléphone, <span class="proprio">{{materiel.fournisseur.adresse.tel}}</span></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="description" aria-labelledby="home-tab">
+                                                            {#<h5>Description</h5>#}
+                                                            <p>{{materiel.description}}</p>
+                                                        </div>
+                                                        <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="donneetechnique" aria-labelledby="donneetechnique-tab">
+                                                            {#<h5>Description</h5>#}
+                                                            {% if donneetechniquetypes %}
+                                                                {% for donneetechniquetype in donneetechniquetypes %}
+                                                                    <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                        <div class="row">
+                                                                            <div class="col-md-10 col-sm-10 col-xs-10">{{donneetechniquetype.donneetechnique.nom}}: <span class="proprio">{{donneetechniquetype.valeur}}</span> <span class="proprio">{{donneetechniquetype.donneetechnique.unite}}</span></div>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="clearfix"> </div>
-                                        <div class="col-md-10 bootstrap-tab">
-                                            <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
-                                                    <ul id="myTab" class="nav nav-tabs" role="tablist">
-                                                            <li role="presentation" class="active"><a href="#proprietaire" id="home-tab" role="tab" data-toggle="tab" aria-controls="proprietaire" aria-expanded="true">Propriétaire</a></li>
-															<li role="presentation"><a href="#fournisseur" id="fournisseur-tab" role="tab" data-toggle="tab" aria-controls="fournisseur" aria-expanded="true">Fournisseur</a></li>
-                                                            <li role="presentation"><a href="#description" role="tab" id="profile-tab" data-toggle="tab" aria-controls="description">Description</a></li>
-                                                    </ul>
-                                                    <div id="myTabContent" class="tab-content">
-                                                            <div role="tabpanel" class="tab-pane fade in active bootstrap-tab-text" id="proprietaire" aria-labelledby="home-tab">
-                                                                    {#<h5>Propriétaire</h5>#}
-                                                                    <div class="col-md-6 col-sm-6 col-xs-6">
-                                                                        <div class="x_content row">
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-institution"></i></div>
-                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Nom, <span class="proprio">{{materiel.proprietaire.nom}}</span></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-globe"></i></div>
-                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Pays, <span class="proprio">Cameroun</span></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-map-marker"></i></div>
-                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Ville, <span class="proprio">{{materiel.proprietaire.adresse.ville}}</span></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-building"></i></div>
-                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Boite postale, <span class="proprio">{{materiel.proprietaire.adresse.boitepostale}}</span></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-phone"></i></div>
-                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Téléphone, <span class="proprio">{{materiel.proprietaire.adresse.tel}}</span></div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                            </div>
-															<div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="fournisseur" aria-labelledby="fournisseur-tab">
-                                                                    {#<h5>Propriétaire</h5>#}
-                                                                    <div class="col-md-6 col-sm-6 col-xs-6">
-                                                                        <div class="x_content row">
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-institution"></i></div>
-                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Nom, <span class="proprio">{{materiel.fournisseur.nom}}</span></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-globe"></i></div>
-                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Pays, <span class="proprio">Cameroun</span></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-map-marker"></i></div>
-                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Ville, <span class="proprio">{{materiel.fournisseur.adresse.ville}}</span></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-building"></i></div>
-                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Boite postale, <span class="proprio">{{materiel.fournisseur.adresse.boitepostale}}</span></div>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
-                                                                                <div class="row">
-                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-phone"></i></div>
-                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Téléphone, <span class="proprio">{{materiel.fournisseur.adresse.tel}}</span></div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                            </div>
-                                                            <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="description" aria-labelledby="home-tab">
-                                                                    {#<h5>Description</h5>#}
-                                                                    <p>{{materiel.description}}</p>
-                                                            </div>
-                                                    </div>
-                                            </div>
                                     </div>
-                                    </div>
-                                <div class="clearfix"> </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
-                
             </div>
-          </div>
         </div>
-{% endblock %}
-{% block javascripts %}
-    {{parent()}}
-	<script defer src="{{ asset('bundles/nngenieinfosmat/js/jquery.flexslider.js')}}"></script>
-	<link rel="stylesheet" href="{{ asset('bundles/nngenieinfosmat/css/flexslider.css')}}" type="text/css" media="screen" />
-	<script>
-	// Can also be used with $(document).ready()
-	$(window).load(function() {
-	  $('.flexslider').flexslider({
-			animation: "slide",
-			controlNav: "thumbnails"
-	  });
-	});
-	</script>
-{% endblock %}
+        {% endblock %}
+            {% block javascripts %}
+                {{parent()}}
+                <script defer src="{{ asset('bundles/nngenieinfosmat/js/jquery.flexslider.js')}}"></script>
+                <link rel="stylesheet" href="{{ asset('bundles/nngenieinfosmat/css/flexslider.css')}}" type="text/css" media="screen" />
+                <script>
+                    // Can also be used with $(document).ready()
+                    $(window).load(function() {
+                        $('.flexslider').flexslider({
+                            animation: "slide",
+                            controlNav: "thumbnails"
+                        });
+                    });
+                </script>
+            {% endblock %}

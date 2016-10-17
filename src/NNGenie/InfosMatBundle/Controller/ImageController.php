@@ -23,13 +23,11 @@ class ImageController extends Controller {
         /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           return $this->redirect($this->generateUrl('fos_user_security_login'));
           } */
-        $image = new Image();
-        $form = $this->createForm(new ImageType(), $image);
-        $display_tab = 1;
+		$repositoryImage = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Image");
         //selectionne les seuls images actifs
-        $images = $materiel->getImages();
+        $images = $repositoryImage->findBy(array("materiel" => $materiel, "statut" => 1));
 
-        return $this->render('NNGenieInfosMatBundle:Images:images.html.twig', array('images' => $images, 'form' => $form->createView(), "display_tab" => $display_tab, 'materiel' => $materiel));
+        return $this->render('NNGenieInfosMatBundle:Images:images.html.twig', array('images' => $images, 'form' => $form->createView(), 'materiel' => $materiel));
     }
 
     /**
@@ -51,13 +49,13 @@ class ImageController extends Controller {
                 try {
                     $image->setMateriel($materiel);
                     $repositoryImage->saveImage($image);
-                    $message = $this->get('translator')->trans('Image.created_success', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_success', $message);
+                    //$message = $this->get('translator')->trans('Image.created_success', array(), "NNGenieInfosMatBundle");
+                    //$this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                     return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array("id" => $materiel->getId())));
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Image.created_failure', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                    return $this->render('NNGenieInfosMatBundle:Images:form-add-image.html.twig', array('form' => $form->createView()));
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
+                    return $this->render('NNGenieInfosMatBundle:Images:form-add-image.html.twig', array('form' => $form->createView(), 'materiel' => $materiel));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Images:form-add-image.html.twig', array('form' => $form->createView(), 'materiel' => $materiel));
@@ -99,12 +97,12 @@ class ImageController extends Controller {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 try {
                     $repositoryImage->updateImage($image);
-                    $message = $this->get('translator')->trans('Image.updated_success', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_success', $message);
+                    //$message = $this->get('translator')->trans('Image.updated_success', array(), "NNGenieInfosMatBundle");
+                    //$this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                     return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Image.updated_failure', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
                     return $this->render('NNGenieInfosMatBundle:Images:form-update-image.html.twig', array('form' => $editForm->createView(), 'image' => $image));
                 }
             }
@@ -127,12 +125,12 @@ class ImageController extends Controller {
         if ($request->isMethod('GET')) {
             try {
                 $repositoryImage->deleteImage($image);
-                $message = $message = $this->get('translator')->trans('Image.deleted_success', array(), "NNGenieInfosMatBundle");
-                $request->getSession()->getFlashBag()->add('message_success', $message);
+                //$message = $message = $this->get('translator')->trans('Image.deleted_success', array(), "NNGenieInfosMatBundle");
+                //$this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                 return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
             } catch (Exception $ex) {
                 $message = $message = $this->get('translator')->trans('Image.deleted_failure', array(), "NNGenieInfosMatBundle");
-                $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                $this->get('ras_flash_alert.alert_reporter')->addError($message);
                 return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
             }
         } else {

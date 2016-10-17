@@ -1,0 +1,4 @@
+services:
+#    nn_genie_maintenance.example:
+#        class: NNGenie\MaintenanceBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace NNGenie\InfosMatBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -11,13 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 use NNGenie\InfosMatBundle\Entity\Marque;
 use NNGenie\InfosMatBundle\Form\MarqueType;
 
-
 /**
  * Marque controller.
  *
  */
-class MarqueController extends Controller{
-    
+class MarqueController extends Controller {
+
     /**
      * @Route("/marques")
      * @Template()
@@ -81,23 +79,23 @@ class MarqueController extends Controller{
 
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $marqueUnique = $repositoryMarque->findBy(array("nom" => $marque->getNom(),"statut" => 1));
+                $marqueUnique = $repositoryMarque->findBy(array("nom" => $marque->getNom(), "statut" => 1));
                 if ($marqueUnique == null) {
                     try {
                         $repositoryMarque->saveMarque($marque);
                         $message = $this->get('translator')->trans('Marque.created_success', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message_success', $message);
-						$marque = new Marque();
-						$form = $this->createForm(new MarqueType(), $marque);
+                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                        $marque = new Marque();
+                        $form = $this->createForm(new MarqueType(), $marque);
                         return $this->render('NNGenieInfosMatBundle:Marques:form-add-marque.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Marque.created_failure', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                         return $this->render('NNGenieInfosMatBundle:Marques:form-add-marque.html.twig', array('form' => $form->createView()));
                     }
                 } else {
                     $message = $this->get('translator')->trans('Marque.exist_already', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
                     return $this->render('NNGenieInfosMatBundle:Marques:form-add-marque.html.twig', array('form' => $form->createView()));
                 }
             }
@@ -141,11 +139,11 @@ class MarqueController extends Controller{
                 try {
                     $repositoryMarque->updateMarque($marque);
                     $message = $this->get('translator')->trans('Marque.updated_success', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_success', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                     return $this->redirect($this->generateUrl('nn_genie_infos_mat_marques'));
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Marque.updated_failure', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
                     return $this->render('NNGenieInfosMatBundle:Marques:form-update-marque.html.twig', array('form' => $editForm->createView(), 'idmarque' => $marque->getId()));
                 }
             }
@@ -174,7 +172,7 @@ class MarqueController extends Controller{
             } catch (Exception $ex) {
                 $message = $message = $this->get('translator')->trans('Marque.deleted_failure', array(), "NNGenieInfosMatBundle");
                 $request->getSession()->getFlashBag()->add('message_faillure', $message);
-                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_marques'));
+                return $this->redirect($this->generateUrl('nn_genie_infos_mat_marques'));
             }
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_marques'));
@@ -195,7 +193,7 @@ class MarqueController extends Controller{
                         ->getForm()
         ;
     }
-    
+
     /**
      * Creates a form to add a Marque entity.
      *
@@ -210,4 +208,5 @@ class MarqueController extends Controller{
                         ->getForm()
         ;
     }
+
 }

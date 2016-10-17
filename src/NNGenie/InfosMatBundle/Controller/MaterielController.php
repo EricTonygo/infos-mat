@@ -162,18 +162,21 @@ class MaterielController extends Controller {
                     try {
                         $repositoryMateriel->saveMateriel($materiel);
                         $message = $this->get('translator')->trans('Materiel.created_success', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message', $message);
+                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                        //$request->getSession()->getFlashBag()->add('message', $message);
                         $materiel = new Materiel();
                         $form = $this->createForm(new MaterielType(), $materiel);
                         return $this->render('NNGenieInfosMatBundle:Materiels:form-add-materiel.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Materiel.created_failure', array(), "NNGenieInfosMatBundle");
-                        $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                        //$request->getSession()->getFlashBag()->add('message_faillure', $message);
+                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
                         return $this->render('NNGenieInfosMatBundle:Materiels:form-add-materiel.html.twig', array('form' => $form->createView()));
                     }
                 } else {
                     $message = $this->get('translator')->trans('Materiel.exist_already', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    //$request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
                     return $this->render('NNGenieInfosMatBundle:Materiels:form-add-materiel.html.twig', array('form' => $form->createView()));
                 }
             }
@@ -218,11 +221,13 @@ class MaterielController extends Controller {
                     $materiel->setDatemodification(new \Datetime());
                     $repositoryMateriel->updateMateriel($materiel);
                     $message = $this->get('translator')->trans('Materiel.updated_success', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_success', $message);
+                    //$request->getSession()->getFlashBag()->add('message_success', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                     return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Materiel.updated_failure', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    //$request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
                     return $this->render('NNGenieInfosMatBundle:Materiels:form-update-materiel.html.twig', array('form' => $editForm->createView(), 'materiel' => $materiel));
                 }
             }
@@ -252,11 +257,11 @@ class MaterielController extends Controller {
                     $materiel->setDatemodification(new \Datetime());
                     $repositoryMateriel->updateMateriel($materiel);
                     $message = $this->get('translator')->trans('Materiel.updated_success', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_success', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                     return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $materiel->getId())));
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Materiel.updated_failure', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
                     return $this->render('NNGenieInfosMatBundle:Materiels:form-update-main-image-materiel.html.twig', array('form' => $editForm->createView(), 'materiel' => $materiel));
                 }
             }
@@ -280,11 +285,11 @@ class MaterielController extends Controller {
             try {
                 $repositoryMateriel->deleteMateriel($materiel);
                 $message = $message = $this->get('translator')->trans('Materiel.deleted_success', array(), "NNGenieInfosMatBundle");
-                $request->getSession()->getFlashBag()->add('message_success', $message);
+                $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                 return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
             } catch (Exception $ex) {
                 $message = $message = $this->get('translator')->trans('Materiel.deleted_failure', array(), "NNGenieInfosMatBundle");
-                $request->getSession()->getFlashBag()->add('message_faillure', $message);
+                $this->get('ras_flash_alert.alert_reporter')->addError($message);
                 return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
             }
         } else {
@@ -336,9 +341,11 @@ class MaterielController extends Controller {
         $request = $this->get("request");
         $em = $this->getDoctrine()->getManager();
         $repositoryImage = $em->getRepository("NNGenieInfosMatBundle:Image");
+        $repositoryDonneetechniquetype = $em->getRepository("NNGenieInfosMatBundle:Donneetechniquetype");
         if ($request->isMethod('GET')) {
             $images = $repositoryImage->findBy(array('materiel' => $materiel, 'statut' => 1));
-            return $this->render('NNGenieInfosMatBundle:Materiels:details-materiel.html.twig', array('materiel' => $materiel, 'images' => $images));
+            $donneetechniques = $repositoryDonneetechniquetype->findBy(array('type' => $materiel->getType(), 'statut' => 1));
+            return $this->render('NNGenieInfosMatBundle:Materiels:details-materiel.html.twig', array('materiel' => $materiel, 'images' => $images, 'donneetechniquetypes' => $donneetechniques));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
         }

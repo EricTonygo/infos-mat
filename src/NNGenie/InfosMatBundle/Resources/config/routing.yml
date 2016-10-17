@@ -265,6 +265,30 @@ nn_genie_infos_mat_type_delete:
     options:
         expose: true
 
+nn_genie_infos_mat_donneetechniques:
+    pattern: /donneetechniques
+    defaults: { _controller: NNGenieInfosMatBundle:Donneetechnique:donneetechniques }
+    options:
+        expose: true
+        
+nn_genie_infos_mat_donneetechnique_new:
+    pattern: /new-donneetechnique
+    defaults: { _controller: NNGenieInfosMatBundle:Donneetechnique:new }
+    options:
+        expose: true
+        
+nn_genie_infos_mat_donneetechnique_edit:
+    pattern: /edit-donneetechnique/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Donneetechnique:edit }
+    options:
+        expose: true
+        
+nn_genie_infos_mat_donneetechnique_delete:
+    pattern: /delete-donneetechnique/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Donneetechnique:delete }
+    options:
+        expose: true
+
 
 nn_genie_infos_mat_classesmateriel:
     pattern: /classes-materiel
@@ -440,6 +464,31 @@ nn_genie_infos_mat_image_delete:
     defaults: { _controller: NNGenieInfosMatBundle:Image:delete }
     options:
         expose: true
+
+nn_genie_infos_mat_donneetechniquetypes:
+    pattern: /donnee-technique-types/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Donneetechniquetype:donneetechniquetypes }
+    options:
+        expose: true
+
+nn_genie_infos_mat_donneetechniquetype_new:
+    pattern: /new-donnee-technique-type/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Donneetechniquetype:new }
+    options:
+        expose: true
+        
+nn_genie_infos_mat_donneetechniquetype_edit:
+    pattern: /edit-donnee-technique-type/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Donneetechniquetype:edit }
+    options:
+        expose: true
+        
+nn_genie_infos_mat_donneetechniquetype_delete:
+    pattern: /delete-donnee-technique-type/{id}
+    defaults: { _controller: NNGenieInfosMatBundle:Donneetechniquetype:delete }
+    options:
+        expose: true
+
 
 nn_genie_infos_mat_types_genre:
     pattern: /get-types-of-genre/{id}
