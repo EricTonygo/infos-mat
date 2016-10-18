@@ -12,5 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Entretienperiodique extends Maintenancepreventive
 {
-
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Operation", inversedBy="entretienperiodiques")
+     * 
+     */
+    private $operations;
 }

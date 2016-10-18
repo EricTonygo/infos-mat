@@ -12,5 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Reglage extends Maintenancepreventive
 {
-    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Operation", inversedBy="reglages")
+     * 
+     */
+    private $operations;
 }

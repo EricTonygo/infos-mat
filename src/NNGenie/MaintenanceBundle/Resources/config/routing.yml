@@ -1,3 +1,57 @@
 nn_genie_maintenance_homepage:
-    path:     /
+    path:     /accueil
     defaults: { _controller: NNGenieMaintenanceBundle:Default:index }
+
+nn_genie_maintenance_pannes:
+    pattern: /pannes
+    defaults: { _controller: NNGenieMaintenanceBundle:Panne:pannes }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_panne_new:
+    pattern: /new-panne
+    defaults: { _controller: NNGenieMaintenanceBundle:Panne:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_panne_edit:
+    pattern: /edit-panne/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Panne:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_panne_delete:
+    pattern: /delete-panne/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Panne:delete }
+    options:
+        expose: true
+        
+
+nn_genie_maintenance_pieces:
+    pattern: /pieces
+    defaults: { _controller: NNGenieMaintenanceBundle:Piece:pieces }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_piece_new:
+    pattern: /new-piece
+    defaults: { _controller: NNGenieMaintenanceBundle:Piece:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_piece_edit:
+    pattern: /edit-piece/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Piece:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_piece_delete:
+    pattern: /delete-piece/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Piece:delete }
+    options:
+        expose: true
+        

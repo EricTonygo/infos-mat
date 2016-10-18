@@ -38,9 +38,16 @@ class Test
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Maintenancecorrective", mappedBy="tests")
+     * @ORM\ManyToMany(targetEntity="Panne", mappedBy="tests")
      */
-    private $maintenancecorrectives;
+    private $pannes;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Anomalie", mappedBy="tests")
+     */
+    private $anomalies;
     
     /**
      * Constructor

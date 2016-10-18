@@ -21,6 +21,13 @@ class Piece
      */
     private $id;
     
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     */
+    private $nom;
+    
     /**
      * @var integer
      *
@@ -31,9 +38,9 @@ class Piece
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Maintenancecorrective", mappedBy="pieces")
+     * @ORM\ManyToMany(targetEntity="Panne", mappedBy="pieces", cascade={"persist"})
      */
-    private $maintenancecorrectives;
+    private $pannes;
     
     /**
      * @var NNGenie\InfosMatBundle\Entity\Type
@@ -87,23 +94,31 @@ class Piece
     {
         return $this->statut;
     }
-    
-    public function getMaintenancecorrectives() {
-        return $this->maintenancecorrectives;
-    }
 
     public function getType() {
         return $this->type;
     }
 
-    public function setMaintenancecorrectives(\Doctrine\Common\Collections\Collection $maintenancecorrectives) {
-        $this->maintenancecorrectives = $maintenancecorrectives;
-        return $this;
-    }
-
     public function setType(NNGenie\InfosMatBundle\Entity\Type $type) {
         $this->type = $type;
         return $this;
+    }
+
+
+    function getNom() {
+        return $this->nom;
+    }
+
+    function getPannes() {
+        return $this->pannes;
+    }
+
+    function setNom($nom) {
+        $this->nom = $nom;
+    }
+
+    function setPannes(\Doctrine\Common\Collections\Collection $pannes) {
+        $this->pannes = $pannes;
     }
 
 

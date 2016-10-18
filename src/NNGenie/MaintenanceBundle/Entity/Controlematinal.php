@@ -17,16 +17,16 @@ class Controlematinal extends Maintenancepreventive
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Produit", inversedBy="controlematinaux")
-     * @ORM\JoinTable(name="controlematinalproduit",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="controlematinal", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="produit", referencedColumnName="id")
-     *   }
-     * )
      */
     private $produits;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Operation", inversedBy="controlematinaux")
+     * 
+     */
+    private $operations;
     
     function getProduits() {
         return $this->produits;

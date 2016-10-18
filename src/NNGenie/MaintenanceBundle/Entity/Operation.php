@@ -49,9 +49,48 @@ class Operation
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Maintenance", mappedBy="operations")
+     * @ORM\ManyToMany(targetEntity="Panne", mappedBy="operations", cascade={"persist"})
      */
-    private $maintenances;
+    private $pannes;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Anomalie", mappedBy="operations", cascade={"persist"})
+     */
+    private $anomalies;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Reglage", inversedBy="operations", cascade={"persist"})
+     * 
+     */
+    private $reglages;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Revision", inversedBy="operations", cascade={"persist"})
+     * 
+     */
+    private $revisions;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Entretienperiodique", inversedBy="operations", cascade={"persist"})
+     * 
+     */
+    private $entretienperiodiques;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Controlematinal", inversedBy="operations")
+     * 
+     */
+    private $controlematinaux;
 
     /**
      * Constructor

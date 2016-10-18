@@ -12,5 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Revision extends Maintenance
 {
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Operation", inversedBy="revisions")
+     * 
+     */
+    private $operations;
     
 }

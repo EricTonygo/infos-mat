@@ -25,8 +25,32 @@ class Anomalie extends Maintenancecorrective
      * @ORM\Column(name="causeseventuelles", type="text", nullable=true)
      */
     private $causeseventuelles;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Operation", inversedBy="anomalies")
+     * 
+     */
+    private $operations;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Test", inversedBy="anomalies")
+     * 
+     */
+    private $tests;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Question", inversedBy="anomalies")
+     * 
+     */
+    private $questions;
 	
-	/**
+    /**
      * Set disfonconstates
      *
      * @param string $disfonconstates

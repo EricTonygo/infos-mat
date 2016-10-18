@@ -23,6 +23,14 @@ class Proprete extends Maintenance
      */
     private $typereglage;
     
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Operation", inversedBy="propretes")
+     * 
+     */
+    private $operations;
+    
     function getTypereglage() {
         return $this->typereglage;
     }

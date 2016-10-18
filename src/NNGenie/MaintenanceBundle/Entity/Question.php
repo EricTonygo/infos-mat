@@ -38,9 +38,16 @@ class Question
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Maintenancecorrective", mappedBy="questions")
+     * @ORM\ManyToMany(targetEntity="Panne", mappedBy="questions")
      */
-    private $maintenancecorrectives;
+    private $pannes;
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Anomalie", mappedBy="questions")
+     */
+    private $anomalies;
 
     /**
      * Constructor

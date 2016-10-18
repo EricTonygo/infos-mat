@@ -1,6 +1,6 @@
 nn_genie_maintenance:
     resource: "@NNGenieMaintenanceBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /maintenance
 
 nn_genie_infos_mat_materiel:
     resource: "@NNGenieInfosMatBundle/Controller/MaterielController.php"

@@ -18,6 +18,13 @@ class Maintenance
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     */
+    private $nom;
 
     /**
      * @var integer
@@ -36,14 +43,6 @@ class Maintenance
      */
     private $type;
     
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Operation", inversedBy="maintenances")
-     * 
-     */
-    private $operations;
-    
     
     /**
      * Constructor
@@ -51,7 +50,6 @@ class Maintenance
     public function __construct()
     {
         $this->statut = 1;
-        $this->operations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -110,4 +108,14 @@ class Maintenance
     {
         return $this->type;
     }
+    
+    function getNom() {
+        return $this->nom;
+    }
+
+    function setNom($nom) {
+        $this->nom = $nom;
+    }
+
+
 }
