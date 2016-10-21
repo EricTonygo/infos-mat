@@ -37,11 +37,19 @@ class Fournisseurpiece
     private $statut;
     
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="NNGenie\InfosMatBundle\Entity\Type", inversedBy="fournisseurspieces", cascade={"persist"})
+     */
+    private $types;
+    
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->statut = 1;
+        $this->types = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -72,5 +80,47 @@ class Fournisseurpiece
         return $this;
     }
 
+    /**
+     * Add type
+     *
+     * @param \NNGenie\InfosMatBundle\Entity\Type $type 
+     * @return Fournisseurpiece
+     */
+    public function addType(\NNGenie\InfosMatBundle\Entity\Type $type) {
+        $this->types[] = $type;
+        return $this;
+    }
+
+    /**
+     * Get types
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTypes() {
+        return $this->types;
+    }
+
+    /**
+     * Set types
+     *
+     * @param \Doctrine\Common\Collections\Collection $types
+     * @return Fournisseurpiece
+     */
+    public function setTypes(\Doctrine\Common\Collections\Collection $types = null) {
+        $this->types = $types;
+
+        return $this;
+    }
+
+    /**
+     * Remove fournisseurpiece
+     *
+     * @param \NNGenie\InfosMatBundle\Entity\Type $fournisseurpiece
+     * @return Fournisseurpiece
+     */
+    public function removeType(\NNGenie\InfosMatBundle\Entity\Type $fournisseurpiece) {
+        $this->fournisseurspieces->removeElement($fournisseurpiece);
+        return $this;
+    }
 
 }

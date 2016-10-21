@@ -39,9 +39,17 @@ class Produit
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Controlematinal", mappedBy="produits")
+     * @ORM\ManyToMany(targetEntity="Controlematinal", mappedBy="produits", cascade={"persist"})
      */
-    private $controlematinaux;
+    private $controlesmatinaux;
+    
+    
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Operation", mappedBy="produits", cascade={"persist"})
+     */
+    private $operations;
     
     /**
      * Constructor
@@ -78,6 +86,25 @@ class Produit
         $this->statut = $statut;
         return $this;
     }
+
+    function getControlesmatinaux() {
+        return $this->controlesmatinaux;
+    }
+
+    function getOperations() {
+        return $this->operations;
+    }
+
+    function setControlesmatinaux(\Doctrine\Common\Collections\Collection $controlesmatinaux) {
+        $this->controlesmatinaux = $controlesmatinaux;
+        return $this;
+    }
+
+    function setOperations(\Doctrine\Common\Collections\Collection $operations) {
+        $this->operations = $operations;
+        return $this;
+    }
+
 
 
 }

@@ -24,9 +24,9 @@ class Test
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     * @ORM\Column(name="intitule", type="string", length=255, nullable=true)
      */
-    private $nom;
+    private $intitule;
     
     /**
      * @var integer
@@ -50,15 +50,23 @@ class Test
     private $anomalies;
     
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     * 
+    * @ORM\OneToMany(targetEntity="Resultat", mappedBy="test", cascade={"remove", "persist"})
+    */
+    private $resultats;
+    
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->statut = 1;
+        $this->pannes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->anomalies = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->resultats = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-
-
+    
     /**
      * Get id
      *
@@ -90,14 +98,42 @@ class Test
     public function getStatut()
     {
         return $this->unite;
-    }
+    }  
     
-    public function getNom() {
-        return $this->nom;
+    function getIntitule() {
+        return $this->intitule;
     }
 
-    public function setNom($nom) {
-        $this->nom = $nom;
+    function getPannes() {
+        return $this->pannes;
+    }
+
+    function getAnomalies() {
+        return $this->anomalies;
+    }
+
+    function setIntitule($intitule) {
+        $this->intitule = $intitule;
+    }
+
+    function setPannes(\Doctrine\Common\Collections\Collection $pannes) {
+        $this->pannes = $pannes;
         return $this;
     }
+
+    function setAnomalies(\Doctrine\Common\Collections\Collection $anomalies) {
+        $this->anomalies = $anomalies;
+        return $this;
+    }
+
+    function getResultats() {
+        return $this->resultats;
+    }
+
+    function setResultats(\Doctrine\Common\Collections\Collection $resultats) {
+        $this->resultats = $resultats;
+        return $this;
+    }
+
+
 }

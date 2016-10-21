@@ -75,7 +75,7 @@ class PieceController extends Controller {
             }
             return $this->render('NNGenieMaintenanceBundle:Pieces:form-add-piece.html.twig', array('form' => $form->createView()));
         } else {
-            return $this->redirect($this->generateUrl('nn_genie_maintenance_piecess'));
+            return $this->redirect($this->generateUrl('nn_genie_maintenance_pieces'));
         }
     }
 
@@ -136,9 +136,15 @@ class PieceController extends Controller {
      */
     public function deleteAction(Piece $piece) {
         $request = $this->get("request");
+        $panne = new \NNGenie\MaintenanceBundle\Entity\Panne();
         $repositoryPiece = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Piece");
+        $repositoryPanne = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Panne");
         if ($request->isMethod('GET')) {
             try {
+                foreach ($piece->getPannes() as $panne){
+                    $panne->getPieces()->removeElement($piece);
+                    $repositoryPanne->updatePanne($panne);
+                }
                 $repositoryPiece->deletePiece($piece);
                 $message = $this->get('translator')->trans('Piece.deleted_success', array(), "NNGenieMaintenanceBundle");
                $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);

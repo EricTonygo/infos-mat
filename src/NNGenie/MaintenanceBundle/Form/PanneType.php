@@ -34,6 +34,24 @@ class PanneType extends AbstractType
                 'by_reference' =>false,
                 'allow_delete' =>true
             ))
+            ->add('operations', CollectionType::class, array(
+                'entry_type' => OperationType::class,
+                'allow_add' => true,
+                'by_reference' =>false,
+                'allow_delete' =>true
+            ))
+             ->add('tests', CollectionType::class, array(
+                'entry_type' => TestType::class,
+                'allow_add' => true,
+                'by_reference' =>false,
+                'allow_delete' =>true
+            ))
+            ->add('questions', CollectionType::class, array(
+                'entry_type' => QuestionType::class,
+                'allow_add' => true,
+                'by_reference' =>false,
+                'allow_delete' =>true
+            ))
             //->add('operations')
            // ->add('tests')
             //->add('questions')

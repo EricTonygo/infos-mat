@@ -24,7 +24,7 @@ class Question
     /**
      * @var string
      *
-     * @ORM\Column(name="intitule", type="text", nullable=true)
+     * @ORM\Column(name="intitule", type="string", length=255, nullable=true)
      */
     private $intitule;
 
@@ -38,14 +38,14 @@ class Question
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Panne", mappedBy="questions")
+     * @ORM\ManyToMany(targetEntity="Panne", mappedBy="questions", cascade={"persist"})
      */
     private $pannes;
     
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Anomalie", mappedBy="questions")
+     * @ORM\ManyToMany(targetEntity="Anomalie", mappedBy="questions", cascade={"persist"})
      */
     private $anomalies;
 
@@ -55,6 +55,8 @@ class Question
     public function __construct()
     {
         $this->statut = 1;
+        $this->pannes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->anomalies = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -85,15 +87,25 @@ class Question
         $this->statut = $statut;
         return $this;
     }
-
-    function getMaintenancecorrectives() {
-        return $this->maintenancecorrectives;
+    
+    function getPannes() {
+        return $this->pannes;
     }
 
-    function setMaintenancecorrectives(\Doctrine\Common\Collections\Collection $maintenancecorrectives) {
-        $this->maintenancecorrectives = $maintenancecorrectives;
+    function getAnomalies() {
+        return $this->anomalies;
+        
     }
 
+    function setPannes(\Doctrine\Common\Collections\Collection $pannes) {
+        $this->pannes = $pannes;
+        $this;
+    }
 
     
+    function setAnomalies(\Doctrine\Common\Collections\Collection $anomalies) {
+        $this->anomalies = $anomalies;
+        $this;
+    }
+
 }

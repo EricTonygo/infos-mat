@@ -14,6 +14,7 @@ class ResultatRepository extends EntityRepository{
     public function deleteResultat(\NNGenie\MaintenanceBundle\Entity\Resultat $resultat) {
         $em= $this->_em;
         $resultat->setStatut(0);
+        $resultat->setTest(null);
         $em->getConnection()->beginTransaction();
         try{
             $em->persist($resultat);

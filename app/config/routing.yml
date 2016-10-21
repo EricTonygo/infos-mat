@@ -15,6 +15,7 @@ nn_genie_user:
 
 nn_genie_infos_mat:
     resource: "@NNGenieInfosMatBundle/Resources/config/routing.yml"
+    prefix:   /informations-generales-materiels
 
 nn_genie_infos_mat_user:
     resource: "@NNGenieUserBundle/Controller/UserController.php"

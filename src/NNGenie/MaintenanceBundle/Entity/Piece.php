@@ -58,6 +58,7 @@ class Piece
     public function __construct()
     {
         $this->statut = 1;
+        $this->pannes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     
@@ -109,16 +110,29 @@ class Piece
         return $this->nom;
     }
 
-    function getPannes() {
-        return $this->pannes;
-    }
-
     function setNom($nom) {
         $this->nom = $nom;
     }
+    
+    /**
+     * Get pannes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPannes() {
+        return $this->pannes;
+    }
 
-    function setPannes(\Doctrine\Common\Collections\Collection $pannes) {
+    /**
+     * Set pannes
+     *
+     * @param \Doctrine\Common\Collections\Collection $pannes
+     * @return Piece
+     */
+    public function setPannes(\Doctrine\Common\Collections\Collection $pannes = null) {
         $this->pannes = $pannes;
+
+        return $this;
     }
 
 

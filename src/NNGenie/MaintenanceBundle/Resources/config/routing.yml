@@ -55,3 +55,184 @@ nn_genie_maintenance_piece_delete:
     options:
         expose: true
         
+nn_genie_maintenance_operations:
+    pattern: /operations
+    defaults: { _controller: NNGenieMaintenanceBundle:Operation:operations }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_operation_new:
+    pattern: /new-operation
+    defaults: { _controller: NNGenieMaintenanceBundle:Operation:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_operation_edit:
+    pattern: /edit-operation/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Operation:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_operation_delete:
+    pattern: /delete-operation/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Operation:delete }
+    options:
+        expose: true
+        
+nn_genie_maintenance_produits:
+    pattern: /produits
+    defaults: { _controller: NNGenieMaintenanceBundle:Produit:produits }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_produit_new:
+    pattern: /new-produit
+    defaults: { _controller: NNGenieMaintenanceBundle:Produit:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_produit_edit:
+    pattern: /edit-produit/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Produit:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_produit_delete:
+    pattern: /delete-produit/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Produit:delete }
+    options:
+        expose: true
+
+nn_genie_maintenance_procedes:
+    pattern: /procedes
+    defaults: { _controller: NNGenieMaintenanceBundle:Procede:procedes }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_procede_new:
+    pattern: /new-procede
+    defaults: { _controller: NNGenieMaintenanceBundle:Procede:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_procede_edit:
+    pattern: /edit-procede/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Procede:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_procede_delete:
+    pattern: /delete-procede/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Procede:delete }
+    options:
+        expose: true
+        
+nn_genie_maintenance_questions:
+    pattern: /questions
+    defaults: { _controller: NNGenieMaintenanceBundle:Question:questions }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_question_new:
+    pattern: /new-question
+    defaults: { _controller: NNGenieMaintenanceBundle:Question:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_question_edit:
+    pattern: /edit-question/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Question:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_question_delete:
+    pattern: /delete-question/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Question:delete }
+    options:
+        expose: true
+        
+nn_genie_maintenance_tests:
+    pattern: /tests
+    defaults: { _controller: NNGenieMaintenanceBundle:Test:tests }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_test_new:
+    pattern: /new-test
+    defaults: { _controller: NNGenieMaintenanceBundle:Test:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_test_edit:
+    pattern: /edit-test/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Test:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_test_delete:
+    pattern: /delete-test/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Test:delete }
+    options:
+        expose: true
+        
+nn_genie_maintenance_controlesmatinaux:
+    pattern: /controles-matinaux
+    defaults: { _controller: NNGenieMaintenanceBundle:Controlematinal:controlesmatinaux }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_controlematinal_new:
+    pattern: /new-controle-matinal
+    defaults: { _controller: NNGenieMaintenanceBundle:Controlematinal:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_controlematinal_edit:
+    pattern: /edit-controle-matinal/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Controlematinal:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_controlematinal_delete:
+    pattern: /delete-controle-matinal/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Controlematinal:delete }
+    options:
+        expose: true
+        
+nn_genie_maintenance_entretiensperiodiques:
+    pattern: /entretiens-periodiques
+    defaults: { _controller: NNGenieMaintenanceBundle:Entretienperiodique:entretiensperiodiques }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_entretienperiodique_new:
+    pattern: /new-entretien-periodique
+    defaults: { _controller: NNGenieMaintenanceBundle:Entretienperiodique:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_entretienperiodique_edit:
+    pattern: /edit-entretien-periodique/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Entretienperiodique:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_entretienperiodique_delete:
+    pattern: /delete-entretien-periodique/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Entretienperiodique:delete }
+    options:
+        expose: true

@@ -25,9 +25,9 @@ class Procede
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     * @ORM\Column(name="intitule", type="string", length=255, nullable=true)
      */
-    private $nom;
+    private $intitule;
 
     /**
      * @var integer
@@ -35,6 +35,13 @@ class Procede
      * @ORM\Column(name="statut", type="integer", nullable=true)
      */
     private $statut;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
     
     /**
      * Constructor
@@ -54,23 +61,29 @@ class Procede
         return $this->id;
     }
     
-    public function getNom() {
-        return $this->nom;
-    }
-
     public function getStatut() {
         return $this->statut;
     }
-
-    public function setNom($nom) {
-        $this->nom = $nom;
-        return $this;
-    }
-
     public function setStatut($statut) {
         $this->statut = $statut;
         return $this;
     }
 
+    function getDescription() {
+        return $this->description;
+    }
 
+    function setDescription($description) {
+        $this->description = $description;
+        return $this;
+    }
+    
+    public function getIntitule() {
+        return $this->intitule;
+    }
+
+    public function setIntitule($intitule) {
+        $this->intitule = $intitule;
+        return $this;
+    }
 }
