@@ -34,7 +34,7 @@ class PieceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NNGenie\MaintenanceBundle\Entity\Piece'
+            'data_class' => '\NNGenie\MaintenanceBundle\Entity\Piece'
         ));
     }
 }

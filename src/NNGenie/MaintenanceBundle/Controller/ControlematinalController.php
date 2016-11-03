@@ -275,7 +275,7 @@ class ControlematinalController extends Controller {
                 }
                 foreach ($controlematinal->getOperations() as $operation) {
                     $operation->getControlesmatinaux()->removeElement($controlematinal);
-                    $repositoryOperation->updateProduit($produit);
+                    $repositoryOperation->updateOperation($operation);
                 }
                 $repositoryControlematinal->deleteControlematinal($controlematinal);
                 $message = $this->get('translator')->trans('Controlematinal.deleted_success', array(), "NNGenieMaintenanceBundle");

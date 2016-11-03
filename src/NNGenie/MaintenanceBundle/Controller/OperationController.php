@@ -212,12 +212,47 @@ class OperationController extends Controller {
         $request = $this->get("request");
         $repositoryOperation = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Operation");
         $repositoryProduit = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Produit");
+        $repositoryControlematinal = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Controlematinal");
+        $repositoryPanne = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Panne");
+        $repositoryAnomalie = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Anomalie");
+        $repositoryReglage = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Reglage");
+        $repositoryRevision = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Revision");
+        $repositoryEntretienperiodique = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Entretienperiodique");
+        $repositoryProprete = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Proprete");
         $produit = new Produit();
         if ($request->isMethod('GET')) {
             try {
                 foreach ($operation->getProduits() as $produit) {
                     $produit->getOperations()->removeElement($operation);
                     $repositoryProduit->updateProduit($produit);
+                }
+                foreach ($operation->getControlesmatinaux() as $controlematinal) {
+                    $controlematinal->getOperations()->removeElement($operation);
+                    $repositoryControlematinal->updateControlematinal($controlematinal);
+                }
+                foreach ($operation->getPannes() as $panne) {
+                    $panne->getOperations()->removeElement($operation);
+                    $repositoryPanne->updatePanne($panne);
+                }
+                foreach ($operation->getAnomalies() as $anomalie) {
+                    $anomalie->getOperations()->removeElement($operation);
+                    $repositoryAnomalie->updateAnomalie($anomalie);
+                }
+                foreach ($operation->getReglages() as $reglage) {
+                    $reglage->getOperations()->removeElement($operation);
+                    $repositoryReglage->updateReglage($reglage);
+                }
+                foreach ($operation->getRevisions() as $revision) {
+                    $revision->getOperations()->removeElement($operation);
+                    $repositoryRevision->updateRevision($revision);
+                }
+                foreach ($operation->getEntretiensperiodiques() as $entretienperiodique) {
+                    $entretienperiodique->getOperations()->removeElement($operation);
+                    $repositoryEntretienperiodique->updateEntretienperiodique($entretienperiodique);
+                }
+                foreach ($operation->getPropretes() as $proprete) {
+                    $proprete->getOperations()->removeElement($operation);
+                    $repositoryProprete->updateProprete($proprete);
                 }
                 $repositoryOperation->deleteOperation($operation);
                 $message = $this->get('translator')->trans('Operation.deleted_success', array(), "NNGenieMaintenanceBundle");

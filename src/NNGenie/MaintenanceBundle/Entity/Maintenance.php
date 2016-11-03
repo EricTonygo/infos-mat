@@ -34,9 +34,9 @@ class Maintenance
     private $statut;
     
     /**
-     * @var NNGenie\InfosMatBundle\Entity\Type
+     * @var \NNGenie\InfosMatBundle\Entity\Type
      *
-     * @ORM\ManyToOne(targetEntity="NNGenie\InfosMatBundle\Entity\Type")
+     * @ORM\ManyToOne(targetEntity="\NNGenie\InfosMatBundle\Entity\Type")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="type", referencedColumnName="id")
      * })

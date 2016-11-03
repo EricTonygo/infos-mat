@@ -44,11 +44,19 @@ class Procede
     private $description;
     
     /**
+     *  @var \Doctrine\Common\Collections\Collection
+     * 
+     * @ORM\OneToMany(targetEntity="NNGenie\MaintenanceBundle\Entity\Operation", mappedBy="procede", cascade={"remove", "persist"})
+     */
+    private $operations;
+    
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->statut = 1;
+         $this->operations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -84,6 +92,49 @@ class Procede
 
     public function setIntitule($intitule) {
         $this->intitule = $intitule;
+        return $this;
+    }
+    
+    /**
+     * Add operation
+     *
+     * @param \NNGenie\MaintenanceBundle\Entity\Operation $operation 
+     * @return Procede
+     */
+    public function addOperation(\NNGenie\MaintenanceBundle\Entity\Operation $operation) {
+        $this->operations[] = $operation;
+        return $this;
+    }
+
+    /**
+     * Get operations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOperations() {
+        return $this->operations;
+    }
+
+    /**
+     * Set operations
+     *
+     * @param \Doctrine\Common\Collections\Collection $operations
+     * @return Procede
+     */
+    public function setOperations(\Doctrine\Common\Collections\Collection $operations = null) {
+        $this->operations = $operations;
+
+        return $this;
+    }
+
+    /**
+     * Remove operation
+     *
+     * @param \NNGenie\MaintenanceBundle\Entity\Operation $operation
+     * @return Procede
+     */
+    public function removeOperation(\NNGenie\MaintenanceBundle\Entity\Operation $operation) {
+        $this->operations->removeElement($operation);
         return $this;
     }
 }

@@ -38,14 +38,14 @@ class Test
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Panne", mappedBy="tests")
+     * @ORM\ManyToMany(targetEntity="Panne", mappedBy="tests", cascade={"remove", "persist"})
      */
     private $pannes;
     
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Anomalie", mappedBy="tests")
+     * @ORM\ManyToMany(targetEntity="Anomalie", mappedBy="tests", cascade={"remove", "persist"})
      */
     private $anomalies;
     

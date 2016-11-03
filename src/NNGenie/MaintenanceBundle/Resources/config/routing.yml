@@ -1,5 +1,5 @@
 nn_genie_maintenance_homepage:
-    path:     /accueil
+    path:     /
     defaults: { _controller: NNGenieMaintenanceBundle:Default:index }
 
 nn_genie_maintenance_pannes:
@@ -234,5 +234,183 @@ nn_genie_maintenance_entretienperiodique_edit:
 nn_genie_maintenance_entretienperiodique_delete:
     pattern: /delete-entretien-periodique/{id}
     defaults: { _controller: NNGenieMaintenanceBundle:Entretienperiodique:delete }
+    options:
+        expose: true
+        
+nn_genie_maintenance_fournisseurspieces:
+    pattern: /fournisseurs-pieces
+    defaults: { _controller: NNGenieMaintenanceBundle:Fournisseurpiece:fournisseurspieces }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_fournisseurpiece_new:
+    pattern: /new-fournisseur-piece
+    defaults: { _controller: NNGenieMaintenanceBundle:Fournisseurpiece:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_fournisseurpiece_edit:
+    pattern: /edit-fournisseur-piece/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Fournisseurpiece:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_fournisseurpiece_delete:
+    pattern: /delete-fournisseur-piece/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Fournisseurpiece:delete }
+    options:
+        expose: true
+        
+nn_genie_maintenance_typereglages:
+    pattern: /types-reglage   
+    defaults: { _controller: NNGenieMaintenanceBundle:Typereglage:typereglages }
+    options:
+        expose: true
+
+nn_genie_maintenance_typereglage_new:
+    pattern: /new-type-reglage
+    defaults: { _controller: NNGenieMaintenanceBundle:Typereglage:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_typereglage_edit:
+    pattern: /edit-type-reglage/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Typereglage:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_typereglage_delete:
+    pattern: /delete-type-reglage/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Typereglage:delete }
+    options:
+        expose: true
+        
+nn_genie_maintenance_reglages:
+    pattern: /reglages
+    defaults: { _controller: NNGenieMaintenanceBundle:Reglage:reglages }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_reglage_new:
+    pattern: /new-reglage
+    defaults: { _controller: NNGenieMaintenanceBundle:Reglage:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_reglage_edit:
+    pattern: /edit-reglage/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Reglage:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_reglage_delete:
+    pattern: /delete-reglage/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Reglage:delete }
+    options:
+        expose: true
+        
+nn_genie_maintenance_propretes:
+    pattern: /propretes
+    defaults: { _controller: NNGenieMaintenanceBundle:Proprete:propretes }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_proprete_new:
+    pattern: /new-proprete
+    defaults: { _controller: NNGenieMaintenanceBundle:Proprete:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_proprete_edit:
+    pattern: /edit-proprete/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Proprete:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_proprete_delete:
+    pattern: /delete-proprete/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Proprete:delete }
+    options:
+        expose: true
+        
+nn_genie_maintenance_typepropretes:
+    pattern: /types-proprete   
+    defaults: { _controller: NNGenieMaintenanceBundle:Typeproprete:typepropretes }
+    options:
+        expose: true
+
+nn_genie_maintenance_typeproprete_new:
+    pattern: /new-type-proprete
+    defaults: { _controller: NNGenieMaintenanceBundle:Typeproprete:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_typeproprete_edit:
+    pattern: /edit-type-proprete/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Typeproprete:edit }
+    options:
+        expose: true
+        
+        
+nn_genie_maintenance_typeproprete_delete:
+    pattern: /delete-type-proprete/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Typeproprete:delete }
+    options:
+        expose: true
+
+nn_genie_maintenance_revisions:
+    pattern: /revisions
+    defaults: { _controller: NNGenieMaintenanceBundle:Revision:revisions }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_revision_new:
+    pattern: /new-revision
+    defaults: { _controller: NNGenieMaintenanceBundle:Revision:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_revision_edit:
+    pattern: /edit-revision/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Revision:edit }
+    options:
+        expose: true        
+        
+nn_genie_maintenance_revision_delete:
+    pattern: /delete-revision/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Revision:delete }
+    options:
+        expose: true
+        
+nn_genie_maintenance_anomalies:
+    pattern: /anomalies
+    defaults: { _controller: NNGenieMaintenanceBundle:Anomalie:anomalies }
+    options:
+        expose: true
+
+
+nn_genie_maintenance_anomalie_new:
+    pattern: /new-anomalie
+    defaults: { _controller: NNGenieMaintenanceBundle:Anomalie:new }
+    options:
+        expose: true
+        
+nn_genie_maintenance_anomalie_edit:
+    pattern: /edit-anomalie/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Anomalie:edit }
+    options:
+        expose: true        
+        
+nn_genie_maintenance_anomalie_delete:
+    pattern: /delete-anomalie/{id}
+    defaults: { _controller: NNGenieMaintenanceBundle:Anomalie:delete }
     options:
         expose: true

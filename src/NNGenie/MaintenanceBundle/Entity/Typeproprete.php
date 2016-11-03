@@ -36,11 +36,19 @@ class Typeproprete
     private $statut;
     
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="NNGenie\MaintenanceBundle\Entity\Proprete", mappedBy="typeproprete", cascade={"remove", "persist"})
+     */
+    private $propretes;
+    
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->statut = 1;
+         $this->propretes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -84,4 +92,48 @@ class Typeproprete
         $this->nom = $nom;
         return $this;
     }
+    
+    /**
+     * Add proprete
+     *
+     * @param \NNGenie\MaintenanceBundle\Entity\Proprete $proprete 
+     * @return Typeproprete
+     */
+    public function addProprete(\NNGenie\MaintenanceBundle\Entity\Proprete $proprete) {
+        $this->propretes[] = $proprete;
+        return $this;
+    }
+
+    /**
+     * Get propretes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPropretes() {
+        return $this->propretes;
+    }
+
+    /**
+     * Set propretes
+     *
+     * @param \Doctrine\Common\Collections\Collection $propretes
+     * @return Typeproprete
+     */
+    public function setPropretes(\Doctrine\Common\Collections\Collection $propretes = null) {
+        $this->propretes = $propretes;
+
+        return $this;
+    }
+
+    /**
+     * Remove proprete
+     *
+     * @param \NNGenie\MaintenanceBundle\Entity\Proprete $proprete
+     * @return Typeproprete
+     */
+    public function removeProprete(\NNGenie\MaintenanceBundle\Entity\Proprete $proprete) {
+        $this->propretes->removeElement($proprete);
+        return $this;
+    }
+    
 }

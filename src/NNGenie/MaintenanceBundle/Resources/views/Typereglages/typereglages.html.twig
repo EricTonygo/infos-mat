@@ -1,0 +1,93 @@
+{% extends 'NNGenieMaintenanceBundle::layout.html.twig' %}
+
+{% block title %}GMTRAV - Types de reglage{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">		
+    <style>
+        #datatable-responsive_wrapper div.row .col-sm-6 + .col-sm-6{
+            margin-left: -14%;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="right_col" role="main">
+
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>
+                        LISTE DES TYPES DE REGLAGE
+                    </h3>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel row">
+                        <div class="x_title">
+                            <h2>Informations sur les types de reglage</h2>
+                            <a href="{{ path('nn_genie_maintenance_typereglage_new') }}" class="btn btn-info fright">Ajouter</a>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="col-md-4">
+                            {{ render_flash_alerts() }}
+                            </div>
+                            <table id="datatable-responsive" class="table table-striped table-bordered dt-responsive nowrap">
+                                <thead>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if typereglages %}
+                                        {% for typereglage in typereglages %}
+                                            <tr>
+                                                <td>{{typereglage.nom}}</td>
+                                                <td>
+                                                    <div role="presentation" class="dropdown">
+                                                        <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
+                                                            <center><span class="caret"></span></center>
+                                                        </a>
+                                                        <ul class="action dropdown-menu animated fadeInDown" role="menu">
+                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_maintenance_typereglage_edit',{'id' : typereglage.id}) }}"><i class="fa fa-edit"></i>  Modifier</a>
+                                                            </li>
+                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_maintenance_typereglage_delete',{'id' : typereglage.id}) }}"><i class="fa fa-close"></i>  Supprimer</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %} 
+                                    {% endif %} 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('#datatable-responsive').DataTable();
+        });
+    </script>
+{% endblock %}

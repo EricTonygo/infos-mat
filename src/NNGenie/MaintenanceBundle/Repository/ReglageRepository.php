@@ -14,6 +14,7 @@ class ReglageRepository extends EntityRepository{
     public function deleteReglage(\NNGenie\MaintenanceBundle\Entity\Reglage $reglage) {
         $em= $this->_em;
         $reglage->setStatut(0);
+        $reglage->setTypereglage(null);
         $em->getConnection()->beginTransaction();
         try{
             $em->persist($reglage);

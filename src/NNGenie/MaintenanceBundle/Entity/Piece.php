@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Piece
  *
  * @ORM\Table(name="piece")
- * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\PieceRepository")
+ * @ORM\Entity(repositoryClass="\NNGenie\MaintenanceBundle\Repository\PieceRepository")
  */
 class Piece
 {
@@ -43,9 +43,9 @@ class Piece
     private $pannes;
     
     /**
-     * @var NNGenie\InfosMatBundle\Entity\Type
+     * @var \NNGenie\InfosMatBundle\Entity\Type
      *
-     * @ORM\ManyToOne(targetEntity="NNGenie\InfosMatBundle\Entity\Type")
+     * @ORM\ManyToOne(targetEntity="\NNGenie\InfosMatBundle\Entity\Type")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="type", referencedColumnName="id")
      * })
@@ -100,7 +100,7 @@ class Piece
         return $this->type;
     }
 
-    public function setType(NNGenie\InfosMatBundle\Entity\Type $type) {
+    public function setType(\NNGenie\InfosMatBundle\Entity\Type $type) {
         $this->type = $type;
         return $this;
     }

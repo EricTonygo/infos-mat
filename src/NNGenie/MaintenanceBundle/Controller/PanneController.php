@@ -331,7 +331,7 @@ class PanneController extends Controller {
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Panne.updated_failure', array(), "NNGenieMaintenanceBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieMaintenanceBundle:Pannes:form-update-panne.html.twig', array('form' => $editForm->createView(), 'idpanne' => $panne->getId(), 'pieces' => $othersPieces, 'questions' => $othersQuestions, 'operations' => $othersOperations, 'tests' => $othersTests));
+                    return $this->render('NNGenieMaintenanceBundle:Pannes:form-update-panne.html.twig', array('form' => $editForm->createView(), 'panne' => $panne, 'pieces' => $othersPieces, 'questions' => $othersQuestions, 'operations' => $othersOperations, 'tests' => $othersTests));
                 }
             }
             foreach ($panne->getPieces() as $piece) {
@@ -341,12 +341,12 @@ class PanneController extends Controller {
                 $originalQuestions->add($question);
             }
             foreach ($panne->getOperations() as $operation) {
-                $operation->add($operation);
+                $originalOperations->add($operation);
             }
             foreach ($panne->getTests() as $test) {
                 $originalTests->add($test);
             }
-            return $this->render('NNGenieMaintenanceBundle:Pannes:form-update-panne.html.twig', array('form' => $editForm->createView(), 'idpanne' => $panne->getId(), 'pieces' => $othersPieces, 'questions' => $othersQuestions, 'operations' => $othersOperations, 'tests' => $othersTests));
+            return $this->render('NNGenieMaintenanceBundle:Pannes:form-update-panne.html.twig', array('form' => $editForm->createView(), 'panne' => $panne, 'pieces' => $othersPieces, 'questions' => $othersQuestions, 'operations' => $othersOperations, 'tests' => $othersTests));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_maintenance_pannes'));
         }
@@ -376,15 +376,15 @@ class PanneController extends Controller {
                 }
                 foreach ($panne->getQuestions() as $question) {
                     $question->getPannes()->removeElement($panne);
-                    $repositoryQuestion->updatePiece($piece);
+                    $repositoryQuestion->updateQuestion($question);
                 }
                 foreach ($panne->getOperations() as $operation) {
                     $operation->getPannes()->removeElement($panne);
-                    $repositoryOperation->updatePiece($operation);
+                    $repositoryOperation->updateOperation($operation);
                 }
                 foreach ($panne->getTests() as $test) {
                     $test->getPannes()->removeElement($panne);
-                    $repositoryTest->updatePiece($test);
+                    $repositoryTest->updateTest($test);
                 }
                 $repositoryPanne->deletePanne($panne);
                 $message = $this->get('translator')->trans('Panne.deleted_success', array(), "NNGenieMaintenanceBundle");

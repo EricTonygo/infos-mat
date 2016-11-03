@@ -44,6 +44,13 @@ class Fournisseurpiece
     private $types;
     
     /**
+     * @var \Adresse 
+     * @ORM\OneToOne(targetEntity="NNGenie\InfosMatBundle\Entity\Adresse",cascade={"persist"})
+     * @ORM\JoinColumn(name="adresse", referencedColumnName="id")
+     */
+    private $adresse;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -121,6 +128,29 @@ class Fournisseurpiece
     public function removeType(\NNGenie\InfosMatBundle\Entity\Type $fournisseurpiece) {
         $this->fournisseurspieces->removeElement($fournisseurpiece);
         return $this;
+    }
+    
+    /**
+     * Set adresse
+     *
+     * @param \NNGenie\InfosMatBundle\Entity\Adresse $adresse
+     * @return Fournisseurpiece
+     */
+    public function setAdresse(\NNGenie\InfosMatBundle\Entity\Adresse $adresse = null)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return \NNGenie\InfosMatBundle\Entity\Adresse 
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
     }
 
 }

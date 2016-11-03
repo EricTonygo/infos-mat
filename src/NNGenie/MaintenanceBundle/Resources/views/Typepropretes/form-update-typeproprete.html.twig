@@ -1,0 +1,201 @@
+{% extends 'NNGenieMaintenanceBundle::layout.html.twig' %}
+
+{% block title %}GMTRAV - Types de proprete{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">		
+
+{% endblock %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>
+                        MODIFICATION D'UN TYPE DE PROPRETE
+                    </h3>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Informations sur le type de proprete</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div>
+                            {{ render_flash_alerts() }}
+                            </div>                    
+                            <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_maintenance_test_edit', {'id': idtest}) }}">
+
+                                <div class="item form-group">
+                                    {{ form_label(form.nom, "Nom ", {'label_attr': {'class': 'control-label col-md-1 col-sm-2 col-xs-12'}}) }}
+                                    {{ form_errors(form.nom) }}
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.intitule, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                    </div>
+                                </div>
+                                
+                                <div class="item form-group col-md-10 center" style="padding-left:10%">
+                                    <h4>Modifier les propretes de ce type de proprete</h4>
+                                    <table class="table table-bordered"> 
+                                        <thead>
+                                            <tr>
+                                                <th>Nom</th>
+                                                <th>Type de matériel</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="resultats" data-prototype="{{ _self.resultat_prototype(form.resultats.vars.prototype)|e }}">
+                                            {% for resultat in form.resultats %}
+                                                <tr>
+                                                    {{ _self.resultat_prototype(resultat) }}
+                                                </tr>
+                                            {% endfor %}
+
+                                        </tbody>
+                                        {% macro resultat_prototype(childForm) %}
+                                            <td>{{ form_widget(childForm.nom, {'attr': {'class': 'form-control col-md-3 col-xs-8'}}) }}</td>
+                                            <td>{{ form_widget(childForm.type, {'attr': {'class': 'form-control col-md-5 col-xs-8'}}) }}</td>
+                                        {% endmacro %}
+                                    </table>
+                                </div>
+                                <div class="form-group">
+                                    {{ form_widget(form._token) }}
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <input type="reset" class="btn btn-default" value="Annuler"/>
+                                        <input type="submit" class="btn btn-success" value="Valider"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/validator/validator.min.js') }}"></script>
+
+    <script>
+        // initialize the validator function
+        validator.message.date = 'not a real date';
+
+        // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+        $('form')
+                .on('blur', 'input[required], input.optional, select.required', validator.checkField)
+                .on('change', 'select.required', validator.checkField)
+                .on('keypress', 'input[required][pattern]', validator.keypress);
+
+        $('.multi.required').on('keyup blur', 'input', function () {
+            validator.checkField.apply($(this).siblings().last()[0]);
+        });
+
+        /* $('form').submit(function(e) {
+         e.preventDefault();
+         var submit = true;
+         
+         // evaluate the form using generic validaing
+         if (!validator.checkAll($(this))) {
+         submit = false;
+         }
+         
+         if (submit)
+         this.submit();
+         
+         return false;
+         });*/
+    
+         $("#select_resultats").select2({
+            maximumSelectionLength: 4,
+            placeholder: "Selectionner les resultats pour l'test",
+            allowClear: true
+        });
+
+        function addPieceForm($collectionHolder, $newLinkTr) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var $newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a resultat" link li
+            var $newFormTr = $('<tr></tr>').append($newForm);
+            $newLinkTr.before($newFormTr);
+
+            addPieceFormDeleteLink($newFormTr);
+        }
+
+        function addPieceFormDeleteLink($resultatFormTr) {
+            var $removeFormA = $('<td><button class="btn btn-danger fa fa-trash" style="margin-top:3%"></button></td>');
+            $resultatFormTr.append($removeFormA);
+            $removeFormA.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the resultat form
+                $resultatFormTr.remove();
+            });
+        }
+
+        var $collectionHolder;
+
+        // setup an "add a resultat" link
+        var $addPieceLink = $('<button class="btn btn-primary" style="margin-left:2%; margin-top:1%"><i class="fa fa-plus"></i> Ajouter</button>');
+        var $newLinkTr = $('<tr></tr>').append($addPieceLink);
+
+        jQuery(document).ready(function () {
+            /******** suppression des resultats *********/
+            // Get the ul that holds the collection of resultats
+            $collectionHolder = $('tbody.resultats');
+
+            // add a delete link to all of the existing resultat form li elements
+            $collectionHolder.find('tr').each(function () {
+                addPieceFormDeleteLink($(this));
+            });
+
+
+            /******** Ajout des resultats *********/
+
+            // Get the ul that holds the collection of resultats
+            $collectionHolder = $('tbody.resultats');
+
+            // add the "add a resultat" anchor and li to the resultats ul
+            $collectionHolder.append($newLinkTr);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addPieceLink.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new resultat form (see next code block)
+                addPieceForm($collectionHolder, $newLinkTr);
+            });
+        });
+    </script>
+{% endblock %}

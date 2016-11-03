@@ -57,7 +57,7 @@ class TypepropreteRepository extends EntityRepository{
     }
     public function myFindAll() 
     {
-        $qb = $this->createQueryBuilder('a');
+        $qb = $this->createQueryBuilder('c');
         $qb->where('c.statut = :statut')
            ->setParameter('statut', 1);
         return $qb->getQuery()->getResult();
@@ -65,7 +65,7 @@ class TypepropreteRepository extends EntityRepository{
     
     public function getTypepropreteQueryBuilder() {
          return $this
-          ->createQueryBuilder('a')
+          ->createQueryBuilder('c')
           ->where('c.statut = :statut')
           ->setParameter('statut', 1);
 

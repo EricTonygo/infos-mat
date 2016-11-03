@@ -99,6 +99,14 @@ class Operation
      * 
      */
     private $controlesmatinaux;
+    
+     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Proprete", inversedBy="operations", cascade={"persist"})
+     * 
+     */
+    private $propretes;
 
     /**
      * Constructor
@@ -113,6 +121,7 @@ class Operation
         $this->reglages = new \Doctrine\Common\Collections\ArrayCollection();
         $this->entretiensperiodiques = new \Doctrine\Common\Collections\ArrayCollection();
         $this->controlesmatinaux = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->propretes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -200,6 +209,10 @@ class Operation
     function getEntretiensperiodiques() {
         return $this->entretiensperiodiques;
     }
+    
+    function getPropretes() {
+        return $this->propretes;
+    }
 
     function getControlesmatinaux() {
         return $this->controlesmatinaux;
@@ -231,6 +244,11 @@ class Operation
 
     function setControlesmatinaux(\Doctrine\Common\Collections\Collection $controlesmatinaux) {
         $this->controlesmatinaux = $controlesmatinaux;
+        return $this;
+    }
+    
+    function setProprete(\Doctrine\Common\Collections\Collection $propretes) {
+        $this->propretes = $propretes;
         return $this;
     }
 

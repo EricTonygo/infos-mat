@@ -1,6 +1,6 @@
 {% extends 'NNGenieMaintenanceBundle::layout.html.twig' %}
 
-{% block title %}GMTRAV - Panne{% endblock %}
+{% block title %}GMTRAV - Pannes{% endblock %}
 
 {% block stylesheets %}
     {{parent()}}
@@ -85,7 +85,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="item form-group center" style="padding-left:10%">
+                                <div class="item form-group" style="padding-left:10%">
                                     <h4>Ajouter de nouvelles pièces à la panne</h4>
                                     <table class="table table-bordered col-md-10 col-sm-6 col-xs-12"> 
                                         <thead>
@@ -106,7 +106,6 @@
                                         {% macro piece_prototype(childForm) %}
                                             <td>{{ form_widget(childForm.type, {'attr': {'class': 'form-control col-md-5 col-xs-8'}}) }}</td>
                                             <td>{{ form_widget(childForm.nom, {'attr': {'class': 'form-control col-md-3 col-xs-8'}}) }}</td>
-
                                         {% endmacro %}
                                     </table>
                                 </div>
@@ -161,7 +160,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    {{ form_rest(form._token)}}
+                                   {{ form_widget(form._token) }}
                                 </div>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">

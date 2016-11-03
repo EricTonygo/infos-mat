@@ -128,7 +128,7 @@
         });
        
 
-        function addPieceForm($collectionHolder, $newLinkTr) {
+        function addResultatForm($collectionHolder, $newLinkTr) {
             // Get the data-prototype explained earlier
             var prototype = $collectionHolder.data('prototype');
 
@@ -146,10 +146,10 @@
             var $newFormTr = $('<tr></tr>').append($newForm);
             $newLinkTr.before($newFormTr);
 
-            addPieceFormDeleteLink($newFormTr);
+            addResultatFormDeleteLink($newFormTr);
         }
 
-        function addPieceFormDeleteLink($resultatFormTr) {
+        function addResultatFormDeleteLink($resultatFormTr) {
             var $removeFormA = $('<td><button class="btn btn-danger fa fa-trash" style="margin-top:3%"></button></td>');
             $resultatFormTr.append($removeFormA);
             $removeFormA.on('click', function (e) {
@@ -164,8 +164,8 @@
         var $collectionHolder;
 
         // setup an "add a resultat" link
-        var $addPieceLink = $('<button class="btn btn-primary" style="margin-left:2%; margin-top:1%"><i class="fa fa-plus"></i> Ajouter</button>');
-        var $newLinkTr = $('<tr></tr>').append($addPieceLink);
+        var $addResultatLink = $('<button class="btn btn-primary" style="margin-left:2%; margin-top:1%"><i class="fa fa-plus"></i> Ajouter</button>');
+        var $newLinkTr = $('<tr></tr>').append($addResultatLink);
 
         jQuery(document).ready(function () {
             /******** suppression des resultats *********/
@@ -174,7 +174,7 @@
 
             // add a delete link to all of the existing resultat form li elements
             $collectionHolder.find('tr').each(function () {
-                addPieceFormDeleteLink($(this));
+                addResultatFormDeleteLink($(this));
             });
 
 
@@ -190,12 +190,12 @@
             // index when inserting a new item (e.g. 2)
             $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
-            $addPieceLink.on('click', function (e) {
+            $addResultatLink.on('click', function (e) {
                 // prevent the link from creating a "#" on the URL
                 e.preventDefault();
 
                 // add a new resultat form (see next code block)
-                addPieceForm($collectionHolder, $newLinkTr);
+                addResultatForm($collectionHolder, $newLinkTr);
             });
         });
     </script>

@@ -20,4 +20,54 @@ class Revision extends Maintenance
      */
     private $operations;
     
+    /**
+     * Constructor
+     */
+    public function __construct() {
+        parent::__construct();
+        $this->operations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add operation
+     *
+     * @param \NNGenie\MaintenanceBundle\Entity\Operation $operation 
+     * @return Revision
+     */
+    public function addOperation(\NNGenie\MaintenanceBundle\Entity\Operation $operation) {
+        $this->operations[] = $operation;
+        return $this;
+    }
+
+    /**
+     * Get operations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOperations() {
+        return $this->operations;
+    }
+
+    /**
+     * Set operations
+     *
+     * @param \Doctrine\Common\Collections\Collection $operations
+     * @return Revision
+     */
+    public function setOperations(\Doctrine\Common\Collections\Collection $operations = null) {
+        $this->operations = $operations;
+
+        return $this;
+    }
+
+    /**
+     * Remove operation
+     *
+     * @param \NNGenie\MaintenanceBundle\Entity\Operation $operation
+     * @return Revision
+     */
+    public function removeOperation(\NNGenie\MaintenanceBundle\Entity\Operation $operation) {
+        $this->operations->removeElement($operation);
+        return $this;
+    }
 }
