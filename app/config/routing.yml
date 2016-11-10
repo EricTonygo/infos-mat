@@ -7,7 +7,8 @@ nn_genie_exploitation:
     prefix:   /Exploitation
 nn_genie_maintenance:
     resource: "@NNGenieMaintenanceBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /maintenance
+
 nn_genie_infos_mat_materiel:
     resource: "@NNGenieInfosMatBundle/Controller/MaterielController.php"
     type:     annotation
@@ -18,6 +19,7 @@ nn_genie_user:
 
 nn_genie_infos_mat:
     resource: "@NNGenieInfosMatBundle/Resources/config/routing.yml"
+    prefix:   /informations-generales-materiels
 
 nn_genie_infos_mat_user:
     resource: "@NNGenieUserBundle/Controller/UserController.php"

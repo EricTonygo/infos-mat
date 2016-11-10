@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Piece
  *
  * @ORM\Table(name="piece")
- * @ORM\Entity(repositoryClass="NNGenie\MaintenanceBundle\Repository\PieceRepository")
+ * @ORM\Entity(repositoryClass="\NNGenie\MaintenanceBundle\Repository\PieceRepository")
  */
 class Piece
 {
@@ -21,6 +21,13 @@ class Piece
      */
     private $id;
     
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     */
+    private $nom;
+    
     /**
      * @var integer
      *
@@ -31,14 +38,14 @@ class Piece
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Maintenancecorrective", mappedBy="pieces")
+     * @ORM\ManyToMany(targetEntity="Panne", mappedBy="pieces", cascade={"persist"})
      */
-    private $maintenancecorrectives;
+    private $pannes;
     
     /**
-     * @var NNGenie\InfosMatBundle\Entity\Type
+     * @var \NNGenie\InfosMatBundle\Entity\Type
      *
-     * @ORM\ManyToOne(targetEntity="NNGenie\InfosMatBundle\Entity\Type")
+     * @ORM\ManyToOne(targetEntity="\NNGenie\InfosMatBundle\Entity\Type")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="type", referencedColumnName="id")
      * })
@@ -51,6 +58,7 @@ class Piece
     public function __construct()
     {
         $this->statut = 1;
+        $this->pannes = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     
@@ -87,22 +95,43 @@ class Piece
     {
         return $this->statut;
     }
-    
-    public function getMaintenancecorrectives() {
-        return $this->maintenancecorrectives;
-    }
 
     public function getType() {
         return $this->type;
     }
 
-    public function setMaintenancecorrectives(\Doctrine\Common\Collections\Collection $maintenancecorrectives) {
-        $this->maintenancecorrectives = $maintenancecorrectives;
+    public function setType(\NNGenie\InfosMatBundle\Entity\Type $type) {
+        $this->type = $type;
         return $this;
     }
 
-    public function setType(NNGenie\InfosMatBundle\Entity\Type $type) {
-        $this->type = $type;
+
+    function getNom() {
+        return $this->nom;
+    }
+
+    function setNom($nom) {
+        $this->nom = $nom;
+    }
+    
+    /**
+     * Get pannes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getPannes() {
+        return $this->pannes;
+    }
+
+    /**
+     * Set pannes
+     *
+     * @param \Doctrine\Common\Collections\Collection $pannes
+     * @return Piece
+     */
+    public function setPannes(\Doctrine\Common\Collections\Collection $pannes = null) {
+        $this->pannes = $pannes;
+
         return $this;
     }
 

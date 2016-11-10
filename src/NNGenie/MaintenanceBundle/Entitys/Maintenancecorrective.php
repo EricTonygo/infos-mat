@@ -18,30 +18,6 @@ class Maintenancecorrective extends Maintenance
      */
     private $organe;
     
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Piece", inversedBy="maintenancecorrectives")
-     * 
-     */
-    private $pieces;
-    
-    
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Question", inversedBy="maintenancecorrectives")
-     * 
-     */
-    private $questions;
-    
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     *
-     * @ORM\ManyToMany(targetEntity="Test", inversedBy="maintenancecorrectives")
-     * 
-     */
-    private $tests;
     
     /**
      * Constructor
@@ -49,9 +25,6 @@ class Maintenancecorrective extends Maintenance
     public function __construct()
     {
         parent::__construct();
-        $this->pieces = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->questions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->tests = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**

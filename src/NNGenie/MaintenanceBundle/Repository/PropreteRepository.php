@@ -58,7 +58,7 @@ class PropreteRepository extends EntityRepository{
     public function myFindAll() 
     {
         $qb = $this->createQueryBuilder('p');
-        $qb->where('c.statut = :statut')
+        $qb->where('p.statut = :statut')
            ->setParameter('statut', 1);
         return $qb->getQuery()->getResult();
     }

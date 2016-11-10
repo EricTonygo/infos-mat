@@ -35,6 +35,16 @@ class Resultat
      */
     private $statut;
     
+    /**
+     * @var \Test
+     *
+     * @ORM\ManyToOne(targetEntity="Test")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="test", referencedColumnName="id")
+     * })
+     */
+    private $test;
+    
 
     /**
      * Constructor
@@ -85,5 +95,13 @@ class Resultat
     public function setIntitule($intitule) {
         $this->intitule = $intitule;
         return $this;
+    }
+    
+    function getTest() {
+        return $this->test;
+    }
+
+    function setTest(Test $test) {
+        $this->test = $test;
     }
 }

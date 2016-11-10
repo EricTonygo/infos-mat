@@ -1,0 +1,486 @@
+{% extends 'NNGenieMaintenanceBundle::layout.html.twig' %}
+
+{% block title %}GMTRAV - Pannes{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" rel="stylesheet">		
+
+{% endblock %}
+
+{% block content %}
+    <div class="right_col" role="main">
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>
+                        MODIFICATION D'UNE PANNE
+                    </h3>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Informations sur la panne</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            {{ render_flash_alerts() }}                    
+                            <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_maintenance_panne_edit', {'id': panne.id}) }}">
+
+                                <div class="item form-group">
+                                    {{ form_label(form.nom, "Nom ", {'label_attr': {'class': 'control-label col-md-1 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.nom) }}
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.nom, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    {{ form_label(form.type, "Type ", {'label_attr': {'class': 'control-label col-md-1 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.type) }}
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.type, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                    </div>
+                                </div>
+                                    
+                                <div class="item form-group">
+                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">Opérations</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="select_operations" name="idoperations[]" class="select2_multiple form-control" multiple="multiple">
+                                            {% for operation in operations %}
+                                                <option value="{{operation.id}}">{{operation.nom}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                {% if panne.operations %}
+                                <div class="item form-group" style="padding-left:10%">
+                                    <h4>Modifier les operations liées à la panne</h4>
+                                    <table class="table table-bordered"> 
+                                        <thead>
+                                            <tr>
+                                                <th>Nom</th>
+                                                <th>Procédé</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="operations" data-prototype="{{ _self.operation_prototype(form.operations.vars.prototype)|e }}">
+                                            {% for operation in form.operations %}
+                                                <tr>
+                                                    {{ _self.operation_prototype(operation) }}
+                                                </tr>
+                                            {% endfor %}
+
+                                        </tbody>
+                                        {% macro operation_prototype(childForm) %}
+                                            <td>{{ form_widget(childForm.nom, {'attr': {'class': 'form-control col-md-5 col-xs-8'}}) }}</td>
+                                            <td>{{ form_widget(childForm.procede, {'attr': {'class': 'form-control col-md-3 col-xs-8'}}) }}</td>
+
+                                        {% endmacro %}
+                                    </table>
+                                </div>
+                                {% endif %}  
+                                <div class="item form-group">
+                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">Tests</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="select_tests" name="idtests[]" class="select2_multiple form-control" multiple="multiple">
+                                            {% for test in tests %}
+                                                <option value="{{test.id}}">{{test.intitule}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>        
+                                {% if panne.tests %}
+                                <div class="item form-group" style="padding-left:10%">
+                                    <h4>Modifier les tests liés à la panne</h4>
+                                    <table class="table table-bordered"> 
+                                        <thead>
+                                            <tr>
+                                                <th>Intitutle</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="tests" data-prototype="{{ _self.test_prototype(form.tests.vars.prototype)|e }}">
+                                            {% for test in form.tests %}
+                                                <tr>
+                                                    {{ _self.test_prototype(test) }}
+                                                </tr>
+                                            {% endfor %}
+
+                                        </tbody>
+                                        {% macro test_prototype(childForm) %}
+                                            <td>{{ form_widget(childForm.intitule, {'attr': {'class': 'form-control col-md-5 col-xs-8'}}) }}</td>
+
+                                        {% endmacro %}
+                                    </table>
+                                </div>        
+                                {% endif %}        
+                                <div class="item form-group">
+                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">Pièces</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="select_pieces" name="idpieces[]" class="select2_multiple form-control" multiple="multiple">
+                                            {% for piece in pieces %}
+                                                <option value="{{piece.id}}">{{piece.nom}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div> 
+                                {% if panne.pieces %}
+                                <div class="item form-group" style="padding-left:10%">
+                                    <h4>Modifier les pièces liées à la panne</h4>
+                                    <table class="table table-bordered"> 
+                                        <thead>
+                                            <tr>
+                                                <th>Type</th>
+                                                <th>Nom</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="pieces" data-prototype="{{ _self.piece_prototype(form.pieces.vars.prototype)|e }}">
+                                            {% for piece in form.pieces %}
+                                                <tr>
+                                                    {{ _self.piece_prototype(piece) }}
+                                                </tr>
+                                            {% endfor %}
+
+                                        </tbody>
+                                        {% macro piece_prototype(childForm) %}
+                                            <td>{{ form_widget(childForm.type, {'attr': {'class': 'form-control col-md-5 col-xs-8'}}) }}</td>
+                                            <td>{{ form_widget(childForm.nom, {'attr': {'class': 'form-control col-md-3 col-xs-8'}}) }}</td>
+
+                                        {% endmacro %}
+                                    </table>
+                                </div>
+                                {% endif %}
+                                <div class="item form-group">
+                                    <label class="control-label col-md-1 col-sm-3 col-xs-12">Questions</label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        <select id="select_questions" name="idquestions[]" class="select2_multiple form-control" multiple="multiple">
+                                            {% for question in questions %}
+                                                <option value="{{question.id}}">{{question.intitule}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                {% if panne.questions %}
+                                <div class="item form-group" style="padding-left:10%">
+                                    <h4>Modifier les questions liées à la panne</h4>
+                                    <table class="table table-bordered"> 
+                                        <thead>
+                                            <tr>
+                                                <th>Intitule</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="questions" data-prototype="{{ _self.question_prototype(form.questions.vars.prototype)|e }}">
+                                            {% for question in form.questions %}
+                                                <tr>
+                                                    {{ _self.question_prototype(question) }}
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                        {% macro question_prototype(childForm) %}
+                                            <td>{{ form_widget(childForm.intitule, {'attr': {'class': 'form-control col-md-4 col-xs-8'}}) }}</td>
+
+                                        {% endmacro %}
+                                    </table>
+                                </div>
+                               {% endif %}
+                                <div class="item form-group">
+                                    {{ form_label(form.actions, "Actions ", {'label_attr': {'class': 'control-label col-md-1 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.actions) }}
+
+                                    <div class="col-md-10 col-sm-12 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.actions, {'attr': {'class': 'form-control col-md-10 col-xs-12'}}) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    {{ form_label(form.causeseventuelles, "Causes éventuelles ", {'label_attr': {'class': 'control-label col-md-1 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.causeseventuelles) }}
+
+                                    <div class="col-md-10 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.causeseventuelles, {'attr': {'class': 'form-control col-md-10 col-xs-12'}}) }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                   {{ form_widget(form._token) }}
+                                </div>
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <input type="reset" class="btn btn-primary" value="Annuler"/>
+                                        <input type="submit" class="btn btn-success" value="Valider"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/validator/validator.min.js') }}"></script>
+
+    <script>
+        // initialize the validator function
+        validator.message.date = 'not a real date';
+
+        // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+        $('form')
+                .on('blur', 'input[required], input.optional, select.required', validator.checkField)
+                .on('change', 'select.required', validator.checkField)
+                .on('keypress', 'input[required][pattern]', validator.keypress);
+
+        $('.multi.required').on('keyup blur', 'input', function () {
+            validator.checkField.apply($(this).siblings().last()[0]);
+        });
+
+        /* $('form').submit(function(e) {
+         e.preventDefault();
+         var submit = true;
+         
+         // evaluate the form using generic validaing
+         if (!validator.checkAll($(this))) {
+         submit = false;
+         }
+         
+         if (submit)
+         this.submit();
+         
+         return false;
+         });*/
+        $("#select_questions").select2({
+            maximumSelectionLength: 4,
+            placeholder: "Selectionner les questions pour la panne",
+            allowClear: true
+        });
+        $("#select_pieces").select2({
+            maximumSelectionLength: 4,
+            placeholder: "Selectionner les pièces pour la panne",
+            allowClear: true
+        });
+
+        $("#select_operations").select2({
+            maximumSelectionLength: 4,
+            placeholder: "Selectionner les operations pour la panne",
+            allowClear: true
+        });
+        $("#select_tests").select2({
+            maximumSelectionLength: 4,
+            placeholder: "Selectionner les tests pour la panne",
+            allowClear: true
+        });
+
+        function addPieceForm($collectionHolder, $newLinkTr) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var $newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a piece" link li
+            var $newFormTr = $('<tr></tr>').append($newForm);
+            $newLinkTr.before($newFormTr);
+
+            addPieceFormDeleteLink($newFormTr);
+        }
+
+        function addPieceFormDeleteLink($pieceFormTr) {
+            var $removeFormA = $('<td><button class="btn btn-danger fa fa-trash" style="margin-top:3%"></button></td>');
+            $pieceFormTr.append($removeFormA);
+            $removeFormA.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the piece form
+                $pieceFormTr.remove();
+            });
+        }
+
+        function addQuestionForm($collectionHolder, $newLinkTr) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var $newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a piece" link li
+            var $newFormTr = $('<tr></tr>').append($newForm);
+            $newLinkTr.before($newFormTr);
+
+            addQuestionFormDeleteLink($newFormTr);
+        }
+
+        function addQuestionFormDeleteLink($questionFormTr) {
+            var $removeFormA = $('<td><button class="btn btn-danger fa fa-trash" style="margin-top:3%"></button></td>');
+            $questionFormTr.append($removeFormA);
+            $removeFormA.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the piece form
+                $questionFormTr.remove();
+            });
+        }
+
+        var $collectionHolder;
+
+        // setup an "add a piece" link
+        var $addPieceLink = $('<button class="btn btn-primary" style="margin-left:2%; margin-top:1%"><i class="fa fa-plus"></i> Ajouter</button>');
+        var $newLinkTr = $('<tr></tr>').append($addPieceLink);
+
+        jQuery(document).ready(function () {
+            /******** suppression des pieces *********/
+            // Get the ul that holds the collection of pieces
+            $collectionHolder = $('tbody.pieces');
+
+            // add a delete link to all of the existing piece form li elements
+            $collectionHolder.find('tr').each(function () {
+                addPieceFormDeleteLink($(this));
+            });
+
+
+            /******** Ajout des pieces *********/
+
+            // Get the ul that holds the collection of pieces
+            $collectionHolder = $('tbody.pieces');
+
+            // add the "add a piece" anchor and li to the pieces ul
+            $collectionHolder.append($newLinkTr);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+            $addPieceLink.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new piece form (see next code block)
+                addPieceForm($collectionHolder, $newLinkTr);
+            });
+        });
+
+
+        var $collectionHolderQuestion;
+        // setup an "add a piece" link
+        var $addQuestionLink = $('<button class="btn btn-primary" style="margin-left:2%; margin-top:1%"><i class="fa fa-plus"></i> Ajouter</button>');
+        var $newLinkQTr = $('<tr></tr>').append($addQuestionLink);
+
+        jQuery(document).ready(function () {
+            /******** suppression des pieces *********/
+            // Get the ul that holds the collection of pieces
+            $collectionHolderQuestion = $('tbody.questions');
+
+            // add a delete link to all of the existing piece form li elements
+            $collectionHolderQuestion.find('tr').each(function () {
+                addQuestionFormDeleteLink($(this));
+            });
+
+
+            /******** Ajout des pieces *********/
+
+            // Get the ul that holds the collection of pieces
+            $collectionHolderQuestion = $('tbody.questions');
+
+            // add the "add a piece" anchor and li to the pieces ul
+            $collectionHolderQuestion.append($newLinkQTr);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolderQuestion.data('index', $collectionHolderQuestion.find(':input').length);
+
+            $addQuestionLink.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new piece form (see next code block)
+                addQuestionForm($collectionHolderQuestion, $newLinkQTr);
+            });
+        });
+        
+        
+        function addOperationFormDeleteLink($operationFormTr) {
+            var $removeFormA = $('<td><button class="btn btn-danger fa fa-trash" style="margin-top:3%"></button></td>');
+            $operationFormTr.append($removeFormA);
+            $removeFormA.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the piece form
+                $operationFormTr.remove();
+            });
+        }
+        
+        
+        var $collectionHolderOperation;
+        // setup an "add a piece" link
+        //var $addQuestionLink = $('<button class="btn btn-primary" style="margin-left:2%; margin-top:1%"><i class="fa fa-plus"></i> Ajouter</button>');
+        //var $newLinkQTr = $('<tr></tr>').append($addQuestionLink);
+
+        jQuery(document).ready(function () {
+            /******** suppression des operations *********/
+            // Get the ul that holds the collection of pieces
+            $collectionHolderOperation = $('tbody.operations');
+
+            // add a delete link to all of the existing piece form li elements
+            $collectionHolderOperation.find('tr').each(function () {
+                addOperationFormDeleteLink($(this));
+            });
+        });
+        
+        function addTestFormDeleteLink($testFormTr) {
+            var $removeFormA = $('<td><button class="btn btn-danger fa fa-trash" style="margin-top:3%"></button></td>');
+            $testFormTr.append($removeFormA);
+            $removeFormA.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the piece form
+                $testFormTr.remove();
+            });
+        }
+        
+        var $collectionHolderTest;
+        // setup an "add a piece" link
+        //var $addQuestionLink = $('<button class="btn btn-primary" style="margin-left:2%; margin-top:1%"><i class="fa fa-plus"></i> Ajouter</button>');
+        //var $newLinkQTr = $('<tr></tr>').append($addQuestionLink);
+
+        jQuery(document).ready(function () {
+            /******** suppression des operations *********/
+            // Get the ul that holds the collection of pieces
+            $collectionHolderTest = $('tbody.tests');
+
+            // add a delete link to all of the existing piece form li elements
+            $collectionHolderTest.find('tr').each(function () {
+                addTestFormDeleteLink($(this));
+            });
+        });
+    </script>
+{% endblock %}

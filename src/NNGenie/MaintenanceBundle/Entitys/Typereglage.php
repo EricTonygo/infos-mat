@@ -37,11 +37,19 @@ class Typereglage
     private $statut;
     
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\OneToMany(targetEntity="NNGenie\MaintenanceBundle\Entity\Reglage", mappedBy="typereglage", cascade={"remove", "persist"})
+     */
+    private $reglages;
+    
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->statut = 1;
+         $this->reglages = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -72,5 +80,47 @@ class Typereglage
         return $this;
     }
 
+    /**
+     * Add reglage
+     *
+     * @param \NNGenie\MaintenanceBundle\Entity\Reglage $reglage 
+     * @return Typereglage
+     */
+    public function addReglage(\NNGenie\MaintenanceBundle\Entity\Reglage $reglage) {
+        $this->reglages[] = $reglage;
+        return $this;
+    }
+
+    /**
+     * Get reglages
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReglages() {
+        return $this->reglages;
+    }
+
+    /**
+     * Set reglages
+     *
+     * @param \Doctrine\Common\Collections\Collection $reglages
+     * @return Typereglage
+     */
+    public function setReglages(\Doctrine\Common\Collections\Collection $reglages = null) {
+        $this->reglages = $reglages;
+
+        return $this;
+    }
+
+    /**
+     * Remove reglage
+     *
+     * @param \NNGenie\MaintenanceBundle\Entity\Reglage $reglage
+     * @return Typereglage
+     */
+    public function removeReglage(\NNGenie\MaintenanceBundle\Entity\Reglage $reglage) {
+        $this->reglages->removeElement($reglage);
+        return $this;
+    }
 
 }

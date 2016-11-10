@@ -1,0 +1,41 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}GMTRAV{% endblock %}
+{# core CSS #}
+{% block stylesheets %}
+    {# Bootstrap #}
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+     {# Font Awesome #}
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/select2/dist/css/select2.min.css') }}" rel="stylesheet">
+    {# Custom Theme Style #}
+    <link href="{{ asset('bundles/nngenieinfosmat/css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/nngenieinfosmat/css/personal.css') }}" rel="stylesheet">
+    {# PNotify #}
+    <link href="{{ asset('bundles/nngenieinfosmat/vendors/pnotify/dist/pnotify.css') }}" rel="stylesheet">
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+{% endblock %}
+
+
+{% block content_body %}
+    <div class="container body">
+        <div class="main_container">
+            {% include('NNGenieMaintenanceBundle::header.html.twig') %}
+
+            {% block content %}{% endblock %}
+
+            {% include('NNGenieMaintenanceBundle::footer.html.twig') %}
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/js/custom.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/select2/dist/js/select2.full.min.js') }}" ></script>
+    {# PNotify #}
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/pnotify/dist/pnotify.js') }}"></script>
+    <script>//tinymce.init({ selector:'textarea' });</script>
+{% endblock %}

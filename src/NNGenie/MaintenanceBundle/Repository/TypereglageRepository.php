@@ -57,7 +57,7 @@ class TypereglageRepository extends EntityRepository{
     }
     public function myFindAll() 
     {
-        $qb = $this->createQueryBuilder('a');
+        $qb = $this->createQueryBuilder('c');
         $qb->where('c.statut = :statut')
            ->setParameter('statut', 1);
         return $qb->getQuery()->getResult();
@@ -65,7 +65,7 @@ class TypereglageRepository extends EntityRepository{
     
     public function getTypereglageQueryBuilder() {
          return $this
-          ->createQueryBuilder('a')
+          ->createQueryBuilder('c')
           ->where('c.statut = :statut')
           ->setParameter('statut', 1);
 

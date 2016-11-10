@@ -5,13 +5,13 @@ namespace NNGenie\MaintenanceBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 /**
- * Description of ResultatRepository
+ * Description of RevisionRepository
  *
  * @author TONYE
  */
-class ResultatRepository extends EntityRepository{
+class RevisionRepository extends EntityRepository{
     //put your code here
-    public function deleteResultat(\NNGenie\MaintenanceBundle\Entity\Resultat $anomalie) {
+    public function deleteRevision(\NNGenie\MaintenanceBundle\Entity\Revision $anomalie) {
         $em= $this->_em;
         $anomalie->setStatut(0);
         $em->getConnection()->beginTransaction();
@@ -27,7 +27,7 @@ class ResultatRepository extends EntityRepository{
     }
 
 
-    public function saveResultat(\NNGenie\MaintenanceBundle\Entity\Resultat $anomalie) {
+    public function saveRevision(\NNGenie\MaintenanceBundle\Entity\Revision $anomalie) {
         $em= $this->_em;
         $anomalie->setStatut(1);
         $em->getConnection()->beginTransaction();
@@ -42,7 +42,7 @@ class ResultatRepository extends EntityRepository{
         }
     }
 
-    public function updateResultat(\NNGenie\MaintenanceBundle\Entity\Resultat $anomalie) {
+    public function updateRevision(\NNGenie\MaintenanceBundle\Entity\Revision $anomalie) {
         $em= $this->_em;
         $em->getConnection()->beginTransaction();
         try{
@@ -63,7 +63,7 @@ class ResultatRepository extends EntityRepository{
         return $qb->getQuery()->getResult();
     }
     
-    public function getResultatQueryBuilder() {
+    public function getRevisionQueryBuilder() {
          return $this
           ->createQueryBuilder('r')
           ->where('r.statut = :statut')

@@ -1,0 +1,196 @@
+var $collectionHolderOperation;
+        // setup an "add a piece" link
+        var $addOperationLink = $('<button class="btn btn-primary" style="margin-left:2%; margin-top:1%"><i class="fa fa-plus"></i> Ajouter</button>');
+        var $newLinkOpTr = $('<div class="form-group"></div>').append($addOperationLink);
+
+        jQuery(document).ready(function () {
+            /******** suppression des pieces *********/
+            // Get the ul that holds the collection of pieces
+            $collectionHolderOperation = $('div.operations');
+
+            // add a delete link to all of the existing piece form li elements
+            $collectionHolderOperation.find('div').each(function () {
+                addOperationFormDeleteLink($(this));
+            });
+
+
+            /******** Ajout des pieces *********/
+
+            // Get the ul that holds the collection of pieces
+            $collectionHolderOperation = $('div.operations');
+
+            // add the "add a piece" anchor and li to the pieces ul
+            $collectionHolderOperation.append($newLinkOpTr);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolderOperation.data('index', $collectionHolderOperation.find(':input').length);
+
+            $addOperationLink.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new piece form (see next code block)
+                addOperationForm($collectionHolderOperation, $newLinkOpTr);
+                addNewFormProduct();
+            });
+        });
+
+        function addProduitForm($collectionHolder, $newLinkTr) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var $newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a piece" link li
+            var $newFormTr = $('<tr></tr>').append($newForm);
+            $newLinkTr.before($newFormTr);
+
+            addProduitFormDeleteLink($newFormTr);
+        }
+
+        function addProduitFormDeleteLink($questionFormTr) {
+            var $removeFormA = $('<td><button class="btn btn-danger fa fa-trash" style="margin-top:3%"></button></td>');
+            $questionFormTr.append($removeFormA);
+            $removeFormA.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the piece form
+                $questionFormTr.remove();
+            });
+        }
+        function addNewFormProduct(i) {
+        var $collectionHolderProduit;
+        // setup an "add a piece" link
+        var $addProduitLink = $('<button class="btn btn-primary" style="margin-left:2%; margin-top:1%"><i class="fa fa-plus"></i> Ajouter</button>');
+        var $newLinkProdTr = $('<tr></tr>').append($addProduitLink);
+
+            /******** suppression des pieces *********/
+            // Get the ul that holds the collection of pieces
+            $collectionHolderProduit = $('tbody.produits');
+
+            // add a delete link to all of the existing piece form li elements
+            $collectionHolderProduit.find('tr').each(function () {
+                addProduitFormDeleteLink($(this));
+            });
+
+
+            /******** Ajout des pieces *********/
+
+            // Get the ul that holds the collection of pieces
+            $collectionHolderProduit = $('tbody.produits');
+
+            // add the "add a piece" anchor and li to the pieces ul
+            $collectionHolderProduit.append($newLinkProdTr);
+
+            // count the current form inputs we have (e.g. 2), use that as the new
+            // index when inserting a new item (e.g. 2)
+            $collectionHolderProduit.data('index', $collectionHolderProduit.find(':input').length);
+
+            $addProduitLink.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // add a new piece form (see next code block)
+                addProduitForm($collectionHolderProduit, $newLinkProdTr);
+            });
+        }
+		
+		function addOperationForm($collectionHolder, $newLinkTr) {
+            // Get the data-prototype explained earlier
+            var prototype = $collectionHolder.data('prototype');
+
+            // get the new index
+            var index = $collectionHolder.data('index');
+
+            // Replace '__name__' in the prototype's HTML to
+            // instead be a number based on how many items we have
+            var $newForm = prototype.replace(/__name__/g, index);
+
+            // increase the index with one for the next item
+            $collectionHolder.data('index', index + 1);
+
+            // Display the form in the page in an li, before the "Add a piece" link li
+            var $newFormTr = $('<div></div>').append($newForm);
+            $newLinkTr.before($newFormTr);
+
+            addOperationFormDeleteLink($newFormTr);
+        }
+
+        function addOperationFormDeleteLink($questionFormTr) {
+            var $removeFormA = $('<div class="form-group"><button class="btn btn-danger"><i class="fa fa-trash"></i>Supprimer</button></div>');
+            $questionFormTr.append($removeFormA);
+            $removeFormA.on('click', function (e) {
+                // prevent the link from creating a "#" on the URL
+                e.preventDefault();
+
+                // remove the li for the piece form
+                $questionFormTr.remove();
+            });
+        }
+		
+		
+		<div class="item form-group col-md-10 center" style="padding-left:10%">
+                                    <fieldset>
+                                        <legend>Ajouter de nouvelles operations à la panne</legend>
+                                    <div class="operations" data-prototype="{{ _self.operation_prototype(form.operations.vars.prototype)|e }}" style="padding-left:10%">
+                                        {% for operation in form.operations %}
+                                            <div>                                       
+                                                {{ _self.operation_prototype(operation) }}
+                                            </div>
+                                        {% endfor %}
+                                    </div> 
+                                    {% macro operation_prototype(childForm) %}
+                                        <div class="form-group">
+                                            <div class="item form-group">
+                                                {{ form_label(childForm.nom, "Intitule", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                                {{ form_errors(childForm.nom) }}
+
+                                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                    {{ form_widget(childForm.nom, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                                </div>
+                                            </div>
+                                            <div class="item form-group">
+                                                {{ form_label(childForm.procede, "Procedé", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                                {{ form_errors(childForm.procede) }}
+
+                                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                    {{ form_widget(childForm.procede, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                                </div>
+                                            </div>
+                                            <div class="item form-group col-md-10 center" style="padding-left:10%">
+                                                <h4>Ajouter de nouveaux produits à la panne</h4>
+                                                <table class="table table-bordered"> 
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Nom</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="produits" data-prototype="{{ _self.produit_prototype(childForm.produits.vars.prototype)|e }}">
+                                                        {% for produit in childForm.produits %}
+                                                            <tr>
+                                                                {{ _self.produit_prototype(produit) }}
+                                                            </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                    {% macro produit_prototype(childchildForm) %}
+                                                        <td>
+                                                            {{ form_widget(childchildForm.nom, {'attr': {'class': 'form-control col-md-4 col-xs-8'}}) }}
+                                                        </td>
+                                                    {% endmacro %}
+                                                </table>
+                                            </div>
+                                        </div>
+                                    {% endmacro %}
+                                    </fieldset>
+                                </div>
