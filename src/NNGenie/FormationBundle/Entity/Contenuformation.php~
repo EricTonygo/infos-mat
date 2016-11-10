@@ -1,0 +1,49 @@
+<?php
+
+namespace NNGenie\FormationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Contenuformation
+ *
+ * @ORM\Table(name="contenuformation", indexes={@ORM\Index(name="fk_contenuFormation_typeFormation1_idx", columns={"typeFormation_id"})})
+ * @ORM\Entity
+ */
+class Contenuformation
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=false)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="details", type="text", nullable=true)
+     */
+    private $details;
+
+    /**
+     * @var \Typeformation
+     *
+     * @ORM\ManyToOne(targetEntity="Typeformation")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="typeFormation_id", referencedColumnName="id")
+     * })
+     */
+    private $typeformation;
+
+
+}

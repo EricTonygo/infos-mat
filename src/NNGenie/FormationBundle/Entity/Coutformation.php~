@@ -1,0 +1,84 @@
+<?php
+
+namespace NNGenie\FormationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Coutformation
+ *
+ * @ORM\Table(name="coutformation", indexes={@ORM\Index(name="fk_coutFormation_formation1_idx", columns={"formation_id"})})
+ * @ORM\Entity
+ */
+class Coutformation
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="salle", type="bigint", nullable=true)
+     */
+    private $salle;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="hebergement", type="bigint", nullable=true)
+     */
+    private $hebergement;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="transport", type="bigint", nullable=true)
+     */
+    private $transport;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="documentation", type="bigint", nullable=true)
+     */
+    private $documentation;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="secretariat", type="bigint", nullable=true)
+     */
+    private $secretariat;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="didactique", type="bigint", nullable=true)
+     */
+    private $didactique;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fraishonoraire", type="bigint", nullable=true)
+     */
+    private $fraishonoraire;
+
+    /**
+     * @var \Formation
+     *
+     * @ORM\ManyToOne(targetEntity="Formation")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="formation_id", referencedColumnName="id")
+     * })
+     */
+    private $formation;
+
+
+}

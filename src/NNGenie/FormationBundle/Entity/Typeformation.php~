@@ -1,0 +1,39 @@
+<?php
+
+namespace NNGenie\FormationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Typeformation
+ *
+ * @ORM\Table(name="typeformation")
+ * @ORM\Entity
+ */
+class Typeformation
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     */
+    private $nom;
+
+    /**
+     * @var binary
+     *
+     * @ORM\Column(name="diplome", type="binary", nullable=true)
+     */
+    private $diplome;
+
+
+}

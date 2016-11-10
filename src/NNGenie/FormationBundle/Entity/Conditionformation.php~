@@ -1,0 +1,63 @@
+<?php
+
+namespace NNGenie\FormationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Conditionformation
+ *
+ * @ORM\Table(name="conditionformation", indexes={@ORM\Index(name="fk_conditionFormation_formation1_idx", columns={"formation_id"})})
+ * @ORM\Entity
+ */
+class Conditionformation
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="diplome", type="string", length=255, nullable=true)
+     */
+    private $diplome;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="agelimite", type="integer", nullable=true)
+     */
+    private $agelimite;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="origine", type="string", length=255, nullable=true)
+     */
+    private $origine;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="experience", type="text", length=65535, nullable=true)
+     */
+    private $experience;
+
+    /**
+     * @var \Formation
+     *
+     * @ORM\ManyToOne(targetEntity="Formation")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="formation_id", referencedColumnName="id")
+     * })
+     */
+    private $formation;
+
+
+}

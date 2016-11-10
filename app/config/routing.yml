@@ -1,3 +1,7 @@
+nn_genie_formation:
+    resource: "@NNGenieFormationBundle/Resources/config/routing.yml"
+    prefix:   /Formation
+
 nn_genie_exploitation:
     resource: "@NNGenieExploitationBundle/Resources/config/routing.yml"
     prefix:   /Exploitation

@@ -1,0 +1,166 @@
+{% extends 'NNGenieFormationBundle::layout.html.twig' %}
+
+{% block title %}GMTRAV - Cout Formation{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}	
+
+{% endblock %}
+
+{% block content %}
+    <div class="right_col" role="main">
+
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>
+                        AJOUT D'UN COUT DE FORMATION
+                    </h3>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Informations sur le cout</h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+
+                            <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_formation_add_cout') }}">
+
+                                <div class="item form-group">
+                                    {{ form_label(form.formation, "Formation", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.formation) }}
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.formation, {'attr': {'class': 'form-control col-md-7 col-xs-12  select2_single'}}) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    {{ form_label(form.salle, "Salle", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.salle) }}
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.salle, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    {{ form_label(form.hebergement, "Hebergement", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.hebergement) }}
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.hebergement, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    {{ form_label(form.transport, "Transport", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.transport) }}
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.transport, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    {{ form_label(form.documentation, "Documentation", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.documentation) }}
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.documentation, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    {{ form_label(form.secretariat, "Secretariat", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.secretariat) }}
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.secretariat, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    {{ form_label(form.didactique, "Didactique", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.didactique) }}
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.didactique, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                    </div>
+                                </div>
+                                <div class="item form-group">
+                                    {{ form_label(form.fraishonoraire, "Frais honoraires", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_errors(form.fraishonoraire) }}
+
+                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        {{ form_widget(form.fraishonoraire, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                    </div>
+                                </div>
+                                 <div class="form-group">
+                                    {{ form_rest(form)}}
+                                </div>
+                                {% if app.session.flashbag.get('message_failure') %}										
+                                    <div id="message_projet">
+                                        <div id="myAlert" class="alert alert-danger">
+                                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                            {% for flash_message in app.session.flashbag.get('message_failure') %}
+                                                {{ flash_message }}
+                                            {% endfor %}
+                                        </div>
+                                    </div> 
+                                {% endif %}
+                                <div class="ln_solid"></div>
+                                <div class="form-group">
+                                    <div class="col-md-6 col-md-offset-3">
+                                        <input type="reset" class="btn btn-primary" value="Annuler"/>
+                                        <input type="submit" class="btn btn-success" value="Valider"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/validator/validator.min.js') }}"></script>
+
+    <script>
+        // initialize the validator function
+        validator.message.date = 'not a real date';
+
+        // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+        $('form')
+                .on('blur', 'input[required], input.optional, select.required', validator.checkField)
+                .on('change', 'select.required', validator.checkField)
+                .on('keypress', 'input[required][pattern]', validator.keypress);
+
+        $('.multi.required').on('keyup blur', 'input', function () {
+            validator.checkField.apply($(this).siblings().last()[0]);
+        });
+
+        $('form').submit(function (e) {
+            e.preventDefault();
+            var submit = true;
+
+            // evaluate the form using generic validaing
+            if (!validator.checkAll($(this))) {
+                submit = false;
+            }
+
+            if (submit)
+                this.submit();
+
+            return false;
+        });
+        $(document).ready(function() {
+            $("#coutformation_formation").select2({
+                placeholder: "Sélectionner la formation correspondante",
+                allowClear: true
+            });
+        });
+    </script>
+{% endblock %}

@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Ras\Bundle\FlashAlertBundle\RasFlashAlertBundle(),
             new NNGenie\ExploitationBundle\NNGenieExploitationBundle(),
             new NNGenie\MaintenanceBundle\NNGenieMaintenanceBundle(),
+            new NNGenie\FormationBundle\NNGenieFormationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

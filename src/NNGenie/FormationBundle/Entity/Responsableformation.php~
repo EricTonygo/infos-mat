@@ -1,0 +1,81 @@
+<?php
+
+namespace NNGenie\FormationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Responsableformation
+ *
+ * @ORM\Table(name="responsableformation")
+ * @ORM\Entity
+ */
+class Responsableformation
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=255, nullable=true)
+     */
+    private $prenom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="qualite", type="string", length=255, nullable=true)
+     */
+    private $qualite;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="poste", type="string", length=255, nullable=true)
+     */
+    private $poste;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="experienceDomain", type="text", length=65535, nullable=true)
+     */
+    private $experiencedomain;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="experienceFormation", type="text", length=65535, nullable=true)
+     */
+    private $experienceformation;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Formation", mappedBy="idresponsable")
+     */
+    private $idformation;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idformation = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}

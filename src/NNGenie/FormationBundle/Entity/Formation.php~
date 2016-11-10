@@ -1,0 +1,119 @@
+<?php
+
+namespace NNGenie\FormationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Formation
+ *
+ * @ORM\Table(name="formation", uniqueConstraints={@ORM\UniqueConstraint(name="nom_UNIQUE", columns={"nom"})}, indexes={@ORM\Index(name="fk_formation_formeFormation_idx", columns={"formeFormation_id"}), @ORM\Index(name="fk_formation_centreFormation1_idx", columns={"centreFormation_id"}), @ORM\Index(name="fk_formation_typeFormation1_idx", columns={"typeFormation_id"})})
+ * @ORM\Entity
+ */
+class Formation
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
+     */
+    private $nom;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date", type="datetime", nullable=true)
+     */
+    private $date;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lieu", type="string", length=255, nullable=true)
+     */
+    private $lieu;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cible", type="string", length=255, nullable=true)
+     */
+    private $cible;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="objectifprincip", type="text", nullable=true)
+     */
+    private $objectifprincip;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="objectifsecond", type="text", nullable=true)
+     */
+    private $objectifsecond;
+
+    /**
+     * @var \Formeformation
+     *
+     * @ORM\ManyToOne(targetEntity="Formeformation")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="formeFormation_id", referencedColumnName="id")
+     * })
+     */
+    private $formeformation;
+
+    /**
+     * @var \Centreformation
+     *
+     * @ORM\ManyToOne(targetEntity="Centreformation")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="centreFormation_id", referencedColumnName="id")
+     * })
+     */
+    private $centreformation;
+
+    /**
+     * @var \Typeformation
+     *
+     * @ORM\ManyToOne(targetEntity="Typeformation")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="typeFormation_id", referencedColumnName="id")
+     * })
+     */
+    private $typeformation;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Responsableformation", inversedBy="idformation")
+     * @ORM\JoinTable(name="formation_responsableformation",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="idformation", referencedColumnName="id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="idresponsable", referencedColumnName="id")
+     *   }
+     * )
+     */
+    private $idresponsable;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idresponsable = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}

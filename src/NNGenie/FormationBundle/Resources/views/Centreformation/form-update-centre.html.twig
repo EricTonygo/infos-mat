@@ -1,0 +1,111 @@
+{% extends 'NNGenieFormationBundle::layout.html.twig' %}
+
+{% block title %}GMTRAV - Centre Formation{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    
+{% endblock %}
+
+{% block content %}
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left" style="width: 100%">
+                  <h3 class="col-md-12">
+                      MODIFICATION D'UN CENTRE DE FORMATION
+                  </h3>
+              </div>
+
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Informations sur le centre</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_formation_edit_centre', {'id': idcentre}) }}">
+                    
+                        <div class="item form-group">
+                            {{ form_label(form.nom, "Nom", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                            {{ form_errors(form.nom) }}
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                {{ form_widget(form.nom, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            {{ form_label(form.ville, "Ville", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                            {{ form_errors(form.ville) }}
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                {{ form_widget(form.ville, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            {{ form_label(form.adresse, "Adresse", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                            {{ form_errors(form.adresse) }}
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                {{ form_widget(form.adresse, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                                {{ form_rest(form)}}
+                        </div>
+					
+                    <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                          <button type="reset" class="btn btn-primary">Annuler</button>
+                          <input type="submit" class="btn btn-success" value="Valider" />
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>  
+            </div>
+          </div>
+        </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/validator/validator.min.js') }}"></script>
+    
+    <script>
+      // initialize the validator function
+      validator.message.date = 'not a real date';
+
+      // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+      $('form')
+        .on('blur', 'input[required], input.optional, select.required', validator.checkField)
+        .on('change', 'select.required', validator.checkField)
+        .on('keypress', 'input[required][pattern]', validator.keypress);
+
+      $('.multi.required').on('keyup blur', 'input', function() {
+        validator.checkField.apply($(this).siblings().last()[0]);
+      });
+
+     $('form').submit(function(e) {
+        e.preventDefault();
+        var submit = true;
+
+        // evaluate the form using generic validaing
+        if (!validator.checkAll($(this))) {
+          submit = false;
+        }
+
+        if (submit)
+          this.submit();
+
+        return false;
+      });
+    </script>
+{% endblock %}
