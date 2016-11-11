@@ -72,34 +72,34 @@ class TypepropreteController extends Controller {
         $form = $this->createForm(new TypepropreteType(), $typeproprete);
         $form->handleRequest($request);
         $repositoryTypeproprete = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Typeproprete");
-        $repositoryproprete = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:proprete");
-        $propretes = $repositoryproprete->findBy(array("statut" => 1));
+        /*$repositoryproprete = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:proprete");
+        $propretes = $repositoryproprete->findBy(array("statut" => 1));*/
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $typepropreteUnique = $repositoryTypeproprete->findBy(array("intitule" => $typeproprete->getIntitule(), "statut" => 1));
+                $typepropreteUnique = $repositoryTypeproprete->findBy(array("nom" => $typeproprete->getNom(), "statut" => 1));
                 if ($typepropreteUnique == null) {
                     try {
-                        foreach ($typeproprete->getpropretes() as $proprete) {
+                        /*foreach ($typeproprete->getpropretes() as $proprete) {
                             $proprete->setTypeproprete($typeproprete);
-                        }
+                        }*/
                         $repositoryTypeproprete->saveTypeproprete($typeproprete);
                         $message = $this->get('translator')->trans('Typeproprete.created_success', array(), "NNGenieMaintenanceBundle");
                         $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                         $typeproprete = new Typeproprete();
                         $form = $this->createForm(new TypepropreteType(), $typeproprete);
-                        return $this->render('NNGenieMaintenanceBundle:Typepropretes:form-add-typeproprete.html.twig', array('form' => $form->createView(), 'propretes' => $propretes));
+                        return $this->render('NNGenieMaintenanceBundle:Typepropretes:form-add-typeproprete.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Typeproprete.created_failure', array(), "NNGenieMaintenanceBundle");
                         $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                        return $this->render('NNGenieMaintenanceBundle:Typepropretes:form-add-typeproprete.html.twig', array('form' => $form->createView(), 'propretes' => $propretes));
+                        return $this->render('NNGenieMaintenanceBundle:Typepropretes:form-add-typeproprete.html.twig', array('form' => $form->createView()));
                     }
                 } else {
                     $message = $this->get('translator')->trans('Typeproprete.exist_already', array(), "NNGenieMaintenanceBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieMaintenanceBundle:Typepropretes:form-add-typeproprete.html.twig', array('form' => $form->createView(), 'propretes' => $propretes));
+                    return $this->render('NNGenieMaintenanceBundle:Typepropretes:form-add-typeproprete.html.twig', array('form' => $form->createView()));
                 }
             }
-            return $this->render('NNGenieMaintenanceBundle:Typepropretes:form-add-typeproprete.html.twig', array('form' => $form->createView(), 'propretes' => $propretes));
+            return $this->render('NNGenieMaintenanceBundle:Typepropretes:form-add-typeproprete.html.twig', array('form' => $form->createView()));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_maintenance_typepropretes'));
         }
@@ -134,19 +134,20 @@ class TypepropreteController extends Controller {
         $editForm->handleRequest($request);
         $repositoryTypeproprete = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Typeproprete");
         $repositoryproprete = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:proprete");
-        $othersProducts = new \Doctrine\Common\Collections\ArrayCollection();
+        /*$othersPropretes = new \Doctrine\Common\Collections\ArrayCollection();
         $originalpropretes = new \Doctrine\Common\Collections\ArrayCollection();
         $propretes = $repositoryproprete->findBy(array("statut" => 1));
         foreach ($propretes as $proprete) {
             if (!$typeproprete->getpropretes()->contains($proprete)) {
-                $othersProducts->add($proprete);
+                $othersPropretes->add($proprete);
             }
-        }
+        }*/
+        
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 try {
                     // remove the relationship between the tag and the Task
-                    foreach ($originalpropretes as $proprete) {
+                    /*foreach ($originalpropretes as $proprete) {
                         if (false === $typeproprete->getpropretes()->contains($proprete)) {
                             // remove the typeproprete from the proprete
                             //$proprete->getTypepropretes()->removeElement($typeproprete);
@@ -157,10 +158,7 @@ class TypepropreteController extends Controller {
                             // if you wanted to delete the proprete entirely, you can also do that
                             // $em->remove($proprete);
                         }
-                    }
-                    foreach ($typeproprete->getpropretes() as $proprete) {
-                        $proprete->setTypeproprete($typeproprete);
-                    }
+                    }*/
                     $repositoryTypeproprete->updateTypeproprete($typeproprete);
                     $message = $this->get('translator')->trans('Typeproprete.updated_success', array(), "NNGenieMaintenanceBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
@@ -168,13 +166,13 @@ class TypepropreteController extends Controller {
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Typeproprete.updated_failure', array(), "NNGenieMaintenanceBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieMaintenanceBundle:Typepropretes:form-update-typeproprete.html.twig', array('form' => $editForm->createView(), 'idtypeproprete' => $typeproprete->getId(), 'propretes' => $othersProducts));
+                    return $this->render('NNGenieMaintenanceBundle:Typepropretes:form-update-typeproprete.html.twig', array('form' => $editForm->createView(), 'idtypeproprete' => $typeproprete->getId()));
                 }
             }
-            foreach ($typeproprete->getpropretes() as $proprete) {
+            /*foreach ($typeproprete->getpropretes() as $proprete) {
                 $originalpropretes->add($proprete);
-            }
-            return $this->render('NNGenieMaintenanceBundle:Typepropretes:form-update-typeproprete.html.twig', array('form' => $editForm->createView(), 'idtypeproprete' => $typeproprete->getId(), 'propretes' => $othersProducts));
+            }*/
+            return $this->render('NNGenieMaintenanceBundle:Typepropretes:form-update-typeproprete.html.twig', array('form' => $editForm->createView(), 'idtypeproprete' => $typeproprete->getId()));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_maintenance_typepropretes'));
         }

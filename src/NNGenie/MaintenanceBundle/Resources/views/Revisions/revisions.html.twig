@@ -35,7 +35,7 @@
                     <div class="x_panel row">
                         <div class="x_title">
                             <h2>Informations sur les révisions</h2>
-                            <a href="{{ path('nn_genie_maintenance_reglage_new') }}" class="btn btn-info fright">Ajouter</a>
+                            <a href="{{ path('nn_genie_maintenance_revision_new') }}" class="btn btn-info fright">Ajouter</a>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -49,20 +49,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% if revision %}
-                                        {% for reglage in revision %}
+                                    {% if revisions %}
+                                        {% for revision in revisions %}
                                             <tr>
-                                                <td>{{reglage.nom}}</td>
-                                                <td>{{reglage.type.nom}}</td>
+                                                <td>{{revision.nom}}</td>
+                                                <td>{{revision.type.nom}}</td>
                                                 <td>
                                                     <div role="presentation" class="dropdown">
                                                         <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                                             <center><span class="caret"></span></center>
                                                         </a>
                                                         <ul class="action dropdown-menu animated fadeInDown" role="menu">
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_maintenance_reglage_edit',{'id' : reglage.id}) }}"><i class="fa fa-edit"></i>  Modifier</a>
+                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_maintenance_revision_edit',{'id' : revision.id}) }}"><i class="fa fa-edit"></i>  Modifier</a>
                                                             </li>
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_maintenance_reglage_delete',{'id' : reglage.id}) }}"><i class="fa fa-close"></i>  Supprimer</a>
+                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_maintenance_revision_delete',{'id' : revision.id}) }}"><i class="fa fa-close"></i>  Supprimer</a>
                                                             </li>
                                                         </ul>
                                                     </div>

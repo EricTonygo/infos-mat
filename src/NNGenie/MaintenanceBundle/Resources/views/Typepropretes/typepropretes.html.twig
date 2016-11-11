@@ -1,6 +1,6 @@
 {% extends 'NNGenieMaintenanceBundle::layout.html.twig' %}
 
-{% block title %}GMTRAV - Types de reglage{% endblock %}
+{% block title %}GMTRAV - Types de proprete{% endblock %}
 
 {% block stylesheets %}
     {{parent()}}
@@ -22,19 +22,17 @@
             <div class="page-title">
                 <div class="title_left">
                     <h3>
-                        LISTE DES TYPES DE REGLAGE
+                        LISTE DES TYPES DE PROPRETE
                     </h3>
                 </div>
-
             </div>
             <div class="clearfix"></div>
-
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel row">
                         <div class="x_title">
-                            <h2>Informations sur les types de reglage</h2>
-                            <a href="{{ path('nn_genie_maintenance_typereglage_new') }}" class="btn btn-info fright">Ajouter</a>
+                            <h2>Informations sur les types de proprete</h2>
+                            <a href="{{ path('nn_genie_maintenance_typeproprete_new') }}" class="btn btn-info fright">Ajouter</a>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -49,19 +47,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% if typereglages %}
-                                        {% for typereglage in typereglages %}
+                                    {% if typepropretes %}
+                                        {% for typeproprete in typepropretes %}
                                             <tr>
-                                                <td>{{typereglage.nom}}</td>
+                                                <td>{{typeproprete.nom}}</td>
                                                 <td>
                                                     <div role="presentation" class="dropdown">
                                                         <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">
                                                             <center><span class="caret"></span></center>
                                                         </a>
                                                         <ul class="action dropdown-menu animated fadeInDown" role="menu">
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_maintenance_typereglage_edit',{'id' : typereglage.id}) }}"><i class="fa fa-edit"></i>  Modifier</a>
+                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_maintenance_typeproprete_edit',{'id' : typeproprete.id}) }}"><i class="fa fa-edit"></i>  Modifier</a>
                                                             </li>
-                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_maintenance_typereglage_delete',{'id' : typereglage.id}) }}"><i class="fa fa-close"></i>  Supprimer</a>
+                                                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('nn_genie_maintenance_typeproprete_delete',{'id' : typeproprete.id}) }}"><i class="fa fa-close"></i>  Supprimer</a>
                                                             </li>
                                                         </ul>
                                                     </div>

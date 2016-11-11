@@ -55,7 +55,7 @@
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Produits</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         <select id="select_produits" name="idproduits[]" class="select2_multiple form-control" multiple="multiple">
-                                            {% for produits in produits %}
+                                            {% for produit in produits %}
                                                 <option value="{{produit.id}}">{{produit.nom}}</option>
                                             {% endfor %}
                                         </select>

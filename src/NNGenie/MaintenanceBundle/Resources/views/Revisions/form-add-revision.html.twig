@@ -35,7 +35,7 @@
                         </div>
                         <div class="x_content">
                             {{ render_flash_alerts() }}
-                            <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_maintenance_proprete_new') }}">
+                            <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_maintenance_revision_new') }}">
 
                                 <div class="item form-group">
                                     {{ form_label(form.nom, "Nom", {'label_attr': {'class': 'control-label col-md-2 col-sm-3 col-xs-12'}}) }}
@@ -67,7 +67,7 @@
                                         
                                 
                                 <div class="form-group">
-                                    {{ form_rest(form._token)}}
+                                    {{ form_widget(form._token) }}
                                 </div>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">

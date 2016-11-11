@@ -32,44 +32,18 @@
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                            <div>
-                            {{ render_flash_alerts() }}
-                            </div>                    
-                            <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_maintenance_test_edit', {'id': idtest}) }}">
+                            {{ render_flash_alerts() }}                 
+                            <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_maintenance_typereglage_edit', {'id': idtypereglage}) }}">
 
                                 <div class="item form-group">
-                                    {{ form_label(form.nom, "Nom ", {'label_attr': {'class': 'control-label col-md-1 col-sm-2 col-xs-12'}}) }}
+                                    {{ form_label(form.nom, "Nom ", {'label_attr': {'class': 'control-label col-md-3 col-sm-2 col-xs-12'}}) }}
                                     {{ form_errors(form.nom) }}
 
                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        {{ form_widget(form.intitule, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                                        {{ form_widget(form.nom, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
                                     </div>
                                 </div>
                                 
-                                <div class="item form-group col-md-10 center" style="padding-left:10%">
-                                    <h4>Modifier les reglages de ce type de reglage</h4>
-                                    <table class="table table-bordered"> 
-                                        <thead>
-                                            <tr>
-                                                <th>Nom</th>
-                                                <th>Type de matériel</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="resultats" data-prototype="{{ _self.resultat_prototype(form.resultats.vars.prototype)|e }}">
-                                            {% for resultat in form.resultats %}
-                                                <tr>
-                                                    {{ _self.resultat_prototype(resultat) }}
-                                                </tr>
-                                            {% endfor %}
-
-                                        </tbody>
-                                        {% macro resultat_prototype(childForm) %}
-                                            <td>{{ form_widget(childForm.nom, {'attr': {'class': 'form-control col-md-3 col-xs-8'}}) }}</td>
-                                            <td>{{ form_widget(childForm.type, {'attr': {'class': 'form-control col-md-5 col-xs-8'}}) }}</td>
-                                        {% endmacro %}
-                                    </table>
-                                </div>
                                 <div class="form-group">
                                     {{ form_widget(form._token) }}
                                 </div>
@@ -121,9 +95,9 @@
          return false;
          });*/
     
-         $("#select_resultats").select2({
+         $("#select_reglages").select2({
             maximumSelectionLength: 4,
-            placeholder: "Selectionner les resultats pour l'test",
+            placeholder: "Selectionner les reglages pour l'typereglage",
             allowClear: true
         });
 
@@ -141,48 +115,48 @@
             // increase the index with one for the next item
             $collectionHolder.data('index', index + 1);
 
-            // Display the form in the page in an li, before the "Add a resultat" link li
+            // Display the form in the page in an li, before the "Add a reglage" link li
             var $newFormTr = $('<tr></tr>').append($newForm);
             $newLinkTr.before($newFormTr);
 
             addPieceFormDeleteLink($newFormTr);
         }
 
-        function addPieceFormDeleteLink($resultatFormTr) {
+        function addPieceFormDeleteLink($reglageFormTr) {
             var $removeFormA = $('<td><button class="btn btn-danger fa fa-trash" style="margin-top:3%"></button></td>');
-            $resultatFormTr.append($removeFormA);
+            $reglageFormTr.append($removeFormA);
             $removeFormA.on('click', function (e) {
                 // prevent the link from creating a "#" on the URL
                 e.preventDefault();
 
-                // remove the li for the resultat form
-                $resultatFormTr.remove();
+                // remove the li for the reglage form
+                $reglageFormTr.remove();
             });
         }
 
         var $collectionHolder;
 
-        // setup an "add a resultat" link
+        // setup an "add a reglage" link
         var $addPieceLink = $('<button class="btn btn-primary" style="margin-left:2%; margin-top:1%"><i class="fa fa-plus"></i> Ajouter</button>');
         var $newLinkTr = $('<tr></tr>').append($addPieceLink);
 
         jQuery(document).ready(function () {
-            /******** suppression des resultats *********/
-            // Get the ul that holds the collection of resultats
-            $collectionHolder = $('tbody.resultats');
+            /******** suppression des reglages *********/
+            // Get the ul that holds the collection of reglages
+            $collectionHolder = $('tbody.reglages');
 
-            // add a delete link to all of the existing resultat form li elements
+            // add a delete link to all of the existing reglage form li elements
             $collectionHolder.find('tr').each(function () {
                 addPieceFormDeleteLink($(this));
             });
 
 
-            /******** Ajout des resultats *********/
+            /******** Ajout des reglages *********/
 
-            // Get the ul that holds the collection of resultats
-            $collectionHolder = $('tbody.resultats');
+            // Get the ul that holds the collection of reglages
+            $collectionHolder = $('tbody.reglages');
 
-            // add the "add a resultat" anchor and li to the resultats ul
+            // add the "add a reglage" anchor and li to the reglages ul
             $collectionHolder.append($newLinkTr);
 
             // count the current form inputs we have (e.g. 2), use that as the new
@@ -193,7 +167,7 @@
                 // prevent the link from creating a "#" on the URL
                 e.preventDefault();
 
-                // add a new resultat form (see next code block)
+                // add a new reglage form (see next code block)
                 addPieceForm($collectionHolder, $newLinkTr);
             });
         });

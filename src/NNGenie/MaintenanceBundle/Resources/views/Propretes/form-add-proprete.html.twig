@@ -46,7 +46,7 @@
                                     </div>
                                 </div>
                                 <div class="item form-group">
-                                    {{ form_label(form.type, "Type ", {'label_attr': {'class': 'control-label col-md-2 col-sm-3 col-xs-12'}}) }}
+                                    {{ form_label(form.type, "Type de matériel ", {'label_attr': {'class': 'control-label col-md-2 col-sm-3 col-xs-12'}}) }}
                                     {{ form_errors(form.type) }}
 
                                     <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
@@ -76,7 +76,7 @@
                                         
                                 
                                 <div class="form-group">
-                                    {{ form_rest(form._token)}}
+                                    {{ form_widget(form._token) }}
                                 </div>
                                 <div class="ln_solid"></div>
                                 <div class="form-group">

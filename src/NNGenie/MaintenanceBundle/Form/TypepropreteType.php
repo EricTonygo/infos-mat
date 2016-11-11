@@ -18,7 +18,7 @@ class TypepropreteType extends AbstractType
         $builder
             ->add('nom')
             ->add('propretes', CollectionType::class, array(
-                'entry_type' => ReglageType::class,
+                'entry_type' => PropreteType::class,
                 'allow_add' => true,
                 'by_reference' =>false,
                 'allow_delete' =>true

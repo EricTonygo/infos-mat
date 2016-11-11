@@ -159,7 +159,7 @@ class PropreteController extends Controller {
                     $idoperations = $request->request->get("idoperations");
                     foreach ($originalOperations as $operation) {
                         if (false === $proprete->getOperations()->contains($operation)) {
-                            // remove the proprete from the produit
+                            // remove the proprete from the operation
                             $operation->getPropretes()->removeElement($proprete);
                             $repositoryOperation->updateOperation($operation);
                         }
@@ -207,19 +207,12 @@ class PropreteController extends Controller {
     public function deleteAction(Proprete $proprete) {
         $request = $this->get("request");
         $repositoryProprete = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Proprete");
-        $repositoryProduit = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Produit");
         $repositoryOperation = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Operation");
-        $produit = new Produit();
-        $question = new Question();
         if ($request->isMethod('GET')) {
             try {
-                foreach ($proprete->getProduits() as $produit) {
-                    $produit->getPropretes()->removeElement($proprete);
-                    $repositoryProduit->updateProduit($produit);
-                }
                 foreach ($proprete->getOperations() as $operation) {
                     $operation->getPropretes()->removeElement($proprete);
-                    $repositoryOperation->updateProduit($produit);
+                    $repositoryOperation->updateOperation($operation);
                 }
                 $repositoryProprete->deleteProprete($proprete);
                 $message = $this->get('translator')->trans('Proprete.deleted_success', array(), "NNGenieMaintenanceBundle");
