@@ -1,0 +1,133 @@
+{% extends 'NNGenieFormationBundle::layout.html.twig' %}
+
+{% block title %}GMTRAV - Titulaire Formation{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+    
+{% endblock %}
+
+{% block content %}
+        <div class="right_col" role="main">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left" style="width: 100%">
+                  <h3 class="col-md-12">
+                      MODIFICATION D'UN TITULAIRE DE FORMATION
+                  </h3>
+              </div>
+
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Informations sur le titulaire</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <form class="form-horizontal form-label-left" method="POST" action="{{ path('nn_genie_formation_edit_titulaire', {'id': idtitulaire}) }}">
+                    
+                        <div class="item form-group">
+                            {{ form_label(form.nom, "Nom", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                            {{ form_errors(form.nom) }}
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                {{ form_widget(form.nom, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            {{ form_label(form.prenom, "Prenom", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                            {{ form_errors(form.prenom) }}
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                {{ form_widget(form.prenom, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            {{ form_label(form.phone, "Téléphone", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                            {{ form_errors(form.phone) }}
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                {{ form_widget(form.phone, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            {{ form_label(form.email, "E-mail", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                            {{ form_errors(form.email) }}
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                {{ form_widget(form.email, {'attr': {'class': 'form-control col-md-7 col-xs-12', 'required':'required'}}) }}
+                            </div>
+                        </div>
+                        <div class="item form-group">
+                            {{ form_label(form.formation, "Formation", {'label_attr': {'class': 'control-label col-md-3 col-sm-3 col-xs-12'}}) }}
+                            {{ form_errors(form.formation) }}
+
+                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                {{ form_widget(form.formation, {'attr': {'class': 'form-control col-md-7 col-xs-12  select2_single'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                                {{ form_rest(form)}}
+                        </div>
+					
+                    <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-md-offset-3">
+                          <button type="reset" class="btn btn-primary">Annuler</button>
+                          <input type="submit" class="btn btn-success" value="Valider" />
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>  
+            </div>
+          </div>
+        </div>
+{% endblock %}
+{% block javascripts %}
+    {{parent()}}
+    <script src="{{ asset('bundles/nngenieinfosmat/vendors/validator/validator.min.js') }}"></script>
+    
+    <script>
+      // initialize the validator function
+      validator.message.date = 'not a real date';
+
+      // validate a field on "blur" event, a 'select' on 'change' event & a '.reuired' classed multifield on 'keyup':
+      $('form')
+        .on('blur', 'input[required], input.optional, select.required', validator.checkField)
+        .on('change', 'select.required', validator.checkField)
+        .on('keypress', 'input[required][pattern]', validator.keypress);
+
+      $('.multi.required').on('keyup blur', 'input', function() {
+        validator.checkField.apply($(this).siblings().last()[0]);
+      });
+
+     $('form').submit(function(e) {
+        e.preventDefault();
+        var submit = true;
+
+        // evaluate the form using generic validaing
+        if (!validator.checkAll($(this))) {
+          submit = false;
+        }
+
+        if (submit)
+          this.submit();
+
+        return false;
+      });
+      $(document).ready(function() {
+            $("#titulaireformation_formation").select2({
+                placeholder: "Sélectionner la formation correspondante",
+                allowClear: true
+            });
+        });
+    </script>
+{% endblock %}

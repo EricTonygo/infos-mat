@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Conditionformation" table="conditionformation">
+    <indexes>
+      <index name="fk_conditionFormation_formation1_idx" columns="formation_id"/>
+    </indexes>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="diplome" type="string" column="diplome" length="255" nullable="true"/>
+    <field name="agelimite" type="integer" column="agelimite" nullable="true"/>
+    <field name="origine" type="string" column="origine" length="255" nullable="true"/>
+    <field name="experience" type="text" column="experience" length="65535" nullable="true"/>
+    <many-to-one field="formation" target-entity="Formation">
+      <join-columns>
+        <join-column name="formation_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

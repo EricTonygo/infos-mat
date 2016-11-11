@@ -1,0 +1,4 @@
+services:
+#    nn_genie_formation.example:
+#        class: NNGenie\FormationBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]

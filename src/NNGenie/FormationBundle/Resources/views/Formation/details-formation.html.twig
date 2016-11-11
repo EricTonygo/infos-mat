@@ -1,0 +1,395 @@
+{% extends 'NNGenieFormationBundle::layout.html.twig' %}
+
+{% block title %}GMTRAV - Formation{% endblock %}
+
+{% block stylesheets %}
+    {{parent()}}
+{% endblock %}
+
+{% block content %}
+    <div class="right_col" role="main">
+
+        <div class="">
+            <div class="page-title">
+                <div class="title_left">
+                    <h3>
+                        DETAIL DE LA FORMATION
+                    </h3>
+                </div>
+
+            </div>
+            <div class="clearfix"></div>
+
+            <div class="row">
+
+                <div class="col-md-12 col-sm-6 col-xs-6">
+                    <div class="x_panel row">
+                        <div class="x_title">
+                            <h2>Informations sur le formation </h2>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                            <div class="single">
+                                <div class=" col-md-11 col-md-offset-1 container">
+                                    <div class="row single-right">
+                                        <div class="col-md-7 single-right-left simpleCart_shelfItem">
+                                            {#<h3 class="col-lg-12">NOM DU MATERIEL</h3>#}
+                                            <div class="col-lg-12 textsingle">
+                                                <h5>
+                                                    <span class="titresingle">Nom : </span>
+                                                    <span class="m-size">{{formation.nom}}</span>
+                                                </h5>
+                                            </div>
+                                            <div class="col-lg-12 textsingle">
+                                                <h5>
+                                                    <span class="titresingle">Date : </span>
+                                                    <span class="m-size">{{formation.date|date('d M Y')}}</span>
+                                                </h5>
+                                            </div>
+                                            <div class="col-lg-12 textsingle">
+                                                <h5>
+                                                    <span class="titresingle">Cible : </span>
+                                                    <span class="m-size">{{formation.cible}}</span>
+                                                </h5>
+                                            </div>
+                                            <div class="col-lg-12 textsingle">
+                                                <h5>
+                                                    <span class="titresingle">Objectif principal : </span>
+                                                    <span class="m-size">{{formation.objectifprincip}}</span>
+                                                </h5>
+                                            </div>
+                                            <div class="col-lg-12 textsingle">
+                                                <h5>
+                                                    <span class="titresingle">Objectif sécondaire : </span>
+                                                    <span class="m-size">{{formation.objectifsecond}} </span>
+                                                </h5>
+                                            </div>
+                                            <div class="col-lg-12 textsingle">
+                                                <h5>
+                                                    <span class="titresingle">Forme formation : </span>
+                                                    <span class="m-size">{{formation.formeformation.nom}}</span>
+                                                </h5>
+                                            </div>
+                                            <div class="col-lg-12 textsingle">
+                                                <h5>
+                                                    <span class="titresingle">Type formation : </span>
+                                                    <span class="m-size">{{formation.typeformation.nom}}</span>
+                                                </h5>
+                                            </div>
+                                            <div class="col-lg-12 textsingle">
+                                                <h5>
+                                                    <span class="titresingle">Diplôme : </span>
+                                                    {% if formation.typeformation.diplome == 1 %}
+                                                        <span class="m-size marron">Oui</span>
+                                                    {% else %}
+                                                        <span class="m-size marron">Non</span>
+                                                    {% endif %}
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"> </div>
+                                        <div class="col-md-10 bootstrap-tab">
+                                                <div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+                                                    <ul id="myTab" class="nav nav-tabs" role="tablist">
+                                                        <li role="presentation" class="active"><a href="#centre" id="centre-tab" role="tab" data-toggle="tab" aria-controls="centre" aria-expanded="true">Centre</a></li>
+                                                        <li role="presentation"><a href="#responsable" role="tab" id="responsable-tab" data-toggle="tab" aria-controls="responsable">Responsables</a></li>
+                                                        <li role="presentation"><a href="#titulaire" role="tab" id="titulaire-tab" data-toggle="tab" aria-controls="titulaire">Titulaire</a></li>
+                                                        <li role="presentation"><a href="#contenu" id="contenu-tab" role="tab" data-toggle="tab" aria-controls="contenu" aria-expanded="true">Contenus</a></li>
+                                                        <li role="presentation"><a href="#condition" id="condition-tab" role="tab" data-toggle="tab" aria-controls="condition" aria-expanded="true">Condition</a></li>
+                                                         <li role="presentation"><a href="#programme" id="programme-tab" role="tab" data-toggle="tab" aria-controls="programme" aria-expanded="true">Programmes</a></li>
+                                                         <li role="presentation"><a href="#cout" id="cout-tab" role="tab" data-toggle="tab" aria-controls="cout" aria-expanded="true">Cout</a></li>
+                                                    </ul>
+                                                    <div id="myTabContent" class="tab-content">
+                                                        <div role="tabpanel" class="tab-pane fade in active bootstrap-tab-text" id="centre" aria-labelledby="centre-tab">
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                {% if formation.centreformation is defined %}
+                                                                    <div class="x_content row">
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-institution"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Nom, <span class="proprio">{{formation.centreformation.nom}}</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-map-marker"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Ville, <span class="proprio">{{formation.centreformation.ville}}</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-building"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Adresse, <span class="proprio">{{formation.centreformation.adresse}}</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                <div class="clearfix"></div>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="responsable" aria-labelledby="responsable-tab">
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                {% if formation.idresponsable is defined %}
+                                                                    {% for responsable in formation.idresponsable %}
+                                                                        <div class="x_content row bordure">
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-user"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Nom, <span class="proprio">{{responsable.nom}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-user"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Prénom, <span class="proprio">{{responsable.prenom}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-ticket"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Qualité, <span class="proprio">{{responsable.qualite}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-graduation-cap"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Poste, <span class="proprio">{{responsable.poste}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-sliders"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Expérience du domaine, <span class="proprio">{{responsable.experiencedomain}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-briefcase"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Expérience de la formation, <span class="proprio">{{responsable.experienceformation}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="clearfix"></div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="titulaire" aria-labelledby="titulaire-tab">
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                {% if titulaire is defined %}
+                                                                    <div class="x_content row">
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-user"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Nom, <span class="proprio">{{titulaire.nom}}</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-user"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Prénom, <span class="proprio">{{titulaire.prenom}}</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-phone"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Téléphone, <span class="proprio">{{titulaire.phone}}</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-envelope"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">E-mail, <span class="proprio">{{titulaire.email}}</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="contenu" aria-labelledby="contenu-tab">
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                {% if contenus is defined %}
+                                                                    {% for content in contenus %}
+                                                                        <div class="x_content row bordure">
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-inbox"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Nom, <span class="proprio">{{content.nom}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-list"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Détails, <span class="proprio">{{content.details}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="clearfix"></div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="condition" aria-labelledby="condition-tab">
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                {% if condition is defined %}
+                                                                    <div class="x_content row">
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-graduation-cap"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Diplôme, <span class="proprio">{{condition.diplome}}</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-calendar"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Âge limite, <span class="proprio">{{condition.agelimite}}</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-globe"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Origine, <span class="proprio">{{condition.origine}}</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-history"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Expérience, <span class="proprio">{{condition.experience}}</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="programme" aria-labelledby="programme-tab">
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                {% if programmes is defined %}
+                                                                    {% for programme in programmes %}
+                                                                        <div class="x_content row bordure">
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-calendar-o"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Date de début, <span class="proprio">{{programme.debut|date('d M Y')}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-calendar"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Date de fin, <span class="proprio">{{programme.fin|date('d M Y')}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-users"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Nombre d'apprenants, <span class="proprio">{{programme.nbreaprenant}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-spinner"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Nombre jours libres, <span class="proprio">{{programme.nbrejourlibre}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-square-o"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Durée théorique, <span class="proprio">{{programme.dureetheo}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-square"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Durée pratique, <span class="proprio">{{programme.dureeprati}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-newspaper-o"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Temps total enseignements, <span class="proprio">{{programme.totalenseign}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-gear"></i></div>
+                                                                                    <div class="col-md-10 col-sm-10 col-xs-10">Temps total pratique, <span class="proprio">{{programme.totaltemppratiq}}</span></div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="clearfix"></div>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        <div role="tabpanel" class="tab-pane fade bootstrap-tab-text" id="cout" aria-labelledby="cout-tab">
+                                                            <div class="col-md-6 col-sm-6 col-xs-6">
+                                                                {% if cout is defined %}
+                                                                    <div class="x_content row">
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-institution"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Salle, <span class="proprio">{{cout.salle}} Fcfa</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-building-o"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Hébergement, <span class="proprio">{{cout.hebergement}} Fcfa</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-cab"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Transport, <span class="proprio">{{cout.transport}} Fcfa</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-book"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Documentation, <span class="proprio">{{cout.documentation}} Fcfa</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-pencil"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Didactique, <span class="proprio">{{cout.didactique}} Fcfa</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-12 col-sm-12 col-xs-12 block1">
+                                                                            <div class="row">
+                                                                                <div class="col-md-2 col-sm-2 col-xs-2"><i class="fa fa-clock-o"></i></div>
+                                                                                <div class="col-md-10 col-sm-10 col-xs-10">Frais honoraires, <span class="proprio">{{cout.fraishonoraire}} Fcfa</span></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"> </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+            {% block javascripts %}
+                {{parent()}}
+                <script defer src="{{ asset('bundles/nngenieinfosmat/js/jquery.flexslider.js')}}"></script>
+                <link rel="stylesheet" href="{{ asset('bundles/nngenieinfosmat/css/flexslider.css')}}" type="text/css" media="screen" />
+                <script>
+                    // Can also be used with $(document).ready()
+                    $(window).load(function() {
+                        $('.flexslider').flexslider({
+                            animation: "slide",
+                            controlNav: "thumbnails"
+                        });
+                    });
+                </script>
+            {% endblock %}

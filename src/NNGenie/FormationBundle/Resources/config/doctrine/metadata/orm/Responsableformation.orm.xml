@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Responsableformation" table="responsableformation">
+    <id name="id" type="bigint" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nom" type="string" column="nom" length="255" nullable="true"/>
+    <field name="prenom" type="string" column="prenom" length="255" nullable="true"/>
+    <field name="qualite" type="string" column="qualite" length="255" nullable="true"/>
+    <field name="poste" type="string" column="poste" length="255" nullable="true"/>
+    <field name="experiencedomain" type="text" column="experienceDomain" length="65535" nullable="true"/>
+    <field name="experienceformation" type="text" column="experienceFormation" length="65535" nullable="true"/>
+    <many-to-many field="idformation" target-entity="Formation" mapped-by="idresponsable"/>
+  </entity>
+</doctrine-mapping>

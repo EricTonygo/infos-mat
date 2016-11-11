@@ -1,0 +1,91 @@
+<?php
+
+namespace NNGenie\FormationBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Programmeformation
+ *
+ * @ORM\Table(name="programmeformation", indexes={@ORM\Index(name="fk_programmeFormation_formation1_idx", columns={"formation_id"})})
+ * @ORM\Entity
+ */
+class Programmeformation
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="bigint", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dureetheo", type="string", length=255, nullable=true)
+     */
+    private $dureetheo;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dureeprati", type="string", length=255, nullable=true)
+     */
+    private $dureeprati;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbreaprenant", type="integer", nullable=true)
+     */
+    private $nbreaprenant;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="totaltemppratiq", type="string", length=255, nullable=true)
+     */
+    private $totaltemppratiq;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="totalenseign", type="string", length=255, nullable=true)
+     */
+    private $totalenseign;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbrejourlibre", type="integer", nullable=true)
+     */
+    private $nbrejourlibre;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="debut", type="datetime", nullable=true)
+     */
+    private $debut;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fin", type="datetime", nullable=true)
+     */
+    private $fin;
+
+    /**
+     * @var \Formation
+     *
+     * @ORM\ManyToOne(targetEntity="Formation")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="formation_id", referencedColumnName="id")
+     * })
+     */
+    private $formation;
+
+
+}

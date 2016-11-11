@@ -1,0 +1,213 @@
+nn_genie_formation_homepage:
+    path:     /accueil-admin
+    defaults: { _controller: NNGenieFormationBundle:Default:index }
+nn_genie_formation_add_centre:
+    path:     /new-centre
+    defaults: { _controller: NNGenieFormationBundle:Centre:add }
+    options:
+        expose: true
+nn_genie_formation_view_centre:
+    pattern: /centres
+    defaults: { _controller: NNGenieFormationBundle:Centre:getAll }
+    options:
+        expose: true
+nn_genie_formation_delete_centre:
+    pattern: /delete-centre/{id}
+    defaults: { _controller: NNGenieFormationBundle:Centre:delete }
+    options:
+        expose: true
+nn_genie_formation_edit_centre:
+    pattern: /edit-centre/{id}
+    defaults: { _controller: NNGenieFormationBundle:Centre:edit }
+    options:
+        expose: true
+nn_genie_formation_add_condition:
+    path:     /new-condition
+    defaults: { _controller: NNGenieFormationBundle:Condition:add }
+    options:
+        expose: true
+nn_genie_formation_view_condition:
+    pattern: /conditions
+    defaults: { _controller: NNGenieFormationBundle:Condition:getAll }
+    options:
+        expose: true
+nn_genie_formation_delete_condition:
+    pattern: /delete-condition/{id}
+    defaults: { _controller: NNGenieFormationBundle:Condition:delete }
+    options:
+        expose: true
+nn_genie_formation_edit_condition:
+    pattern: /edit-condition/{id}
+    defaults: { _controller: NNGenieFormationBundle:Condition:edit }
+    options:
+        expose: true
+nn_genie_formation_add_contenu:
+    path:     /new-contenu
+    defaults: { _controller: NNGenieFormationBundle:Contenu:add }
+    options:
+        expose: true
+nn_genie_formation_view_contenu:
+    pattern: /contenus
+    defaults: { _controller: NNGenieFormationBundle:Contenu:getAll }
+    options:
+        expose: true
+nn_genie_formation_delete_contenu:
+    pattern: /delete-contenu/{id}
+    defaults: { _controller: NNGenieFormationBundle:Contenu:delete }
+    options:
+        expose: true
+nn_genie_formation_edit_contenu:
+    pattern: /edit-contenu/{id}
+    defaults: { _controller: NNGenieFormationBundle:Contenu:edit }
+    options:
+        expose: true
+nn_genie_formation_add_cout:
+    path:     /new-cout
+    defaults: { _controller: NNGenieFormationBundle:Cout:add }
+    options:
+        expose: true
+nn_genie_formation_view_cout:
+    pattern: /couts
+    defaults: { _controller: NNGenieFormationBundle:Cout:getAll }
+    options:
+        expose: true
+nn_genie_formation_delete_cout:
+    pattern: /delete-cout/{id}
+    defaults: { _controller: NNGenieFormationBundle:Cout:delete }
+    options:
+        expose: true
+nn_genie_formation_edit_cout:
+    pattern: /edit-cout/{id}
+    defaults: { _controller: NNGenieFormationBundle:Cout:edit }
+    options:
+        expose: true
+nn_genie_formation_add_formation:
+    path:     /new-formation
+    defaults: { _controller: NNGenieFormationBundle:Formation:add }
+    options:
+        expose: true
+nn_genie_formation_view_formation:
+    pattern: /formations
+    defaults: { _controller: NNGenieFormationBundle:Formation:getAll }
+    options:
+        expose: true
+nn_genie_formation_delete_formation:
+    pattern: /delete-formation/{id}
+    defaults: { _controller: NNGenieFormationBundle:Formation:delete }
+    options:
+        expose: true
+nn_genie_formation_edit_formation:
+    pattern: /edit-formation/{id}
+    defaults: { _controller: NNGenieFormationBundle:Formation:edit }
+    options:
+        expose: true
+nn_genie_formation_detail_formation:
+    pattern: /detail-formation/{id}
+    defaults: { _controller: NNGenieFormationBundle:Formation:detail }
+    options:
+        expose: true
+nn_genie_formation_add_forme:
+    path:     /new-forme
+    defaults: { _controller: NNGenieFormationBundle:Forme:add }
+    options:
+        expose: true
+nn_genie_formation_view_forme:
+    pattern: /formes
+    defaults: { _controller: NNGenieFormationBundle:Forme:getAll }
+    options:
+        expose: true
+nn_genie_formation_delete_forme:
+    pattern: /delete-forme/{id}
+    defaults: { _controller: NNGenieFormationBundle:Forme:delete }
+    options:
+        expose: true
+nn_genie_formation_edit_forme:
+    pattern: /edit-forme/{id}
+    defaults: { _controller: NNGenieFormationBundle:Forme:edit }
+    options:
+        expose: true
+nn_genie_formation_add_programme:
+    path:     /new-programme
+    defaults: { _controller: NNGenieFormationBundle:Programme:add }
+    options:
+        expose: true
+nn_genie_formation_view_programme:
+    pattern: /programmes
+    defaults: { _controller: NNGenieFormationBundle:Programme:getAll }
+    options:
+        expose: true
+nn_genie_formation_delete_programme:
+    pattern: /delete-programme/{id}
+    defaults: { _controller: NNGenieFormationBundle:Programme:delete }
+    options:
+        expose: true
+nn_genie_formation_edit_programme:
+    pattern: /edit-programme/{id}
+    defaults: { _controller: NNGenieFormationBundle:Programme:edit }
+    options:
+        expose: true
+nn_genie_formation_detail_programme:
+    pattern: /detail-programme/{id}
+    defaults: { _controller: NNGenieFormationBundle:Programme:detail }
+    options:
+        expose: true
+nn_genie_formation_add_responsable:
+    path:     /new-responsable
+    defaults: { _controller: NNGenieFormationBundle:Responsable:add }
+    options:
+        expose: true
+nn_genie_formation_view_responsable:
+    pattern: /responsables
+    defaults: { _controller: NNGenieFormationBundle:Responsable:getAll }
+    options:
+        expose: true
+nn_genie_formation_delete_responsable:
+    pattern: /delete-responsable/{id}
+    defaults: { _controller: NNGenieFormationBundle:Responsable:delete }
+    options:
+        expose: true
+nn_genie_formation_edit_responsable:
+    pattern: /edit-responsable/{id}
+    defaults: { _controller: NNGenieFormationBundle:Responsable:edit }
+    options:
+        expose: true
+nn_genie_formation_add_titulaire:
+    path:     /new-titulaire
+    defaults: { _controller: NNGenieFormationBundle:Titulaire:add }
+    options:
+        expose: true
+nn_genie_formation_view_titulaire:
+    pattern: /titulaires
+    defaults: { _controller: NNGenieFormationBundle:Titulaire:getAll }
+    options:
+        expose: true
+nn_genie_formation_delete_titulaire:
+    pattern: /delete-titulaire/{id}
+    defaults: { _controller: NNGenieFormationBundle:Titulaire:delete }
+    options:
+        expose: true
+nn_genie_formation_edit_titulaire:
+    pattern: /edit-titulaire/{id}
+    defaults: { _controller: NNGenieFormationBundle:Titulaire:edit }
+    options:
+        expose: true
+nn_genie_formation_add_type:
+    path:     /new-type
+    defaults: { _controller: NNGenieFormationBundle:Type:add }
+    options:
+        expose: true
+nn_genie_formation_view_type:
+    pattern: /type
+    defaults: { _controller: NNGenieFormationBundle:Type:getAll }
+    options:
+        expose: true
+nn_genie_formation_delete_type:
+    pattern: /delete-type/{id}
+    defaults: { _controller: NNGenieFormationBundle:Type:delete }
+    options:
+        expose: true
+nn_genie_formation_edit_type:
+    pattern: /edit-type/{id}
+    defaults: { _controller: NNGenieFormationBundle:Type:edit }
+    options:
+        expose: true

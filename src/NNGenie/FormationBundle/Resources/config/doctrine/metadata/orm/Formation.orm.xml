@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Formation" table="formation">
+    <indexes>
+      <index name="fk_formation_formeFormation_idx" columns="formeFormation_id"/>
+      <index name="fk_formation_centreFormation1_idx" columns="centreFormation_id"/>
+      <index name="fk_formation_typeFormation1_idx" columns="typeFormation_id"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="nom_UNIQUE" columns="nom"/>
+    </unique-constraints>
+    <id name="id" type="bigint" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nom" type="string" column="nom" length="255" nullable="true"/>
+    <field name="date" type="datetime" column="date" nullable="true"/>
+    <field name="lieu" type="string" column="lieu" length="255" nullable="true"/>
+    <field name="cible" type="string" column="cible" length="255" nullable="true"/>
+    <field name="objectifprincip" type="text" column="objectifprincip" nullable="true"/>
+    <field name="objectifsecond" type="text" column="objectifsecond" nullable="true"/>
+    <many-to-one field="typeformation" target-entity="Typeformation">
+      <join-columns>
+        <join-column name="typeFormation_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="centreformation" target-entity="Centreformation">
+      <join-columns>
+        <join-column name="centreFormation_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="formeformation" target-entity="Formeformation">
+      <join-columns>
+        <join-column name="formeFormation_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="idresponsable" target-entity="Responsableformation" inversed-by="idformation">
+      <join-table name="formation_responsableformation">
+        <join-columns>
+          <join-column name="idformation" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="idresponsable" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>
