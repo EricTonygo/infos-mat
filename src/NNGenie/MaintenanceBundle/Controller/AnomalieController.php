@@ -23,9 +23,9 @@ class AnomalieController extends Controller {
      */
     public function anomaliesAction() {
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
-        /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           return $this->redirect($this->generateUrl('fos_user_security_login'));
-          } */
+          }
         $em = $this->getDoctrine()->getManager();
 
         $repositoryAnomalie = $em->getRepository("NNGenieMaintenanceBundle:Anomalie");
@@ -43,9 +43,9 @@ class AnomalieController extends Controller {
      */
     public function anomaliesuserAction() {
         // Si le visiteur est déjà identifié, on le redirige vers l'accueil
-        /* if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
           return $this->redirect($this->generateUrl('fos_user_security_login'));
-          } */
+          } 
         $em = $this->getDoctrine()->getManager();
 
         $repositoryAnomalie = $em->getRepository("NNGenieMaintenanceBundle:Anomalie");
@@ -67,6 +67,9 @@ class AnomalieController extends Controller {
      * @param Request $request
      */
     public function newAction(Request $request) {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $anomalie = new Anomalie();
         $anomalieUnique = new Anomalie();
         $form = $this->createForm(new AnomalieType(), $anomalie);
@@ -169,6 +172,9 @@ class AnomalieController extends Controller {
      * @param Request $request
      */
     public function editAction(Request $request, Anomalie $anomalie) {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $question = new Question();
         $editForm = $this->createForm(new AnomalieType(), $anomalie);
         $editForm->handleRequest($request);
@@ -305,6 +311,9 @@ class AnomalieController extends Controller {
      * @Method({"GET"})
      */
     public function deleteAction(Anomalie $anomalie) {
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        }
         $request = $this->get("request");
         $repositoryAnomalie = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Anomalie");
         $repositoryQuestion = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Question");

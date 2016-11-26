@@ -16,6 +16,10 @@ nn_genie_infos_mat_materiel:
 nn_genie_user:
     resource: "@NNGenieUserBundle/Resources/config/routing.yml"
     prefix:   /
+    
+nn_genie_app:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /
 
 nn_genie_infos_mat:
     resource: "@NNGenieInfosMatBundle/Resources/config/routing.yml"
@@ -23,6 +27,10 @@ nn_genie_infos_mat:
 
 nn_genie_infos_mat_user:
     resource: "@NNGenieUserBundle/Controller/UserController.php"
+    type:     annotation
+    
+nn_genie_app_controller:
+    resource: "@AppBundle/Controller/DefaultController.php"
     type:     annotation
 
 fos_user:

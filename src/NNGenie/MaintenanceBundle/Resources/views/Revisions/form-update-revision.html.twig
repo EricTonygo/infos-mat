@@ -13,6 +13,14 @@
 
 {% block content %}
     <div class="right_col" role="main">
+        <div class="breadcrumbs">
+            <div class="container">
+                <ol class="breadcrumb">
+                    {%include 'NNGenieMaintenanceBundle:Revisions:entetebreamcrumb.html.twig'%}                
+                    <li class="active"><a href="{{path('nn_genie_maintenance_revision_edit', {'id': idrevision})}}" class="marron"><span  aria-hidden="true"></span> Modifier une révision</a></li>
+                </ol>
+            </div>
+        </div>
         <div class="">
             <div class="page-title">
                 <div class="title_left">

@@ -7,6 +7,7 @@
         <div class="breadcrumbs">
             <div class="container">
                 <ol class="breadcrumb">
+                    {%include '::entetebreamcrumb.html.twig'%}
                     <li><a href="{{path('nn_genie_maintenance_homepage')}}" >Maintenance</a></li>
                     <li class="active"><a href="{{path('nn_genie_maintenance_homepage')}}" class="marron"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Acceuil</a></li>
                 </ol>
@@ -16,21 +17,12 @@
         <div class="">
 
             <div class="row top_tiles">
-                <a href="{{path("nn_genie_maintenance_pieces")}}" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="tile-stats">
-                        <div class="icon"><i class="fa fa-tasks marron"></i>
-                        </div>
-                        <div class="count">0</div>
-
-                        <h3>Pièces</h3>
-                        {#<p>Lorem ipsum psdea itgum rixt.</p>#}
-                    </div>
-                </a>
+                
                 <a href="{{ path("nn_genie_maintenance_pannes") }}" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-tasks marron"></i>
                         </div>
-                        <div class="count">0</div>
+                        <div class="count">{{nbpannes}}</div>
 
                         <h3>Pannes</h3>
                         {#<p>Lorem ipsum psdea itgum rixt.</p>#}
@@ -40,7 +32,7 @@
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-tasks marron"></i>
                         </div>
-                        <div class="count">0</div>
+                        <div class="count">{{nbanomalies}}</div>
 
                         <h3>Anomalies</h3>
                         {#<p>Lorem ipsum psdea itgum rixt.</p>#}
@@ -50,19 +42,18 @@
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-tasks marron"></i>
                         </div>
-                        <div class="count">0</div>
+                        <div class="count">{{nbcontrolesMatinaux}}</div>
 
                         <h3>Contrôles Matinaux</h3>
                         {#<p>Lorem ipsum psdea itgum rixt.</p>#}
                     </div>
                 </a>
-                <a href="{{path("nn_genie_maintenance_produits")}}" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="{{path("nn_genie_maintenance_revisions")}}" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-tasks marron"></i>
                         </div>
-                        <div class="count">0</div>
-
-                        <h3>Produits</h3>
+                        <div class="count">{{nbrevisions}}</div>
+                        <h3>Revisions</h3>
                         {#<p>Lorem ipsum psdea itgum rixt.</p>#}
                     </div>
                 </a>
@@ -70,30 +61,39 @@
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-tasks marron"></i>
                         </div>
-                        <div class="count">0</div>
+                        <div class="count">{{nbprocedes}}</div>
 
                         <h3>Procedés</h3>
                         {#<p>Lorem ipsum psdea itgum rixt.</p>#}
                     </div>
                 </a>
-                <a href="{{ path("nn_genie_maintenance_questions") }}" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="{{ path("nn_genie_maintenance_reglages") }}" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-tasks marron"></i>
                         </div>
-                        <div class="count">0</div>
+                        <div class="count">{{nbreglages}}</div>
 
-                        <h3>Questions</h3>
+                        <h3>Règlages</h3>
                         {#<p>Lorem ipsum psdea itgum rixt.</p>#}
                     </div>
                 </a>
-                <a href="{{ path("nn_genie_maintenance_tests") }}" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <a href="{{ path("nn_genie_maintenance_propretes") }}" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-tasks marron"></i>
                         </div>
-                        <div class="count">0</div>
+                        <div class="count">{{nbpropretes}}</div>
 
-                        <h3>Tests</h3>
+                        <h3>Propretés</h3>
                         {#<p>Lorem ipsum psdea itgum rixt.</p>#}
+                    </div>
+                </a>
+                <a href="{{path("nn_genie_maintenance_entretiensperiodiques")}}" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-tasks marron"></i>
+                        </div>
+                        <div class="count">{{nbentretiensperiodiques}}</div>
+
+                        <h3>Entretiens périodiques</h3>
                     </div>
                 </a>
             </div>
@@ -102,25 +102,49 @@
                 <div class="col-md-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Quelques statistiques sur le materiel</h2>
-                            <div class="filter">
-                                <div class="col-md-6 col-sm-6 col-xs-6 has-feedback pull-right">
-                                    <select id="selectstats" name="statsby" class="select2_single form-control">
-                                        <option value="1">Classe</option>
-                                        <option value="2">Famille</option>
-                                        <option value="3">Genre</option>
-                                        <option value="4">Type</option>
-                                        <option value="5">Marque</option>
-                                        <option value="6">Type</option>
-                                        <option value="7">Marque</option>
-                                    </select>	
-                                </div>
-                            </div>
+                            <h2>Recherche des informations</h2>
+                            
                             <div class="clearfix"></div>
                         </div>
-                        {#<div class="x_content">
-                          <div class="col-md-9 col-sm-12 col-xs-12">
-                            <div class="demo-container" style="height:280px">
+                        <div class="x_content">
+                          <div class="col-md-12 col-sm-12 col-xs-12">
+                              <form id="form_search_infos" method="POST" action="{{ path('nn_genie_infos_mat_materiel_results_search') }}">
+                                        
+                                            <div class="item form-group col-md-6">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Problème de maintenance </label>
+                                                <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
+                                                    <div class="form-group row">
+                                                        <select id="genre" name="genres[]" class="select2_single form-control" tabindex="-1" >
+                                                            <option></option>
+                                                            <option value="1">Anomalie</option>
+                                                            <option value="1">Anomalie</option>
+                                                            {#% if genres %}
+                                                                {% for genre in genres %}
+                                                                    <option value="{{genre.id}}">{{genre.nom}}</option>
+                                                                {% endfor %}
+                                                            {% endif %#}
+                                                        </select>
+                                                    </div>		
+                                                </div>
+                                            </div>
+                                            <div class="item form-group col-md-6">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Type de materiel </label>
+                                                <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
+                                                    <div class="form-group row">
+                                                        <select id="propriétaire" name="proprietaires[]"class="select2_single form-control" tabindex="-1">
+                                                            <option></option>
+                                                            {#% if proprietaires %}
+                                                                {% for proprietaire in proprietaires %}
+                                                                    <option value="{{proprietaire.id}}">{{proprietaire.nom}}</option>
+                                                                {% endfor %}
+                                                            {% endif %#}
+                                                        </select>
+                                                    </div>		
+                                                </div>
+                                            </div>
+                                        
+                                    </form>  
+                            {#<div class="demo-container" style="height:280px">
                               <div id="placeholder33x" class="demo-placeholder"></div>
                             </div>
                             <div class="tiles">
@@ -135,7 +159,7 @@
                                 <span>Total Fournisseur</span>
                                 <h2 class="marron">$231,809</h2>
                                 <span class="sparkline22 graph" style="height: 160px;">
-                                                <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
+                                             <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                                             </span>
                               </div>
                               <div class="col-md-4 tile">
@@ -145,76 +169,9 @@
                                                 <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                                             </span>
                               </div>
-                            </div>
+                            </div>#}
       
-                          </div>#}
-
-                        {#<div class="col-md-3 col-sm-12 col-xs-12">
-                          <div>
-                            <div class="x_title">
-                              <h2>Administrateurs</h2>
-                              <div class="clearfix"></div>
-                            </div>
-                            <ul class="list-unstyled top_profiles scroll-view">
-                              <li class="media event">
-                                <a class="pull-left border-aero profile_thumb">
-                                  <i class="fa fa-user aero"></i>
-                                </a>
-                                <div class="media-body">
-                                  <a class="title" href="#">Ms. Mary Jane</a>
-                                  <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                                  <p> <small>12 Sales Today</small>
-                                  </p>
-                                </div>
-                              </li>
-                              <li class="media event">
-                                <a class="pull-left border-green profile_thumb">
-                                  <i class="fa fa-user green"></i>
-                                </a>
-                                <div class="media-body">
-                                  <a class="title" href="#">Ms. Mary Jane</a>
-                                  <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                                  <p> <small>12 Sales Today</small>
-                                  </p>
-                                </div>
-                              </li>
-                              <li class="media event">
-                                <a class="pull-left border-blue profile_thumb">
-                                  <i class="fa fa-user blue"></i>
-                                </a>
-                                <div class="media-body">
-                                  <a class="title" href="#">Ms. Mary Jane</a>
-                                  <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                                  <p> <small>12 Sales Today</small>
-                                  </p>
-                                </div>
-                              </li>
-                              <li class="media event">
-                                <a class="pull-left border-aero profile_thumb">
-                                  <i class="fa fa-user aero"></i>
-                                </a>
-                                <div class="media-body">
-                                  <a class="title" href="#">Ms. Mary Jane</a>
-                                  <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                                  <p> <small>12 Sales Today</small>
-                                  </p>
-                                </div>
-                              </li>
-                              <li class="media event">
-                                <a class="pull-left border-green profile_thumb">
-                                  <i class="fa fa-user green"></i>
-                                </a>
-                                <div class="media-body">
-                                  <a class="title" href="#">Ms. Mary Jane</a>
-                                  <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                                  <p> <small>12 Sales Today</small>
-                                  </p>
-                                </div>
-                              </li>
-                            </ul>
                           </div>
-                        </div>#}
-
                     </div>
                 </div>
             </div>

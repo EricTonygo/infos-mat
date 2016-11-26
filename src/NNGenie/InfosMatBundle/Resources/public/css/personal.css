@@ -98,3 +98,7 @@ div.textsingle ul li{
 	margin-top: 20px;
 	color: black;
 }
+
+.breadcrumb{
+    font-weight: bold;
+}

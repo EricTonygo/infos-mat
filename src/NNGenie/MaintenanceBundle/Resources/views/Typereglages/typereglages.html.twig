@@ -17,7 +17,14 @@
 
 {% block content %}
     <div class="right_col" role="main">
-
+        <div class="breadcrumbs">
+            <div class="container">
+                <ol class="breadcrumb">
+                    {%include 'NNGenieMaintenanceBundle:Typereglages:entetebreamcrumb.html.twig'%}                
+                    <li class="active"><a href="{{path('nn_genie_maintenance_typereglages')}}" class="marron"><span  aria-hidden="true"></span> Types de règlage</a></li>
+                </ol>
+            </div>
+        </div>
         <div class="">
             <div class="page-title">
                 <div class="title_left">

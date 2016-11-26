@@ -1,0 +1,218 @@
+body{
+    color: #73879C;
+    /*background: rgb(247,247,247);*/
+}
+i.fa-thumbs-o-up:hover{
+    color: rgb(255, 189, 43) !important;
+}
+i.fa-facebook:hover{
+    color: blue !important;
+}
+i.fa-twitter:hover{
+    color: blueviolet !important;
+}
+i.fa-google-plus:hover{
+    color: red !important;
+}
+i.fa-instagram:hover{
+    color: moccasin !important;
+}
+.fright{
+    float: right;
+}
+.fleft{
+    float: left;
+}
+#modul1{
+    background: rgb(255, 189, 43) none repeat scroll 0% 0%;
+    color: white;
+    border-radius: 95px;
+    padding: 35px;
+    border : 1px solid;
+	font-size: 25px;
+}
+#modul2{
+    background: rgb(195, 128, 8) none repeat scroll 0% 0%;
+    color: white;
+    padding: 31px;
+	font-size: 25px;
+    border-radius: 50px 200px; 
+    border : 1px solid;
+}
+#modul3{
+    background: black none repeat scroll 0% 0%;
+    color: white;
+    border-radius: 200px 30px;
+    padding: 50px; 
+	font-size: 25px;
+    border : 1px solid;
+}
+#modul4{
+    background: rgb(46, 46, 46) none repeat scroll 0% 0%;
+    color: white;
+    padding: 42px;
+	font-size: 25px;
+    border-radius: 200px 40px; 
+    border : 1px solid;
+}
+#modul5{
+	background: rgb(31, 40, 87) none repeat scroll 0% 0%;
+    color: white;
+    padding: 43px;
+	font-size: 25px;
+    border-radius: 40px 200px;
+    border : 1px solid;
+}
+#modul6{
+    color: white;
+    background: rgb(68, 88, 192) none repeat scroll 0% 0%;
+    border-radius: 95px;
+    padding: 40px;
+	font-size: 25px;
+    border : 1px solid;
+}
+ul.reseauxhome li a i{
+    font-size: 2em;
+    color: black;
+}
+ul.reseauxpage li a i{
+    font-size: 1.5em;
+    color: #777;
+}
+.marron{
+    color: rgb(255, 189, 43);
+}
+.mainhome{
+    padding: 30px 0px;
+}
+/*
+.socialnetwork{
+    margin-top: 20px;
+}*/
+#sousmodul{
+    margin-bottom: 5px;
+}
+.menu:hover{
+    border : 1px solid green;
+    opacity: 0.6;
+}
+.mainhome{
+    background: url(../images/fond.jpg) no-repeat 0px 0px;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    min-height: 700px;
+}
+#bs-megadropdown-tabs ul li a:hover{
+    /*rgb(31, 40, 87);*/
+    color: rgb(68, 88, 192);
+}
+.block2{
+    margin-top: 20px;
+}
+.interet{
+    display: inline;
+}
+.astuces{
+    padding-top: 40px;
+    background: white none repeat scroll 0% 0%;
+}
+.titre2{
+    margin-bottom: 60px;
+}
+.textcolor{
+    color: rgb(255, 189, 43);
+}
+.temoignage{
+    padding-top: 40px;
+}
+.ptnone{
+    padding-top: 0px;
+}
+.m-img{
+    width: 60%;
+}
+label{
+    font-weight: unset;
+}
+.filtre{    
+   background: white;
+   margin-bottom: 15px;
+}
+.textsingle{
+    margin: .5em 0 1em;
+}
+.titresingle{
+    text-transform: uppercase;
+    color: #212121;
+    font-size: 1.2em;
+}
+.m-size{
+    font-size: 1.5em;
+}
+#infotop{
+    margin-left: 9%;
+    margin-top: 20px;
+}
+.proprio{
+    font-weight: bold;
+    color: #2E2E2E;
+}
+.block1{
+    margin-top: 10px;
+}
+.it{
+    font-style: italic;
+    text-transform: initial !important;
+}
+.filtre:hover{
+    background: #f5f5f5;
+    color: #2E2E2E;
+}
+#sortby{
+    background: #f5f5f5;
+    padding: 7px;
+    margin-bottom: 15px;
+}
+table{
+    width: 100% !important;
+}
+#datatable_wrapper div.col-sm-12{
+    width: 104%;
+}
+.matos{
+    width: 100%
+}
+/*
+.table td,.table tr{
+    display: inline-block !important;
+    float: left;
+}*/
+#datatable di.new-collections-grid1{
+    width: 100%;
+}
+#datatable td{
+    display: inline-block;
+    border: none;
+}
+#datatable tr{
+    display: initial;
+}
+tbody.products-right-grids-bottom{
+    padding: 1em 0.5em;
+}
+.col-md-35 div.new-collections-grid1{
+    padding: 5px;
+}
+#datatable{
+    margin-top: 20px;
+}
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+    background: rgb(255, 189, 43);
+    border-color: white;
+}
+#datatable_paginate,#datatable_filter{
+    float: right;
+}

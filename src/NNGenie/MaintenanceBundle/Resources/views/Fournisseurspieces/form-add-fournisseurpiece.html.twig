@@ -14,7 +14,14 @@
 {% block content %}
 
     <div class="right_col" role="main">
-
+        <div class="breadcrumbs">
+            <div class="container">
+                <ol class="breadcrumb">
+                    {%include 'NNGenieMaintenanceBundle:Fournisseurspieces:entetebreamcrumb.html.twig'%}                
+                    <li class="active"><a href="{{path('nn_genie_maintenance_operation_new') }}" class="marron"><span  aria-hidden="true"></span> Ajouter un fournisseur de pièce</a></li>
+                </ol>
+            </div>
+        </div>
         <div class="">
             <div class="page-title">
                 <div class="title_left">
@@ -22,7 +29,6 @@
                         AJOUT D'UN FOURNISSEUR DE PIECE
                     </h3>
                 </div>
-
             </div>
             <div class="clearfix"></div>
 

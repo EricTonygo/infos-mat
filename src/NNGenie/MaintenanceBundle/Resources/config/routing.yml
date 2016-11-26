@@ -414,3 +414,9 @@ nn_genie_maintenance_anomalie_delete:
     defaults: { _controller: NNGenieMaintenanceBundle:Anomalie:delete }
     options:
         expose: true
+        
+nn_genie_maintenance_results_search:
+    pattern: /results-search
+    defaults: { _controller: NNGenieMaintenanceBundle:Maintenance:getResultsSearch }
+    options:
+        expose: true

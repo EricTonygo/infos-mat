@@ -13,6 +13,14 @@
 
 {% block content %}
     <div class="right_col" role="main">
+        <div class="breadcrumbs">
+            <div class="container">
+                <ol class="breadcrumb">
+                    {%include 'NNGenieMaintenanceBundle:Reglages:entetebreamcrumb.html.twig'%}                
+                    <li class="active"><a href="{{path('nn_genie_maintenance_reglage_edit', {'id': idreglage})}}" class="marron"><span  aria-hidden="true"></span> Ajouter une question</a></li>
+                </ol>
+            </div>
+        </div>
         <div class="">
             <div class="page-title">
                 <div class="title_left">
