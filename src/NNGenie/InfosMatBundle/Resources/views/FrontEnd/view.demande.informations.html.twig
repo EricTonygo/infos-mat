@@ -40,7 +40,7 @@
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Genre </label>
                                                 <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
                                                     <div class="form-group row">
-                                                        <select id="genre" name="genres[]" class="select2_single form-control" tabindex="-1" >
+                                                        <select id="genre" name="genres[]" class="select2_multiple form-control" tabindex="-1" multiple="multiple">
                                                             <option></option>
                                                             {% if genres %}
                                                                 {% for genre in genres %}
@@ -55,7 +55,7 @@
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Propriétaire </label>
                                                 <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
                                                     <div class="form-group row">
-                                                        <select id="propriétaire" name="proprietaires[]"class="select2_single form-control" tabindex="-1">
+                                                        <select id="propriétaire" name="proprietaires[]"class="select2_multiple form-control" tabindex="-1" multiple="multiple">
                                                             <option></option>
                                                             {% if proprietaires %}
                                                                 {% for proprietaire in proprietaires %}
@@ -73,7 +73,7 @@
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Marque </label>
                                                 <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
                                                     <div class="form-group row">
-                                                        <select id="marque" name="marques[]" class="select2_single form-control" tabindex="-1" >
+                                                        <select id="marque" name="marques[]" class="select2_multiple form-control" tabindex="-1" multiple="multiple">
                                                             <option></option>
                                                             {% if marques %}
                                                                 {% for marque in marques%}
@@ -88,7 +88,7 @@
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Localisation </label>
                                                 <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
                                                     <div class="form-group row">
-                                                        <select id="local" name="localisations[]" class="select2_single form-control" tabindex="-1" >
+                                                        <select id="local" name="localisations[]" class="select2_multiple form-control" tabindex="-1" multiple="multiple">
                                                             <option></option>
                                                             {% if localisations %}
                                                                 {% for localisation in localisations %}
@@ -107,7 +107,7 @@
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Type </label>
                                                 <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
                                                     <div class="form-group row">
-                                                        <select id="type" name="types[]" class="select2_single form-control" tabindex="-1" >
+                                                        <select id="type" name="types[]" class="select2_multiple form-control" tabindex="-1" multiple="multiple">
                                                             <option></option>
                                                             {% if types %}
                                                                 {% for type in types %}
@@ -122,7 +122,7 @@
                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="occupation">Etat </label>
                                                 <div class="col-md-10 col-sm-10 col-xs-10 form-group has-feedback">
                                                     <div class="form-group row">
-                                                        <select id="etat" name="etats[]" class="select2_single form-control" tabindex="-1">
+                                                        <select id="etat" name="etats[]" class="select2_multiple form-control" tabindex="-1" multiple="multiple">
                                                             <option></option>
                                                             {% if etats %}
                                                                 {% for etat in etats %}
