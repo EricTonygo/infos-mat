@@ -11,6 +11,8 @@ class DefaultController extends Controller
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
+        $repositoryType = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Type");
+        $types = $repositoryType->findBy(array('statut' => 1));
         $repositoryPanne = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Panne");
         $pannes = $repositoryPanne->findBy(array("statut" => 1));
         $repositoryAnomalie = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Anomalie");
@@ -27,7 +29,7 @@ class DefaultController extends Controller
         $propretes = $repositoryProprete->findBy(array("statut" => 1));
         $repositoryEntretienPeriodique = $this->getDoctrine()->getManager()->getRepository("NNGenieMaintenanceBundle:Entretienperiodique");
         $entretiensperiodiques = $repositoryEntretienPeriodique->findBy(array("statut" => 1));
-        return $this->render('NNGenieMaintenanceBundle:Accueil:accueil.html.twig', array("nbpannes" => count($pannes), "nbanomalies" => count($anomalies), "nbcontrolesMatinaux" => count($controlesMatinaux),
+        return $this->render('NNGenieMaintenanceBundle:Accueil:accueil.html.twig', array("types" => $types, "nbpannes" => count($pannes), "nbanomalies" => count($anomalies), "nbcontrolesMatinaux" => count($controlesMatinaux),
                 "nbrevisions" => count($revisions), "nbprocedes" => count($procedes), "nbreglages" => count($reglages), "nbpropretes" => count($propretes), "nbentretiensperiodiques" => count($entretiensperiodiques)));
     }
 }
