@@ -97,7 +97,8 @@ ul.reseauxpage li a i{
     opacity: 0.6;
 }
 .mainhome{
-    background: url(../images/fond.jpg) no-repeat 0px 0px;
+    /*background: url(../images/fond.jpg) no-repeat 0px 0px;*/
+    background: url(../images/templateCarte.jpg) no-repeat 0px 0px;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;

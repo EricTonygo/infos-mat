@@ -51,7 +51,7 @@
 }
 .logo-nav-left h2 {
     font-size: 4em;
-    letter-spacing: 20px;
+    /*letter-spacing: 20px;*/
     color:#222 !important;
     text-decoration:none;
 }
