@@ -17,7 +17,7 @@
         <div class="">
 
             <div class="row top_tiles">
-                
+
                 <a href="{{ path("nn_genie_maintenance_pannes") }}" class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="tile-stats">
                         <div class="icon"><i class="fa fa-tasks marron"></i>
@@ -103,12 +103,12 @@
                     <div class="x_panel">
                         <div class="x_title">
                             <h2>Recherche des informations</h2>
-                            
+
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
-                          <div class="col-md-12 col-sm-12 col-xs-12">
-                             <form id="form_search_infos" method="POST" action="{{ path('nn_genie_maintenance_homepage') }}">                                        
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <form id="form_search_infos" method="POST" action="{{ path('nn_genie_maintenance_homepage') }}">                                        
                                     <div class="item form-group col-md-6 col-sm-12 col-xs-12">
                                         <label class="control-label col-md-6 col-sm-12 col-xs-12" for="occupation">Problème de maintenance </label>
                                         <div class="col-md-10 col-sm-10 col-xs-10">
@@ -144,20 +144,20 @@
                                             <center><input type="submit" class="btn btn-default" value="Rechercher"/></center>
                                         </div>
                                     </div>
-                                </form>    
-                         </div>
+                                </form>  
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- /page content -->
+    <!-- /page content -->
 {% endblock %}
 {% block javascripts %}
     {{parent()}}
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#probleme_maintenance").select2({
                 placeholder: "Sélectionner votre problème de maintenance",
                 allowClear: true
