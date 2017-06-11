@@ -8,6 +8,8 @@ Materiel:
     updated_id_incorrect: Identifiant incorrect.
     deleted_success: Materiel supprimé avec succès.
     deleted_failure: Echec de la suppression du materiel.
+    imported_success: Importation des matériels réalisée avec succès
+    imported_failure: Echec de l'importation des matériels
 
 Type:
     access_denied: Vous n'avez des droits requis pour effectuer cette action.

@@ -137,10 +137,10 @@
                                                 <td>{{materiel.type.marque.nom}}</td>
                                                 <td>{{materiel.type.nom}}</td>
                                                 <td>{{materiel.chassis}}</td>
-                                                <td>{{materiel.proprietaire.nom}}</td>
+                                                <td>{% if materiel.proprietaire %}{{materiel.proprietaire.nom}}{% endif %}</td>
                                                 <td>{{materiel.prix}}</td>
-                                                <td>{{materiel.localisation.ville}}</td>
-                                                <td>{{materiel.fournisseur.nom}}</td>
+                                                <td>{% if materiel.localisation %}{{materiel.localisation.ville}}{% endif %}</td>
+                                                <td>{% if materiel.fournisseur %}{{materiel.fournisseur.nom}}{% endif %}</td>
                                                 <td>
                                                     <div role="presentation" class="dropdown">
                                                         <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">

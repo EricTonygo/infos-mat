@@ -39,11 +39,11 @@ class ImportDatabaseController extends Controller {
                 if(file_exists($this->getUploadRootDir() ."/". $name)){
                     $result = $this->get('excel_service')->importMaterielsToDatabase($this->getUploadRootDir() ."/". $name);
                 }
-                $message = $this->get('translator')->trans('Materiels.imported_success', array(), "NNGenieInfosMatBundle")." N° chassis: ". $result->getChassis();
-                $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                return $this->render('NNGenieInfosMatBundle:importDatabase:form-import-database.html.twig');
-            }else{
                 $message = $this->get('translator')->trans('Materiels.imported_success', array(), "NNGenieInfosMatBundle");
+                $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiels'));
+            }else{
+                $message = $this->get('translator')->trans('Materiels.imported_failure', array(), "NNGenieInfosMatBundle");
                 $this->get('ras_flash_alert.alert_reporter')->addError($message);
                 return $this->render('NNGenieInfosMatBundle:importDatabase:form-import-database.html.twig');
             }

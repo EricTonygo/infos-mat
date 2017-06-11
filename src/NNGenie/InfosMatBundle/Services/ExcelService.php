@@ -36,8 +36,11 @@ class ExcelService {
                 $i = 0;
                 foreach ($Reader as $Row) {
                     if ($i == 1) {
+                        if($Row[4] == ""){
+                            continue;
+                        }
                         $materiel = $this->saveMateriel($Row);
-                        break;
+                        //break;
                     }
                     $i++;
                 }

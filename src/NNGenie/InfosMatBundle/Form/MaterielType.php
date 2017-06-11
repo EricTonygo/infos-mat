@@ -34,6 +34,7 @@ class MaterielType extends AbstractType
                 'property' => 'nom',
                 'empty_value' => "",
                 'multiple'=>false,
+                'required' => false,
                 'query_builder' => function(EtatRepository $repo) {
                     return $repo->getEtatQueryBuilder();
                 }
@@ -43,6 +44,7 @@ class MaterielType extends AbstractType
                 'property' => 'nom',
                 'empty_value' => "",
                 'multiple'=>false,
+                'required' => false,
                 'query_builder' => function(FournisseurRepository $repo) {
                     return $repo->getFournisseurQueryBuilder();
                 }
@@ -52,6 +54,7 @@ class MaterielType extends AbstractType
                 'property' => 'nom',
                 'empty_value' => "",
                 'multiple'=>false,
+                'required' => false,
                 'query_builder' => function(GenreRepository $repo) {
                     return $repo->getGenreQueryBuilder();
                 }
@@ -62,6 +65,7 @@ class MaterielType extends AbstractType
                 'property' => 'nom',
                 'empty_value' => "",
                 'multiple'=>false,
+                'required' => false,
                 'query_builder' => function(ProprietaireRepository $repo) {
                     return $repo->getProprietaireQueryBuilder();
                 }
@@ -71,6 +75,7 @@ class MaterielType extends AbstractType
                 'property' => 'nom',
                 'empty_value' => "",
                 'multiple'=>false,
+                'required' => false,
                 'query_builder' => function(TypeRepository $repo) {
                     return $repo->getTypeQueryBuilder();
                 }
