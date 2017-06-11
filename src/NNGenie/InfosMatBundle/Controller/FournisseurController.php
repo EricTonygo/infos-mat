@@ -72,10 +72,9 @@ class FournisseurController extends Controller {
         $form = $this->createForm(new FournisseurType(), $fournisseur);
         $form->handleRequest($request);
         $repositoryFournisseur = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Fournisseur");
-
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $fournisseurUnique = $repositoryFournisseur->findBy(array("nom" => $fournisseur->getNom(), "statut" => 1));
+                $fournisseurUnique = $repositoryFournisseur->findOneBy(array("nom" => $fournisseur->getNom(), "statut" => 1));
                 if ($fournisseurUnique == null) {
                     try {
                         $repositoryFournisseur->saveFournisseur($fournisseur);
@@ -83,16 +82,13 @@ class FournisseurController extends Controller {
                         $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                         $fournisseur = new Fournisseur();
                         $form = $this->createForm(new FournisseurType(), $fournisseur);
-                        return $this->render('NNGenieInfosMatBundle:Fournisseurs:form-add-fournisseur.html.twig', array('form' => $form->createView()));
                     } catch (Exception $ex) {
                         $message = $this->get('translator')->trans('Fournisseur.created_failure', array(), "NNGenieInfosMatBundle");
                         $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                        return $this->render('NNGenieInfosMatBundle:Fournisseurs:form-add-fournisseur.html.twig', array('form' => $form->createView()));
                     }
                 } else {
                     $message = $this->get('translator')->trans('Fournisseur.exist_already', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Fournisseurs:form-add-fournisseur.html.twig', array('form' => $form->createView()));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Fournisseurs:form-add-fournisseur.html.twig', array('form' => $form->createView()));
@@ -134,16 +130,22 @@ class FournisseurController extends Controller {
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 try {
-                    $repositoryFournisseur->updateFournisseur($fournisseur);
-                    $message = $this->get('translator')->trans('Fournisseur.updated_success', array(), "NNGenieInfosMatBundle");
-                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_fournisseurs'));
+                    $fournisseurUnique = $repositoryFournisseur->findOneBy(array("nom" => $fournisseur->getNom(), "statut" => 1));
+                    if ($fournisseurUnique && $fournisseurUnique->getId() != $fournisseur->getId()) {
+                        $message = $this->get('translator')->trans('Fournisseur.exist_already', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
+                    } else {
+                        $repositoryFournisseur->updateFournisseur($fournisseur);
+                        $message = $this->get('translator')->trans('Fournisseur.updated_success', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_fournisseurs'));
+                    }
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Fournisseur.updated_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Fournisseurs:form-update-fournisseur.html.twig', array('form' => $editForm->createView(), 'idfournisseur' => $fournisseur->getId()));
                 }
             }
+
             return $this->render('NNGenieInfosMatBundle:Fournisseurs:form-update-fournisseur.html.twig', array('form' => $editForm->createView(), 'idfournisseur' => $fournisseur->getId()));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_fournisseurs'));

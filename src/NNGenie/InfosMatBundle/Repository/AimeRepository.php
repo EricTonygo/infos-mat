@@ -46,6 +46,7 @@ class AimeRepository extends EntityRepository implements IAimeRepository{
             $em->close();
             throw $ex;
         }
+        return $aime;
     }
 
     public function updateAime(\NNGenie\InfosMatBundle\Entity\Aime $aime) {
@@ -60,5 +61,6 @@ class AimeRepository extends EntityRepository implements IAimeRepository{
             $em->close();
             throw $ex;
         }
+        return $aime;
     }
 }

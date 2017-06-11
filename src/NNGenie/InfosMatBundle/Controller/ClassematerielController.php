@@ -36,7 +36,7 @@ class ClassematerielController extends Controller {
 
         return $this->render('NNGenieInfosMatBundle:ClassesMateriel:classesmateriel.html.twig', array('classesmateriel' => $classesmateriel, 'form' => $form->createView(), "display_tab" => $display_tab));
     }
-    
+
     /**
      * @Route("/classes-materiel-user")
      * @Template()
@@ -75,24 +75,21 @@ class ClassematerielController extends Controller {
 
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $classematerielUnique = $repositoryClassemateriel->findBy(array("nom" => $classemateriel->getNom(), "statut" => 1));
-                if ($classematerielUnique == null) {
-                    try {
+                try {
+                    $classematerielUnique = $repositoryClassemateriel->findOneBy(array("nom" => $classemateriel->getNom(), "statut" => 1));
+                    if ($classematerielUnique == null) {
                         $repositoryClassemateriel->saveClassemateriel($classemateriel);
                         $message = $this->get('translator')->trans('Classemateriel.created_success', array(), "NNGenieInfosMatBundle");
                         $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                         $classemateriel = new Classemateriel();
                         $form = $this->createForm(new ClassematerielType(), $classemateriel);
-                        return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-add-classemateriel.html.twig', array('form' => $form->createView()));
-                    } catch (Exception $ex) {
-                        $message = $this->get('translator')->trans('Classemateriel.created_failure', array(), "NNGenieInfosMatBundle");
+                    } else {
+                        $message = $this->get('translator')->trans('Classemateriel.exist_already', array(), "NNGenieInfosMatBundle");
                         $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                        return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-add-classemateriel.html.twig', array('form' => $form->createView()));
                     }
-                } else {
-                    $message = $this->get('translator')->trans('Classemateriel.exist_already', array(), "NNGenieInfosMatBundle");
+                } catch (Exception $ex) {
+                    $message = $this->get('translator')->trans('Classemateriel.created_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-add-classemateriel.html.twig', array('form' => $form->createView()));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-add-classemateriel.html.twig', array('form' => $form->createView()));
@@ -129,18 +126,22 @@ class ClassematerielController extends Controller {
         $editForm = $this->createForm(new ClassematerielType(), $classemateriel);
         $editForm->handleRequest($request);
         $repositoryClassemateriel = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Classemateriel");
-
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 try {
-                    $repositoryClassemateriel->updateClassemateriel($classemateriel);
-                    $message = $this->get('translator')->trans('Classemateriel.updated_success', array(), "NNGenieInfosMatBundle");
-                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
+                    $classematerielUnique = $repositoryClassemateriel->findOneBy(array("nom" => $classemateriel->getNom(), "statut" => 1));
+                    if ($classematerielUnique && $classematerielUnique->getId() != $classemateriel->getId()) {
+                        $message = $this->get('translator')->trans('Classemateriel.exist_already', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
+                    } else {
+                        $repositoryClassemateriel->updateClassemateriel($classemateriel);
+                        $message = $this->get('translator')->trans('Classemateriel.updated_success', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
+                    }
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Classemateriel.updated_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-update-classemateriel.html.twig', array('form' => $editForm->createView(), 'idclasse' => $classemateriel->getId()));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:ClassesMateriel:form-update-classemateriel.html.twig', array('form' => $editForm->createView(), 'idclasse' => $classemateriel->getId()));
@@ -163,7 +164,7 @@ class ClassematerielController extends Controller {
             try {
                 $repositoryClassemateriel->deleteClassemateriel($classemateriel);
                 $message = $this->get('translator')->trans('Classemateriel.deleted_success', array(), "NNGenieInfosMatBundle");
-               $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                 return $this->redirect($this->generateUrl('nn_genie_infos_mat_classesmateriel'));
             } catch (Exception $ex) {
                 $message = $this->get('translator')->trans('Classemateriel.updated_failure', array(), "NNGenieInfosMatBundle");

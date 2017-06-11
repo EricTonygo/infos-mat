@@ -55,7 +55,7 @@
                                             <tr>
                                                 <td>{{genre.nom}}</td>
                                                 <td>{{genre.code}}</td>
-                                                <td>{{genre.famille.nom}}</td>
+                                                <td>{% if genre.famille %}{{genre.famille.nom}} {% endif %}</td>
                                                 <td>
                                                     <div role="presentation" class="dropdown">
                                                         <a id="" href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" role="button" aria-expanded="false">

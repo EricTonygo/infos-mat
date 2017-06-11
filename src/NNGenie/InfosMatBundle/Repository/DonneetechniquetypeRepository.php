@@ -43,6 +43,7 @@ class DonneetechniquetypeRepository extends EntityRepository implements IDonneet
             $em->close();
             throw $ex;
         }
+        return $donneetechniquetype;
     }
 
     public function updateDonneetechniquetype(\NNGenie\InfosMatBundle\Entity\Donneetechniquetype $donneetechniquetype) {
@@ -57,6 +58,7 @@ class DonneetechniquetypeRepository extends EntityRepository implements IDonneet
             $em->close();
             throw $ex;
         }
+        return $donneetechniquetype;
     }
     
 //put your code here

@@ -99,7 +99,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
                             <h2>Recherche des informations</h2>
@@ -109,8 +109,8 @@
                         <div class="x_content">
                           <div class="col-md-12 col-sm-12 col-xs-12">
                              <form id="form_search_infos" method="POST" action="{{ path('nn_genie_maintenance_homepage') }}">                                        
-                                    <div class="item form-group col-md-6">
-                                        <label class="control-label col-md-6 col-sm-6 col-xs-12" for="occupation">Problème de maintenance </label>
+                                    <div class="item form-group col-md-6 col-sm-12 col-xs-12">
+                                        <label class="control-label col-md-6 col-sm-12 col-xs-12" for="occupation">Problème de maintenance </label>
                                         <div class="col-md-10 col-sm-10 col-xs-10">
                                             <select id="probleme_maintenance" name="probleme_maintenance" class="select2_single form-control" tabindex="-1" >
                                                 <option></option>
@@ -126,8 +126,8 @@
                                             </select>	
                                         </div>
                                     </div>
-                                    <div class="item form-group col-md-6">
-                                        <label class="control-label col-md-6 col-sm-6 col-xs-12" for="occupation">Type de materiel </label>
+                                    <div class="item form-group col-md-6 col-sm-12 col-xs-12">
+                                        <label class="control-label col-md-6 col-sm-12 col-xs-12" for="occupation">Type de materiel </label>
                                         <div class="col-md-10 col-sm-10 col-xs-10">
                                             <select id="types" name="types[]"class="form-control select2_multiple" multiple="multiple"> 
                                                 {% if types %}
@@ -140,39 +140,12 @@
                                     </div>
                                     <hr/>
                                     <div class="form-group row">
-                                        <div class="col-md-6 col-md-offset-5">
-                                            <input type="submit" class="btn btn-default" value="Rechercher"/>
+                                        <div class="col-md-6 col-sm-12 col-xs-12">
+                                            <center><input type="submit" class="btn btn-default" value="Rechercher"/></center>
                                         </div>
                                     </div>
-                                </form>  
-                            {#<div class="demo-container" style="height:280px">
-                              <div id="placeholder33x" class="demo-placeholder"></div>
-                            </div>
-                            <div class="tiles">
-                              <div class="col-md-4 tile">
-                                <span>Total Utilisateurs</span>
-                                <h2 class="marron">231,809</h2>
-                                <span class="sparkline11 graph" style="height: 160px;">
-                                                <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                                            </span>
-                              </div>
-                              <div class="col-md-4 tile">
-                                <span>Total Fournisseur</span>
-                                <h2 class="marron">$231,809</h2>
-                                <span class="sparkline22 graph" style="height: 160px;">
-                                             <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                                            </span>
-                              </div>
-                              <div class="col-md-4 tile">
-                                <span>Total Revenue</span>
-                                <h2 class="marron">231,809</h2>
-                                <span class="sparkline11 graph" style="height: 160px;">
-                                                <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
-                                            </span>
-                              </div>
-                            </div>#}
-      
-                          </div>
+                                </form>    
+                         </div>
                     </div>
                 </div>
             </div>

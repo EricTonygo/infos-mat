@@ -53,13 +53,13 @@ class DonneetechniqueController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $repositoryDonneetechnique = $em->getRepository("NNGenieInfosMatBundle:Donneetechnique");
-      
+
         //selectionne les seuls donneetechniques actifs
         $donneetechniques = $repositoryDonneetechnique->findBy(array("statut" => 1));
 
         return $this->render('NNGenieInfosMatBundle:FrontEnd:donneetechniques.html.twig', array('donneetechniques' => $donneetechniques));
     }
-    
+
     /**
      * Creates a new Donneetechnique entity.
      *
@@ -76,25 +76,21 @@ class DonneetechniqueController extends Controller {
         $repositoryDonneetechnique = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Donneetechnique");
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $donneetechniqueUnique = $repositoryDonneetechnique->findBy(array("nom" => $donneetechnique->getNom(), "statut" => 1));
-                if ($donneetechniqueUnique == null) {
-                    try {
+                try {
+                    $donneetechniqueUnique = $repositoryDonneetechnique->findOneBy(array("nom" => $donneetechnique->getNom(), "statut" => 1));
+                    if ($donneetechniqueUnique == null) {
                         $repositoryDonneetechnique->saveDonneetechnique($donneetechnique);
                         $message = $this->get('translator')->trans('Donneetechnique.created_success', array(), "NNGenieInfosMatBundle");
                         $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                         $donneetechnique = new Donneetechnique();
                         $form = $this->createForm(new DonneetechniqueType(), $donneetechnique);
-                        return $this->render('NNGenieInfosMatBundle:Donneetechniques:form-add-donneetechnique.html.twig', array('form' => $form->createView()));
-                    } catch (Exception $ex) {
-                        $message = $this->get('translator')->trans('Donneetechnique.created_failure', array(), "NNGenieInfosMatBundle");
+                    } else {
+                        $message = $this->get('translator')->trans('Donneetechnique.exist_already', array(), "NNGenieInfosMatBundle");
                         $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                        return $this->render('NNGenieInfosMatBundle:Donneetechniques:form-add-donneetechnique.html.twig', array('form' => $form->createView()));
                     }
-                } else {
-
-                    $message = $this->get('translator')->trans('Donneetechnique.exist_already', array(), "NNGenieInfosMatBundle");
+                } catch (Exception $ex) {
+                    $message = $this->get('translator')->trans('Donneetechnique.created_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Donneetechniques:form-add-donneetechnique.html.twig', array('form' => $form->createView()));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Donneetechniques:form-add-donneetechnique.html.twig', array('form' => $form->createView()));
@@ -134,15 +130,20 @@ class DonneetechniqueController extends Controller {
 
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
+                $donneetechniqueUnique = $repositoryDonneetechnique->findOneBy(array("nom" => $donneetechnique->getNom(), "statut" => 1));
                 try {
-                    $repositoryDonneetechnique->updateDonneetechnique($donneetechnique);
-                    $message = $this->get('translator')->trans('Donneetechnique.updated_success', array(), "NNGenieInfosMatBundle");
-                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_donneetechniques'));
+                    if ($donneetechniqueUnique && $donneetechniqueUnique->getId() != $donneetechnique->getId()) {
+                        $message = $this->get('translator')->trans('Donneetechnique.exist_already', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
+                    } else {
+                        $repositoryDonneetechnique->updateDonneetechnique($donneetechnique);
+                        $message = $this->get('translator')->trans('Donneetechnique.updated_success', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_donneetechniques'));
+                    }
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Donneetechnique.updated_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Donneetechniques:form-update-donneetechnique.html.twig', array('form' => $editForm->createView(), 'iddonneetechnique' => $donneetechnique->getId()));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Donneetechniques:form-update-donneetechnique.html.twig', array('form' => $editForm->createView(), 'iddonneetechnique' => $donneetechnique->getId()));

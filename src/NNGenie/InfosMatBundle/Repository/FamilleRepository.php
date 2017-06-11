@@ -51,6 +51,7 @@ class FamilleRepository extends EntityRepository implements IFamilleRepository{
             $em->close();
             throw $ex;
         }
+        return $famille;
     }
 
     public function updateFamille(\NNGenie\InfosMatBundle\Entity\Famille $famille) {
@@ -65,6 +66,7 @@ class FamilleRepository extends EntityRepository implements IFamilleRepository{
             $em->close();
             throw $ex;
         }
+        return $famille;
     }
     public function myFindAll() 
     {

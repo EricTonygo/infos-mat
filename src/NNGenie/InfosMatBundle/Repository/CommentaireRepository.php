@@ -43,6 +43,7 @@ class CommentaireRepository extends EntityRepository implements ICommentaireResp
             $em->close();
             throw $ex;
         }
+        return $commentaire;
     }
 
     public function updateCommentaire(\NNGenie\InfosMatBundle\Entity\Commentaire $commentaire) {
@@ -57,6 +58,7 @@ class CommentaireRepository extends EntityRepository implements ICommentaireResp
             $em->close();
             throw $ex;
         }
+        return $commentaire;
     }
     public function FindAllCommentUserMateriel(\NNGenie\UserBundle\Entity\User $user=null,\NNGenie\InfosMatBundle\Entity\Materiel $materiel=null) {
         $qb = $this->createQueryBuilder('c');

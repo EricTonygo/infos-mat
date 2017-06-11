@@ -14,12 +14,12 @@ class EtatController extends Controller {
                     'etats' => $etats
         ));
     }
-    public function indexuserAction()
-    {
+
+    public function indexuserAction() {
         $em = $this->getDoctrine()->getManager();
         $etats = $em->getRepository('NNGenieInfosMatBundle:Etat')->myFindAll();
         return $this->render('NNGenieInfosMatBundle:FrontEnd:etat.html.twig', array(
-            'etats'=>$etats
+                    'etats' => $etats
         ));
     }
 
@@ -35,27 +35,24 @@ class EtatController extends Controller {
         $form = $this->createForm('NNGenie\InfosMatBundle\Form\EtatType', $etat);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $etatUnique = $em->getRepository('NNGenieInfosMatBundle:Etat')->findBy(array("nom" => $etat->getNom(), "statut" => 1));
-            if ($etatUnique == null) {
-                $em->getRepository('NNGenieInfosMatBundle:Etat')->saveEtat($etat);
-                $message = $this->get('translator')->trans('Etat.created_success', array(), "NNGenieInfosMatBundle");
-                $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                $etat = new \NNGenie\InfosMatBundle\Entity\Etat();
-                $form = $this->createForm('NNGenie\InfosMatBundle\Form\EtatType', $etat);
-                return $this->render('NNGenieInfosMatBundle:etat:new.html.twig', array(
-                            'form' => $form->createView()
-                ));
-            } else {
-                $message = $this->get('translator')->trans('Etat.exist_already', array(), "NNGenieInfosMatBundle");
+            try {
+                $em = $this->getDoctrine()->getManager();
+                $etatUnique = $em->getRepository('NNGenieInfosMatBundle:Etat')->findOneBy(array("nom" => $etat->getNom(), "statut" => 1));
+                if ($etatUnique == null) {
+                    $em->getRepository('NNGenieInfosMatBundle:Etat')->saveEtat($etat);
+                    $message = $this->get('translator')->trans('Etat.created_success', array(), "NNGenieInfosMatBundle");
+                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                    $etat = new \NNGenie\InfosMatBundle\Entity\Etat();
+                    $form = $this->createForm('NNGenie\InfosMatBundle\Form\EtatType', $etat);
+                } else {
+                    $message = $this->get('translator')->trans('Etat.exist_already', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                return $this->render('NNGenieInfosMatBundle:etat:new.html.twig', array(
-                            'form' => $form->createView()
-                ));
+                }
+            } catch (Exception $ex) {
+                $message = $this->get('translator')->trans('Etat.created_failure', array(), "NNGenieInfosMatBundle");
+                $this->get('ras_flash_alert.alert_reporter')->addError($message);
             }
         }
-        $message = $this->get('translator')->trans('Etat.created_failure', array(), "NNGenieInfosMatBundle");
-                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
         return $this->render('NNGenieInfosMatBundle:etat:new.html.twig', array(
                     'form' => $form->createView()
         ));
@@ -64,15 +61,25 @@ class EtatController extends Controller {
     public function editAction(Request $request, \NNGenie\InfosMatBundle\Entity\Etat $etat) {
         $form = $this->createForm('NNGenie\InfosMatBundle\Form\EtatType', $etat);
         $form->handleRequest($request);
+        $em = $this->getDoctrine()->getManager();
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->getRepository('NNGenieInfosMatBundle:Etat')->updateEtat($etat);
-            $message = $this->get('translator')->trans('Etat.updated_success', array(), "NNGenieInfosMatBundle");
+            try {
+                $etatUnique = $em->getRepository('NNGenieInfosMatBundle:Etat')->findOneBy(array("nom" => $etat->getNom(), "statut" => 1));
+                if ($etatUnique && $etatUnique->getId() != $etat->getId()) {
+                    $message = $this->get('translator')->trans('Etat.exist_already', array(), "NNGenieInfosMatBundle");
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
+                } else {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->getRepository('NNGenieInfosMatBundle:Etat')->updateEtat($etat);
+                    $message = $this->get('translator')->trans('Etat.updated_success', array(), "NNGenieInfosMatBundle");
+                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                    return $this->redirectToRoute('nn_genie_infos_mat_etat_index');
+                }
+            } catch (Exception $ex) {
+                $message = $this->get('translator')->trans('Etat.updated_failure', array(), "NNGenieInfosMatBundle");
                 $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-            return $this->redirectToRoute('nn_genie_infos_mat_etat_index');
+            }
         }
-        $message = $this->get('translator')->trans('Etat.updated_failure', array(), "NNGenieInfosMatBundle");
-                $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
         return $this->render('NNGenieInfosMatBundle:Etat:edit.html.twig', array(
                     'form' => $form->createView(), 'id' => $etat->getId()
         ));
@@ -80,9 +87,14 @@ class EtatController extends Controller {
 
     public function deleteAction(\NNGenie\InfosMatBundle\Entity\Etat $etat) {
         $em = $this->getDoctrine()->getManager();
-        $em->getRepository('NNGenieInfosMatBundle:Etat')->deleteEtat($etat);
-        $message = $this->get('translator')->trans('Etat.deleted_success', array(), "NNGenieInfosMatBundle");
-                $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+        try {
+            $em->getRepository('NNGenieInfosMatBundle:Etat')->deleteEtat($etat);
+            $message = $this->get('translator')->trans('Etat.deleted_success', array(), "NNGenieInfosMatBundle");
+            $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+        } catch (Exception $ex) {
+            $message = $this->get('translator')->trans('Etat.deleted_failure', array(), "NNGenieInfosMatBundle");
+            $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+        }
         return $this->redirectToRoute('nn_genie_infos_mat_etat_index');
     }
 

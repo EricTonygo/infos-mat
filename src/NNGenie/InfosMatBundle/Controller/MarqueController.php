@@ -38,7 +38,7 @@ class MarqueController extends Controller {
 
         return $this->render('NNGenieInfosMatBundle:Marques:marques.html.twig', array('marques' => $marques, 'form' => $form->createView(), "display_tab" => $display_tab));
     }
-    
+
     /**
      * @Route("/marquesuser")
      * @Template()
@@ -76,27 +76,23 @@ class MarqueController extends Controller {
         $form = $this->createForm(new MarqueType(), $marque);
         $form->handleRequest($request);
         $repositoryMarque = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Marque");
-
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $marqueUnique = $repositoryMarque->findBy(array("nom" => $marque->getNom(), "statut" => 1));
-                if ($marqueUnique == null) {
-                    try {
+                try {
+                    $marqueUnique = $repositoryMarque->findOneBy(array("nom" => $marque->getNom(), "statut" => 1));
+                    if ($marqueUnique == null) {
                         $repositoryMarque->saveMarque($marque);
                         $message = $this->get('translator')->trans('Marque.created_success', array(), "NNGenieInfosMatBundle");
                         $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                         $marque = new Marque();
                         $form = $this->createForm(new MarqueType(), $marque);
-                        return $this->render('NNGenieInfosMatBundle:Marques:form-add-marque.html.twig', array('form' => $form->createView()));
-                    } catch (Exception $ex) {
-                        $message = $this->get('translator')->trans('Marque.created_failure', array(), "NNGenieInfosMatBundle");
-                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                        return $this->render('NNGenieInfosMatBundle:Marques:form-add-marque.html.twig', array('form' => $form->createView()));
+                    } else {
+                        $message = $this->get('translator')->trans('Marque.exist_already', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
                     }
-                } else {
-                    $message = $this->get('translator')->trans('Marque.exist_already', array(), "NNGenieInfosMatBundle");
-                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Marques:form-add-marque.html.twig', array('form' => $form->createView()));
+                } catch (Exception $ex) {
+                    $message = $this->get('translator')->trans('Marque.created_failure', array(), "NNGenieInfosMatBundle");
+                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Marques:form-add-marque.html.twig', array('form' => $form->createView()));
@@ -137,14 +133,19 @@ class MarqueController extends Controller {
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 try {
-                    $repositoryMarque->updateMarque($marque);
-                    $message = $this->get('translator')->trans('Marque.updated_success', array(), "NNGenieInfosMatBundle");
-                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_marques'));
+                    $marqueUnique = $repositoryMarque->findOneBy(array("nom" => $marque->getNom(), "statut" => 1));
+                    if ($marqueUnique && $marqueUnique->getId() != $marque->getId()) {
+                        $message = $this->get('translator')->trans('Marque.exist_already', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
+                    } else {
+                        $repositoryMarque->updateMarque($marque);
+                        $message = $this->get('translator')->trans('Marque.updated_success', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_marques'));
+                    }
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Marque.updated_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Marques:form-update-marque.html.twig', array('form' => $editForm->createView(), 'idmarque' => $marque->getId()));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Marques:form-update-marque.html.twig', array('form' => $editForm->createView(), 'idmarque' => $marque->getId()));

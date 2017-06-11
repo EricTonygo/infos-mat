@@ -43,19 +43,15 @@ class ImageController extends Controller {
         $form = $this->createForm(new ImageType(), $image);
         $form->handleRequest($request);
         $repositoryImage = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Image");
-
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
                 try {
                     $image->setMateriel($materiel);
                     $repositoryImage->saveImage($image);
-                    //$message = $this->get('translator')->trans('Image.created_success', array(), "NNGenieInfosMatBundle");
-                    //$this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                     return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array("id" => $materiel->getId())));
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Image.created_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Images:form-add-image.html.twig', array('form' => $form->createView(), 'materiel' => $materiel));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Images:form-add-image.html.twig', array('form' => $form->createView(), 'materiel' => $materiel));
@@ -87,23 +83,18 @@ class ImageController extends Controller {
      * @Method({"POST","GET"})
      */
     public function editAction(Image $image) {
-        // $deleteForm = $this->createDeleteForm($image);
         $request = $this->get("request");
         $editForm = $this->createForm(new ImageType(), $image);
         $editForm->handleRequest($request);
         $repositoryImage = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Image");
-
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 try {
                     $repositoryImage->updateImage($image);
-                    //$message = $this->get('translator')->trans('Image.updated_success', array(), "NNGenieInfosMatBundle");
-                    //$this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                     return $this->redirect($this->generateUrl('nn_genie_infos_mat_materiel_detail', array('id' => $image->getMateriel()->getId())));
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Image.updated_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Images:form-update-image.html.twig', array('form' => $editForm->createView(), 'image' => $image));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Images:form-update-image.html.twig', array('form' => $editForm->createView(), 'image' => $image));

@@ -495,4 +495,10 @@ nn_genie_infos_mat_types_genre:
     defaults: { _controller: NNGenieInfosMatBundle:Materiel:getTypesOfGenre }
     options:
         expose: true
+        
+nn_genie_infos_mat_import_materiels_to_database:
+    pattern: /import-materiels-to-database
+    defaults: { _controller: NNGenieInfosMatBundle:ImportDatabase:importMaterielsToDatabase }
+    options:
+        expose: true
 

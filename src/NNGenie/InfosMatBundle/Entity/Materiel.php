@@ -85,7 +85,7 @@ class Materiel
      *
      * @ORM\ManyToOne(targetEntity="Etat", inversedBy="materiels")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="etat", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="etat", referencedColumnName="id", nullable=true)
      * })
      */
     private $etat;
@@ -95,7 +95,7 @@ class Materiel
      *
      * @ORM\ManyToOne(targetEntity="Fournisseur", inversedBy="materiels")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="fournisseur", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="fournisseur", referencedColumnName="id", nullable=true)
      * })
      */
     private $fournisseur;
@@ -105,7 +105,7 @@ class Materiel
      *
      * @ORM\ManyToOne(targetEntity="Genre", inversedBy="materiels")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="genre", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="genre", referencedColumnName="id", nullable=true)
      * })
      */
     private $genre;
@@ -113,7 +113,7 @@ class Materiel
     /**
      * @var \Localisation 
      * @ORM\OneToOne(targetEntity="Localisation",cascade={"persist"})
-     * @ORM\JoinColumn(name="localisation", referencedColumnName="id")
+     * @ORM\JoinColumn(name="localisation", referencedColumnName="id", nullable=true)
      */
     private $localisation;
     
@@ -122,7 +122,7 @@ class Materiel
      *
      * @ORM\ManyToOne(targetEntity="Proprietaire", inversedBy="materiels")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="proprietaire", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="proprietaire", referencedColumnName="id", nullable=true)
      * })
      */
     private $proprietaire;
@@ -132,7 +132,7 @@ class Materiel
      *
      * @ORM\ManyToOne(targetEntity="Type", inversedBy="materiels")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="type", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="type", referencedColumnName="id", nullable=true)
      * })
      */
     private $type;

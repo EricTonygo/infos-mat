@@ -52,6 +52,7 @@ class GenreRepository extends EntityRepository implements IGenreRepository{
             $em->close();
             throw $ex;
         }
+        return $genre;
     }
 
     public function updateGenre(\NNGenie\InfosMatBundle\Entity\Genre $genre) {
@@ -66,6 +67,7 @@ class GenreRepository extends EntityRepository implements IGenreRepository{
             $em->close();
             throw $ex;
         }
+        return $genre;
     }
     
     public function getGenreQueryBuilder() {

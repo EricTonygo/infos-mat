@@ -53,6 +53,7 @@ class ProprietaireRepository extends EntityRepository implements IProprietaireRe
             $em->close();
             throw $ex;
         }
+        return $proprietaire;
     }
 
     public function updateProprietaire(\NNGenie\InfosMatBundle\Entity\Proprietaire $proprietaire) {
@@ -67,6 +68,7 @@ class ProprietaireRepository extends EntityRepository implements IProprietaireRe
             $em->close();
             throw $ex;
         }
+        return $proprietaire;
     }
 
     public function getProprietaireQueryBuilder() {

@@ -45,6 +45,7 @@ class AdresseRepository extends EntityRepository implements IAdresseRepository{
             $em->close();
             throw $ex;
         }
+        return $adresse;
     }
 
     public function updateAdresse(\NNGenie\InfosMatBundle\Entity\Adresse $adresse) {
@@ -59,6 +60,7 @@ class AdresseRepository extends EntityRepository implements IAdresseRepository{
             $em->close();
             throw $ex;
         }
+        return $adresse;
     }
     
 }

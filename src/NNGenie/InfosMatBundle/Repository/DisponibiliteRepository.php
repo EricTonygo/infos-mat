@@ -43,6 +43,7 @@ class DisponibiliteRepository extends EntityRepository implements IDisponibilite
             $em->close();
             throw $ex;
         }
+        return $disponibilite;
     }
 
     public function updateDisponibilite(\NNGenie\InfosMatBundle\Entity\Disponibilite $disponibilite) {
@@ -57,6 +58,7 @@ class DisponibiliteRepository extends EntityRepository implements IDisponibilite
             $em->close();
             throw $ex;
         }
+        return $disponibilite;
     }
     
     public function myFindAll() 

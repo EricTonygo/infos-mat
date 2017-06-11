@@ -57,7 +57,7 @@ class GenreController extends Controller {
 
         return $this->render('NNGenieInfosMatBundle:FrontEnd:genres.html.twig', array('genres' => $genres, 'form' => $form->createView(), "display_tab" => $display_tab));
     }
-    
+
     /**
      * Creates a new Genre entity.
      *
@@ -72,27 +72,23 @@ class GenreController extends Controller {
         $form = $this->createForm(new GenreType(), $genre);
         $form->handleRequest($request);
         $repositoryGenre = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Genre");
-
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $genreUnique = $repositoryGenre->findBy(array("nom" => $genre->getNom(), "statut" => 1));
-                if ($genreUnique == null) {
-                    try {
+                try {
+                    $genreUnique = $repositoryGenre->findOneBy(array("nom" => $genre->getNom(), "statut" => 1));
+                    if ($genreUnique == null) {
                         $repositoryGenre->saveGenre($genre);
                         $message = $this->get('translator')->trans('Genre.created_success', array(), "NNGenieInfosMatBundle");
                         $request->getSession()->getFlashBag()->addSuccess('message_success', $message);
                         $genre = new Genre();
                         $form = $this->createForm(new GenreType(), $genre);
-                        return $this->render('NNGenieInfosMatBundle:Genres:form-add-genre.html.twig', array('form' => $form->createView()));
-                    } catch (Exception $ex) {
-                        $message = $this->get('translator')->trans('Genre.created_failure', array(), "NNGenieInfosMatBundle");
-                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                        return $this->render('NNGenieInfosMatBundle:Genres:form-add-genre.html.twig', array('form' => $form->createView()));
+                    } else {
+                        $message = $this->get('translator')->trans('Genre.exist_already', array(), "NNGenieInfosMatBundle");
+                        $request->getSession()->getFlashBag()->addError('message_faillure', $message);
                     }
-                } else {
-                    $message = $this->get('translator')->trans('Genre.exist_already', array(), "NNGenieInfosMatBundle");
-                    $request->getSession()->getFlashBag()->addError('message_faillure', $message);
-                    return $this->render('NNGenieInfosMatBundle:Genres:form-add-genre.html.twig', array('form' => $form->createView()));
+                } catch (Exception $ex) {
+                    $message = $this->get('translator')->trans('Genre.created_failure', array(), "NNGenieInfosMatBundle");
+                    $this->get('ras_flash_alert.alert_reporter')->addError($message);
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Genres:form-add-genre.html.twig', array('form' => $form->createView()));
@@ -129,18 +125,22 @@ class GenreController extends Controller {
         $editForm = $this->createForm(new GenreType(), $genre);
         $editForm->handleRequest($request);
         $repositoryGenre = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Genre");
-
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 try {
-                    $repositoryGenre->updateGenre($genre);
-                    $message = $this->get('translator')->trans('Genre.updated_success', array(), "NNGenieInfosMatBundle");
-                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_genres'));
+                    $genreUnique = $repositoryGenre->findOneBy(array("nom" => $genre->getNom(), "statut" => 1));
+                    if ($genreUnique && $genreUnique->getId() != $genre->getId()) {
+                        $message = $this->get('translator')->trans('Genre.exist_already', array(), "NNGenieInfosMatBundle");
+                        $request->getSession()->getFlashBag()->addError('message_faillure', $message);
+                    } else {
+                        $repositoryGenre->updateGenre($genre);
+                        $message = $this->get('translator')->trans('Genre.updated_success', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_genres'));
+                    }
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Genre.updated_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Genres:form-update-genre.html.twig', array('form' => $editForm->createView(), 'idgenre' => $genre->getId()));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Genres:form-update-genre.html.twig', array('form' => $editForm->createView(), 'idgenre' => $genre->getId()));

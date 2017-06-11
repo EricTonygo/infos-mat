@@ -64,6 +64,7 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
             $em->close();
             throw $ex;
         }
+        return $materiel;
     }
 
     public function updateMateriel(\NNGenie\InfosMatBundle\Entity\Materiel $materiel) {
@@ -78,6 +79,7 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
             $em->close();
             throw $ex;
         }
+        return $materiel;
     }
 
     public function filtreMaterielBy($genres, $marques, $types, $proprietaires, $localisations, $etats = null) {

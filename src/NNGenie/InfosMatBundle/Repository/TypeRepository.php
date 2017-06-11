@@ -50,6 +50,7 @@ class TypeRepository extends EntityRepository implements ITypeRepository{
             $em->close();
             throw $ex;
         }
+        return $type;
     }
 
     public function updateType(\NNGenie\InfosMatBundle\Entity\Type $type) {
@@ -64,6 +65,7 @@ class TypeRepository extends EntityRepository implements ITypeRepository{
             $em->close();
             throw $ex;
         }
+        return $type;
     }
     
     public function getTypeQueryBuilder() {

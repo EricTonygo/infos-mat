@@ -15,17 +15,18 @@ use Doctrine\ORM\EntityRepository;
  *
  * @author TONYE
  */
-class FournisseurRepository extends EntityRepository implements IFournisseurRepository{
+class FournisseurRepository extends EntityRepository implements IFournisseurRepository {
+
     //put your code here
-    
+
     public function deleteFournisseur(\NNGenie\InfosMatBundle\Entity\Fournisseur $fournisseur) {
-        $em= $this->_em;
+        $em = $this->_em;
         $fournisseur->setStatut(0);
-		$materiel = new \NNGenie\InfosMatBundle\Entity\Materiel();
+        $materiel = new \NNGenie\InfosMatBundle\Entity\Materiel();
         $repositoryMateriel = $em->getRepository("NNGenieInfosMatBundle:Materiel");
         $em->getConnection()->beginTransaction();
-        try{
-			$materiels = $fournisseur->getMateriels();
+        try {
+            $materiels = $fournisseur->getMateriels();
             foreach ($materiel as $materiels) {
                 $repositoryMateriel->deleteMateriel($materiel);
             }
@@ -40,10 +41,10 @@ class FournisseurRepository extends EntityRepository implements IFournisseurRepo
     }
 
     public function saveFournisseur(\NNGenie\InfosMatBundle\Entity\Fournisseur $fournisseur) {
-        $em= $this->_em;
+        $em = $this->_em;
         $fournisseur->setStatut(1);
         $em->getConnection()->beginTransaction();
-        try{
+        try {
             $em->persist($fournisseur);
             $em->flush();
             $em->getConnection()->commit();
@@ -52,12 +53,13 @@ class FournisseurRepository extends EntityRepository implements IFournisseurRepo
             $em->close();
             throw $ex;
         }
+        return $fournisseur;
     }
 
     public function updateFournisseur(\NNGenie\InfosMatBundle\Entity\Fournisseur $fournisseur) {
-        $em= $this->_em;
+        $em = $this->_em;
         $em->getConnection()->beginTransaction();
-        try{
+        try {
             $em->persist($fournisseur);
             $em->flush();
             $em->getConnection()->commit();
@@ -66,14 +68,14 @@ class FournisseurRepository extends EntityRepository implements IFournisseurRepo
             $em->close();
             throw $ex;
         }
+        return $fournisseur;
     }
-    
-    public function getFournisseurQueryBuilder() {
-         return $this
-          ->createQueryBuilder('f')
-          ->where('f.statut = :statut')
-          ->setParameter('statut', 1);
 
+    public function getFournisseurQueryBuilder() {
+        return $this
+                        ->createQueryBuilder('f')
+                        ->where('f.statut = :statut')
+                        ->setParameter('statut', 1);
     }
 
 }

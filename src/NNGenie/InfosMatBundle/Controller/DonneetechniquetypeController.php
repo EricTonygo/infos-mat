@@ -43,26 +43,24 @@ class DonneetechniquetypeController extends Controller {
         $form = $this->createForm(new DonneetechniquetypeType(), $donneetechniquetype);
         $form->handleRequest($request);
         $repositoryDonneetechniquetype = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Donneetechniquetype");
-
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $donneetechniquetypeUnique = $repositoryDonneetechniquetype->findBy(array("donneetechnique" => $donneetechniquetype->getDonneetechnique(), "type" => $type, "statut" => 1));
-                if ($donneetechniquetypeUnique == null) {                
-                    try {
+                try {
+                    $donneetechniquetypeUnique = $repositoryDonneetechniquetype->findOneBy(array("donneetechnique" => $donneetechniquetype->getDonneetechnique(), "type" => $type, "statut" => 1));
+                    if ($donneetechniquetypeUnique == null) {
                         $donneetechniquetype->setType($type);
                         $repositoryDonneetechniquetype->saveDonneetechniquetype($donneetechniquetype);
                         $message = $this->get('translator')->trans('Donneetechniquetype.created_success', array(), "NNGenieInfosMatBundle");
                         $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                        return $this->render('NNGenieInfosMatBundle:Donneetechniquetypes:form-add-donneetechniquetype.html.twig', array('form' => $form->createView(), 'type' => $type));
-                    } catch (Exception $ex) {
-                        $message = $this->get('translator')->trans('Donneetechniquetype.created_failure', array(), "NNGenieInfosMatBundle");
+                        $donneetechniquetype = new Donneetechniquetype();
+                        $form = $this->createForm(new DonneetechniquetypeType(), $donneetechniquetype);
+                    } else {
+                        $message = $this->get('translator')->trans('Donneetechniquetype.exist_already', array(), "NNGenieInfosMatBundle");
                         $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                        return $this->render('NNGenieInfosMatBundle:Donneetechniquetypes:form-add-donneetechniquetype.html.twig', array('form' => $form->createView(), 'type' => $type));
                     }
-                } else {
-                    $message = $this->get('translator')->trans('Donneetechniquetype.exist_already', array(), "NNGenieInfosMatBundle");
+                } catch (Exception $ex) {
+                    $message = $this->get('translator')->trans('Donneetechniquetype.created_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Donneetechniquetypes:form-add-donneetechniquetype.html.twig', array('form' => $form->createView(), 'type' => $type));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Donneetechniquetypes:form-add-donneetechniquetype.html.twig', array('form' => $form->createView(), 'type' => $type));
@@ -99,20 +97,25 @@ class DonneetechniquetypeController extends Controller {
         $editForm = $this->createForm(new DonneetechniquetypeType(), $donneetechniquetype);
         $editForm->handleRequest($request);
         $repositoryDonneetechniquetype = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Donneetechniquetype");
-
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 try {
-                    $repositoryDonneetechniquetype->updateDonneetechniquetype($donneetechniquetype);
-                    $message = $this->get('translator')->trans('Donneetechniquetype.updated_success', array(), "NNGenieInfosMatBundle");
-                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_donneetechniquetypes', array('id' => $donneetechniquetype->getType()->getId())));
+                    $donneetechniquetypeUnique = $repositoryDonneetechniquetype->findOneBy(array("donneetechnique" => $donneetechniquetype->getDonneetechnique(), "type" => $donneetechniquetype->getType(), "statut" => 1));
+                    if ($donneetechniquetypeUnique && $donneetechniquetypeUnique->getId() != $donneetechniquetype->getId()) {
+                        $message = $this->get('translator')->trans('Donneetechniquetype.exist_already', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
+                    } else {
+                        $repositoryDonneetechniquetype->updateDonneetechniquetype($donneetechniquetype);
+                        $message = $this->get('translator')->trans('Donneetechniquetype.updated_success', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_donneetechniquetypes', array('id' => $donneetechniquetype->getType()->getId())));
+                    }
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Donneetechniquetype.updated_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Donneetechniquetypes:form-update-donneetechniquetype.html.twig', array('form' => $editForm->createView(), 'donneetechniquetype' => $donneetechniquetype));
                 }
             }
+
             return $this->render('NNGenieInfosMatBundle:Donneetechniquetypes:form-update-donneetechniquetype.html.twig', array('form' => $editForm->createView(), 'donneetechniquetype' => $donneetechniquetype));
         } else {
             return $this->redirect($this->generateUrl('nn_genie_infos_mat_donneetechniquetypes', array("id" => $donneetechniquetype->getType()->getId())));

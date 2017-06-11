@@ -51,6 +51,7 @@ class MarqueRepository extends EntityRepository implements IMarqueRepository{
             $em->close();
             throw $ex;
         }
+        return $marque;
     }
 
     public function updateMarque(\NNGenie\InfosMatBundle\Entity\Marque $marque) {
@@ -65,6 +66,7 @@ class MarqueRepository extends EntityRepository implements IMarqueRepository{
             $em->close();
             throw $ex;
         }
+        return $marque;
     }
     
     public function getMarqueQueryBuilder() {

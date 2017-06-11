@@ -58,7 +58,7 @@ class AnomalieRepository extends EntityRepository{
     public function myFindAll() 
     {
         $qb = $this->createQueryBuilder('a');
-        $qb->where('c.statut = :statut')
+        $qb->where('a.statut = :statut')
            ->setParameter('statut', 1);
         return $qb->getQuery()->getResult();
     }
@@ -66,7 +66,7 @@ class AnomalieRepository extends EntityRepository{
     public function getAnomalieQueryBuilder() {
          return $this
           ->createQueryBuilder('a')
-          ->where('c.statut = :statut')
+          ->where('a.statut = :statut')
           ->setParameter('statut', 1);
 
     }

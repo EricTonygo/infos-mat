@@ -40,7 +40,7 @@ class Famille
      *
      * @ORM\ManyToOne(targetEntity="Classemateriel", inversedBy="familles")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="classeMateriel", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="classeMateriel", referencedColumnName="id", nullable=true)
      * })
      */
     private $classemateriel;

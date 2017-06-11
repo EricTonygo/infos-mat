@@ -44,6 +44,7 @@ class DisponibilitematerielRepository extends EntityRepository implements IDispo
             $em->close();
             throw $ex;
         }
+        return $disponibilitemateriel;
     }
 
     public function updateDisponibilitemateriel(\NNGenie\InfosMatBundle\Entity\Disponibilitemateriel $disponibilitemateriel) {
@@ -58,6 +59,7 @@ class DisponibilitematerielRepository extends EntityRepository implements IDispo
             $em->close();
             throw $ex;
         }
+        return $disponibilitemateriel;
     }
     
     public function myFindAll() 

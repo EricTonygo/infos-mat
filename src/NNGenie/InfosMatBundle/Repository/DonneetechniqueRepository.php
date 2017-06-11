@@ -9,17 +9,19 @@
 namespace NNGenie\InfosMatBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+
 /**
  * Description of Donneetechnique
  *
  * @author TONYE
  */
-class DonneetechniqueRepository extends EntityRepository implements IDonneetechniqueRepository{
+class DonneetechniqueRepository extends EntityRepository implements IDonneetechniqueRepository {
+
     public function deleteDonneetechnique(\NNGenie\InfosMatBundle\Entity\Donneetechnique $donneetechnique) {
-        $em= $this->_em;
+        $em = $this->_em;
         $donneetechnique->setStatut(0);
         $em->getConnection()->beginTransaction();
-        try{
+        try {
             $em->persist($donneetechnique);
             $em->flush();
             $em->getConnection()->commit();
@@ -31,10 +33,10 @@ class DonneetechniqueRepository extends EntityRepository implements IDonneetechn
     }
 
     public function saveDonneetechnique(\NNGenie\InfosMatBundle\Entity\Donneetechnique $donneetechnique) {
-        $em= $this->_em;
+        $em = $this->_em;
         $donneetechnique->setStatut(1);
         $em->getConnection()->beginTransaction();
-        try{
+        try {
             $em->persist($donneetechnique);
             $em->flush();
             $em->getConnection()->commit();
@@ -43,20 +45,20 @@ class DonneetechniqueRepository extends EntityRepository implements IDonneetechn
             $em->close();
             throw $ex;
         }
+        return $donneetechnique;
     }
-	
-	public function getDonneetechniqueQueryBuilder() {
-         return $this
-          ->createQueryBuilder('d')
-          ->where('d.statut = :statut')
-          ->setParameter('statut', 1);
 
+    public function getDonneetechniqueQueryBuilder() {
+        return $this
+                        ->createQueryBuilder('d')
+                        ->where('d.statut = :statut')
+                        ->setParameter('statut', 1);
     }
 
     public function updateDonneetechnique(\NNGenie\InfosMatBundle\Entity\Donneetechnique $donneetechnique) {
-        $em= $this->_em;
+        $em = $this->_em;
         $em->getConnection()->beginTransaction();
-        try{
+        try {
             $em->persist($donneetechnique);
             $em->flush();
             $em->getConnection()->commit();
@@ -65,7 +67,8 @@ class DonneetechniqueRepository extends EntityRepository implements IDonneetechn
             $em->close();
             throw $ex;
         }
+        return $donneetechnique;
     }
-    
+
 //put your code here
 }

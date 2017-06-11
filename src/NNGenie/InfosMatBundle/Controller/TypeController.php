@@ -61,7 +61,7 @@ class TypeController extends Controller {
 
         return $this->render('NNGenieInfosMatBundle:FrontEnd:types.html.twig', array('types' => $types, 'form' => $form->createView(), "display_tab" => $display_tab));
     }
-    
+
     /**
      * Creates a new Type entity.
      *
@@ -72,31 +72,26 @@ class TypeController extends Controller {
      */
     public function newAction(Request $request) {
         $type = new Type();
-        $typeUnique = new Type();
         $form = $this->createForm(new TypeType(), $type);
         $form->handleRequest($request);
         $repositoryType = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Type");
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($form->isSubmitted() && $form->isValid()) {
-                $typeUnique = $repositoryType->findBy(array("nom" => $type->getNom(), "statut" => 1));
-                if ($typeUnique == null) {
-                    try {
+                try {
+                    $typeUnique = $repositoryType->findOneBy(array("nom" => $type->getNom(), "statut" => 1));
+                    if ($typeUnique == null) {
                         $repositoryType->saveType($type);
                         $message = $this->get('translator')->trans('Type.created_success', array(), "NNGenieInfosMatBundle");
                         $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
                         $type = new Type();
                         $form = $this->createForm(new TypeType(), $type);
-                        return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
-                    } catch (Exception $ex) {
-                        $message = $this->get('translator')->trans('Type.created_failure', array(), "NNGenieInfosMatBundle");
+                    } else {
+                        $message = $this->get('translator')->trans('Type.exist_already', array(), "NNGenieInfosMatBundle");
                         $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                        return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
                     }
-                } else {
-
-                    $message = $this->get('translator')->trans('Type.exist_already', array(), "NNGenieInfosMatBundle");
+                } catch (Exception $ex) {
+                    $message = $this->get('translator')->trans('Type.created_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Types:form-add-type.html.twig', array('form' => $form->createView()));
@@ -129,22 +124,25 @@ class TypeController extends Controller {
      * @param Request $request
      */
     public function editAction(Request $request, Type $type) {
-        // $deleteForm = $this->createDeleteForm($type);
         $editForm = $this->createForm(new TypeType(), $type);
         $editForm->handleRequest($request);
         $repositoryType = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Type");
-
         if ($request->isMethod("POST") || $request->isMethod("GET")) {
             if ($editForm->isSubmitted() && $editForm->isValid()) {
                 try {
-                    $repositoryType->updateType($type);
-                    $message = $this->get('translator')->trans('Type.updated_success', array(), "NNGenieInfosMatBundle");
-                    $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
-                    return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
+                    $typeUnique = $repositoryType->findOneBy(array("nom" => $type->getNom(), "statut" => 1));
+                    if ($typeUnique && $typeUnique->getId() != $type->getId()) {
+                        $message = $this->get('translator')->trans('Type.exist_already', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addError($message);
+                    } else {
+                        $repositoryType->updateType($type);
+                        $message = $this->get('translator')->trans('Type.updated_success', array(), "NNGenieInfosMatBundle");
+                        $this->get('ras_flash_alert.alert_reporter')->addSuccess($message);
+                        return $this->redirect($this->generateUrl('nn_genie_infos_mat_types'));
+                    }
                 } catch (Exception $ex) {
                     $message = $this->get('translator')->trans('Type.updated_failure', array(), "NNGenieInfosMatBundle");
                     $this->get('ras_flash_alert.alert_reporter')->addError($message);
-                    return $this->render('NNGenieInfosMatBundle:Types:form-update-type.html.twig', array('form' => $editForm->createView(), 'idtype' => $type->getId()));
                 }
             }
             return $this->render('NNGenieInfosMatBundle:Types:form-update-type.html.twig', array('form' => $editForm->createView(), 'idtype' => $type->getId()));

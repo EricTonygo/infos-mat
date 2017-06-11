@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b7ffe122225a4bd88902d42ddd7751ea",
-    "content-hash": "4e575ccc04e53b178ef7d9ea2802e651",
+    "hash": "93975b0ed5206b0998d2209071e8197c",
+    "content-hash": "6a11c455c425d29235c122a2fae74d4c",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -786,7 +786,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/b7b93061dbaccec6acbedab7f200869e20909861",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/4f92bfbb8742ac8cc195d0b34bf8ecd83b62404a",
                 "reference": "b7b93061dbaccec6acbedab7f200869e20909861",
                 "shasum": ""
             },
@@ -992,6 +992,64 @@
             "time": "2014-01-12 16:20:24"
         },
         {
+            "name": "kairos/spreadsheetreader",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kairosagency/spreadsheet-reader.git",
+                "reference": "ffe9afe85aa156bf97e98193fea87e7af2cbe17f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kairosagency/spreadsheet-reader/zipball/ffe9afe85aa156bf97e98193fea87e7af2cbe17f",
+                "reference": "ffe9afe85aa156bf97e98193fea87e7af2cbe17f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-zip": "*",
+                "php": ">= 5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Kairos\\SpreadsheetReader": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "t0k4rt",
+                    "homepage": "https://github.com/t0k4rt",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Martins Pilsetnieks",
+                    "email": "pilsetnieks@gmail.com",
+                    "homepage": "http://www.nuovo.lv/"
+                },
+                {
+                    "name": "Matthiew",
+                    "homepage": "https://github.com/Matthiew",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Spreadsheet reader library for Excel, OpenOffice and structured text files",
+            "homepage": "https://github.com/kairosagency/spreadsheet-reader",
+            "keywords": [
+                "OpenOffice",
+                "csv",
+                "excel",
+                "ods",
+                "spreadsheet",
+                "xls",
+                "xlsx"
+            ],
+            "time": "2014-02-28 14:07:04"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.21.0",
             "source": {
@@ -1068,6 +1126,54 @@
                 "psr-3"
             ],
             "time": "2016-07-29 03:23:52"
+        },
+        {
+            "name": "nuovo/spreadsheet-reader",
+            "version": "0.5.11",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nuovo/spreadsheet-reader.git",
+                "reference": "f6bd49d101042eaa71b0fbd82e7a57e5a276dc3d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nuovo/spreadsheet-reader/zipball/f6bd49d101042eaa71b0fbd82e7a57e5a276dc3d",
+                "reference": "f6bd49d101042eaa71b0fbd82e7a57e5a276dc3d",
+                "shasum": ""
+            },
+            "require": {
+                "ext-zip": "*",
+                "php": ">= 5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "./"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martins Pilsetnieks",
+                    "email": "pilsetnieks@gmail.com",
+                    "homepage": "http://www.nuovo.lv/"
+                }
+            ],
+            "description": "Spreadsheet reader library for Excel, OpenOffice and structured text files",
+            "homepage": "https://github.com/nuovo/spreadsheet-reader",
+            "keywords": [
+                "OpenOffice",
+                "csv",
+                "excel",
+                "ods",
+                "spreadsheet",
+                "xls",
+                "xlsx"
+            ],
+            "time": "2015-04-30 00:00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2392,7 +2498,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "friendsofsymfony/user-bundle": 20
+        "friendsofsymfony/user-bundle": 20,
+        "kairos/spreadsheetreader": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

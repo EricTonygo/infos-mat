@@ -7,3 +7,7 @@ services:
 #    service_name:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+
+    excel_service:
+        class: NNGenie\InfosMatBundle\Services\ExcelService
+        arguments: ["@doctrine.orm.entity_manager"]

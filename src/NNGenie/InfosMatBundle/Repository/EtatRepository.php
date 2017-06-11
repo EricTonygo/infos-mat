@@ -51,6 +51,7 @@ class EtatRepository extends EntityRepository implements IEtatRepository{
             $em->close();
             throw $ex;
         }
+        return $etat;
     }
 
     public function updateEtat(\NNGenie\InfosMatBundle\Entity\Etat $etat) {
@@ -65,6 +66,7 @@ class EtatRepository extends EntityRepository implements IEtatRepository{
             $em->close();
             throw $ex;
         }
+        return $etat;
     }
     
     public function myFindAll() 

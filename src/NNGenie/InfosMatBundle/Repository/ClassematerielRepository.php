@@ -52,6 +52,7 @@ class ClassematerielRepository extends EntityRepository implements IClassemateri
             $em->close();
             throw $ex;
         }
+        return $classemateriel;
     }
 
     public function updateClassemateriel(\NNGenie\InfosMatBundle\Entity\Classemateriel $classemateriel) {
@@ -66,6 +67,7 @@ class ClassematerielRepository extends EntityRepository implements IClassemateri
             $em->close();
             throw $ex;
         }
+        return $classemateriel;
     }
     public function myFindAll() 
     {
