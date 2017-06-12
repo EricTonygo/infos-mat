@@ -58,8 +58,12 @@ class ExcelService {
             $genre->setCode($Row[1]);
             $genre = $repositoryGenre->saveGenre($genre);
         } else {
-            $genreUnique->setCode($Row[1]);
-            $genre = $repositoryGenre->updateGenre($genreUnique);
+            if ($genreUnique) {
+                $genreUnique->setCode($Row[1]);
+                $genre = $repositoryGenre->updateGenre($genreUnique);
+            } else {
+                $genre = $genreUnique;
+            }
         }
         return $genre;
     }
@@ -86,8 +90,12 @@ class ExcelService {
             $type->setMarque($marque);
             $type = $repositoryType->saveType($type);
         } else {
-            $typeUnique->setMarque($marque);
-            $type = $repositoryType->updateType($typeUnique);
+            if ($typeUnique) {
+                $typeUnique->setMarque($marque);
+                $type = $repositoryType->updateType($typeUnique);
+            } else {
+                $type = $typeUnique;
+            }
         }
         return $type;
     }
@@ -104,14 +112,18 @@ class ExcelService {
             $proprietaire->setAdresse($adresse);
             $proprietaire = $repositoryProprietaire->saveProprietaire($proprietaire);
         } else {
-            if ($proprietaireUnique->getAdresse()) {
-                $proprietaireUnique->getAdresse()->setTel($Row[6]);
+            if ($proprietaireUnique) {
+                if ($proprietaireUnique->getAdresse()) {
+                    $proprietaireUnique->getAdresse()->setTel($Row[6]);
+                } else {
+                    $adresse = new \NNGenie\InfosMatBundle\Entity\Adresse();
+                    $adresse->setTel($Row[6]);
+                    $proprietaireUnique->setAdresse($adresse);
+                }
+                $proprietaire = $repositoryProprietaire->updateProprietaire($proprietaireUnique);
             } else {
-                $adresse = new \NNGenie\InfosMatBundle\Entity\Adresse();
-                $adresse->setTel($Row[6]);
-                $proprietaireUnique->setAdresse($adresse);
+                $proprietaire = $proprietaireUnique;
             }
-            $proprietaire = $repositoryProprietaire->updateProprietaire($proprietaireUnique);
         }
         return $proprietaire;
     }
@@ -166,27 +178,31 @@ class ExcelService {
             $materiel->setEtat($this->saveEtat($Row));
             $materiel = $repositoryMateriel->saveMateriel($materiel);
         } else {
-            $materielUnique->setGenre($this->saveGenre($Row));
-            $materielUnique->setType($this->saveType($this->saveMarque($Row), $Row));
-            $materielUnique->setChassis($Row[4]);
-            $materielUnique->setFournisseur($this->saveFournisseur($Row));
-            if ($Row[8] != "") {
-                $materielUnique->setPrix(floatval($Row[8]));
-            }
-            if ($Row[9] != "") {
-                $materielUnique->setAge(intval($Row[9]));
-            }
-            if ($materielUnique->getLocalisation()) {
-                $materielUnique->getLocalisation()->setVille($Row[11]);
+            if ($materielUnique) {
+                $materielUnique->setGenre($this->saveGenre($Row));
+                $materielUnique->setType($this->saveType($this->saveMarque($Row), $Row));
+                $materielUnique->setChassis($Row[4]);
+                $materielUnique->setFournisseur($this->saveFournisseur($Row));
+                if ($Row[8] != "") {
+                    $materielUnique->setPrix(floatval($Row[8]));
+                }
+                if ($Row[9] != "") {
+                    $materielUnique->setAge(intval($Row[9]));
+                }
+                if ($materielUnique->getLocalisation()) {
+                    $materielUnique->getLocalisation()->setVille($Row[11]);
+                } else {
+                    $localisation = new NNGenie\InfosMatBundle\Entity\Localisation();
+                    $localisation->setVille($Row[11]);
+                    $materielUnique->setLocalisation($localisation);
+                }
+                $materielUnique->setDescription($Row[12]);
+                $materielUnique->setProprietaire($this->saveProprietaire($Row));
+                $materielUnique->setEtat($this->saveEtat($Row));
+                $materiel = $repositoryMateriel->updateMateriel($materielUnique);
             } else {
-                $localisation = new NNGenie\InfosMatBundle\Entity\Localisation();
-                $localisation->setVille($Row[11]);
-                $materielUnique->setLocalisation($localisation);
+                $materiel = $materielUnique;
             }
-            $materielUnique->setDescription($Row[12]);
-            $materielUnique->setProprietaire($this->saveProprietaire($Row));
-            $materielUnique->setEtat($this->saveEtat($Row));
-            $materiel = $repositoryMateriel->updateMateriel($materielUnique);
         }
         return $materiel;
     }
