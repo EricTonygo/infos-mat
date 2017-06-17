@@ -10,6 +10,9 @@ use NNGenie\InfosMatBundle\Entity\Type;
 use NNGenie\InfosMatBundle\Entity\Proprietaire;
 use NNGenie\InfosMatBundle\Entity\Etat;
 use NNGenie\InfosMatBundle\Entity\Materiel;
+use NNGenie\InfosMatBundle\Entity\Adresse;
+use NNGenie\InfosMatBundle\Entity\Localisation;
+use NNGenie\InfosMatBundle\Entity\Fournisseur;
 
 /**
  * Description of MailService
@@ -39,7 +42,7 @@ class ExcelService {
                             continue;
                         }
                         $materiel = $this->saveMateriel($Row);
-                        //break;
+                        break;
                     }
                     $i++;
                 }
@@ -107,7 +110,7 @@ class ExcelService {
         $proprietaireUnique = $repositoryProprietaire->findOneBy(array("nom" => $nomProprietaire, "statut" => 1));
         if ($proprietaireUnique == null) {
             $proprietaire->setNom($nomProprietaire);
-            $adresse = new \NNGenie\InfosMatBundle\Entity\Adresse();
+            $adresse = new Adresse();
             $adresse->setTel($Row[6]);
             $proprietaire->setAdresse($adresse);
             $proprietaire = $repositoryProprietaire->saveProprietaire($proprietaire);
@@ -116,7 +119,7 @@ class ExcelService {
                 if ($proprietaireUnique->getAdresse()) {
                     $proprietaireUnique->getAdresse()->setTel($Row[6]);
                 } else {
-                    $adresse = new \NNGenie\InfosMatBundle\Entity\Adresse();
+                    $adresse = new Adresse();
                     $adresse->setTel($Row[6]);
                     $proprietaireUnique->setAdresse($adresse);
                 }
@@ -130,7 +133,7 @@ class ExcelService {
 
     private function saveFournisseur($Row = array()) {
         $repositoryFournisseur = $this->em->getRepository("NNGenieInfosMatBundle:Fournisseur");
-        $fournisseur = new \NNGenie\InfosMatBundle\Entity\Fournisseur();
+        $fournisseur = new Fournisseur();
         $fournisseurUnique = $repositoryFournisseur->findOneBy(array("nom" => $Row[7], "statut" => 1));
         if ($fournisseurUnique == null && $Row[7] != "") {
             $fournisseur->setNom($Row[7]);
@@ -170,7 +173,7 @@ class ExcelService {
             if ($Row[9] != "") {
                 $materiel->setAge(intval($Row[9]));
             }
-            $localisation = new NNGenie\InfosMatBundle\Entity\Localisation();
+            $localisation = new Localisation();
             $localisation->setVille($Row[11]);
             $materiel->setLocalisation($localisation);
             $materiel->setDescription($Row[12]);
@@ -192,7 +195,7 @@ class ExcelService {
                 if ($materielUnique->getLocalisation()) {
                     $materielUnique->getLocalisation()->setVille($Row[11]);
                 } else {
-                    $localisation = new NNGenie\InfosMatBundle\Entity\Localisation();
+                    $localisation = new Localisation();
                     $localisation->setVille($Row[11]);
                     $materielUnique->setLocalisation($localisation);
                 }
