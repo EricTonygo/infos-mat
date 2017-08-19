@@ -37,12 +37,12 @@ class ExcelService {
                 $Reader->ChangeSheet($Index);
                 $i = 0;
                 foreach ($Reader as $Row) {
-                    if ($i == 1) {
+                    if ($i >0) {
                         if ($Row[4] == "") {
                             continue;
                         }
                         $materiel = $this->saveMateriel($Row);
-                        break;
+//                        break;
                     }
                     $i++;
                 }
@@ -84,7 +84,7 @@ class ExcelService {
         return $marque;
     }
 
-    private function saveType(Marque $marque, $Row = array()) {
+    private function saveType(Marque $marque=null, $Row = array()) {
         $repositoryType = $this->em->getRepository("NNGenieInfosMatBundle:Type");
         $type = new Type();
         $typeUnique = $repositoryType->findOneBy(array("nom" => $Row[3], "statut" => 1));
@@ -176,7 +176,7 @@ class ExcelService {
             $localisation = new Localisation();
             $localisation->setVille($Row[11]);
             $materiel->setLocalisation($localisation);
-            $materiel->setDescription($Row[12]);
+            //$materiel->setDescription($Row[12]);
             $materiel->setProprietaire($this->saveProprietaire($Row));
             $materiel->setEtat($this->saveEtat($Row));
             $materiel = $repositoryMateriel->saveMateriel($materiel);
@@ -199,7 +199,7 @@ class ExcelService {
                     $localisation->setVille($Row[11]);
                     $materielUnique->setLocalisation($localisation);
                 }
-                $materielUnique->setDescription($Row[12]);
+                //$materielUnique->setDescription($Row[12]);
                 $materielUnique->setProprietaire($this->saveProprietaire($Row));
                 $materielUnique->setEtat($this->saveEtat($Row));
                 $materiel = $repositoryMateriel->updateMateriel($materielUnique);

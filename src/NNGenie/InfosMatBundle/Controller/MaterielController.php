@@ -25,7 +25,7 @@ class MaterielController extends Controller {
      * @Route("/accueil-admin")
      * @Template()
      */
-    public function accueiladminAction() {
+    public function accueiladminAction(Request $request) {
         if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirect($this->generateUrl('fos_user_security_login'));
         }
@@ -33,7 +33,19 @@ class MaterielController extends Controller {
         $userManager = $this->container->get('fos_user.user_manager');
         $repositoryFournisseur = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Fournisseur");
         $repositoryProprietaire = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Proprietaire");
-        $materiels = $repositoryMateriel->findBy(array("statut" => 1));
+        $page = 1;
+        $maxResults = 10;
+        if ($request->get('page')) {
+            $page = intval(htmlspecialchars(trim($request->get('page'))));
+            $route_param_page['page'] = $page;
+        }
+        if ($request->get('search_query')) {
+            $search_query = htmlspecialchars(trim($request->get('search_query')));
+            $route_param_page['search_query'];
+        }
+        $total_pages = ceil(count($repositoryMateriel->getMateriels($search_query)));
+        $start_from = ($page - 1) * $maxResults >= 0 ? ($page - 1) * $maxResults : 0;
+        $materiels = $repositoryMateriel->getMateriels($start_from, $maxResults, $search_query);
         $users = $userManager->findUsers();
         $fournisseurs = $repositoryFournisseur->findBy(array("statut" => 1));
         $proprietaires = $repositoryProprietaire->findBy(array("statut" => 1));
@@ -100,15 +112,30 @@ class MaterielController extends Controller {
         $repositoryType = $em->getRepository("NNGenieInfosMatBundle:Type");
         $repositoryLocalisation = $em->getRepository("NNGenieInfosMatBundle:Localisation");
         $repositoryProprietaire = $em->getRepository("NNGenieInfosMatBundle:Proprietaire");
-
-        $materiels = $repositoryMateriel->findBy(array("statut" => 1));
+        $page = 1;
+        $maxResults = 10;
+        $route_param_page = array();
+        $route_param_search_query = array();
+        $search_query = null;
+        
+        if ($request->get('page')) {
+            $page = intval(htmlspecialchars(trim($request->get('page'))));
+            $route_param_page['page'] = $page;
+        }
+        if ($request->get('search_query')) {
+            $search_query = htmlspecialchars(trim($request->get('search_query')));
+            $route_param_search_query['search_query']= $search_query;
+        }
+        $total_pages = ceil(count($repositoryMateriel->getMateriels($search_query))/$maxResults);
+        $start_from = ($page - 1) * $maxResults >= 0 ? ($page - 1) * $maxResults : 0;
+        $materiels = $repositoryMateriel->getMateriels($start_from, $maxResults, $search_query);
         $genres = $repositoryGenre->findBy(array("statut" => 1));
         $marques = $repositoryMarque->findBy(array("statut" => 1));
         $types = $repositoryType->findBy(array("statut" => 1));
         $localisations = $repositoryLocalisation->findBy(array("statut" => 1));
         $proprietaires = $repositoryProprietaire->findBy(array("statut" => 1));
 
-        return $this->render('NNGenieInfosMatBundle:Materiels:materiels.html.twig', array('materiels' => $materiels, 'genres' => $genres, 'marques' => $marques, 'types' => $types, 'localisations' => $localisations, 'proprietaires' => $proprietaires));
+        return $this->render('NNGenieInfosMatBundle:Materiels:materiels.html.twig', array('total_pages' =>$total_pages, 'route_param_page'=>$route_param_page, 'materiels' => $materiels, 'genres' => $genres, 'marques' => $marques, 'types' => $types, 'localisations' => $localisations, 'proprietaires' => $proprietaires));
     }
 
     /**

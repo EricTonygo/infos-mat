@@ -113,14 +113,14 @@
                             <table id="datatable-buttons" class="table table-striped table-bordered">
                                 <thead>
                                     <tr>
-                                        <th colspan="3"><center>Désignation</center></th>
+                                        <th colspan="2"><center>Désignation</center></th>
                                 <th colspan="2"><center>Références</center></th>
                                 <th colspan="4"><center>Informations diverses</center></th>
                                 </tr>
                                 <tr>
                                     <th>Genre</th>
                                     <th>Marque</th>
-                                    <th>Type</th>
+{#                                    <th>Type</th>#}
                                     <th>N° Chassis</th>
                                     <th>Propriétaire</th>
                                     <th>Prix</th>
@@ -133,9 +133,9 @@
                                     {% if materiels %}
                                         {% for materiel in materiels %}
                                             <tr>
-                                                <td>{{materiel.genre.nom}}</td>
-                                                <td>{{materiel.type.marque.nom}}</td>
-                                                <td>{{materiel.type.nom}}</td>
+                                                <td>{% if materiel.genre %}{{materiel.genre.nom}}{% endif %}</td>
+                                                <td>{% if materiel.type %}{% if materiel.type.marque %}{{materiel.type.marque.nom}}{% endif %}{% endif %}</td>
+{#                                                <td>{% if materiel.type %}{{materiel.type.nom}}{% endif %}</td>#}
                                                 <td>{{materiel.chassis}}</td>
                                                 <td>{% if materiel.proprietaire %}{{materiel.proprietaire.nom}}{% endif %}</td>
                                                 <td>{{materiel.prix}}</td>

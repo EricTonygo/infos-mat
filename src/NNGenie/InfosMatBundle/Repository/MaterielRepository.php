@@ -81,7 +81,31 @@ class MaterielRepository extends EntityRepository implements IMaterielRepository
         }
         return $materiel;
     }
-
+    
+    public function getMateriels($offset=null, $limit=null, $search_query = null){
+        $qb = $this->createQueryBuilder('m');
+        $qb->where("m.statut = ?1");
+        if($search_query){
+            $qb->andWhere(
+                $qb->expr()->orX(
+                        $qb->expr()->like('lower(e.nom)', '?2'), $qb->expr()->like('lower(e.chassis)', '?2')
+                )
+            );
+        }
+        if($search_query){
+            $qb->setParameters(array(1=>1, 2=>'%'.strtolower($search_query).'%'));
+        }else{
+            $qb->setParameters(array(1=>1));
+        }
+        if($offset){
+            $qb->setFirstResult($offset);
+        }
+        if($limit){
+            $qb->setMaxResults($limit);
+        }
+        return $qb->getQuery()->getResult();
+    }
+    
     public function filtreMaterielBy($genres, $marques, $types, $proprietaires, $localisations, $etats = null) {
         $q = $this->createQueryBuilder('m');
         $q->where("m.statut = 1");
