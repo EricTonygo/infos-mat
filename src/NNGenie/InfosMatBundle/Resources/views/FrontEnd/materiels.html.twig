@@ -44,17 +44,24 @@
                                                         <p>{{materiel.type.nom}}</p>
                                                         <div class="new-collections-grid1-left simpleCart_shelfItem">
                                                             <ul class="list-inline item_price interet">
+                                                                {% if materiel.proprietaire %}
                                                                 <li>
                                                                     {{materiel.proprietaire.nom}}
                                                                 </li>
+                                                                {% endif %}
+                                                                {% if materiel.proprietaire and materiel.localisation %}
                                                                 <li>
                                                                     |
                                                                 </li>
+                                                                {% endif %}
+                                                                {% if materiel.localisation %}
                                                                 <li>
                                                                     {{materiel.localisation.ville}}
                                                                 </li>
+                                                                {% endif %}
                                                             </ul>
                                                             <div class="rating fright">
+                                                                {% if materiel.etat %}
                                                                 <ul>
                                                                     {% set itrbad = 5 - materiel.etat.nbreetoile %}
                                                                     {% for i in 1..materiel.etat.nbreetoile %}
@@ -64,6 +71,7 @@
                                                                         <li><i class="fa fa-star fa-2x"></i></li>
                                                                     {%endfor%}
                                                                 </ul>
+                                                                {% endif %}
                                                                 <div class="clearfix"> </div>
                                                             </div>
                                                         </div>

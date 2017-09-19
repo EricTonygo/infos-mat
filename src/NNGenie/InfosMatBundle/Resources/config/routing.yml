@@ -181,7 +181,7 @@ nn_genie_infos_mat_materiels:
         expose: true
 
 nn_genie_infos_mat_materiels_user:
-    pattern: /materiel
+    pattern: /situation-generale
     defaults: { _controller: NNGenieInfosMatBundle:Materiel:materielsuser }
     options:
         expose: true
