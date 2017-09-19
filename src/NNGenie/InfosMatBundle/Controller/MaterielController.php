@@ -133,6 +133,8 @@ class MaterielController extends Controller {
         $total_pages = ceil(count($repositoryMateriel->getMateriels($search_query)) / $maxResults);
         $start_from = ($page - 1) * $maxResults >= 0 ? ($page - 1) * $maxResults : 0;
         $materiels = $repositoryMateriel->getMateriels($start_from, $maxResults, $search_query);
+        $start = 1;
+        $end = 1;
         if ($total_pages > 1) {
             $start = 1;
             $end = $total_pages;
