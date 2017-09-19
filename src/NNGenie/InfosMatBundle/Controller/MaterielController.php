@@ -34,7 +34,7 @@ class MaterielController extends Controller {
         $repositoryFournisseur = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Fournisseur");
         $repositoryProprietaire = $this->getDoctrine()->getManager()->getRepository("NNGenieInfosMatBundle:Proprietaire");
         $page = 1;
-        $maxResults = 2;
+        $maxResults = 10;
         $route_param_page = array();
         $route_param_search_query = array();
         $search_query = null;
@@ -117,7 +117,7 @@ class MaterielController extends Controller {
         $repositoryLocalisation = $em->getRepository("NNGenieInfosMatBundle:Localisation");
         $repositoryProprietaire = $em->getRepository("NNGenieInfosMatBundle:Proprietaire");
         $page = 1;
-        $maxResults = 2;
+        $maxResults = 10;
         $route_param_page = array();
         $route_param_search_query = array();
         $search_query = null;
